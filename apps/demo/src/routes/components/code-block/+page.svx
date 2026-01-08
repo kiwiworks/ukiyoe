@@ -1,0 +1,44 @@
+<script lang="ts">
+	import { CodeBlock, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>CodeBlock - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="CodeBlock" subtitle="Display formatted code snippets" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Code Block"
+<CodeBlock code="const greeting = 'Hello, World!';" />
+```
+
+## Multi-line Code
+
+```svelte preview title="Multi-line Code"
+<CodeBlock code={`function fibonacci(n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}`} />
+```
+
+## Different Languages
+
+```svelte preview title="Various Languages"
+<div class="space-y-md w-full">
+	<CodeBlock code="npm install ukiyoe" />
+	<CodeBlock code={`import { Button } from 'ukiyoe';`} />
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

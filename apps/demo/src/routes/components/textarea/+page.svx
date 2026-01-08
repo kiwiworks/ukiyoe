@@ -1,0 +1,68 @@
+<script lang="ts">
+	import { Textarea, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Textarea - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Textarea" subtitle="Multi-line text input field" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Basic Textarea"
+<div class="textarea-demo">
+	<Textarea placeholder="Enter multiline text..." rows={3} />
+</div>
+```
+
+## Disabled
+
+```svelte preview title="Disabled State"
+<div class="textarea-demo">
+	<Textarea placeholder="Disabled textarea" disabled rows={2} />
+</div>
+```
+
+## Sizes
+
+```svelte preview title="Textarea Sizes"
+<div class="textarea-demo-stack">
+	<Textarea placeholder="Small" size="sm" rows={2} />
+	<Textarea placeholder="Medium" size="md" rows={2} />
+	<Textarea placeholder="Large" size="lg" rows={2} />
+</div>
+```
+
+## Custom Rows
+
+```svelte preview title="Custom Row Count"
+<div class="textarea-demo-stack">
+	<Textarea placeholder="2 rows" rows={2} />
+	<Textarea placeholder="5 rows" rows={5} />
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+
+	:global(.textarea-demo) {
+		width: 100%;
+		max-width: 400px;
+	}
+
+	:global(.textarea-demo-stack) {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		width: 100%;
+		max-width: 400px;
+	}
+</style>

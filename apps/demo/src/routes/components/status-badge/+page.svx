@@ -1,0 +1,46 @@
+<script lang="ts">
+	import { StatusBadge, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>StatusBadge - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="StatusBadge" subtitle="Status indicator with optional pulse animation" />
+
+<div class="space-y-xl mt-lg">
+
+## Variants
+
+```svelte preview title="Status Badge Variants"
+<StatusBadge label="Success" variant="success" />
+<StatusBadge label="Warning" variant="warning" />
+<StatusBadge label="Error" variant="error" />
+<StatusBadge label="Neutral" variant="neutral" />
+```
+
+## With Pulse
+
+```svelte preview title="Pulse Animation"
+<StatusBadge label="Online" variant="success" pulse />
+<StatusBadge label="Connecting" variant="warning" pulse />
+<StatusBadge label="Live" variant="error" pulse />
+```
+
+## Common States
+
+```svelte preview title="Connection States"
+<StatusBadge label="Connected" variant="success" pulse />
+<StatusBadge label="Reconnecting" variant="warning" pulse />
+<StatusBadge label="Disconnected" variant="error" />
+<StatusBadge label="Offline" variant="neutral" />
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

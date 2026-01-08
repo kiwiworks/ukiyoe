@@ -1,0 +1,52 @@
+<script lang="ts">
+	import { Switch, Text, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+
+	let enabled = $state(false);
+</script>
+
+<svelte:head>
+	<title>Switch - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Switch" subtitle="Toggle switch for boolean settings" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Switch"
+<div class="flex items-center gap-3">
+	<Switch bind:checked={enabled} />
+	<Text size="sm">Enable notifications</Text>
+</div>
+```
+
+## Sizes
+
+```svelte preview title="Sizes"
+<div class="flex items-center gap-4">
+	<Switch size="sm" />
+	<Switch size="md" />
+	<Switch size="lg" />
+</div>
+```
+
+## States
+
+```svelte preview title="States"
+<div class="flex items-center gap-4">
+	<Switch />
+	<Switch checked />
+	<Switch disabled />
+	<Switch disabled checked />
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

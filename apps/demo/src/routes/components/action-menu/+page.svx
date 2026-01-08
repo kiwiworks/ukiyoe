@@ -1,0 +1,55 @@
+<script lang="ts">
+	import { ActionMenu, PageHeader, MenuItem, MenuDivider } from 'ukiyoe';
+	import { MoreVertical, MoreHorizontal, Settings } from '@lucide/svelte';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>ActionMenu - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="ActionMenu" subtitle="Dropdown menu for contextual actions" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Action Menu"
+<ActionMenu label="Actions">
+	{#snippet icon()}<MoreVertical size={14} />{/snippet}
+	<MenuItem onclick={() => console.log('Edit')}>Edit</MenuItem>
+	<MenuItem onclick={() => console.log('Duplicate')}>Duplicate</MenuItem>
+	<MenuItem onclick={() => console.log('Archive')}>Archive</MenuItem>
+</ActionMenu>
+```
+
+## With Divider
+
+```svelte preview title="With Divider"
+<ActionMenu label="Options">
+	{#snippet icon()}<MoreHorizontal size={14} />{/snippet}
+	<MenuItem onclick={() => console.log('View')}>View Details</MenuItem>
+	<MenuItem onclick={() => console.log('Edit')}>Edit</MenuItem>
+	<MenuDivider />
+	<MenuItem variant="danger" onclick={() => console.log('Delete')}>Delete</MenuItem>
+</ActionMenu>
+```
+
+## Custom Trigger
+
+```svelte preview title="Custom Trigger Icon"
+<ActionMenu label="Settings">
+	{#snippet icon()}<Settings size={14} />{/snippet}
+	<MenuItem>Preferences</MenuItem>
+	<MenuItem>Account</MenuItem>
+	<MenuItem>Notifications</MenuItem>
+</ActionMenu>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

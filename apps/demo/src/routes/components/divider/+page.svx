@@ -1,0 +1,63 @@
+<script lang="ts">
+	import { Divider, Text, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Divider - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Divider" subtitle="Visual separator between content sections" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Basic Divider"
+<div class="w-full">
+	<Text size="sm">Content above</Text>
+	<Divider />
+	<Text size="sm">Content below</Text>
+</div>
+```
+
+## Spacing
+
+```svelte preview title="Divider Spacing"
+<div class="w-full">
+	<Text size="sm">Small spacing</Text>
+	<Divider spacing="sm" />
+	<Text size="sm">Medium spacing</Text>
+	<Divider spacing="md" />
+	<Text size="sm">Large spacing</Text>
+	<Divider spacing="lg" />
+	<Text size="sm">End</Text>
+</div>
+```
+
+## Variants
+
+```svelte preview title="Divider Variants"
+<div class="w-full space-y-lg">
+	<div>
+		<Text size="xs" variant="muted">Default</Text>
+		<Divider variant="default" />
+	</div>
+	<div>
+		<Text size="xs" variant="muted">Subtle</Text>
+		<Divider variant="subtle" />
+	</div>
+	<div>
+		<Text size="xs" variant="muted">Strong</Text>
+		<Divider variant="strong" />
+	</div>
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

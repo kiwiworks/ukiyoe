@@ -1,0 +1,52 @@
+<script lang="ts">
+	import { NebulaOverlay, PageHeader, Text, CodeBlock } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>NebulaOverlay - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="NebulaOverlay" subtitle="Cosmic nebula overlay effect" />
+
+<div class="space-y-xl mt-lg">
+
+## Preview
+
+```svelte preview title="Nebula Overlay"
+<div class="relative w-full h-48 rounded-md overflow-hidden border border-border-subtle bg-bg-primary">
+	<NebulaOverlay />
+	<div class="absolute inset-0 flex items-center justify-center">
+		<Text variant="secondary">Content overlay</Text>
+	</div>
+</div>
+```
+
+## Usage
+
+```svelte preview title="Usage"
+<CodeBlock code={`<script>
+  import { NebulaOverlay } from 'ukiyoe';
+</script>
+
+<div class="relative">
+  <NebulaOverlay />
+  <div class="relative z-10">
+    Your content here
+  </div>
+</div>`} />
+```
+
+## Notes
+
+<Text variant="secondary" size="sm">
+Creates a cosmic nebula-like overlay effect. Works well layered over dark backgrounds.
+</Text>
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

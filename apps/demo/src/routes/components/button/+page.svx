@@ -1,0 +1,63 @@
+<script lang="ts">
+	import { Button, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Button - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Button" subtitle="Interactive button component with multiple variants and sizes" />
+
+<div class="space-y-xl mt-lg">
+
+## Variants
+
+```svelte preview title="Button Variants"
+<Button variant="primary">Primary</Button>
+<Button variant="default">Default</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="danger">Danger</Button>
+<Button variant="success">Success</Button>
+<Button variant="warning">Warning</Button>
+```
+
+## Sizes
+
+```svelte preview title="Button Sizes"
+<Button size="xs">Extra Small</Button>
+<Button size="sm">Small</Button>
+<Button size="md">Medium</Button>
+<Button size="lg">Large</Button>
+```
+
+## States
+
+```svelte preview title="Button States"
+<Button disabled>Disabled</Button>
+<Button loading>Loading</Button>
+<Button active>Active</Button>
+```
+
+## As Link
+
+```svelte preview title="Button as Link"
+<Button href="/" size="sm">Navigate Home</Button>
+<Button href="https://github.com" size="sm" variant="ghost">External Link</Button>
+```
+
+## Full Width
+
+```svelte preview title="Full Width Button"
+<div class="w-full max-w-xs">
+	<Button variant="primary" class="w-full">Full Width Button</Button>
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

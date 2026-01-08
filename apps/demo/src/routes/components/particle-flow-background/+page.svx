@@ -1,0 +1,53 @@
+<script lang="ts">
+	import { ParticleFlowBackground, PageHeader, Text, CodeBlock } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>ParticleFlowBackground - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="ParticleFlowBackground" subtitle="Flowing particle system animation" />
+
+<div class="space-y-xl mt-lg">
+
+## Preview
+
+```svelte preview title="Particle Flow Background"
+<div class="relative w-full h-48 rounded-md overflow-hidden border border-border-subtle">
+	<ParticleFlowBackground />
+	<div class="absolute inset-0 flex items-center justify-center">
+		<Text variant="secondary">Content overlay</Text>
+	</div>
+</div>
+```
+
+## Usage
+
+```svelte preview title="Usage"
+<CodeBlock code={`<script>
+  import { ParticleFlowBackground } from 'ukiyoe';
+</script>
+
+<div class="relative">
+  <ParticleFlowBackground />
+  <div class="relative z-10">
+    Your content here
+  </div>
+</div>`} />
+```
+
+## Notes
+
+<Text variant="secondary" size="sm">
+Displays flowing particles that create an organic, dynamic background.
+Adjust particle count based on performance requirements.
+</Text>
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

@@ -1,0 +1,52 @@
+<script lang="ts">
+	import { SupernovaBackground, PageHeader, Text, CodeBlock } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>SupernovaBackground - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="SupernovaBackground" subtitle="Explosive star effect animation" />
+
+<div class="space-y-xl mt-lg">
+
+## Preview
+
+```svelte preview title="Supernova Background"
+<div class="relative w-full h-48 rounded-md overflow-hidden border border-border-subtle">
+	<SupernovaBackground />
+	<div class="absolute inset-0 flex items-center justify-center">
+		<Text variant="secondary">Content overlay</Text>
+	</div>
+</div>
+```
+
+## Usage
+
+```svelte preview title="Usage"
+<CodeBlock code={`<script>
+  import { SupernovaBackground } from 'ukiyoe';
+</script>
+
+<div class="relative">
+  <SupernovaBackground />
+  <div class="relative z-10">
+    Your content here
+  </div>
+</div>`} />
+```
+
+## Notes
+
+<Text variant="secondary" size="sm">
+Creates an explosive, radial star effect. Best used for dramatic hero sections.
+</Text>
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

@@ -1,0 +1,62 @@
+<script lang="ts">
+	import { Numeric, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Numeric - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Numeric" subtitle="Formatted number display with various formats" />
+
+<div class="space-y-xl mt-lg">
+
+## Formats
+
+```svelte preview title="Number Formats"
+<Numeric value={42150.5} format="currency" />
+<Numeric value={0.0234} format="percent" />
+<Numeric value={1234567} format="compact" />
+<Numeric value={1234567.89} format="number" />
+```
+
+## Color by Sign
+
+```svelte preview title="Color by Sign"
+<Numeric value={5.67} format="percent" colorBySign />
+<Numeric value={-3.21} format="percent" colorBySign />
+<Numeric value={0} format="percent" colorBySign />
+```
+
+## Currency Values
+
+```svelte preview title="Currency Display"
+<Numeric value={1234.56} format="currency" />
+<Numeric value={1000000} format="currency" />
+<Numeric value={0.99} format="currency" />
+```
+
+## Compact Numbers
+
+```svelte preview title="Compact Format"
+<Numeric value={1500} format="compact" />
+<Numeric value={25000} format="compact" />
+<Numeric value={1200000} format="compact" />
+<Numeric value={3500000000} format="compact" />
+```
+
+## Sizes
+
+```svelte preview title="Numeric Sizes"
+<Numeric value={42150.5} format="currency" size="sm" />
+<Numeric value={42150.5} format="currency" size="md" />
+<Numeric value={42150.5} format="currency" size="lg" />
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

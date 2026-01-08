@@ -1,0 +1,68 @@
+<script lang="ts">
+	import { ProgressBar, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>ProgressBar - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="ProgressBar" subtitle="Linear progress indicator" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Progress Bar"
+<div class="w-full max-w-sm space-y-4">
+	<ProgressBar value={25} />
+	<ProgressBar value={50} />
+	<ProgressBar value={75} />
+	<ProgressBar value={100} />
+</div>
+```
+
+## Variants
+
+```svelte preview title="Variants"
+<div class="w-full max-w-sm space-y-4">
+	<ProgressBar value={60} variant="default" />
+	<ProgressBar value={60} variant="success" />
+	<ProgressBar value={60} variant="warning" />
+	<ProgressBar value={60} variant="danger" />
+</div>
+```
+
+## Sizes
+
+```svelte preview title="Sizes"
+<div class="w-full max-w-sm space-y-4">
+	<ProgressBar value={60} size="sm" />
+	<ProgressBar value={60} size="md" />
+	<ProgressBar value={60} size="lg" />
+</div>
+```
+
+## With Value
+
+```svelte preview title="Show Value"
+<div class="w-full max-w-sm">
+	<ProgressBar value={67} showValue />
+</div>
+```
+
+## Indeterminate
+
+```svelte preview title="Indeterminate"
+<div class="w-full max-w-sm">
+	<ProgressBar indeterminate />
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

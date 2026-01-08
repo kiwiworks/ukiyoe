@@ -1,0 +1,45 @@
+<script lang="ts">
+	import { AssetIcon, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>AssetIcon - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="AssetIcon" subtitle="Icon display for crypto and asset symbols" />
+
+<div class="space-y-xl mt-lg">
+
+## Common Assets
+
+```svelte preview title="Crypto Assets"
+<AssetIcon symbol="BTC" size="lg" />
+<AssetIcon symbol="ETH" size="lg" />
+<AssetIcon symbol="SOL" size="lg" />
+<AssetIcon symbol="USDT" size="lg" />
+<AssetIcon symbol="USDC" size="lg" />
+```
+
+## Sizes
+
+```svelte preview title="Icon Sizes"
+<AssetIcon symbol="BTC" size="sm" />
+<AssetIcon symbol="BTC" size="md" />
+<AssetIcon symbol="BTC" size="lg" />
+```
+
+## Unknown Symbol
+
+```svelte preview title="Fallback for Unknown"
+<AssetIcon symbol="UNKNOWN" size="lg" />
+<AssetIcon symbol="XYZ" size="lg" />
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

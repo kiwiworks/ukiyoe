@@ -1,0 +1,62 @@
+<script lang="ts">
+	import { RadioGroup, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+
+	let selected = $state('option1');
+</script>
+
+<svelte:head>
+	<title>RadioGroup - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="RadioGroup" subtitle="Radio button group for single selection" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Radio Group"
+<RadioGroup
+	bind:value={selected}
+	options={['Option 1', 'Option 2', 'Option 3']}
+/>
+```
+
+## With Labels
+
+```svelte preview title="With Labels"
+<RadioGroup
+	options={[
+		{ value: 'small', label: 'Small' },
+		{ value: 'medium', label: 'Medium' },
+		{ value: 'large', label: 'Large' }
+	]}
+/>
+```
+
+## Horizontal
+
+```svelte preview title="Horizontal Layout"
+<RadioGroup
+	orientation="horizontal"
+	options={['Daily', 'Weekly', 'Monthly']}
+/>
+```
+
+## Sizes
+
+```svelte preview title="Sizes"
+<div class="space-y-4">
+	<RadioGroup size="sm" options={['Small']} value="Small" />
+	<RadioGroup size="md" options={['Medium']} value="Medium" />
+	<RadioGroup size="lg" options={['Large']} value="Large" />
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

@@ -1,0 +1,60 @@
+<script lang="ts">
+	import { Select, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Select - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Select" subtitle="Dropdown selection component" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Basic Select"
+<Select options={['Option 1', 'Option 2', 'Option 3']} class="w-48" />
+```
+
+## With Placeholder
+
+```svelte preview title="With Placeholder"
+<Select options={['Apple', 'Banana', 'Cherry']} placeholder="Select a fruit" class="w-48" />
+```
+
+## Disabled
+
+```svelte preview title="Disabled State"
+<Select disabled options={['Disabled']} class="w-48" />
+```
+
+## Sizes
+
+```svelte preview title="Select Sizes"
+<Select size="sm" options={['Small']} class="w-28" />
+<Select size="md" options={['Medium']} class="w-32" />
+<Select size="lg" options={['Large']} class="w-36" />
+```
+
+## Object Options
+
+```svelte preview title="Object Options"
+<Select
+	options={[
+		{ value: 'usd', label: 'US Dollar' },
+		{ value: 'eur', label: 'Euro' },
+		{ value: 'gbp', label: 'British Pound' }
+	]}
+	placeholder="Select currency"
+	class="w-48"
+/>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

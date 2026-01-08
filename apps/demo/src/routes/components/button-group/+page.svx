@@ -1,0 +1,50 @@
+<script lang="ts">
+	import { Button, ButtonGroup, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>ButtonGroup - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="ButtonGroup" subtitle="Group related buttons together with connected styling" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Button Group"
+<ButtonGroup>
+	<Button size="sm">Left</Button>
+	<Button size="sm">Center</Button>
+	<Button size="sm">Right</Button>
+</ButtonGroup>
+```
+
+## With Variants
+
+```svelte preview title="Button Group Variants"
+<ButtonGroup>
+	<Button size="sm" variant="primary">Save</Button>
+	<Button size="sm" variant="default">Cancel</Button>
+</ButtonGroup>
+```
+
+## Segmented Control
+
+```svelte preview title="Segmented Control Style"
+<ButtonGroup>
+	<Button size="sm" active>Day</Button>
+	<Button size="sm">Week</Button>
+	<Button size="sm">Month</Button>
+	<Button size="sm">Year</Button>
+</ButtonGroup>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

@@ -1,0 +1,44 @@
+<script lang="ts">
+	import { RandomName, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+
+	let name1 = $state('Swift Phoenix');
+	let name2 = $state('Stellar Horizon');
+	let name3 = $state('Cosmic Sentinel');
+</script>
+
+<svelte:head>
+	<title>RandomName - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="RandomName" subtitle="Editable random name generator" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Random Names"
+<div class="space-y-sm w-full max-w-sm">
+	<RandomName bind:value={name1} />
+	<RandomName bind:value={name2} />
+	<RandomName bind:value={name3} />
+</div>
+```
+
+## How It Works
+
+Click the refresh icon to generate a new random name. The name is editable and can be customized.
+
+```svelte preview title="Interactive"
+<div class="w-full max-w-sm">
+	<RandomName bind:value={name1} />
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

@@ -1,0 +1,57 @@
+<script lang="ts">
+	import { Breadcrumb, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Breadcrumb - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Breadcrumb" subtitle="Navigation breadcrumb trail" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Basic Breadcrumb"
+<Breadcrumb
+	items={[
+		{ label: 'Home', href: '/' },
+		{ label: 'Components', href: '/components' },
+		{ label: 'Breadcrumb' }
+	]}
+/>
+```
+
+## Two Levels
+
+```svelte preview title="Two Levels"
+<Breadcrumb
+	items={[
+		{ label: 'Dashboard', href: '/' },
+		{ label: 'Settings' }
+	]}
+/>
+```
+
+## Deep Nesting
+
+```svelte preview title="Deep Nesting"
+<Breadcrumb
+	items={[
+		{ label: 'Home', href: '/' },
+		{ label: 'Products', href: '/products' },
+		{ label: 'Electronics', href: '/products/electronics' },
+		{ label: 'Phones', href: '/products/electronics/phones' },
+		{ label: 'iPhone 15' }
+	]}
+/>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

@@ -1,0 +1,28 @@
+{
+	"name": "ukiyoe",
+	"version": "0.1.0",
+	"type": "module",
+	"svelte": "./src/lib/index.ts",
+	"types": "./src/lib/index.ts",
+	"sideEffects": ["**/*.css"],
+	"exports": {
+		".": {
+			"types": "./src/lib/index.ts",
+			"svelte": "./src/lib/index.ts",
+			"default": "./src/lib/index.ts"
+		},
+		"./styles.css": "./src/lib/styles.css",
+		"./tailwind.preset": "./tailwind.preset.ts"
+	},
+	"peerDependencies": {
+		"@lucide/svelte": "^0.556.0",
+		"svelte": "^5.0.0",
+		"tailwindcss": "^4.0.0"
+	},
+	"dependencies": {
+		"bits-ui": "^2.15.2"
+	},
+	"devDependencies": {
+		"@sveltejs/vite-plugin-svelte": "^6.2.1"
+	}
+}

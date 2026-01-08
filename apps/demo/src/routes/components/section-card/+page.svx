@@ -1,0 +1,55 @@
+<script lang="ts">
+	import { SectionCard, Text, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>SectionCard - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="SectionCard" subtitle="Card container for grouping related content" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Basic Card"
+<SectionCard title="Card Title">
+	<Text size="sm" variant="muted">This is the card content area.</Text>
+</SectionCard>
+```
+
+## Clickable Card
+
+```svelte preview title="Clickable Card"
+<SectionCard title="Click Me" href="#">
+	<Text size="sm" variant="muted">This card navigates when clicked.</Text>
+</SectionCard>
+```
+
+## Grid Layout
+
+```svelte preview title="Card Grid"
+<div class="grid grid-cols-2 gap-md w-full">
+	<SectionCard title="Analytics">
+		<Text size="xs" variant="muted">View detailed analytics</Text>
+	</SectionCard>
+	<SectionCard title="Settings">
+		<Text size="xs" variant="muted">Configure preferences</Text>
+	</SectionCard>
+	<SectionCard title="Users">
+		<Text size="xs" variant="muted">Manage team members</Text>
+	</SectionCard>
+	<SectionCard title="Billing">
+		<Text size="xs" variant="muted">Payment and invoices</Text>
+	</SectionCard>
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

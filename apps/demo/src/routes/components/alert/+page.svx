@@ -1,0 +1,52 @@
+<script lang="ts">
+	import { Alert, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Alert - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Alert" subtitle="Status messages and notifications" />
+
+<div class="space-y-xl mt-lg">
+
+## Variants
+
+```svelte preview title="Alert Variants"
+<div class="w-full space-y-3">
+	<Alert variant="info">This is an informational message.</Alert>
+	<Alert variant="success">Operation completed successfully!</Alert>
+	<Alert variant="warning">Please review before proceeding.</Alert>
+	<Alert variant="danger">An error occurred. Please try again.</Alert>
+</div>
+```
+
+## With Title
+
+```svelte preview title="With Title"
+<div class="w-full space-y-3">
+	<Alert variant="info" title="Heads up!">
+		This is an important update you should know about.
+	</Alert>
+	<Alert variant="danger" title="Error">
+		Something went wrong while processing your request.
+	</Alert>
+</div>
+```
+
+## Dismissible
+
+```svelte preview title="Dismissible"
+<Alert variant="success" title="Saved" dismissible>
+	Your changes have been saved successfully.
+</Alert>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

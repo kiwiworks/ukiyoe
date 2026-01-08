@@ -1,0 +1,40 @@
+<script lang="ts">
+	import { Sidebar, PageHeader, Text } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Sidebar - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Sidebar" subtitle="Navigation sidebar component" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Sidebar"
+<div class="flex h-48 w-full border border-border-subtle rounded-md overflow-hidden">
+	<Sidebar class="w-48">
+		<Text size="sm" variant="muted" class="p-md">Sidebar content</Text>
+	</Sidebar>
+	<div class="flex-1 p-md">
+		<Text size="sm" variant="secondary">Main content area</Text>
+	</div>
+</div>
+```
+
+## Usage Notes
+
+<Text variant="secondary" size="sm">
+The Sidebar component provides a styled container for navigation elements.
+Use with ListItem components for navigation links.
+</Text>
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

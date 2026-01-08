@@ -1,0 +1,57 @@
+<script lang="ts">
+	import { MetricCard, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>MetricCard - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="MetricCard" subtitle="Display key metrics with optional trend indicators" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Basic Metric Card"
+<MetricCard label="Total Users" value="1,234" />
+```
+
+## Variants
+
+```svelte preview title="Metric Card Variants"
+<div class="grid grid-cols-3 gap-md w-full">
+	<MetricCard label="Revenue" value="$45,230" />
+	<MetricCard label="Growth" value="+12.5%" variant="positive" />
+	<MetricCard label="Churn" value="-2.3%" variant="negative" />
+</div>
+```
+
+## Dashboard Example
+
+```svelte preview title="Dashboard Metrics"
+<div class="grid grid-cols-3 gap-md w-full">
+	<MetricCard label="Portfolio Value" value="$124,500" />
+	<MetricCard label="24h Change" value="+2.34%" variant="positive" />
+	<MetricCard label="Open Orders" value="12" />
+</div>
+```
+
+## With Different Values
+
+```svelte preview title="Various Metrics"
+<div class="grid grid-cols-2 gap-md w-full">
+	<MetricCard label="Active Sessions" value="847" />
+	<MetricCard label="Conversion Rate" value="3.2%" />
+	<MetricCard label="Avg Response Time" value="142ms" />
+	<MetricCard label="Uptime" value="99.9%" variant="positive" />
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

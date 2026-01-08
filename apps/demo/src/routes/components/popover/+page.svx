@@ -1,0 +1,53 @@
+<script lang="ts">
+	import { Popover, Button, Text, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Popover - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Popover" subtitle="Floating content panels on click" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Popover"
+<Popover>
+	{#snippet trigger()}
+		<Button size="sm">Open Popover</Button>
+	{/snippet}
+	<div class="space-y-2">
+		<Text weight="medium">Popover Title</Text>
+		<Text size="sm" variant="secondary">This is the popover content. It can contain any elements.</Text>
+	</div>
+</Popover>
+```
+
+## Positions
+
+```svelte preview title="Popover Positions"
+<div class="flex gap-4">
+	<Popover side="top">
+		{#snippet trigger()}
+			<Button size="sm" variant="ghost">Top</Button>
+		{/snippet}
+		<Text size="sm">Content above</Text>
+	</Popover>
+	<Popover side="bottom">
+		{#snippet trigger()}
+			<Button size="sm" variant="ghost">Bottom</Button>
+		{/snippet}
+		<Text size="sm">Content below</Text>
+	</Popover>
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

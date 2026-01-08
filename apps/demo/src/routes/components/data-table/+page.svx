@@ -1,0 +1,106 @@
+<script lang="ts">
+	import { DataTable, PageHeader } from 'ukiyoe';
+	import type { Column } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+
+	const basicData = [
+		{ id: 1, name: 'Alice', email: 'alice@example.com', role: 'Admin' },
+		{ id: 2, name: 'Bob', email: 'bob@example.com', role: 'User' },
+		{ id: 3, name: 'Charlie', email: 'charlie@example.com', role: 'User' }
+	];
+
+	const basicColumns: Column<(typeof basicData)[0]>[] = [
+		{ key: 'name', header: 'Name' },
+		{ key: 'email', header: 'Email' },
+		{ key: 'role', header: 'Role' }
+	];
+
+	const numericData = [
+		{ id: 1, product: 'Widget A', price: 29.99, quantity: 150 },
+		{ id: 2, product: 'Widget B', price: 49.99, quantity: 75 },
+		{ id: 3, product: 'Widget C', price: 19.99, quantity: 300 }
+	];
+
+	const numericColumns: Column<(typeof numericData)[0]>[] = [
+		{ key: 'product', header: 'Product' },
+		{ key: 'price', header: 'Price', align: 'right' },
+		{ key: 'quantity', header: 'Qty', align: 'right' }
+	];
+
+	const extendedData = [
+		{ id: 1, name: 'Alice', email: 'alice@example.com', role: 'Admin', status: 'Active' },
+		{ id: 2, name: 'Bob', email: 'bob@example.com', role: 'User', status: 'Active' },
+		{ id: 3, name: 'Charlie', email: 'charlie@example.com', role: 'User', status: 'Inactive' },
+		{ id: 4, name: 'Diana', email: 'diana@example.com', role: 'User', status: 'Active' },
+		{ id: 5, name: 'Eve', email: 'eve@example.com', role: 'Moderator', status: 'Active' },
+	];
+
+	const extendedColumns: Column<(typeof extendedData)[0]>[] = [
+		{ key: 'name', header: 'Name' },
+		{ key: 'email', header: 'Email' },
+		{ key: 'role', header: 'Role' },
+		{ key: 'status', header: 'Status' }
+	];
+</script>
+
+<svelte:head>
+	<title>DataTable - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="DataTable" subtitle="Display tabular data with customizable columns" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+Simple table with minimal props:
+
+```svelte preview title="Basic Table"
+<DataTable data={basicData} columns={basicColumns} keyField="id" />
+```
+
+## With Features
+
+Enable sorting, search, and pagination:
+
+```svelte preview title="Full Featured"
+<DataTable
+	data={extendedData}
+	columns={extendedColumns}
+	keyField="id"
+	sortable
+	searchable
+	paginate
+	pageSize={3}
+/>
+```
+
+## Compound Components
+
+For advanced customization, use the compound component API:
+
+```svelte preview title="Compound Components"
+<DataTable.Root data={basicData} columns={basicColumns} keyField="id" sortable>
+	<DataTable.Toolbar>
+		<DataTable.Search placeholder="Filter users..." />
+	</DataTable.Toolbar>
+	<DataTable.Table striped hoverable>
+		<DataTable.Header />
+		<DataTable.Body />
+	</DataTable.Table>
+</DataTable.Root>
+```
+
+## Aligned Columns
+
+```svelte preview title="Right-Aligned Numbers"
+<DataTable data={numericData} columns={numericColumns} keyField="id" />
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

@@ -1,0 +1,71 @@
+<script lang="ts">
+	import { BacktestChart, PageHeader, Text, CodeBlock } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import { browser } from '$app/environment';
+
+	const sampleTrades = [
+		{ entryTime: 1704067200, exitTime: 1704153600, side: 'long', entryPrice: 100, exitPrice: 105, pnl: 500, pnlPct: 0.05 },
+		{ entryTime: 1704240000, exitTime: 1704326400, side: 'short', entryPrice: 108, exitPrice: 103, pnl: 500, pnlPct: 0.046 },
+		{ entryTime: 1704412800, exitTime: 1704499200, side: 'long', entryPrice: 102, exitPrice: 110, pnl: 800, pnlPct: 0.078 },
+		{ entryTime: 1704585600, exitTime: 1704672000, side: 'long', entryPrice: 112, exitPrice: 108, pnl: -400, pnlPct: -0.036 },
+		{ entryTime: 1704758400, exitTime: 1704844800, side: 'short', entryPrice: 106, exitPrice: 100, pnl: 600, pnlPct: 0.057 }
+	];
+</script>
+
+<svelte:head>
+	<title>BacktestChart - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="BacktestChart" subtitle="Specialized chart for backtest trade results" />
+
+<div class="space-y-xl mt-lg">
+
+## Preview
+
+<div class="w-full h-80 border border-border-subtle rounded-md overflow-hidden">
+	{#if browser}
+		<BacktestChart trades={sampleTrades} />
+	{:else}
+		<div class="flex items-center justify-center h-full">
+			<Text variant="muted" size="sm">Loading chart...</Text>
+		</div>
+	{/if}
+</div>
+
+## Usage
+
+```svelte preview title="Usage Example"
+<CodeBlock code={`<script>
+  import { BacktestChart } from 'ukiyoe';
+
+  const trades = [
+    {
+      entryTime: 1704067200,  // Unix timestamp
+      exitTime: 1704153600,
+      side: 'long',
+      entryPrice: 100,
+      exitPrice: 105,
+      pnl: 500,
+      pnlPct: 0.05
+    },
+    // ...more trades
+  ];
+</script>
+
+<BacktestChart {trades} />`} />
+```
+
+## Trade Format
+
+<Text variant="secondary" size="sm">
+Each trade object requires: `entryTime`, `exitTime` (Unix timestamps), `side` ('long' or 'short'),
+`entryPrice`, `exitPrice`, `pnl` (profit/loss), and `pnlPct` (percentage).
+</Text>
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

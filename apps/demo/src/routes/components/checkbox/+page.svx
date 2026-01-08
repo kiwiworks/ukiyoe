@@ -1,0 +1,60 @@
+<script lang="ts">
+	import { Checkbox, Text, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+
+	let checked1 = $state(false);
+	let checked2 = $state(true);
+</script>
+
+<svelte:head>
+	<title>Checkbox - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Checkbox" subtitle="Checkbox input for boolean selection" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Checkbox"
+<div class="flex items-center gap-2">
+	<Checkbox bind:checked={checked1} />
+	<Text size="sm">Accept terms and conditions</Text>
+</div>
+```
+
+## Checked State
+
+```svelte preview title="Checked"
+<div class="flex items-center gap-2">
+	<Checkbox bind:checked={checked2} />
+	<Text size="sm">This is checked</Text>
+</div>
+```
+
+## Sizes
+
+```svelte preview title="Sizes"
+<div class="flex items-center gap-4">
+	<Checkbox size="sm" checked />
+	<Checkbox size="md" checked />
+	<Checkbox size="lg" checked />
+</div>
+```
+
+## Disabled
+
+```svelte preview title="Disabled"
+<div class="flex items-center gap-4">
+	<Checkbox disabled />
+	<Checkbox disabled checked />
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

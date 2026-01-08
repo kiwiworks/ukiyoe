@@ -1,0 +1,62 @@
+<script lang="ts">
+	import { Gauge, Text, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Gauge - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Gauge" subtitle="Circular progress indicator" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Gauge Values"
+<div class="flex gap-xl">
+	<div class="text-center">
+		<Gauge value={25} max={100} size="md" />
+		<Text size="xs" variant="muted" class="mt-sm">25%</Text>
+	</div>
+	<div class="text-center">
+		<Gauge value={50} max={100} size="md" />
+		<Text size="xs" variant="muted" class="mt-sm">50%</Text>
+	</div>
+	<div class="text-center">
+		<Gauge value={75} max={100} size="md" />
+		<Text size="xs" variant="muted" class="mt-sm">75%</Text>
+	</div>
+	<div class="text-center">
+		<Gauge value={100} max={100} size="md" />
+		<Text size="xs" variant="muted" class="mt-sm">100%</Text>
+	</div>
+</div>
+```
+
+## Sizes
+
+```svelte preview title="Gauge Sizes"
+<div class="flex items-end gap-lg">
+	<div class="text-center">
+		<Gauge value={60} max={100} size="sm" />
+		<Text size="xs" variant="muted" class="mt-sm">Small</Text>
+	</div>
+	<div class="text-center">
+		<Gauge value={60} max={100} size="md" />
+		<Text size="xs" variant="muted" class="mt-sm">Medium</Text>
+	</div>
+	<div class="text-center">
+		<Gauge value={60} max={100} size="lg" />
+		<Text size="xs" variant="muted" class="mt-sm">Large</Text>
+	</div>
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

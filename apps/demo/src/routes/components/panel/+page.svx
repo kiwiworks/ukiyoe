@@ -1,0 +1,41 @@
+<script lang="ts">
+	import { Panel, PageHeader, Text } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Panel - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Panel" subtitle="Content panel container" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Panel"
+<Panel class="w-full">
+	<Text variant="secondary">Panel content goes here.</Text>
+</Panel>
+```
+
+## Multiple Panels
+
+```svelte preview title="Panel Layout"
+<div class="flex gap-md w-full">
+	<Panel class="flex-1">
+		<Text size="sm" variant="secondary">Left panel</Text>
+	</Panel>
+	<Panel class="flex-1">
+		<Text size="sm" variant="secondary">Right panel</Text>
+	</Panel>
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

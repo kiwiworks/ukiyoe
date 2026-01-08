@@ -1,0 +1,49 @@
+<script lang="ts">
+	import { Widget, Text, Button, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Widget - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Widget" subtitle="Container component with title bar and content area" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Basic Widget"
+<Widget title="Widget Title">
+	<Text size="sm" variant="secondary">Widget content goes here.</Text>
+</Widget>
+```
+
+## Without Title
+
+```svelte preview title="Widget without Title"
+<Widget>
+	<Text size="sm" variant="secondary">A widget without a title bar.</Text>
+</Widget>
+```
+
+## Multiple Widgets
+
+```svelte preview title="Widget Layout"
+<div class="grid grid-cols-2 gap-md w-full">
+	<Widget title="Statistics">
+		<Text size="sm" variant="secondary">View your stats</Text>
+	</Widget>
+	<Widget title="Activity">
+		<Text size="sm" variant="secondary">Recent activity</Text>
+	</Widget>
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

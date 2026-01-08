@@ -1,0 +1,47 @@
+<script lang="ts">
+	import { SidePanel, Button, Text, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+
+	let rightPanel = $state(false);
+	let leftPanel = $state(false);
+</script>
+
+<svelte:head>
+	<title>SidePanel - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="SidePanel" subtitle="Slide-out panel from the side of the screen" />
+
+<div class="space-y-xl mt-lg">
+
+## Right Side (Default)
+
+```svelte preview title="Right Panel"
+<Button size="sm" onclick={() => (rightPanel = true)}>Open Right Panel</Button>
+
+<SidePanel bind:open={rightPanel} title="Panel Title">
+	<Text variant="secondary">
+		This panel slides in from the right side of the screen.
+	</Text>
+</SidePanel>
+```
+
+## Left Side
+
+```svelte preview title="Left Panel"
+<Button size="sm" onclick={() => (leftPanel = true)}>Open Left Panel</Button>
+
+<SidePanel bind:open={leftPanel} title="Navigation" side="left">
+	<Text variant="secondary">
+		This panel slides in from the left side.
+	</Text>
+</SidePanel>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

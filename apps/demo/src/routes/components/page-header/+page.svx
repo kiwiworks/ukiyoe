@@ -1,0 +1,42 @@
+<script lang="ts">
+	import { PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>PageHeader - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="PageHeader" subtitle="Page title and description header" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Page Header"
+<PageHeader title="Page Title" />
+```
+
+## With Subtitle
+
+```svelte preview title="With Subtitle"
+<PageHeader title="Dashboard" subtitle="Overview of your application metrics" />
+```
+
+## Different Titles
+
+```svelte preview title="Various Headers"
+<div class="space-y-lg w-full">
+	<PageHeader title="Settings" subtitle="Manage your preferences" />
+	<PageHeader title="Users" subtitle="Team members and permissions" />
+	<PageHeader title="Analytics" subtitle="Performance and insights" />
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

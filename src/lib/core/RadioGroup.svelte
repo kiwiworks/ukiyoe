@@ -1,0 +1,113 @@
+<script lang="ts" module>
+	export interface RadioOption {
+		value: string;
+		label: string;
+		disabled?: boolean;
+	}
+
+	export type RadioGroupSize = 'sm' | 'md' | 'lg';
+
+	export interface RadioGroupProps {
+		/** Selected value (bindable) */
+		value?: string;
+		/** Available options */
+		options: RadioOption[] | string[];
+		/** Size preset */
+		size?: RadioGroupSize;
+		/** Disable interactions */
+		disabled?: boolean;
+		/** Layout orientation */
+		orientation?: 'horizontal' | 'vertical';
+		/** HTML name attribute for form submission */
+		name?: string;
+		/** Required field */
+		required?: boolean;
+		/** Accessible label for screen readers */
+		'aria-label'?: string;
+		/** ID of element describing this radio group */
+		'aria-describedby'?: string;
+		/** Indicates radio group has invalid value */
+		'aria-invalid'?: boolean;
+		/** Additional CSS classes */
+		class?: string;
+		/** Change event handler */
+		onchange?: (value: string) => void;
+	}
+</script>
+
+<script lang="ts">
+	import { RadioGroup } from 'bits-ui';
+
+	let {
+		value = $bindable(''),
+		options,
+		size = 'md',
+		disabled = false,
+		orientation = 'vertical',
+		name,
+		required = false,
+		'aria-label': ariaLabel,
+		'aria-describedby': ariaDescribedby,
+		'aria-invalid': ariaInvalid,
+		class: className = '',
+		onchange
+	}: RadioGroupProps = $props();
+
+	const items = $derived(
+		options.map((opt) => (typeof opt === 'string' ? { value: opt, label: opt } : opt))
+	);
+
+	const radioSizes: Record<RadioGroupSize, string> = {
+		sm: 'h-4 w-4',
+		md: 'h-5 w-5',
+		lg: 'h-6 w-6'
+	};
+
+	const indicatorSizes: Record<RadioGroupSize, string> = {
+		sm: 'h-2 w-2',
+		md: 'h-2.5 w-2.5',
+		lg: 'h-3 w-3'
+	};
+
+	const textSizes: Record<RadioGroupSize, string> = {
+		sm: 'text-sm',
+		md: 'text-sm',
+		lg: 'text-base'
+	};
+
+	function handleChange(newValue: string) {
+		value = newValue;
+		onchange?.(newValue);
+	}
+</script>
+
+<RadioGroup.Root
+	{name}
+	{value}
+	{disabled}
+	{required}
+	onValueChange={handleChange}
+	aria-label={ariaLabel}
+	aria-describedby={ariaDescribedby}
+	aria-invalid={ariaInvalid}
+	class="flex {orientation === 'vertical' ? 'flex-col gap-2' : 'flex-row gap-4'} {className}"
+>
+	{#each items as item}
+		<div class="flex items-center gap-2">
+			<RadioGroup.Item
+				value={item.value}
+				disabled={item.disabled}
+				class="inline-flex items-center justify-center rounded-full border border-border-default bg-bg-secondary transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 focus-visible:border-accent-brand disabled:opacity-50 disabled:cursor-not-allowed data-[state=checked]:border-accent-brand {radioSizes[size]}"
+			>
+				{#snippet children({ checked })}
+					{#if checked}
+						<span class="rounded-full bg-accent-brand {indicatorSizes[size]}"></span>
+					{/if}
+				{/snippet}
+			</RadioGroup.Item>
+			<span class="text-text-primary {textSizes[size]} cursor-pointer">
+				{item.label}
+			</span>
+		</div>
+	{/each}
+</RadioGroup.Root>

@@ -1,0 +1,58 @@
+<script lang="ts">
+	import { Tabs, Text, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Tabs - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Tabs" subtitle="Tabbed navigation for content sections" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Tabs"
+<Tabs tabs={['Overview', 'Settings', 'Billing']}>
+	{#snippet children(value)}
+		{#if value === 'Overview'}
+			<Text>Overview content goes here.</Text>
+		{:else if value === 'Settings'}
+			<Text>Settings content goes here.</Text>
+		{:else}
+			<Text>Billing content goes here.</Text>
+		{/if}
+	{/snippet}
+</Tabs>
+```
+
+## Sizes
+
+```svelte preview title="Tab Sizes"
+<div class="space-y-4">
+	<Tabs size="sm" tabs={['Small', 'Tabs']} />
+	<Tabs size="md" tabs={['Medium', 'Tabs']} />
+	<Tabs size="lg" tabs={['Large', 'Tabs']} />
+</div>
+```
+
+## With Objects
+
+```svelte preview title="Custom Tab Objects"
+<Tabs
+	tabs={[
+		{ value: 'account', label: 'Account' },
+		{ value: 'security', label: 'Security' },
+		{ value: 'notifications', label: 'Notifications', disabled: true }
+	]}
+/>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

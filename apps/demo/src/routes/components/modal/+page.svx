@@ -1,0 +1,72 @@
+<script lang="ts">
+	import { Modal, Button, Text, Divider, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+
+	let basicModal = $state(false);
+	let confirmModal = $state(false);
+	let largeModal = $state(false);
+</script>
+
+<svelte:head>
+	<title>Modal - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Modal" subtitle="Dialog overlay for focused interactions" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Basic Modal"
+<Button size="sm" onclick={() => (basicModal = true)}>Open Modal</Button>
+
+<Modal bind:open={basicModal} title="Basic Modal">
+	<Text variant="secondary">
+		This is a basic modal with some content. Click outside or press Escape to close.
+	</Text>
+</Modal>
+```
+
+## Confirmation Dialog
+
+```svelte preview title="Confirmation Dialog"
+<Button size="sm" variant="danger" onclick={() => (confirmModal = true)}>Delete Item</Button>
+
+<Modal bind:open={confirmModal} title="Confirm Delete">
+	<Text variant="secondary" class="mb-md">
+		Are you sure you want to delete this item? This action cannot be undone.
+	</Text>
+	<Divider spacing="md" />
+	<div class="flex justify-end gap-sm">
+		<Button size="sm" variant="ghost" onclick={() => (confirmModal = false)}>Cancel</Button>
+		<Button size="sm" variant="danger" onclick={() => (confirmModal = false)}>Delete</Button>
+	</div>
+</Modal>
+```
+
+## With Form Content
+
+```svelte preview title="Modal with Form"
+<Button size="sm" onclick={() => (largeModal = true)}>Edit Profile</Button>
+
+<Modal bind:open={largeModal} title="Edit Profile">
+	<div class="space-y-md">
+		<Text variant="secondary">Update your profile information below.</Text>
+		<Divider spacing="sm" />
+		<Text size="sm">Form fields would go here...</Text>
+	</div>
+	<Divider spacing="md" />
+	<div class="flex justify-end gap-sm">
+		<Button size="sm" variant="ghost" onclick={() => (largeModal = false)}>Cancel</Button>
+		<Button size="sm" variant="primary" onclick={() => (largeModal = false)}>Save Changes</Button>
+	</div>
+</Modal>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

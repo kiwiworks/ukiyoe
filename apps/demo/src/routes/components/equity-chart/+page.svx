@@ -1,0 +1,63 @@
+<script lang="ts">
+	import { EquityChart, PageHeader, Text, CodeBlock } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import { browser } from '$app/environment';
+
+	const sampleEquityCurve = Array.from({ length: 50 }, (_, i) => ({
+		timestamp: 1704067200 + i * 86400,
+		equity: 10000 + Math.sin(i / 5) * 2000 + i * 100,
+		drawdownPct: Math.random() * -0.1
+	}));
+</script>
+
+<svelte:head>
+	<title>EquityChart - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="EquityChart" subtitle="Line chart for equity curves with drawdown" />
+
+<div class="space-y-xl mt-lg">
+
+## Preview
+
+<div class="w-full h-64 border border-border-subtle rounded-md overflow-hidden">
+	{#if browser}
+		<EquityChart equityCurve={sampleEquityCurve} height={256} />
+	{:else}
+		<div class="flex items-center justify-center h-full">
+			<Text variant="muted" size="sm">Loading chart...</Text>
+		</div>
+	{/if}
+</div>
+
+## Usage
+
+```svelte preview title="Usage Example"
+<CodeBlock code={`<script>
+  import { EquityChart } from 'ukiyoe';
+
+  const equityCurve = [
+    { timestamp: 1704067200, equity: 10000, drawdownPct: 0 },
+    { timestamp: 1704153600, equity: 10500, drawdownPct: 0 },
+    { timestamp: 1704240000, equity: 10200, drawdownPct: -0.029 },
+    // ...more data points
+  ];
+</script>
+
+<EquityChart {equityCurve} />`} />
+```
+
+## Data Format
+
+<Text variant="secondary" size="sm">
+The EquityChart component displays equity curves with optional drawdown visualization.
+Each point requires `timestamp` (Unix), `equity` (value), and `drawdownPct` (percentage as decimal).
+</Text>
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

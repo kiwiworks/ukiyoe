@@ -1,0 +1,59 @@
+<script lang="ts">
+	import { Input, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Input - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Input" subtitle="Text input field with various configurations" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Basic Input"
+<Input placeholder="Enter text..." />
+<Input placeholder="Disabled" disabled />
+```
+
+## Sizes
+
+```svelte preview title="Input Sizes"
+<Input placeholder="Small" size="sm" class="w-28" />
+<Input placeholder="Medium" size="md" class="w-32" />
+<Input placeholder="Large" size="lg" class="w-36" />
+```
+
+## Types
+
+```svelte preview title="Input Types"
+<Input type="email" placeholder="Email address" />
+<Input type="password" placeholder="Password" />
+<Input type="number" placeholder="Number" />
+```
+
+## Text Alignment
+
+```svelte preview title="Text Alignment"
+<Input placeholder="Left" align="left" class="w-32" />
+<Input placeholder="Center" align="center" class="w-32" />
+<Input placeholder="Right" align="right" class="w-32" />
+```
+
+## With Suffix
+
+```svelte preview title="With Suffix"
+<Input placeholder="Amount" suffix="USD" align="right" class="w-48" />
+<Input type="number" placeholder="Percentage" suffix="%" align="right" class="w-48" />
+<Input type="number" placeholder="Weight" suffix="kg" align="right" class="w-48" />
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

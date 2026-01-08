@@ -1,0 +1,44 @@
+<script lang="ts">
+	import { Link, Text, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Link - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Link" subtitle="Styled anchor element" />
+
+<div class="space-y-xl mt-lg">
+
+## Variants
+
+```svelte preview title="Link Variants"
+<div class="space-y-sm">
+	<Link href="#" variant="default">Default link</Link>
+	<Link href="#" variant="muted">Muted link</Link>
+	<Link href="#" variant="underline">Underline link</Link>
+</div>
+```
+
+## In Context
+
+```svelte preview title="Links in Text"
+<Text>
+	Read our <Link href="#">documentation</Link> for more information.
+</Text>
+```
+
+## External Links
+
+```svelte preview title="External Links"
+<Link href="https://github.com" variant="underline">GitHub</Link>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

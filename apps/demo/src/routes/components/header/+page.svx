@@ -1,0 +1,35 @@
+<script lang="ts">
+	import { Header, PageHeader, Text } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Header - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Header" subtitle="Application header/navbar component" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Header"
+<div class="w-full border border-border-subtle rounded-md overflow-hidden">
+	<Header title="My App" />
+</div>
+```
+
+## Usage Notes
+
+<Text variant="secondary" size="sm">
+The Header component is typically used at the top of your application layout.
+It provides consistent styling for the application title and navigation area.
+</Text>
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

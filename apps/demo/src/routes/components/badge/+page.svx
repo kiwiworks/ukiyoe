@@ -1,0 +1,41 @@
+<script lang="ts">
+	import { Badge, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Badge - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Badge" subtitle="Small status indicators and labels" />
+
+<div class="space-y-xl mt-lg">
+
+## Variants
+
+```svelte preview title="Badge Variants"
+<Badge text="Default" />
+<Badge text="Brand" variant="brand" />
+<Badge text="Success" variant="success" />
+<Badge text="Warning" variant="warning" />
+<Badge text="Danger" variant="danger" />
+<Badge text="Muted" variant="muted" />
+```
+
+## Use Cases
+
+```svelte preview title="Common Use Cases"
+<Badge text="New" variant="brand" />
+<Badge text="Beta" variant="warning" />
+<Badge text="Deprecated" variant="danger" />
+<Badge text="Stable" variant="success" />
+<Badge text="v1.0.0" variant="muted" />
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

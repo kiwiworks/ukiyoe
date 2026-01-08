@@ -1,0 +1,39 @@
+<script lang="ts">
+	import { PrivacyToggle, Text, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>PrivacyToggle - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="PrivacyToggle" subtitle="Toggle for masking sensitive data" />
+
+<div class="space-y-xl mt-lg">
+
+## Sizes
+
+```svelte preview title="Privacy Toggle Sizes"
+<PrivacyToggle size="sm" />
+<PrivacyToggle size="md" />
+<PrivacyToggle size="lg" />
+```
+
+## Usage
+
+The privacy toggle integrates with the privacy context to mask sensitive data across components that support it.
+
+```svelte preview title="Privacy Toggle"
+<div class="flex items-center gap-md">
+	<PrivacyToggle size="md" />
+	<Text size="sm" variant="muted">Click to toggle privacy mode</Text>
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

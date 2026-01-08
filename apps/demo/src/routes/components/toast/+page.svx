@@ -1,0 +1,83 @@
+<script lang="ts">
+	import { Button, PageHeader, CodeBlock } from 'ukiyoe';
+	import { addToast } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Toast - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Toast" subtitle="Temporary notifications" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Toast"
+<div class="flex gap-2">
+	<Button size="sm" onclick={() => addToast({ description: 'This is a notification' })}>
+		Show Toast
+	</Button>
+	<Button size="sm" variant="ghost" onclick={() => addToast({ title: 'With Title', description: 'This toast has a title' })}>
+		With Title
+	</Button>
+</div>
+```
+
+## Variants
+
+```svelte preview title="Toast Variants"
+<div class="flex flex-wrap gap-2">
+	<Button size="sm" onclick={() => addToast({ description: 'Default notification', variant: 'default' })}>
+		Default
+	</Button>
+	<Button size="sm" variant="success" onclick={() => addToast({ title: 'Success!', description: 'Operation completed', variant: 'success' })}>
+		Success
+	</Button>
+	<Button size="sm" variant="warning" onclick={() => addToast({ title: 'Warning', description: 'Please review', variant: 'warning' })}>
+		Warning
+	</Button>
+	<Button size="sm" variant="danger" onclick={() => addToast({ title: 'Error', description: 'Something went wrong', variant: 'danger' })}>
+		Danger
+	</Button>
+</div>
+```
+
+## Setup
+
+Add the `Toaster` component to your layout:
+
+```svelte preview title="Setup"
+<CodeBlock code={`<script>
+  import { Toaster } from 'ukiyoe';
+</script>
+
+<Toaster position="bottom-right" />
+
+<slot />`} />
+```
+
+## Usage
+
+```svelte preview title="Usage"
+<CodeBlock code={`<script>
+  import { addToast } from 'ukiyoe';
+
+  function showNotification() {
+    addToast({
+      title: 'Saved',
+      description: 'Your changes have been saved.',
+      variant: 'success'
+    });
+  }
+</script>`} />
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

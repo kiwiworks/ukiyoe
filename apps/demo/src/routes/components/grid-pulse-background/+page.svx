@@ -1,0 +1,53 @@
+<script lang="ts">
+	import { GridPulseBackground, PageHeader, Text, CodeBlock } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>GridPulseBackground - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="GridPulseBackground" subtitle="Animated grid with pulse wave effect" />
+
+<div class="space-y-xl mt-lg">
+
+## Preview
+
+```svelte preview title="Grid Pulse Background"
+<div class="relative w-full h-48 rounded-md overflow-hidden border border-border-subtle">
+	<GridPulseBackground />
+	<div class="absolute inset-0 flex items-center justify-center">
+		<Text variant="secondary">Content overlay</Text>
+	</div>
+</div>
+```
+
+## Usage
+
+```svelte preview title="Usage"
+<CodeBlock code={`<script>
+  import { GridPulseBackground } from 'ukiyoe';
+</script>
+
+<div class="relative">
+  <GridPulseBackground />
+  <div class="relative z-10">
+    Your content here
+  </div>
+</div>`} />
+```
+
+## Notes
+
+<Text variant="secondary" size="sm">
+This is a canvas-based animation. Use sparingly for performance.
+The effect is best used as a subtle background for hero sections or landing pages.
+</Text>
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

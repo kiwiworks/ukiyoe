@@ -1,0 +1,84 @@
+<script lang="ts">
+	import { Slider, Text, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+
+	let singleValue = $state([50]);
+	let rangeValue = $state([25, 75]);
+</script>
+
+<svelte:head>
+	<title>Slider - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Slider" subtitle="Range input for numeric values" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Basic Slider"
+<div class="slider-demo">
+	<Slider bind:value={singleValue} />
+	<Text size="sm" variant="muted">Value: {singleValue[0]}</Text>
+</div>
+```
+
+## Range Slider
+
+```svelte preview title="Range Slider"
+<div class="slider-demo">
+	<Slider bind:value={rangeValue} />
+	<Text size="sm" variant="muted">Range: {rangeValue[0]} - {rangeValue[1]}</Text>
+</div>
+```
+
+## Sizes
+
+```svelte preview title="Slider Sizes"
+<div class="slider-demo-stack">
+	<div class="slider-demo">
+		<Text size="sm" variant="muted">Small</Text>
+		<Slider size="sm" value={[30]} />
+	</div>
+	<div class="slider-demo">
+		<Text size="sm" variant="muted">Medium</Text>
+		<Slider size="md" value={[50]} />
+	</div>
+	<div class="slider-demo">
+		<Text size="sm" variant="muted">Large</Text>
+		<Slider size="lg" value={[70]} />
+	</div>
+</div>
+```
+
+## Custom Range
+
+```svelte preview title="Custom Min/Max"
+<div class="slider-demo">
+	<Slider min={0} max={1000} step={10} value={[500]} />
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+
+	:global(.slider-demo) {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		width: 100%;
+		max-width: 320px;
+	}
+
+	:global(.slider-demo-stack) {
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+		width: 100%;
+		max-width: 320px;
+	}
+</style>

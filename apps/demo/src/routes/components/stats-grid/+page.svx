@@ -1,0 +1,44 @@
+<script lang="ts">
+	import { StatsGrid, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+
+	const stats = [
+		{ label: 'Total Users', value: '12,345' },
+		{ label: 'Active Now', value: '1,234' },
+		{ label: 'Revenue', value: '$45,678' },
+		{ label: 'Growth', value: '+12.3%' }
+	];
+
+	const twoColStats = [
+		{ label: 'Requests', value: '1.2M' },
+		{ label: 'Latency', value: '45ms' }
+	];
+</script>
+
+<svelte:head>
+	<title>StatsGrid - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="StatsGrid" subtitle="Grid layout for displaying multiple statistics" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Stats Grid"
+<StatsGrid {stats} />
+```
+
+## Two Columns
+
+```svelte preview title="Two Column Grid"
+<StatsGrid stats={twoColStats} />
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

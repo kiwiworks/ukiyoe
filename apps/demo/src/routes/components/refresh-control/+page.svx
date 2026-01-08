@@ -1,0 +1,35 @@
+<script lang="ts">
+	import { RefreshControl, PageHeader, Text } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>RefreshControl - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="RefreshControl" subtitle="Auto-refresh control with interval selection" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Refresh Control"
+<RefreshControl onrefresh={() => console.log('Refreshing...')} />
+```
+
+## With Label
+
+```svelte preview title="With Context"
+<div class="flex items-center gap-md">
+	<Text size="sm" variant="muted">Last updated: just now</Text>
+	<RefreshControl onrefresh={() => console.log('Refreshing...')} />
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

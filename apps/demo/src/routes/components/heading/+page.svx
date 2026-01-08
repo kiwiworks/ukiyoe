@@ -1,0 +1,42 @@
+<script lang="ts">
+	import { Heading, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Heading - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Heading" subtitle="Typography component for headings" />
+
+<div class="space-y-xl mt-lg">
+
+## Levels
+
+```svelte preview title="Heading Levels"
+<div class="space-y-md">
+	<Heading level={1}>Heading 1</Heading>
+	<Heading level={2}>Heading 2</Heading>
+	<Heading level={3}>Heading 3</Heading>
+	<Heading level={4}>Heading 4</Heading>
+	<Heading level={5}>Heading 5</Heading>
+	<Heading level={6}>Heading 6</Heading>
+</div>
+```
+
+## Custom Sizes
+
+```svelte preview title="Custom Sizes"
+<div class="space-y-md">
+	<Heading level={3} size="xl">H3 with XL size</Heading>
+	<Heading level={1} size="md">H1 with MD size</Heading>
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

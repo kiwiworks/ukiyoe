@@ -1,0 +1,61 @@
+<script lang="ts">
+	import { Accordion, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+
+	const items = [
+		{ value: 'item-1', title: 'Is this component accessible?', content: 'Yes, it follows WAI-ARIA design patterns for accordions.' },
+		{ value: 'item-2', title: 'Can I use custom content?', content: 'Yes, you can use the children snippet to render custom content for each item.' },
+		{ value: 'item-3', title: 'Is it animated?', content: 'Yes, the accordion includes smooth expand/collapse animations.' }
+	];
+</script>
+
+<svelte:head>
+	<title>Accordion - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Accordion" subtitle="Collapsible content sections" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Accordion"
+<div class="accordion-demo">
+	<Accordion {items} />
+</div>
+```
+
+## Multiple Open
+
+```svelte preview title="Multiple Selection"
+<div class="accordion-demo">
+	<Accordion type="multiple" {items} />
+</div>
+```
+
+## FAQ Example
+
+```svelte preview title="FAQ"
+<div class="accordion-demo">
+	<Accordion
+		items={[
+			{ value: 'q1', title: 'What is Ukiyoe UI?', content: 'Ukiyoe is a themeable Svelte 5 component library built with Tailwind CSS v4.' },
+			{ value: 'q2', title: 'How do I install it?', content: 'Run npm install ukiyoe or bun add ukiyoe in your project.' },
+			{ value: 'q3', title: 'Is it production ready?', content: 'Ukiyoe is currently in alpha. Use at your own discretion.' }
+		]}
+	/>
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+
+	:global(.accordion-demo) {
+		width: 100%;
+		max-width: 28rem;
+	}
+</style>

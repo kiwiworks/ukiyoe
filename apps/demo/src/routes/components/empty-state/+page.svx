@@ -1,0 +1,60 @@
+<script lang="ts">
+	import { EmptyState, Button, PageHeader } from 'ukiyoe';
+	import { Inbox, Search, FileX, Users } from '@lucide/svelte';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>EmptyState - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="EmptyState" subtitle="Placeholder for empty content areas" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Basic Empty State"
+<EmptyState
+	title="No items found"
+	description="Try adjusting your search or filters"
+	icon={Inbox}
+/>
+```
+
+## Different Icons
+
+```svelte preview title="Various Empty States"
+<div class="grid grid-cols-2 gap-lg w-full">
+	<EmptyState
+		title="No results"
+		description="No matching results found"
+		icon={Search}
+	/>
+	<EmptyState
+		title="No files"
+		description="Upload files to get started"
+		icon={FileX}
+	/>
+</div>
+```
+
+## With Action
+
+```svelte preview title="Empty State with Action"
+<EmptyState
+	title="No team members"
+	description="Invite people to collaborate"
+	icon={Users}
+>
+	<Button size="sm" variant="primary" class="mt-md">Invite Members</Button>
+</EmptyState>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

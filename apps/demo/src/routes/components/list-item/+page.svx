@@ -1,0 +1,61 @@
+<script lang="ts">
+	import { ListItem, PageHeader } from 'ukiyoe';
+	import { User, Settings, Bell, Lock } from '@lucide/svelte';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>ListItem - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="ListItem" subtitle="List item component for navigation and selection" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Basic List Items"
+<div class="w-full max-w-sm space-y-1">
+	<ListItem>Profile</ListItem>
+	<ListItem>Settings</ListItem>
+	<ListItem>Notifications</ListItem>
+</div>
+```
+
+## With Icons
+
+```svelte preview title="List Items with Icons"
+<div class="w-full max-w-sm space-y-1">
+	<ListItem icon={User}>Profile</ListItem>
+	<ListItem icon={Settings}>Settings</ListItem>
+	<ListItem icon={Bell}>Notifications</ListItem>
+	<ListItem icon={Lock}>Security</ListItem>
+</div>
+```
+
+## Active State
+
+```svelte preview title="Active List Item"
+<div class="w-full max-w-sm space-y-1">
+	<ListItem icon={User} active>Profile</ListItem>
+	<ListItem icon={Settings}>Settings</ListItem>
+	<ListItem icon={Bell}>Notifications</ListItem>
+</div>
+```
+
+## As Links
+
+```svelte preview title="List Items as Links"
+<div class="w-full max-w-sm space-y-1">
+	<ListItem href="/profile" icon={User}>Profile</ListItem>
+	<ListItem href="/settings" icon={Settings}>Settings</ListItem>
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

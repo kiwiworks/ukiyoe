@@ -1,0 +1,99 @@
+@import 'tailwindcss';
+@import 'ukiyoe/styles.css';
+
+/* Scan demo app files for Tailwind classes */
+@source "../";
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	background: var(--bg-primary);
+	color: var(--text-primary);
+}
+
+:root {
+	--demo-header-height: 28px;
+	--demo-status-height: 20px;
+}
+
+.demo-shell {
+	padding-top: calc(var(--demo-header-height) + var(--spacing-md));
+	padding-bottom: calc(var(--demo-status-height) + var(--spacing-md));
+}
+
+a {
+	color: inherit;
+}
+
+.demo-hero-glow {
+	background:
+		radial-gradient(120% 80% at 10% 10%, color-mix(in srgb, var(--accent-brand) 18%, transparent) 0%, transparent 60%),
+		radial-gradient(90% 60% at 90% 0%, color-mix(in srgb, var(--color-info) 16%, transparent) 0%, transparent 55%);
+}
+
+.demo-surface {
+	background: var(--bg-secondary);
+	border: 1px solid var(--border-subtle);
+	border-radius: var(--radius-md);
+}
+
+.demo-grid-border {
+	background-image:
+		linear-gradient(90deg, color-mix(in srgb, var(--border-subtle) 55%, transparent) 1px, transparent 1px),
+		linear-gradient(0deg, color-mix(in srgb, var(--border-subtle) 55%, transparent) 1px, transparent 1px);
+	background-size: 28px 28px;
+}
+
+.demo-section-label {
+	font-size: var(--font-size-sm);
+	text-transform: uppercase;
+	letter-spacing: 0.25em;
+	color: var(--text-muted);
+}
+
+.demo-code {
+	font-family: var(--font-mono);
+	font-size: var(--font-size-sm);
+	color: var(--text-primary);
+}
+
+/* Shiki dual-theme: each span has --shiki-light and --shiki-dark inline */
+.shiki,
+.shiki span {
+	color: var(--shiki-dark);
+	background-color: transparent;
+}
+
+[data-theme='light'] .shiki,
+[data-theme='light'] .shiki span {
+	color: var(--shiki-light);
+}
+
+pre.shiki {
+	background-color: var(--bg-tertiary);
+	padding: var(--spacing-md);
+	border-radius: var(--radius-md);
+	overflow-x: auto;
+	font-family: var(--font-mono);
+	font-size: var(--font-size-sm);
+	line-height: 1.6;
+	margin: var(--spacing-md) 0;
+}
+
+@keyframes fade-up {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.demo-reveal {
+	animation: fade-up 0.6s ease-out both;
+}

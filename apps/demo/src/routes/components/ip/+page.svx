@@ -1,0 +1,43 @@
+<script lang="ts">
+	import { Ip, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Ip - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Ip" subtitle="Display IP addresses with privacy masking support" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="IP Address Display"
+<Ip value="192.168.1.100" />
+<Ip value="10.0.0.1" />
+<Ip value="172.16.0.50" />
+```
+
+## Sizes
+
+```svelte preview title="IP Sizes"
+<Ip value="192.168.1.1" size="sm" />
+<Ip value="192.168.1.1" size="md" />
+<Ip value="192.168.1.1" size="lg" />
+```
+
+## IPv6
+
+```svelte preview title="IPv6 Addresses"
+<Ip value="2001:0db8:85a3:0000:0000:8a2e:0370:7334" />
+<Ip value="::1" />
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>
