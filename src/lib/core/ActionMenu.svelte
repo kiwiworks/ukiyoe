@@ -22,7 +22,7 @@
 <svelte:window onclick={handleClickOutside} />
 
 <div class="action-menu">
-	<Button size="sm" onclick={() => (open = !open)}>
+	<Button size="sm" onclick={() => (open = !open)} aria-expanded={open} aria-haspopup="menu">
 		{#if icon}{@render icon()}{/if}
 		{label}
 		<ChevronDown size={12} />

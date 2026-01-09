@@ -27,6 +27,7 @@
 	class:danger={variant === 'danger'}
 	class:admin={variant === 'admin'}
 	{disabled}
+	aria-disabled={disabled}
 	{onclick}
 	role="menuitem"
 >
