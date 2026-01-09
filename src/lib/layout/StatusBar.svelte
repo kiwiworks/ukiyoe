@@ -16,7 +16,7 @@
 	}: Props = $props();
 </script>
 
-<footer class="status-bar fixed bottom-0 left-0 right-0 h-5 flex items-center justify-between px-3 font-mono text-[9px] z-50 {className}">
+<footer class="status-bar fixed bottom-0 left-0 right-0 h-xl flex items-center justify-between px-lg font-mono text-xs z-50 {className}">
 	<div class="flex items-center gap-3">
 		<div class="flex items-center gap-1.5">
 			<div

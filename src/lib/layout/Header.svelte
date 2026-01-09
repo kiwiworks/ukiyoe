@@ -39,13 +39,13 @@
 		top: 0;
 		left: 0;
 		right: 0;
-		height: 1.75rem;
+		height: var(--spacing-xxl);
 		background-color: var(--bg-primary);
 		border-bottom: 1px solid var(--border-subtle);
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: 0 0.75rem;
+		padding: 0 var(--spacing-lg);
 		font-family: var(--font-mono);
 		z-index: 50;
 	}
@@ -70,7 +70,7 @@
 	}
 
 	.header-title {
-		font-size: 11px;
+		font-size: calc(var(--font-size-xs) * 0.917);
 		font-weight: 700;
 		color: var(--text-primary);
 		text-transform: uppercase;
@@ -78,7 +78,7 @@
 	}
 
 	.header-subtitle {
-		font-size: 9px;
+		font-size: calc(var(--font-size-xs) * 0.75);
 		color: var(--text-muted);
 		text-transform: uppercase;
 		letter-spacing: 0.04em;

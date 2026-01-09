@@ -48,7 +48,7 @@
 		display: flex;
 		flex-direction: column;
 		font-family: var(--font-mono);
-		font-size: 12px;
+		font-size: var(--font-size-xs);
 	}
 
 	.widget-default {
@@ -83,14 +83,14 @@
 
 	.widget-title {
 		color: var(--text-muted);
-		font-size: 10px;
+		font-size: calc(var(--font-size-xs) * 0.833);
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
 	}
 
 	.widget-subtitle {
 		color: var(--border-strong);
-		font-size: 9px;
+		font-size: calc(var(--font-size-xs) * 0.75);
 	}
 
 	.widget-actions {
