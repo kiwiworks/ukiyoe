@@ -30,7 +30,7 @@
 </script>
 
 <aside class="sidebar {className}" style="width: {currentWidth}px;">
-	<div class="sidebar-content">
+	<div class="sidebar-content" aria-hidden={collapsed}>
 		{@render children()}
 	</div>
 	<div class="sidebar-footer">
@@ -38,6 +38,7 @@
 			onclick={handleToggle}
 			class="sidebar-toggle"
 			aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+			aria-expanded={!collapsed}
 		>
 			{#if collapsed}
 				<ChevronRight size={14} />

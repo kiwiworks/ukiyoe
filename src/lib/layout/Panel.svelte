@@ -45,6 +45,8 @@
 		onclick={toggleCollapse}
 		role={collapsible ? 'button' : undefined}
 		tabindex={collapsible ? 0 : -1}
+		aria-expanded={collapsible ? !collapsed : undefined}
+		aria-controls={collapsible ? 'panel-body' : undefined}
 		onkeydown={(e) => {
 			if (collapsible && (e.key === 'Enter' || e.key === ' ')) {
 				e.preventDefault();
@@ -71,7 +73,7 @@
 		{/if}
 	</div>
 	{#if !collapsed}
-		<div class="panel-body">
+		<div class="panel-body" id="panel-body">
 			{@render children()}
 		</div>
 	{/if}
