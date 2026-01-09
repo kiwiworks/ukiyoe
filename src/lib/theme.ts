@@ -36,7 +36,10 @@ export const darkTheme = {
 			negativeMuted: '#cc3333',
 			warning: '#ffaa00',
 			warningHover: '#ffbb33',
-			info: '#00aaff'
+			warningMuted: 'rgba(255, 170, 0, 0.15)',
+			info: '#00aaff',
+			infoMuted: 'rgba(0, 170, 255, 0.15)',
+			neutral: '#888888'
 		},
 		chart: {
 			line1: '#00ff88',
@@ -107,15 +110,18 @@ export function themeToCSS(t: Theme = darkTheme): string {
 		--accent-brand: ${t.colors.accent.brand};
 		--accent-brand-hover: ${t.colors.accent.brandHover};
 		--accent-brand-muted: ${t.colors.accent.brandMuted};
-		--color-positive: ${t.colors.semantic.positive};
-		--color-positive-hover: ${t.colors.semantic.positiveHover};
-		--color-positive-muted: ${t.colors.semantic.positiveMuted};
-		--color-negative: ${t.colors.semantic.negative};
-		--color-negative-hover: ${t.colors.semantic.negativeHover};
-		--color-negative-muted: ${t.colors.semantic.negativeMuted};
-		--color-warning: ${t.colors.semantic.warning};
-		--color-warning-hover: ${t.colors.semantic.warningHover};
-		--color-info: ${t.colors.semantic.info};
+		--positive: ${t.colors.semantic.positive};
+		--positive-hover: ${t.colors.semantic.positiveHover};
+		--positive-muted: ${t.colors.semantic.positiveMuted};
+		--negative: ${t.colors.semantic.negative};
+		--negative-hover: ${t.colors.semantic.negativeHover};
+		--negative-muted: ${t.colors.semantic.negativeMuted};
+		--warning: ${t.colors.semantic.warning};
+		--warning-hover: ${t.colors.semantic.warningHover};
+		--warning-muted: ${t.colors.semantic.warningMuted};
+		--info: ${t.colors.semantic.info};
+		--info-muted: ${t.colors.semantic.infoMuted};
+		--neutral: ${t.colors.semantic.neutral};
 		--chart-line1: ${t.colors.chart.line1};
 		--chart-line2: ${t.colors.chart.line2};
 		--chart-line3: ${t.colors.chart.line3};
