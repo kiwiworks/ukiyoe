@@ -16,6 +16,8 @@
 		size?: RadioGroupSize;
 		/** Disable interactions */
 		disabled?: boolean;
+		/** Show loading spinner and disable interactions */
+		loading?: boolean;
 		/** Layout orientation */
 		orientation?: 'horizontal' | 'vertical';
 		/** HTML name attribute for form submission */
@@ -37,12 +39,14 @@
 
 <script lang="ts">
 	import { RadioGroup } from 'bits-ui';
+	import { Loader2 } from '@lucide/svelte';
 
 	let {
 		value = $bindable(''),
 		options,
 		size = 'md',
 		disabled = false,
+		loading = false,
 		orientation = 'vertical',
 		name,
 		required = false,
@@ -52,6 +56,8 @@
 		class: className = '',
 		onchange
 	}: RadioGroupProps = $props();
+
+	const isDisabled = $derived(disabled || loading);
 
 	const items = $derived(
 		options.map((opt) => (typeof opt === 'string' ? { value: opt, label: opt } : opt))
@@ -75,39 +81,53 @@
 		lg: 'text-base'
 	};
 
+	const iconSizes: Record<RadioGroupSize, number> = {
+		sm: 14,
+		md: 16,
+		lg: 18
+	};
+
 	function handleChange(newValue: string) {
 		value = newValue;
 		onchange?.(newValue);
 	}
 </script>
 
-<RadioGroup.Root
-	{name}
-	{value}
-	{disabled}
-	{required}
-	onValueChange={handleChange}
-	aria-label={ariaLabel}
-	aria-describedby={ariaDescribedby}
-	aria-invalid={ariaInvalid}
-	class="flex {orientation === 'vertical' ? 'flex-col gap-2' : 'flex-row gap-4'} {className}"
->
-	{#each items as item}
-		<div class="flex items-center gap-2">
-			<RadioGroup.Item
-				value={item.value}
-				disabled={item.disabled}
-				class="inline-flex items-center justify-center rounded-full border border-border-default bg-bg-secondary transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 focus-visible:border-accent-brand disabled:opacity-50 disabled:cursor-not-allowed data-[state=checked]:border-accent-brand {radioSizes[size]}"
-			>
-				{#snippet children({ checked })}
-					{#if checked}
-						<span class="rounded-full bg-accent-brand {indicatorSizes[size]}"></span>
-					{/if}
-				{/snippet}
-			</RadioGroup.Item>
-			<span class="text-text-primary {textSizes[size]} cursor-pointer">
-				{item.label}
-			</span>
-		</div>
-	{/each}
-</RadioGroup.Root>
+<div class="relative inline-block {className}">
+	<RadioGroup.Root
+		{name}
+		{value}
+		disabled={isDisabled}
+		{required}
+		onValueChange={handleChange}
+		aria-label={ariaLabel}
+		aria-describedby={ariaDescribedby}
+		aria-invalid={ariaInvalid}
+		aria-busy={loading}
+		class="flex {orientation === 'vertical' ? 'flex-col gap-2' : 'flex-row gap-4'}"
+	>
+		{#each items as item}
+			<div class="flex items-center gap-2">
+				<RadioGroup.Item
+					value={item.value}
+					disabled={item.disabled}
+					class="inline-flex items-center justify-center rounded-full border border-border-default bg-bg-secondary transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 focus-visible:border-accent-brand disabled:opacity-50 disabled:cursor-not-allowed data-[state=checked]:border-accent-brand {radioSizes[size]}"
+				>
+					{#snippet children({ checked })}
+						{#if checked}
+							<span class="rounded-full bg-accent-brand {indicatorSizes[size]}"></span>
+						{/if}
+					{/snippet}
+				</RadioGroup.Item>
+				<span class="text-text-primary {textSizes[size]} cursor-pointer {isDisabled ? 'opacity-50' : ''}">
+					{item.label}
+				</span>
+			</div>
+		{/each}
+	</RadioGroup.Root>
+	{#if loading}
+		<span class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-full pl-2 text-text-muted">
+			<Loader2 size={iconSizes[size]} class="animate-spin" />
+		</span>
+	{/if}
+</div>

@@ -10,6 +10,8 @@
 		size?: InputSize;
 		align?: InputAlign;
 		disabled?: boolean;
+		/** Show loading spinner and disable interactions */
+		loading?: boolean;
 		readonly?: boolean;
 		required?: boolean;
 		error?: boolean;
@@ -28,6 +30,8 @@
 </script>
 
 <script lang="ts">
+	import { Loader2 } from '@lucide/svelte';
+
 	let {
 		type = 'text',
 		value = $bindable(''),
@@ -35,6 +39,7 @@
 		size = 'md',
 		align = 'left',
 		disabled = false,
+		loading = false,
 		readonly = false,
 		required = false,
 		error = false,
@@ -50,6 +55,14 @@
 		onfocus,
 		onblur
 	}: InputProps = $props();
+
+	const iconSizes: Record<InputSize, number> = {
+		sm: 14,
+		md: 16,
+		lg: 18
+	};
+
+	const isDisabled = $derived(disabled || loading);
 
 	const sizeClasses: Record<InputSize, string> = {
 		sm: 'px-2 py-1.5 text-sm',
@@ -71,14 +84,15 @@
 		{type}
 		bind:value
 		{placeholder}
-		{disabled}
+		disabled={isDisabled}
 		{required}
 		readonly={readonly}
 		aria-label={ariaLabel}
 		aria-describedby={ariaDescribedby}
 		aria-invalid={error}
 		aria-required={required}
-		class="w-full bg-bg-secondary border rounded-md font-mono text-text-primary placeholder:text-text-muted focus-visible:outline-none focus-visible:ring-2 disabled:opacity-50 disabled:cursor-not-allowed read-only:bg-bg-tertiary read-only:cursor-default {error ? 'border-negative focus-visible:border-negative focus-visible:ring-negative/20' : 'border-border-default focus-visible:border-accent-brand focus-visible:ring-accent-brand/20'} {sizeClasses[size]} {alignClasses[align]} {prefix ? 'pl-12' : ''} {suffix ? 'pr-12' : ''}"
+		aria-busy={loading}
+		class="w-full bg-bg-secondary border rounded-md font-mono text-text-primary placeholder:text-text-muted focus-visible:outline-none focus-visible:ring-2 disabled:opacity-50 disabled:cursor-not-allowed read-only:bg-bg-tertiary read-only:cursor-default {error ? 'border-negative focus-visible:border-negative focus-visible:ring-negative/20' : 'border-border-default focus-visible:border-accent-brand focus-visible:ring-accent-brand/20'} {sizeClasses[size]} {alignClasses[align]} {prefix ? 'pl-12' : ''} {suffix || loading ? 'pr-12' : ''}"
 		{oninput}
 		{onchange}
 		{onfocus}
@@ -87,7 +101,11 @@
 	{#if prefix}
 		<span class="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-sm pointer-events-none">{prefix}</span>
 	{/if}
-	{#if suffix}
+	{#if loading}
+		<span class="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none">
+			<Loader2 size={iconSizes[size]} class="animate-spin" />
+		</span>
+	{:else if suffix}
 		<span class="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted text-sm pointer-events-none">{suffix}</span>
 	{/if}
 </div>

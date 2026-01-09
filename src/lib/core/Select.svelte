@@ -16,6 +16,8 @@
 		size?: SelectSize;
 		/** Disable interactions */
 		disabled?: boolean;
+		/** Show loading spinner and disable interactions */
+		loading?: boolean;
 		/** Required field */
 		required?: boolean;
 		/** Placeholder text when no value selected */
@@ -41,13 +43,14 @@
 
 <script lang="ts">
 	import { Select } from 'bits-ui';
-	import { ChevronDown, Check, X } from '@lucide/svelte';
+	import { ChevronDown, Check, X, Loader2 } from '@lucide/svelte';
 
 	let {
 		value = $bindable(''),
 		options,
 		size = 'md',
 		disabled = false,
+		loading = false,
 		required = false,
 		placeholder = 'Select...',
 		id,
@@ -59,6 +62,8 @@
 		class: className = '',
 		onchange
 	}: SelectProps = $props();
+
+	const isDisabled = $derived(disabled || loading);
 
 	function handleClear(e: MouseEvent) {
 		e.stopPropagation();
@@ -95,7 +100,7 @@
 <div class="w-full {className}">
 	<Select.Root
 		type="single"
-		{disabled}
+		disabled={isDisabled}
 		{required}
 		{value}
 		onValueChange={handleValueChange}
@@ -107,23 +112,30 @@
 			aria-label={ariaLabel}
 			aria-describedby={ariaDescribedby}
 			aria-invalid={ariaInvalid}
+			aria-busy={loading}
 			class="relative w-full appearance-none bg-bg-secondary border border-border-default rounded-md font-mono text-text-primary cursor-pointer transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:border-accent-brand focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:opacity-50 disabled:cursor-not-allowed text-left {sizeClasses[size]} {rightPadding}"
 		>
 		<span class={value ? '' : 'text-text-muted'}>{selectedLabel}</span>
 		<span class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
-			{#if clearable && value && !disabled}
-				<button
-					type="button"
-					onclick={handleClear}
-					class="p-0.5 rounded-sm text-text-muted hover:text-text-primary hover:bg-bg-hover transition-colors"
-					aria-label="Clear selection"
-				>
-					<X size={iconSizes[size] - 2} />
-				</button>
+			{#if loading}
+				<span class="pointer-events-none text-text-muted">
+					<Loader2 size={iconSizes[size]} class="animate-spin" />
+				</span>
+			{:else}
+				{#if clearable && value && !disabled}
+					<button
+						type="button"
+						onclick={handleClear}
+						class="p-0.5 rounded-sm text-text-muted hover:text-text-primary hover:bg-bg-hover transition-colors"
+						aria-label="Clear selection"
+					>
+						<X size={iconSizes[size] - 2} />
+					</button>
+				{/if}
+				<span class="pointer-events-none text-text-muted">
+					<ChevronDown size={iconSizes[size]} />
+				</span>
 			{/if}
-			<span class="pointer-events-none text-text-muted">
-				<ChevronDown size={iconSizes[size]} />
-			</span>
 		</span>
 	</Select.Trigger>
 
