@@ -7,6 +7,8 @@
 		size?: TextareaSize;
 		rows?: number;
 		disabled?: boolean;
+		/** Show loading spinner and disable interactions */
+		loading?: boolean;
 		readonly?: boolean;
 		required?: boolean;
 		error?: boolean;
@@ -23,12 +25,15 @@
 </script>
 
 <script lang="ts">
+	import { Loader2 } from '@lucide/svelte';
+
 	let {
 		value = $bindable(''),
 		placeholder = '',
 		size = 'md',
 		rows = 3,
 		disabled = false,
+		loading = false,
 		readonly = false,
 		required = false,
 		error = false,
@@ -43,31 +48,45 @@
 		onblur
 	}: TextareaProps = $props();
 
+	const isDisabled = $derived(disabled || loading);
+
 	const sizeClasses: Record<TextareaSize, string> = {
 		sm: 'px-2 py-1.5 text-sm',
 		md: 'px-3 py-2 text-sm',
 		lg: 'px-4 py-3 text-base'
 	};
+
+	const iconSizes: Record<TextareaSize, number> = {
+		sm: 14,
+		md: 16,
+		lg: 18
+	};
 </script>
 
-<div class="w-full {className}">
+<div class="relative w-full {className}">
 	<textarea
 		{id}
 		{name}
 		bind:value
 		{placeholder}
 		{rows}
-		{disabled}
+		disabled={isDisabled}
 		{required}
 		readonly={readonly}
 		aria-label={ariaLabel}
 		aria-describedby={ariaDescribedby}
 		aria-invalid={error}
 		aria-required={required}
+		aria-busy={loading}
 		class="w-full resize-y bg-bg-secondary border rounded-md font-mono text-text-primary placeholder:text-text-muted focus-visible:outline-none focus-visible:ring-2 disabled:opacity-50 disabled:cursor-not-allowed read-only:bg-bg-tertiary read-only:cursor-default {error ? 'border-negative focus-visible:border-negative focus-visible:ring-negative/20' : 'border-border-default focus-visible:border-accent-brand focus-visible:ring-accent-brand/20'} {sizeClasses[size]}"
 		{oninput}
 		{onchange}
 		{onfocus}
 		{onblur}
 	></textarea>
+	{#if loading}
+		<span class="absolute right-3 top-3 text-text-muted pointer-events-none">
+			<Loader2 size={iconSizes[size]} class="animate-spin" />
+		</span>
+	{/if}
 </div>
