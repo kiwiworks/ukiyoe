@@ -1,6 +1,6 @@
 <script lang="ts" module>
 	export type StatusBadgeVariant = 'default' | 'info' | 'success' | 'warning' | 'danger';
-	export type StatusBadgeSize = 'sm' | 'md' | 'lg';
+	export type StatusBadgeSize = 'xs' | 'sm' | 'md' | 'lg';
 
 	export interface StatusBadgeProps {
 		label: string;
@@ -24,6 +24,7 @@
 	};
 
 	const sizeClasses: Record<StatusBadgeSize, string> = {
+		xs: 'text-[9px]',
 		sm: 'text-[10px]',
 		md: 'text-[11px]',
 		lg: 'text-xs'
@@ -38,6 +39,7 @@
 	};
 
 	const iconSizes: Record<StatusBadgeSize, number> = {
+		xs: 8,
 		sm: 10,
 		md: 12,
 		lg: 14

@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	export type TextSize = 'xs' | 'sm' | 'md' | 'lg';
+	export type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 	export type TextVariant = 'primary' | 'secondary' | 'muted' | 'positive' | 'negative' | 'warning';
 	export type TextWeight = 'normal' | 'medium' | 'semibold' | 'bold';
 	export type TextElement = 'p' | 'span' | 'div' | 'label';
@@ -32,7 +32,8 @@
 		xs: 'text-xs',
 		sm: 'text-sm',
 		md: 'text-md',
-		lg: 'text-lg'
+		lg: 'text-lg',
+		xl: 'text-xl'
 	};
 
 	const variantClasses: Record<TextVariant, string> = {

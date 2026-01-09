@@ -7,7 +7,7 @@
 		disabled?: boolean;
 	}
 
-	export type TabsSize = 'sm' | 'md' | 'lg';
+	export type TabsSize = 'xs' | 'sm' | 'md' | 'lg';
 
 	export interface TabsProps {
 		value?: string;
@@ -43,6 +43,7 @@
 	});
 
 	const triggerSizes: Record<TabsSize, string> = {
+		xs: 'px-2 py-1 text-[10px]',
 		sm: 'px-3 py-1.5 text-xs',
 		md: 'px-4 py-2 text-sm',
 		lg: 'px-5 py-2.5 text-base'

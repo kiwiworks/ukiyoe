@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	export type SwitchSize = 'sm' | 'md' | 'lg';
+	export type SwitchSize = 'xs' | 'sm' | 'md' | 'lg';
 
 	export interface SwitchProps {
 		/** Checked state (bindable) */
@@ -39,12 +39,14 @@
 	}: SwitchProps = $props();
 
 	const trackSizes: Record<SwitchSize, string> = {
+		xs: 'h-3.5 w-6',
 		sm: 'h-4 w-7',
 		md: 'h-5 w-9',
 		lg: 'h-6 w-11'
 	};
 
 	const thumbSizes: Record<SwitchSize, string> = {
+		xs: 'h-2.5 w-2.5 data-[state=checked]:translate-x-2.5',
 		sm: 'h-3 w-3 data-[state=checked]:translate-x-3',
 		md: 'h-4 w-4 data-[state=checked]:translate-x-4',
 		lg: 'h-5 w-5 data-[state=checked]:translate-x-5'

@@ -5,7 +5,7 @@
 		disabled?: boolean;
 	}
 
-	export type SelectSize = 'sm' | 'md' | 'lg';
+	export type SelectSize = 'xs' | 'sm' | 'md' | 'lg';
 
 	export interface SelectProps {
 		/** Selected value (bindable) */
@@ -73,14 +73,16 @@
 	const selectedLabel = $derived(items.find((item) => item.value === value)?.label ?? placeholder);
 
 	const sizeClasses: Record<SelectSize, string> = {
+		xs: 'py-1 pl-1.5 text-xs',
 		sm: 'py-1.5 pl-2 text-sm',
 		md: 'py-2 pl-3 text-sm',
 		lg: 'py-3 pl-4 text-base'
 	};
 
-	const rightPadding = $derived(clearable && value ? 'pr-14' : size === 'sm' ? 'pr-8' : size === 'md' ? 'pr-10' : 'pr-12');
+	const rightPadding = $derived(clearable && value ? 'pr-14' : size === 'xs' ? 'pr-6' : size === 'sm' ? 'pr-8' : size === 'md' ? 'pr-10' : 'pr-12');
 
 	const iconSizes: Record<SelectSize, number> = {
+		xs: 12,
 		sm: 14,
 		md: 16,
 		lg: 18

@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	export type ProgressBarSize = 'sm' | 'md' | 'lg';
+	export type ProgressBarSize = 'xs' | 'sm' | 'md' | 'lg';
 	export type ProgressBarVariant = 'default' | 'success' | 'warning' | 'danger';
 
 	export interface ProgressBarProps {
@@ -27,6 +27,7 @@
 	const percentage = $derived(Math.min(100, Math.max(0, (value / max) * 100)));
 
 	const sizeClasses: Record<ProgressBarSize, string> = {
+		xs: 'h-0.5',
 		sm: 'h-1',
 		md: 'h-2',
 		lg: 'h-3'
