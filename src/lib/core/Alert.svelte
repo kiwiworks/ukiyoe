@@ -1,7 +1,7 @@
 <script lang="ts" module>
 	import type { Snippet, Component } from 'svelte';
 
-	export type AlertVariant = 'info' | 'success' | 'warning' | 'danger';
+	export type AlertVariant = 'default' | 'info' | 'success' | 'warning' | 'danger';
 
 	export interface AlertProps {
 		variant?: AlertVariant;
@@ -18,7 +18,7 @@
 	import { X, Info, CheckCircle, AlertTriangle, AlertCircle } from '@lucide/svelte';
 
 	let {
-		variant = 'info',
+		variant = 'default',
 		title,
 		dismissible = false,
 		icon,
@@ -30,6 +30,7 @@
 	let visible = $state(true);
 
 	const variantClasses: Record<AlertVariant, string> = {
+		default: 'bg-bg-hover border-border-default text-text-secondary',
 		info: 'bg-color-info/10 border-color-info/30 text-color-info',
 		success: 'bg-color-positive/10 border-color-positive/30 text-color-positive',
 		warning: 'bg-color-warning/10 border-color-warning/30 text-color-warning',
@@ -37,6 +38,7 @@
 	};
 
 	const defaultIcons: Record<AlertVariant, Component> = {
+		default: Info,
 		info: Info,
 		success: CheckCircle,
 		warning: AlertTriangle,
