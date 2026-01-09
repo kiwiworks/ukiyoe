@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	export type InputSize = 'sm' | 'md' | 'lg';
+	export type InputSize = 'xs' | 'sm' | 'md' | 'lg';
 	export type InputAlign = 'left' | 'center' | 'right';
 	export type InputType = 'text' | 'number' | 'email' | 'password' | 'search' | 'tel' | 'url';
 
@@ -65,6 +65,7 @@
 	const isDisabled = $derived(disabled || loading);
 
 	const sizeClasses: Record<InputSize, string> = {
+		xs: 'px-1.5 py-1 text-xs',
 		sm: 'px-2 py-1.5 text-sm',
 		md: 'px-3 py-2 text-sm',
 		lg: 'px-4 py-3 text-base'

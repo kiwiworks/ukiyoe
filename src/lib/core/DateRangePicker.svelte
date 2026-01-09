@@ -2,7 +2,7 @@
 	import type { DateValue } from '@internationalized/date';
 	import type { DateRange } from 'bits-ui';
 
-	export type DateRangePickerSize = 'sm' | 'md' | 'lg';
+	export type DateRangePickerSize = 'xs' | 'sm' | 'md' | 'lg';
 
 	export interface DateModifier {
 		/** Match function - return true if date should be modified */
@@ -74,12 +74,14 @@
 	const df = new DateFormatter('en-US', { dateStyle: 'medium' });
 
 	const sizeClasses: Record<DateRangePickerSize, string> = {
+		xs: 'py-1 px-1.5 text-xs',
 		sm: 'py-1.5 px-2 text-sm',
 		md: 'py-2 px-3 text-sm',
 		lg: 'py-3 px-4 text-base'
 	};
 
 	const iconSizes: Record<DateRangePickerSize, number> = {
+		xs: 12,
 		sm: 14,
 		md: 16,
 		lg: 18

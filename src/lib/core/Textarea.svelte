@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	export type TextareaSize = 'sm' | 'md' | 'lg';
+	export type TextareaSize = 'xs' | 'sm' | 'md' | 'lg';
 
 	export interface TextareaProps {
 		value?: string;
@@ -51,6 +51,7 @@
 	const isDisabled = $derived(disabled || loading);
 
 	const sizeClasses: Record<TextareaSize, string> = {
+		xs: 'px-1.5 py-1 text-xs',
 		sm: 'px-2 py-1.5 text-sm',
 		md: 'px-3 py-2 text-sm',
 		lg: 'px-4 py-3 text-base'

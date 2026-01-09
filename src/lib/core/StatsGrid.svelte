@@ -1,6 +1,6 @@
 <script lang="ts" module>
 	export type StatsGridVariant = 'default' | 'positive' | 'negative' | 'warning';
-	export type StatsGridSize = 'sm' | 'md' | 'lg';
+	export type StatsGridSize = 'xs' | 'sm' | 'md' | 'lg';
 	export type StatsGridColumns = 2 | 3 | 4;
 
 	export interface StatItem {
@@ -27,6 +27,7 @@
 	};
 
 	const sizeClasses: Record<StatsGridSize, string> = {
+		xs: 'text-base',
 		sm: 'text-lg',
 		md: 'text-2xl',
 		lg: 'text-3xl'

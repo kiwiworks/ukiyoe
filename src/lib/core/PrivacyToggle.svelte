@@ -11,7 +11,7 @@
 	 * <PrivacyToggle size="sm" />
 	 */
 
-	export type PrivacyToggleSize = 'sm' | 'md' | 'lg';
+	export type PrivacyToggleSize = 'xs' | 'sm' | 'md' | 'lg';
 
 	export interface PrivacyToggleProps {
 		/** Size preset (default: 'md') */
@@ -34,13 +34,14 @@
 	const privacy = getPrivacyContext();
 
 	// Icon size based on button size
-	const iconSize = $derived(size === 'sm' ? 14 : size === 'lg' ? 20 : 16);
+	const iconSize = $derived(size === 'xs' ? 12 : size === 'sm' ? 14 : size === 'lg' ? 20 : 16);
 
 	function handleClick() {
 		privacy.toggle();
 	}
 
 	const sizeClasses: Record<PrivacyToggleSize, string> = {
+		xs: 'py-0.5 px-1 text-[9px]',
 		sm: 'py-1 px-1.5 text-[10px]',
 		md: 'py-1.5 px-2 text-[11px]',
 		lg: 'py-2 px-2.5 text-xs'

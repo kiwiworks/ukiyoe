@@ -5,7 +5,7 @@
 		disabled?: boolean;
 	}
 
-	export type RadioGroupSize = 'sm' | 'md' | 'lg';
+	export type RadioGroupSize = 'xs' | 'sm' | 'md' | 'lg';
 
 	export interface RadioGroupProps {
 		/** Selected value (bindable) */
@@ -64,18 +64,21 @@
 	);
 
 	const radioSizes: Record<RadioGroupSize, string> = {
+		xs: 'h-3.5 w-3.5',
 		sm: 'h-4 w-4',
 		md: 'h-5 w-5',
 		lg: 'h-6 w-6'
 	};
 
 	const indicatorSizes: Record<RadioGroupSize, string> = {
+		xs: 'h-1.5 w-1.5',
 		sm: 'h-2 w-2',
 		md: 'h-2.5 w-2.5',
 		lg: 'h-3 w-3'
 	};
 
 	const textSizes: Record<RadioGroupSize, string> = {
+		xs: 'text-xs',
 		sm: 'text-sm',
 		md: 'text-sm',
 		lg: 'text-base'
