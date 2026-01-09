@@ -1,8 +1,7 @@
-<script lang="ts">
+<script lang="ts" module>
 	import type { Snippet } from 'svelte';
-	import { ChevronUp, ChevronDown } from '@lucide/svelte';
 
-	interface Props {
+	export interface PanelProps {
 		title: string;
 		collapsible?: boolean;
 		defaultCollapsed?: boolean;
@@ -10,6 +9,10 @@
 		children: Snippet;
 		class?: string;
 	}
+</script>
+
+<script lang="ts">
+	import { ChevronUp, ChevronDown } from '@lucide/svelte';
 
 	let {
 		title,
@@ -18,7 +21,7 @@
 		headerActions,
 		children,
 		class: className = ''
-	}: Props = $props();
+	}: PanelProps = $props();
 
 	let collapsed = $state(false);
 
