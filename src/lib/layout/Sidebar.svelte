@@ -1,14 +1,17 @@
-<script lang="ts">
+<script lang="ts" module>
 	import type { Snippet } from 'svelte';
-	import { ChevronLeft, ChevronRight } from '@lucide/svelte';
 
-	interface Props {
+	export interface SidebarProps {
 		width?: number;
 		collapsed?: boolean;
 		onToggle?: () => void;
 		children: Snippet;
 		class?: string;
 	}
+</script>
+
+<script lang="ts">
+	import { ChevronLeft, ChevronRight } from '@lucide/svelte';
 
 	let {
 		width = 256,
@@ -16,7 +19,7 @@
 		onToggle,
 		children,
 		class: className = ''
-	}: Props = $props();
+	}: SidebarProps = $props();
 
 	const currentWidth = $derived(collapsed ? 48 : width);
 

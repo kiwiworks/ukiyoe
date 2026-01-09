@@ -1,19 +1,21 @@
-<script lang="ts">
+<script lang="ts" module>
 	import type { Snippet } from 'svelte';
 
-	interface Props {
+	export interface StatusBarProps {
 		children?: Snippet;
 		rightContent?: Snippet;
 		connected?: boolean;
 		class?: string;
 	}
+</script>
 
+<script lang="ts">
 	let {
 		children,
 		rightContent,
 		connected = true,
 		class: className = ''
-	}: Props = $props();
+	}: StatusBarProps = $props();
 </script>
 
 <footer class="status-bar fixed bottom-0 left-0 right-0 h-5 flex items-center justify-between px-3 font-mono text-[9px] z-50 {className}">

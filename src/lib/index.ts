@@ -180,9 +180,13 @@ export { default as ProgressRing } from './viz/ProgressRing.svelte';
 
 // Layout components
 export { default as Header } from './layout/Header.svelte';
+export type { HeaderProps } from './layout/Header.svelte';
 export { default as Sidebar } from './layout/Sidebar.svelte';
+export type { SidebarProps } from './layout/Sidebar.svelte';
 export { default as Panel } from './layout/Panel.svelte';
+export type { PanelProps } from './layout/Panel.svelte';
 export { default as StatusBar } from './layout/StatusBar.svelte';
+export type { StatusBarProps } from './layout/StatusBar.svelte';
 
 // Effects
 export { default as DelaunayBackground } from './effects/DelaunayBackground.svelte';
