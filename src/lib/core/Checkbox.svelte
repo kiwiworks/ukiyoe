@@ -6,6 +6,8 @@
 		checked?: boolean;
 		/** Disable interactions */
 		disabled?: boolean;
+		/** Show loading spinner and disable interactions */
+		loading?: boolean;
 		/** Size preset */
 		size?: CheckboxSize;
 		/** HTML id attribute for label association */
@@ -27,11 +29,12 @@
 
 <script lang="ts">
 	import { Checkbox } from 'bits-ui';
-	import { Check } from '@lucide/svelte';
+	import { Check, Loader2 } from '@lucide/svelte';
 
 	let {
 		checked = $bindable(false),
 		disabled = false,
+		loading = false,
 		size = 'md',
 		id,
 		name,
@@ -41,6 +44,8 @@
 		class: className = '',
 		onchange
 	}: CheckboxProps = $props();
+
+	const isDisabled = $derived(disabled || loading);
 
 	const sizeClasses: Record<CheckboxSize, string> = {
 		sm: 'h-4 w-4',
@@ -66,16 +71,19 @@
 	{id}
 	{name}
 	{checked}
-	{disabled}
+	disabled={isDisabled}
 	onCheckedChange={handleChange}
 	aria-label={ariaLabel}
 	aria-describedby={ariaDescribedby}
 	aria-invalid={ariaInvalid}
+	aria-busy={loading}
 	class="inline-flex items-center justify-center rounded border border-border-default bg-bg-secondary transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 focus-visible:border-accent-brand disabled:opacity-50 disabled:cursor-not-allowed data-[state=checked]:bg-accent-brand data-[state=checked]:border-accent-brand cursor-pointer {sizeClasses[size]} {className}"
 >
 	{#snippet children({ checked: isChecked })}
 		<span class="text-white flex items-center justify-center">
-			{#if isChecked}
+			{#if loading}
+				<Loader2 size={iconSizes[size]} class="animate-spin text-text-muted" />
+			{:else if isChecked}
 				<Check size={iconSizes[size]} />
 			{/if}
 		</span>
