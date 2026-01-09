@@ -3,29 +3,32 @@
 	"version": "0.1.0",
 	"description": "Svelte 5 component library with dark-first design",
 	"type": "module",
-	"svelte": "./src/lib/index.ts",
-	"types": "./src/lib/index.ts",
+	"svelte": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"sideEffects": ["**/*.css"],
 	"exports": {
 		".": {
-			"types": "./src/lib/index.ts",
-			"svelte": "./src/lib/index.ts",
-			"default": "./src/lib/index.ts"
+			"types": "./dist/index.d.ts",
+			"svelte": "./dist/index.js",
+			"default": "./dist/index.js"
 		},
-		"./styles.css": "./src/lib/styles.css",
+		"./styles.css": "./dist/styles.css",
 		"./tailwind.preset": "./tailwind.preset.ts"
 	},
 	"files": [
-		"src/lib",
+		"dist",
 		"tailwind.preset.ts"
 	],
 	"scripts": {
+		"build": "svelte-kit sync && svelte-package",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+		"test": "vitest",
+		"test:run": "vitest run",
 		"lint": "eslint . --fix",
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
-		"prepublishOnly": "bun run check && bun run lint"
+		"prepublishOnly": "bun run build && bun run check && bun run lint"
 	},
 	"repository": {
 		"type": "git",
@@ -54,6 +57,8 @@
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.18.0",
+		"@sveltejs/kit": "^2.15.0",
+		"@sveltejs/package": "^2.3.0",
 		"@sveltejs/vite-plugin-svelte": "^6.2.1",
 		"@typescript-eslint/eslint-plugin": "^8.21.0",
 		"@typescript-eslint/parser": "^8.21.0",
@@ -63,6 +68,8 @@
 		"prettier-plugin-svelte": "^3.3.3",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.1.4",
-		"typescript": "^5.7.3"
+		"typescript": "^5.7.3",
+		"vite": "^6.0.0",
+		"vitest": "^3.0.0"
 	}
 }
