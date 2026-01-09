@@ -50,7 +50,7 @@
 		padding: 0.25rem;
 		min-width: 180px;
 		box-shadow: var(--shadow-lg);
-		z-index: 100;
+		z-index: var(--z-dropdown);
 	}
 
 	:global(.dropdown-item) {

@@ -77,6 +77,14 @@
 
 	/* Font family */
 	--font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+	/* Z-index layer system */
+	--z-dropdown: 100;
+	--z-sticky: 200;
+	--z-modal: 1000;
+	--z-popover: 1100;
+	--z-tooltip: 1200;
+	--z-toast: 9000;
 }
 
 /**
@@ -176,6 +184,8 @@
 	--z-dropdown: 100;
 	--z-sticky: 200;
 	--z-modal: 1000;
+	--z-popover: 1100;
+	--z-tooltip: 1200;
 	--z-toast: 9000;
 
 	/* Focus ring */
