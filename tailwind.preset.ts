@@ -7,7 +7,7 @@ import type { Config } from 'tailwindcss';
  * This preset only provides content paths for library components
  */
 const preset = {
-	content: []
+	content: ['./src/lib/**/*.{svelte,ts}']
 } satisfies Config;
 
 export default preset;
