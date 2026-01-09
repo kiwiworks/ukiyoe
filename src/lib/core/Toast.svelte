@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	export type ToastVariant = 'default' | 'success' | 'warning' | 'danger';
+	export type ToastVariant = 'default' | 'info' | 'success' | 'warning' | 'danger';
 
 	export interface ToastData {
 		id: string;
@@ -48,6 +48,7 @@
 
 	const variantClasses: Record<ToastVariant, string> = {
 		default: 'border-border-default',
+		info: 'border-color-info',
 		success: 'border-color-positive',
 		warning: 'border-color-warning',
 		danger: 'border-color-negative'
@@ -55,6 +56,7 @@
 
 	const variantIcons: Record<ToastVariant, typeof Info> = {
 		default: Info,
+		info: Info,
 		success: CheckCircle,
 		warning: AlertTriangle,
 		danger: AlertCircle
@@ -62,6 +64,7 @@
 
 	const variantIconColors: Record<ToastVariant, string> = {
 		default: 'text-text-muted',
+		info: 'text-color-info',
 		success: 'text-color-positive',
 		warning: 'text-color-warning',
 		danger: 'text-color-negative'
