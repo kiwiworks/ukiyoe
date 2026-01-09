@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	export type ThemeToggleSize = 'sm' | 'md' | 'lg';
+	export type ThemeToggleSize = 'xs' | 'sm' | 'md' | 'lg';
 
 	export interface ThemeToggleProps {
 		size?: ThemeToggleSize;
@@ -14,9 +14,10 @@
 
 	let { size = 'md', class: className = '', showLabel = false }: ThemeToggleProps = $props();
 
-	const iconSize = $derived(size === 'sm' ? 14 : size === 'lg' ? 20 : 16);
+	const iconSize = $derived(size === 'xs' ? 12 : size === 'sm' ? 14 : size === 'lg' ? 20 : 16);
 
 	const sizeClasses: Record<ThemeToggleSize, string> = {
+		xs: 'py-0.5 px-1 text-[9px]',
 		sm: 'py-1 px-1.5 text-[10px]',
 		md: 'py-1.5 px-2 text-[11px]',
 		lg: 'py-2 px-2.5 text-xs'

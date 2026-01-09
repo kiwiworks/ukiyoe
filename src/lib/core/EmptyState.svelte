@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	export type EmptyStateSize = 'sm' | 'md' | 'lg';
+	export type EmptyStateSize = 'xs' | 'sm' | 'md' | 'lg';
 
 	export interface EmptyStateProps {
 		icon?: import('svelte').Component;
@@ -30,24 +30,28 @@
 	const effectiveSize = $derived(compact ? 'sm' : size);
 
 	const iconSizes: Record<EmptyStateSize, number> = {
+		xs: 16,
 		sm: 24,
 		md: 48,
 		lg: 64
 	};
 
 	const contentClasses: Record<EmptyStateSize, string> = {
+		xs: 'gap-2 p-3',
 		sm: 'gap-3 p-4',
 		md: 'gap-4 p-8',
 		lg: 'gap-6 p-12'
 	};
 
 	const titleClasses: Record<EmptyStateSize, string> = {
+		xs: 'text-xs',
 		sm: 'text-sm',
 		md: 'text-base',
 		lg: 'text-lg'
 	};
 
 	const descClasses: Record<EmptyStateSize, string> = {
+		xs: 'text-[10px]',
 		sm: 'text-xs',
 		md: 'text-sm',
 		lg: 'text-[15px]'

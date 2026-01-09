@@ -42,7 +42,7 @@
 		| 'accent'; // brand color
 
 	// Size presets
-	export type NumericSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+	export type NumericSize = 'xs' | 'sm' | 'md' | 'lg';
 
 	export interface NumericProps {
 		/** The numeric value to display */
@@ -263,8 +263,7 @@
 		xs: 'text-[10px]',
 		sm: 'text-[11px]',
 		md: 'text-[13px]',
-		lg: 'text-base',
-		xl: 'text-xl'
+		lg: 'text-base'
 	};
 
 	// Variant classes

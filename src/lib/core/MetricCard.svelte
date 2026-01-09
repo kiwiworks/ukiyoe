@@ -1,6 +1,6 @@
 <script lang="ts" module>
 	export type MetricCardVariant = 'default' | 'positive' | 'negative' | 'warning';
-	export type MetricCardSize = 'sm' | 'md' | 'lg';
+	export type MetricCardSize = 'xs' | 'sm' | 'md' | 'lg';
 
 	export interface MetricCardProps {
 		label: string;
@@ -16,6 +16,7 @@
 	let { label, value, icon, variant = 'default', size = 'md', class: className = '' }: MetricCardProps = $props();
 
 	const sizeClasses: Record<MetricCardSize, { card: string; icon: string; value: string }> = {
+		xs: { card: 'gap-1.5 p-2', icon: 'w-6 h-6', value: 'text-base' },
 		sm: { card: 'gap-2 p-3', icon: 'w-8 h-8', value: 'text-lg' },
 		md: { card: 'gap-3 p-4', icon: 'w-10 h-10', value: 'text-xl' },
 		lg: { card: 'gap-4 p-6', icon: 'w-12 h-12', value: 'text-2xl' }
@@ -36,7 +37,7 @@
 	{#if icon}
 		{@const Icon = icon}
 		<div class="flex shrink-0 items-center justify-center rounded-md {sc.icon} {vc.icon}">
-			<Icon size={size === 'lg' ? 20 : 16} />
+			<Icon size={size === 'xs' ? 12 : size === 'lg' ? 20 : 16} />
 		</div>
 	{/if}
 	<div class="flex min-w-0 flex-col gap-1">

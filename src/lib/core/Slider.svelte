@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	export type SliderSize = 'sm' | 'md' | 'lg';
+	export type SliderSize = 'xs' | 'sm' | 'md' | 'lg';
 
 	export interface SliderProps {
 		/** Current value(s) (bindable) */
@@ -42,18 +42,21 @@
 	}: SliderProps = $props();
 
 	const rootClasses: Record<SliderSize, string> = {
+		xs: 'h-3.5',
 		sm: 'h-4',
 		md: 'h-5',
 		lg: 'h-6'
 	};
 
 	const trackClasses: Record<SliderSize, string> = {
+		xs: 'h-0.5',
 		sm: 'h-1',
 		md: 'h-1.5',
 		lg: 'h-2'
 	};
 
 	const thumbClasses: Record<SliderSize, string> = {
+		xs: 'size-3',
 		sm: 'size-3.5',
 		md: 'size-4',
 		lg: 'size-5'

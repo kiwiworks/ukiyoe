@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	export type CheckboxSize = 'sm' | 'md' | 'lg';
+	export type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg';
 
 	export interface CheckboxProps {
 		/** Checked state (bindable) */
@@ -48,12 +48,14 @@
 	const isDisabled = $derived(disabled || loading);
 
 	const sizeClasses: Record<CheckboxSize, string> = {
+		xs: 'h-3.5 w-3.5',
 		sm: 'h-4 w-4',
 		md: 'h-5 w-5',
 		lg: 'h-6 w-6'
 	};
 
 	const iconSizes: Record<CheckboxSize, number> = {
+		xs: 10,
 		sm: 12,
 		md: 14,
 		lg: 16
