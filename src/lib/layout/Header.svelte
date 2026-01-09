@@ -1,19 +1,21 @@
-<script lang="ts">
+<script lang="ts" module>
 	import type { Snippet } from 'svelte';
 
-	interface Props {
+	export interface HeaderProps {
 		title: string;
 		subtitle?: string;
 		children?: Snippet;
 		class?: string;
 	}
+</script>
 
+<script lang="ts">
 	let {
 		title,
 		subtitle,
 		children,
 		class: className = ''
-	}: Props = $props();
+	}: HeaderProps = $props();
 </script>
 
 <header class="header {className}">
