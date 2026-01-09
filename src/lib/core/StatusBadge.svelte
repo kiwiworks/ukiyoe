@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	export type StatusBadgeVariant = 'success' | 'warning' | 'error' | 'info' | 'neutral';
+	export type StatusBadgeVariant = 'default' | 'info' | 'success' | 'warning' | 'danger';
 	export type StatusBadgeSize = 'sm' | 'md' | 'lg';
 
 	export interface StatusBadgeProps {
@@ -16,11 +16,11 @@
 	let { label, variant, icon, pulse = false, size = 'md', class: className = '' }: StatusBadgeProps = $props();
 
 	const variantClasses: Record<StatusBadgeVariant, string> = {
+		default: 'text-text-muted bg-text-muted/10',
+		info: 'text-info bg-info/10',
 		success: 'text-positive bg-positive/10',
 		warning: 'text-warning bg-warning/10',
-		error: 'text-negative bg-negative/10',
-		info: 'text-info bg-info/10',
-		neutral: 'text-text-muted bg-text-muted/10'
+		danger: 'text-negative bg-negative/10'
 	};
 
 	const sizeClasses: Record<StatusBadgeSize, string> = {
@@ -30,11 +30,11 @@
 	};
 
 	const pulseColors: Record<StatusBadgeVariant, string> = {
+		default: 'bg-text-muted',
+		info: 'bg-info',
 		success: 'bg-positive',
 		warning: 'bg-warning',
-		error: 'bg-negative',
-		info: 'bg-info',
-		neutral: 'bg-text-muted'
+		danger: 'bg-negative'
 	};
 
 	const iconSizes: Record<StatusBadgeSize, number> = {
