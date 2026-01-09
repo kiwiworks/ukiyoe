@@ -53,6 +53,7 @@
 				{ label: 'Input', href: '/components/input' },
 				{ label: 'Textarea', href: '/components/textarea' },
 				{ label: 'Select', href: '/components/select' },
+				{ label: 'DateRangePicker', href: '/components/date-range-picker' },
 				{ label: 'Checkbox', href: '/components/checkbox' },
 				{ label: 'Switch', href: '/components/switch' },
 				{ label: 'RadioGroup', href: '/components/radio-group' },
@@ -154,7 +155,7 @@
 </script>
 
 <Sidebar width={220} bind:collapsed>
-	<div class="flex flex-col h-full py-sm overflow-y-auto">
+	<div class="flex flex-col py-sm">
 		{#each sections as section}
 			<div class="mb-md">
 				{#if !collapsed}

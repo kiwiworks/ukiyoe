@@ -4,6 +4,7 @@
     "": {
       "name": "ukiyoe-demo",
       "dependencies": {
+        "@internationalized/date": "^3.7.0",
         "@lucide/svelte": "^0.556.0",
         "bits-ui": "^2.15.2",
         "hast-util-to-html": "^9.0.5",

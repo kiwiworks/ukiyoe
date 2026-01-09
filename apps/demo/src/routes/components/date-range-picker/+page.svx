@@ -1,0 +1,115 @@
+<script lang="ts">
+  import { DateRangePicker, PageHeader, Text, type DateRange, type DateModifier } from 'ukiyoe';
+  import { CalendarDate, today, getLocalTimeZone } from '@internationalized/date';
+  import ComponentPreview from '$lib/ComponentPreview.svelte';
+
+  let basicRange: DateRange | undefined = $state(undefined);
+  let modifiedRange: DateRange | undefined = $state(undefined);
+
+  const isWeekend = (d: Date) => d.getDay() === 0 || d.getDay() === 6;
+
+  const modifiers: DateModifier[] = [
+    { match: isWeekend, disabled: true, class: 'opacity-40' }
+  ];
+
+  // Mark every 10th day as unavailable
+  const every10th: DateModifier[] = [
+    { match: (d) => d.getDate() % 10 === 0, disabled: true, class: 'bg-negative/20' }
+  ];
+
+  const displayRange = $derived.by(() => {
+    if (!basicRange?.start) return 'No range selected';
+    const start = basicRange.start.toString();
+    const end = basicRange.end?.toString() ?? '...';
+    return `${start} to ${end}`;
+  });
+</script>
+
+<svelte:head>
+  <title>DateRangePicker - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="DateRangePicker" subtitle="Date range selection with customizable modifiers" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Default"
+<DateRangePicker placeholder="Select date range" />
+```
+
+## With Binding
+
+```svelte preview title="Bound Value"
+<div class="space-y-md">
+  <DateRangePicker bind:value={basicRange} placeholder="Pick a range" />
+  <Text size="sm" variant="muted">{displayRange}</Text>
+</div>
+```
+
+## Sizes
+
+```svelte preview title="Size Variants"
+<div class="flex flex-col gap-3">
+  <DateRangePicker size="sm" placeholder="Small" />
+  <DateRangePicker size="md" placeholder="Medium (default)" />
+  <DateRangePicker size="lg" placeholder="Large" />
+</div>
+```
+
+## Single Month
+
+```svelte preview title="Single Month View"
+<DateRangePicker numberOfMonths={1} placeholder="Single month" />
+```
+
+## With Modifiers
+
+Use modifiers to disable or style specific dates.
+
+```svelte preview title="Weekends Disabled"
+<DateRangePicker
+  bind:value={modifiedRange}
+  modifiers={modifiers}
+  placeholder="Weekdays only"
+/>
+```
+
+## Unavailable Dates
+
+Mark specific dates as unavailable. By default they cannot be selected.
+
+```svelte preview title="Every 10th Day Blocked"
+<DateRangePicker
+  modifiers={every10th}
+  placeholder="10th, 20th, 30th blocked"
+/>
+```
+
+Use `allowUnavailable` to still allow selection (dates remain styled).
+
+```svelte preview title="Allow Unavailable Selection"
+<DateRangePicker
+  modifiers={every10th}
+  allowUnavailable
+  placeholder="10th, 20th, 30th selectable"
+/>
+```
+
+## Disabled
+
+```svelte preview title="Disabled State"
+<DateRangePicker disabled placeholder="Disabled picker" />
+```
+
+</div>
+
+<style>
+  :global(.space-y-xl > :not(:first-child)) {
+    margin-top: var(--spacing-xl);
+  }
+  :global(.space-y-md > :not(:first-child)) {
+    margin-top: var(--spacing-md);
+  }
+</style>

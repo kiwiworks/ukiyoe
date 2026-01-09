@@ -104,10 +104,19 @@ export { default as Checkbox } from './core/Checkbox.svelte';
 export { default as Switch } from './core/Switch.svelte';
 export { default as RadioGroup } from './core/RadioGroup.svelte';
 export { default as Slider } from './core/Slider.svelte';
+export { default as DateRangePicker } from './core/DateRangePicker.svelte';
 export type { CheckboxSize, CheckboxProps } from './core/Checkbox.svelte';
 export type { SwitchSize, SwitchProps } from './core/Switch.svelte';
 export type { RadioOption, RadioGroupSize, RadioGroupProps } from './core/RadioGroup.svelte';
 export type { SliderSize, SliderProps } from './core/Slider.svelte';
+export type {
+	DateRangePickerSize,
+	DateModifier,
+	DateRangePickerProps
+} from './core/DateRangePicker.svelte';
+// Re-export date types for convenience
+export type { DateRange } from 'bits-ui';
+export type { DateValue } from '@internationalized/date';
 
 // Navigation & Disclosure
 export { default as Tabs } from './core/Tabs.svelte';

@@ -1,6 +1,7 @@
 {
 	"name": "ukiyoe",
 	"version": "0.1.0",
+	"description": "Svelte 5 component library with dark-first design",
 	"type": "module",
 	"svelte": "./src/lib/index.ts",
 	"types": "./src/lib/index.ts",
@@ -14,15 +15,54 @@
 		"./styles.css": "./src/lib/styles.css",
 		"./tailwind.preset": "./tailwind.preset.ts"
 	},
+	"files": [
+		"src/lib",
+		"tailwind.preset.ts"
+	],
+	"scripts": {
+		"check": "svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "eslint . --fix",
+		"format": "prettier --write .",
+		"format:check": "prettier --check .",
+		"prepublishOnly": "bun run check && bun run lint"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kiwiworks/ukiyoe.git"
+	},
+	"keywords": [
+		"svelte",
+		"svelte5",
+		"components",
+		"ui",
+		"design-system",
+		"dark-mode"
+	],
+	"author": "kiwiworks",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/kiwiworks/ukiyoe/issues"
+	},
+	"homepage": "https://github.com/kiwiworks/ukiyoe#readme",
 	"peerDependencies": {
+		"@internationalized/date": "^3.0.0",
 		"@lucide/svelte": "^0.556.0",
+		"bits-ui": "^2.0.0",
 		"svelte": "^5.0.0",
 		"tailwindcss": "^4.0.0"
 	},
-	"dependencies": {
-		"bits-ui": "^2.15.2"
-	},
 	"devDependencies": {
-		"@sveltejs/vite-plugin-svelte": "^6.2.1"
+		"@eslint/js": "^9.18.0",
+		"@sveltejs/vite-plugin-svelte": "^6.2.1",
+		"@typescript-eslint/eslint-plugin": "^8.21.0",
+		"@typescript-eslint/parser": "^8.21.0",
+		"eslint": "^9.18.0",
+		"eslint-plugin-svelte": "^3.0.2",
+		"prettier": "^3.4.2",
+		"prettier-plugin-svelte": "^3.3.3",
+		"svelte": "^5.0.0",
+		"svelte-check": "^4.1.4",
+		"typescript": "^5.7.3"
 	}
 }
