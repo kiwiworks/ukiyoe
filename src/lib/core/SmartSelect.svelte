@@ -49,6 +49,10 @@
 		onchange?: (value: string) => void;
 		/** Custom filter function */
 		filter?: (option: SmartSelectOption, query: string) => boolean;
+		/** Highlight matching text in results */
+		highlightMatch?: boolean;
+		/** Custom class for highlighted text */
+		highlightClass?: string;
 	}
 </script>
 
@@ -69,8 +73,23 @@
 		'aria-label': ariaLabel,
 		class: className = '',
 		onchange,
-		filter
+		filter,
+		highlightMatch = false,
+		highlightClass = 'bg-accent-brand/20 text-accent-brand'
 	}: SmartSelectProps = $props();
+
+	function highlightText(text: string, query: string): { text: string; highlight: boolean }[] {
+		if (!query || !highlightMatch) return [{ text, highlight: false }];
+		const lowerText = text.toLowerCase();
+		const lowerQuery = query.toLowerCase();
+		const index = lowerText.indexOf(lowerQuery);
+		if (index === -1) return [{ text, highlight: false }];
+		return [
+			{ text: text.slice(0, index), highlight: false },
+			{ text: text.slice(index, index + query.length), highlight: true },
+			{ text: text.slice(index + query.length), highlight: false }
+		].filter((part) => part.text.length > 0);
+	}
 
 	let inputValue = $state('');
 	let open = $state(false);
@@ -249,9 +268,25 @@
 											</span>
 										{/if}
 										<div class="flex-1 min-w-0">
-											<div class="truncate">{action.label}</div>
+											<div class="truncate">
+												{#each highlightText(action.label, inputValue) as part}
+													{#if part.highlight}
+														<span class={highlightClass}>{part.text}</span>
+													{:else}
+														{part.text}
+													{/if}
+												{/each}
+											</div>
 											{#if action.description}
-												<div class="text-xs text-text-muted truncate">{action.description}</div>
+												<div class="text-xs text-text-muted truncate">
+													{#each highlightText(action.description, inputValue) as part}
+														{#if part.highlight}
+															<span class={highlightClass}>{part.text}</span>
+														{:else}
+															{part.text}
+														{/if}
+													{/each}
+												</div>
 											{/if}
 										</div>
 										{#if action.shortcut}
@@ -288,9 +323,25 @@
 												</span>
 											{/if}
 											<div class="flex-1 min-w-0">
-												<div class="truncate">{option.label}</div>
+												<div class="truncate">
+													{#each highlightText(option.label, inputValue) as part}
+														{#if part.highlight}
+															<span class={highlightClass}>{part.text}</span>
+														{:else}
+															{part.text}
+														{/if}
+													{/each}
+												</div>
 												{#if option.description}
-													<div class="text-xs text-text-muted truncate">{option.description}</div>
+													<div class="text-xs text-text-muted truncate">
+														{#each highlightText(option.description, inputValue) as part}
+															{#if part.highlight}
+																<span class={highlightClass}>{part.text}</span>
+															{:else}
+																{part.text}
+															{/if}
+														{/each}
+													</div>
 												{/if}
 											</div>
 											{#if option.shortcut}

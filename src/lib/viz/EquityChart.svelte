@@ -21,8 +21,13 @@
 		width?: number | 'auto';
 		height?: number;
 		showDrawdown?: boolean;
+		/** Ratio of chart height used for drawdown overlay (0-1) */
+		drawdownHeightRatio?: number;
 		class?: string;
 	}
+
+	// Threshold to distinguish seconds from milliseconds timestamps
+	const TIMESTAMP_THRESHOLD = 1e12;
 
 	let {
 		equityCurve,
@@ -30,8 +35,21 @@
 		width = 'auto',
 		height = 160,
 		showDrawdown = true,
+		drawdownHeightRatio = 0.3,
 		class: className = ''
 	}: Props = $props();
+
+	/** Normalize timestamp to milliseconds */
+	function normalizeTimestamp(ts: number): number {
+		return ts < TIMESTAMP_THRESHOLD ? ts * 1000 : ts;
+	}
+
+	/** Normalize trade side to uppercase BUY/SELL */
+	function normalizeSide(side: string): 'BUY' | 'SELL' {
+		const s = side.toUpperCase();
+		if (s === 'BUY' || s === 'LONG') return 'BUY';
+		return 'SELL';
+	}
 
 	// Container reference for auto-sizing
 	let containerEl = $state<HTMLDivElement | null>(null);
@@ -58,16 +76,16 @@
 	const chartWidth = $derived(effectiveWidth - padding.left - padding.right);
 	const chartHeight = $derived(height - padding.top - padding.bottom);
 
-	// Equity curve calculations
+	// Equity curve calculations with normalized timestamps
 	const equityValues = $derived(equityCurve.map((e) => e.equity));
-	const timestamps = $derived(equityCurve.map((e) => e.timestamp));
+	const timestamps = $derived(equityCurve.map((e) => normalizeTimestamp(e.timestamp)));
 
-	const minEquity = $derived(Math.min(...equityValues));
-	const maxEquity = $derived(Math.max(...equityValues));
+	const minEquity = $derived(equityValues.length > 0 ? Math.min(...equityValues) : 0);
+	const maxEquity = $derived(equityValues.length > 0 ? Math.max(...equityValues) : 0);
 	const equityRange = $derived(maxEquity - minEquity || 1);
 
-	const minTime = $derived(Math.min(...timestamps));
-	const maxTime = $derived(Math.max(...timestamps));
+	const minTime = $derived(timestamps.length > 0 ? Math.min(...timestamps) : 0);
+	const maxTime = $derived(timestamps.length > 0 ? Math.max(...timestamps) : 0);
 	const timeRange = $derived(maxTime - minTime || 1);
 
 	// Scale functions
@@ -82,7 +100,7 @@
 	// Equity line path
 	const equityPath = $derived(
 		equityCurve
-			.map((e, i) => `${i === 0 ? 'M' : 'L'} ${scaleX(e.timestamp).toFixed(1)} ${scaleY(e.equity).toFixed(1)}`)
+			.map((e, i) => `${i === 0 ? 'M' : 'L'} ${scaleX(normalizeTimestamp(e.timestamp)).toFixed(1)} ${scaleY(e.equity).toFixed(1)}`)
 			.join(' ')
 	);
 
@@ -95,13 +113,14 @@
 
 	// Drawdown area path (inverted from top)
 	const drawdownPath = $derived(() => {
-		if (!showDrawdown) return '';
-		const maxDrawdown = Math.max(...equityCurve.map((e) => e.drawdownPct));
+		if (!showDrawdown || equityCurve.length === 0) return '';
+		const drawdownValues = equityCurve.map((e) => e.drawdownPct);
+		const maxDrawdown = Math.max(...drawdownValues);
 		if (maxDrawdown === 0) return '';
 
-		const drawdownHeight = chartHeight * 0.3; // 30% of chart height for drawdown
+		const drawdownHeight = chartHeight * drawdownHeightRatio;
 		const points = equityCurve.map((e) => {
-			const x = scaleX(e.timestamp);
+			const x = scaleX(normalizeTimestamp(e.timestamp));
 			const y = padding.top + (e.drawdownPct / maxDrawdown) * drawdownHeight;
 			return `${x.toFixed(1)} ${y.toFixed(1)}`;
 		});
@@ -112,18 +131,22 @@
 	// Trade markers - find closest equity point for each trade
 	const tradeMarkers = $derived(() => {
 		return trades.map((trade) => {
-			// Find entry point
-			const entryIdx = findClosestIndex(trade.entryTime);
-			const exitIdx = findClosestIndex(trade.exitTime);
+			const entryTime = normalizeTimestamp(trade.entryTime);
+			const exitTime = normalizeTimestamp(trade.exitTime);
 
-			const entryEquity = equityCurve[entryIdx]?.equity ?? equityValues[0];
-			const exitEquity = equityCurve[exitIdx]?.equity ?? equityValues[equityValues.length - 1];
+			// Find entry point
+			const entryIdx = findClosestIndex(entryTime);
+			const exitIdx = findClosestIndex(exitTime);
+
+			const entryEquity = equityCurve[entryIdx]?.equity ?? equityValues[0] ?? 0;
+			const exitEquity = equityCurve[exitIdx]?.equity ?? equityValues[equityValues.length - 1] ?? 0;
 
 			return {
 				...trade,
-				entryX: scaleX(trade.entryTime),
+				side: normalizeSide(trade.side),
+				entryX: scaleX(entryTime),
 				entryY: scaleY(entryEquity),
-				exitX: scaleX(trade.exitTime),
+				exitX: scaleX(exitTime),
 				exitY: scaleY(exitEquity),
 				isWin: trade.pnl > 0
 			};
@@ -131,6 +154,7 @@
 	});
 
 	function findClosestIndex(timestamp: number): number {
+		if (timestamps.length === 0) return 0;
 		let closest = 0;
 		let minDiff = Math.abs(timestamps[0] - timestamp);
 		for (let i = 1; i < timestamps.length; i++) {
@@ -152,9 +176,9 @@
 			: 'color-mix(in srgb, var(--color-negative) 16%, transparent)'
 	);
 
-	// Format timestamp for tooltip
+	// Format timestamp for display (timestamps are already normalized to milliseconds)
 	function formatTime(ts: number): string {
-		const date = new Date(ts * 1000);
+		const date = new Date(ts);
 		return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 	}
 
