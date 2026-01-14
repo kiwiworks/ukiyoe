@@ -51,6 +51,16 @@
 />
 ```
 
+## Many Options (Scrollable)
+
+```svelte preview title="Scrollable List"
+<Select
+	options={Array.from({ length: 50 }, (_, i) => `Option ${i + 1}`)}
+	placeholder="Select from 50 options"
+	class="w-48"
+/>
+```
+
 </div>
 
 <style>

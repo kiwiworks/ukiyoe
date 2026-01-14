@@ -97,6 +97,16 @@
 		value = newValue;
 		onchange?.(newValue);
 	}
+
+	let viewportEl: HTMLElement | null = $state(null);
+	let canScrollUp = $state(false);
+	let canScrollDown = $state(false);
+
+	function updateScrollState() {
+		if (!viewportEl) return;
+		canScrollUp = viewportEl.scrollTop > 0;
+		canScrollDown = viewportEl.scrollTop < viewportEl.scrollHeight - viewportEl.clientHeight - 1;
+	}
 </script>
 
 <div class="w-full {className}">
@@ -145,25 +155,40 @@
 		<Select.Content
 			class="z-50 overflow-hidden rounded-md shadow-lg border border-border-default bg-bg-elevated w-[var(--bits-select-anchor-width)]"
 			sideOffset={4}
+			onmount={updateScrollState}
 		>
-			<Select.Viewport class="p-1">
-				{#each items as item}
-					<Select.Item
-						value={item.value}
-						label={item.label}
-						class="relative flex items-center gap-2 rounded-sm py-1.5 pl-8 pr-2 text-sm font-mono cursor-pointer select-none outline-none text-text-primary data-[highlighted]:bg-bg-hover data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-					>
-						{#snippet children({ selected })}
-							<span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-								{#if selected}
-									<Check size={12} />
-								{/if}
-							</span>
-							{item.label}
-						{/snippet}
-					</Select.Item>
-				{/each}
-			</Select.Viewport>
+			<div class="relative">
+				<div
+					class="absolute inset-x-0 top-0 h-6 bg-gradient-to-b from-bg-elevated to-transparent pointer-events-none z-10 transition-opacity duration-150"
+					class:opacity-0={!canScrollUp}
+				></div>
+				<Select.Viewport
+					bind:ref={viewportEl}
+					onscroll={updateScrollState}
+					class="p-1 max-h-60 overflow-y-auto"
+				>
+					{#each items as item}
+						<Select.Item
+							value={item.value}
+							label={item.label}
+							class="relative flex items-center gap-2 rounded-sm py-1.5 pl-8 pr-2 text-sm font-mono cursor-pointer select-none outline-none text-text-primary data-[highlighted]:bg-bg-hover data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+						>
+							{#snippet children({ selected })}
+								<span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+									{#if selected}
+										<Check size={12} />
+									{/if}
+								</span>
+								{item.label}
+							{/snippet}
+						</Select.Item>
+					{/each}
+				</Select.Viewport>
+				<div
+					class="absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-bg-elevated to-transparent pointer-events-none z-10 transition-opacity duration-150"
+					class:opacity-0={!canScrollDown}
+				></div>
+			</div>
 		</Select.Content>
 	</Select.Portal>
 	</Select.Root>

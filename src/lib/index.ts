@@ -44,6 +44,7 @@ export type { BadgeVariant, BadgeSize, BadgeProps } from './core/Badge.svelte';
 export { default as Input } from './core/Input.svelte';
 export { default as Textarea } from './core/Textarea.svelte';
 export { default as Select } from './core/Select.svelte';
+export { default as SmartSelect } from './core/SmartSelect.svelte';
 // DataTable - Compound components
 export { DataTable } from './core/data-table/index';
 export type {
@@ -164,6 +165,12 @@ export type { ButtonVariant, ButtonSize, ButtonType, ButtonProps } from './core/
 export type { InputSize, InputAlign, InputType, InputProps } from './core/Input.svelte';
 export type { TextareaSize, TextareaProps } from './core/Textarea.svelte';
 export type { SelectOption, SelectSize, SelectProps } from './core/Select.svelte';
+export type {
+	SmartSelectOption,
+	SmartSelectAction,
+	SmartSelectSize,
+	SmartSelectProps
+} from './core/SmartSelect.svelte';
 export type { CodeBlockProps } from './core/CodeBlock.svelte';
 export type { NumericFormat, NumericVariant, NumericSize, NumericProps } from './core/Numeric.svelte';
 export type { IpSize, IpProps } from './core/Ip.svelte';

@@ -53,6 +53,7 @@
 				{ label: 'Input', href: '/components/input' },
 				{ label: 'Textarea', href: '/components/textarea' },
 				{ label: 'Select', href: '/components/select' },
+			{ label: 'SmartSelect', href: '/components/smart-select' },
 				{ label: 'DateRangePicker', href: '/components/date-range-picker' },
 				{ label: 'Checkbox', href: '/components/checkbox' },
 				{ label: 'Switch', href: '/components/switch' },

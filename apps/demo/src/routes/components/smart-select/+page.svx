@@ -1,0 +1,126 @@
+<script lang="ts">
+	import { SmartSelect, PageHeader } from 'ukiyoe';
+	import { Settings, User, LogOut, FileText, Folder, Terminal } from '@lucide/svelte';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>SmartSelect - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="SmartSelect" subtitle="Searchable select with autocomplete and actions" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Basic SmartSelect"
+<SmartSelect
+	options={[
+		{ value: 'react', label: 'React' },
+		{ value: 'vue', label: 'Vue' },
+		{ value: 'svelte', label: 'Svelte' },
+		{ value: 'angular', label: 'Angular' },
+		{ value: 'solid', label: 'SolidJS' }
+	]}
+	placeholder="Search frameworks..."
+	class="w-72"
+/>
+```
+
+## With Descriptions
+
+```svelte preview title="Options with Descriptions"
+<SmartSelect
+	options={[
+		{ value: 'ts', label: 'TypeScript', description: 'Typed superset of JavaScript' },
+		{ value: 'rs', label: 'Rust', description: 'Systems programming language' },
+		{ value: 'go', label: 'Go', description: 'Fast and simple' },
+		{ value: 'py', label: 'Python', description: 'Easy to learn' }
+	]}
+	placeholder="Search languages..."
+	class="w-80"
+/>
+```
+
+## With Icons
+
+```svelte preview title="Options with Icons"
+<SmartSelect
+	options={[
+		{ value: 'file', label: 'New File', icon: FileText, description: 'Create a new file' },
+		{ value: 'folder', label: 'New Folder', icon: Folder, description: 'Create a new folder' },
+		{ value: 'terminal', label: 'Open Terminal', icon: Terminal, description: 'Open terminal here' }
+	]}
+	placeholder="Quick actions..."
+	class="w-80"
+/>
+```
+
+## With Actions
+
+Actions are items that trigger callbacks instead of selecting a value.
+
+```svelte preview title="Command Palette Style"
+<SmartSelect
+	options={[
+		{ value: 'dashboard', label: 'Dashboard', description: 'Go to dashboard' },
+		{ value: 'projects', label: 'Projects', description: 'View all projects' },
+		{ value: 'analytics', label: 'Analytics', description: 'View analytics' }
+	]}
+	actions={[
+		{ id: 'settings', label: 'Settings', icon: Settings, shortcut: '⌘,', onSelect: () => alert('Settings') },
+		{ id: 'profile', label: 'Profile', icon: User, shortcut: '⌘P', onSelect: () => alert('Profile') },
+		{ id: 'logout', label: 'Sign Out', icon: LogOut, onSelect: () => alert('Logout') }
+	]}
+	placeholder="Search or run command..."
+	class="w-80"
+/>
+```
+
+## Grouped Options
+
+```svelte preview title="Grouped Options"
+<SmartSelect
+	options={[
+		{ value: 'apple', label: 'Apple', group: 'Fruits' },
+		{ value: 'banana', label: 'Banana', group: 'Fruits' },
+		{ value: 'cherry', label: 'Cherry', group: 'Fruits' },
+		{ value: 'carrot', label: 'Carrot', group: 'Vegetables' },
+		{ value: 'broccoli', label: 'Broccoli', group: 'Vegetables' },
+		{ value: 'spinach', label: 'Spinach', group: 'Vegetables' }
+	]}
+	placeholder="Search food..."
+	class="w-72"
+/>
+```
+
+## Many Options (Scrollable)
+
+```svelte preview title="Scrollable with Indicators"
+<SmartSelect
+	options={Array.from({ length: 50 }, (_, i) => ({
+		value: `option-${i + 1}`,
+		label: `Option ${i + 1}`,
+		description: `Description for option ${i + 1}`
+	}))}
+	placeholder="Search 50 options..."
+	class="w-72"
+/>
+```
+
+## Sizes
+
+```svelte preview title="Size Variants"
+<SmartSelect size="sm" options={[{ value: 'sm', label: 'Small' }]} placeholder="Small..." class="w-56" />
+<SmartSelect size="md" options={[{ value: 'md', label: 'Medium' }]} placeholder="Medium..." class="w-56" />
+<SmartSelect size="lg" options={[{ value: 'lg', label: 'Large' }]} placeholder="Large..." class="w-56" />
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>
