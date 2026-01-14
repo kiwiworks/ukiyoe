@@ -84,7 +84,7 @@
 		);
 	};
 
-	const filterFn = filter ?? defaultFilter;
+	const filterFn = $derived(filter ?? defaultFilter);
 
 	// Combine options and actions into items for bits-ui
 	const allItems = $derived([
@@ -125,7 +125,7 @@
 			: actions
 	);
 
-	const groupedOptions = $derived(() => {
+	const groupedOptions = $derived.by(() => {
 		const groups = new Map<string | undefined, SmartSelectOption[]>();
 		for (const opt of filteredOptions) {
 			const group = opt.group;
@@ -263,7 +263,7 @@
 								{/each}
 							{/if}
 
-							{#each [...groupedOptions().entries()] as [group, groupOptions]}
+							{#each [...groupedOptions.entries()] as [group, groupOptions]}
 								{#if group}
 									<div class="px-2 py-1.5 text-xs font-medium text-text-muted uppercase tracking-wide mt-2 first:mt-0">
 										{group}
