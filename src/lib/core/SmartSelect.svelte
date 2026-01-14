@@ -91,8 +91,13 @@
 		].filter((part) => part.text.length > 0);
 	}
 
-	let inputValue = $state('');
+	let searchValue = $state('');
 	let open = $state(false);
+
+	function handleInput(e: Event) {
+		const target = e.target as HTMLInputElement;
+		searchValue = target.value;
+	}
 
 	const defaultFilter = (option: SmartSelectOption, query: string) => {
 		const q = query.toLowerCase();
@@ -131,15 +136,15 @@
 	}
 
 	const filteredOptions = $derived(
-		inputValue ? options.filter((opt) => filterFn(opt, inputValue)) : options
+		searchValue ? options.filter((opt) => filterFn(opt, searchValue)) : options
 	);
 
 	const filteredActions = $derived(
-		inputValue
+		searchValue
 			? actions.filter(
 					(action) =>
-						action.label.toLowerCase().includes(inputValue.toLowerCase()) ||
-						action.description?.toLowerCase().includes(inputValue.toLowerCase())
+						action.label.toLowerCase().includes(searchValue.toLowerCase()) ||
+						action.description?.toLowerCase().includes(searchValue.toLowerCase())
 				)
 			: actions
 	);
@@ -184,13 +189,13 @@
 		const action = actions.find((a) => a.id === selectedValue);
 		if (action) {
 			action.onSelect();
-			inputValue = '';
+			searchValue = '';
 			open = false;
 			return;
 		}
 
 		value = selectedValue;
-		inputValue = '';
+		searchValue = '';
 		onchange?.(selectedValue);
 	}
 
@@ -210,7 +215,6 @@
 		type="single"
 		{disabled}
 		bind:open
-		bind:inputValue
 		value={value || undefined}
 		onValueChange={handleSelect}
 	>
@@ -226,6 +230,7 @@
 				{id}
 				aria-label={ariaLabel}
 				{placeholder}
+				oninput={handleInput}
 				class="w-full appearance-none bg-bg-secondary border border-border-default rounded-md font-mono text-text-primary transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:border-accent-brand focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:opacity-50 disabled:cursor-not-allowed placeholder:text-text-muted {sizeClasses[size]}"
 			/>
 		</div>
@@ -269,7 +274,7 @@
 										{/if}
 										<div class="flex-1 min-w-0">
 											<div class="truncate">
-												{#each highlightText(action.label, inputValue) as part}
+												{#each highlightText(action.label, searchValue) as part}
 													{#if part.highlight}
 														<span class={highlightClass}>{part.text}</span>
 													{:else}
@@ -279,7 +284,7 @@
 											</div>
 											{#if action.description}
 												<div class="text-xs text-text-muted truncate">
-													{#each highlightText(action.description, inputValue) as part}
+													{#each highlightText(action.description, searchValue) as part}
 														{#if part.highlight}
 															<span class={highlightClass}>{part.text}</span>
 														{:else}
@@ -324,7 +329,7 @@
 											{/if}
 											<div class="flex-1 min-w-0">
 												<div class="truncate">
-													{#each highlightText(option.label, inputValue) as part}
+													{#each highlightText(option.label, searchValue) as part}
 														{#if part.highlight}
 															<span class={highlightClass}>{part.text}</span>
 														{:else}
@@ -334,7 +339,7 @@
 												</div>
 												{#if option.description}
 													<div class="text-xs text-text-muted truncate">
-														{#each highlightText(option.description, inputValue) as part}
+														{#each highlightText(option.description, searchValue) as part}
 															{#if part.highlight}
 																<span class={highlightClass}>{part.text}</span>
 															{:else}
