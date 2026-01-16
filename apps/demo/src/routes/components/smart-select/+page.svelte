@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { SmartSelect, PageHeader, Text } from 'ukiyoe';
+	import { SmartSelect, PageHeader, Text, addToast } from 'ukiyoe';
 	import { Settings, User, LogOut, FileText, Folder, Terminal } from '@lucide/svelte';
 
 	let basicValue = $state('');
@@ -37,9 +37,9 @@
 	];
 
 	const commandActions = [
-		{ id: 'settings', label: 'Settings', icon: Settings, shortcut: '⌘,', onSelect: () => alert('Settings') },
-		{ id: 'profile', label: 'Profile', icon: User, shortcut: '⌘P', onSelect: () => alert('Profile') },
-		{ id: 'logout', label: 'Sign Out', icon: LogOut, onSelect: () => alert('Logout') }
+		{ id: 'settings', label: 'Settings', icon: Settings, shortcut: '⌘,', onSelect: () => addToast({ description: 'Opening Settings...' }) },
+		{ id: 'profile', label: 'Profile', icon: User, shortcut: '⌘P', onSelect: () => addToast({ description: 'Opening Profile...' }) },
+		{ id: 'logout', label: 'Sign Out', icon: LogOut, onSelect: () => addToast({ description: 'Signing out...', variant: 'warning' }) }
 	];
 
 	const groupedOptions = [

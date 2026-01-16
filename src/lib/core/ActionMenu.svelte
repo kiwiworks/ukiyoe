@@ -30,13 +30,15 @@
 </script>
 
 <DropdownMenu.Root>
-	<DropdownMenu.Trigger asChild>
-		{#snippet children({ props })}
-			<Button {size} {...props} class={className}>
-				{#if icon}{@render icon()}{/if}
-				{label}
-				<ChevronDown size={12} />
-			</Button>
+	<DropdownMenu.Trigger>
+		{#snippet child({ props })}
+			<span {...props} class="inline-block">
+				<Button {size} class={className}>
+					{#if icon}{@render icon()}{/if}
+					{label}
+					<ChevronDown size={12} />
+				</Button>
+			</span>
 		{/snippet}
 	</DropdownMenu.Trigger>
 
@@ -44,7 +46,7 @@
 		<DropdownMenu.Content
 			class="z-50 min-w-[180px] overflow-hidden rounded-md border border-border-default bg-bg-elevated p-1 shadow-lg"
 			sideOffset={4}
-			align="end"
+			align="start"
 		>
 			{@render children()}
 		</DropdownMenu.Content>

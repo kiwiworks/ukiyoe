@@ -28,13 +28,13 @@ describe('StatusBadge', () => {
 		}
 	});
 
-	it('renders with showDot true by default', () => {
+	it('renders with pulse false by default', () => {
 		render(StatusBadgeTest, { props: { label: 'Status' } });
 		expect(screen.getByText('Status')).toBeInTheDocument();
 	});
 
-	it('renders with showDot false', () => {
-		render(StatusBadgeTest, { props: { label: 'No Dot', showDot: false } });
-		expect(screen.getByText('No Dot')).toBeInTheDocument();
+	it('renders with pulse true', () => {
+		render(StatusBadgeTest, { props: { label: 'Pulsing', pulse: true } });
+		expect(screen.getByText('Pulsing')).toBeInTheDocument();
 	});
 });

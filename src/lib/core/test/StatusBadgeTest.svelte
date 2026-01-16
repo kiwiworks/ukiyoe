@@ -6,13 +6,13 @@
 		label = 'Status',
 		variant = 'default' as StatusBadgeVariant,
 		size = 'md' as StatusBadgeSize,
-		showDot = true
+		pulse = false
 	}: {
 		label?: string;
 		variant?: StatusBadgeVariant;
 		size?: StatusBadgeSize;
-		showDot?: boolean;
+		pulse?: boolean;
 	} = $props();
 </script>
 
-<StatusBadge {label} {variant} {size} {showDot} />
+<StatusBadge {label} {variant} {size} {pulse} />

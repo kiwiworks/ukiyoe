@@ -82,23 +82,23 @@
 		children
 	}: DataTableRootProps<T> = $props();
 
-	// Internal state
-	let sortKey = $state(defaultSortKey);
-	let sortDir = $state<SortDirection>(defaultSortDir);
+	// Internal state - initialized with literals, synced via effects
+	let sortKey = $state('');
+	let sortDir = $state<SortDirection>('asc');
 	let searchQuery = $state('');
 	let currentPage = $state(0);
-	let pageSize = $state(defaultPageSize);
+	let pageSize = $state(10);
 
 	// Sync with prop changes
-	$effect(() => {
+	$effect.pre(() => {
 		sortKey = defaultSortKey;
 	});
 
-	$effect(() => {
+	$effect.pre(() => {
 		sortDir = defaultSortDir;
 	});
 
-	$effect(() => {
+	$effect.pre(() => {
 		pageSize = defaultPageSize;
 	});
 
@@ -281,9 +281,9 @@
 		get onServerPageSizeChange() { return onPageSizeChange; },
 		get onServerSearch() { return onSearch; },
 		get serverSearchTerm() { return serverSearchTerm; },
-		filteredData,
-		sortedData,
-		paginatedData,
+		get filteredData() { return filteredData; },
+		get sortedData() { return sortedData; },
+		get paginatedData() { return paginatedData; },
 		get totalItems() { return totalItems; },
 		get totalPages() { return totalPages; },
 		get startItem() { return startItem; },

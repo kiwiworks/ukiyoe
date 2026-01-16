@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0-beta.2] - 2025-01-16
+
+### Fixed
+- ActionMenu positioning and z-index issues by migrating to bits-ui DropdownMenu with Portal
+- SmartSelect dropdown not opening on click/focus (now uses proper Combobox.Trigger)
+- Missing 'xs' size in Input, Textarea, and RadioGroup iconSizes
+- StatusBadge test file using non-existent `showDot` prop (replaced with `pulse`)
+- DataTable Svelte 5 reactivity warnings (state initialization and context getters)
+
+### Changed
+- ActionMenu now uses bits-ui DropdownMenu for proper positioning via Portal
+- MenuItem uses DropdownMenu.Item instead of custom implementation
+- MenuDivider uses DropdownMenu.Separator
+- Demo pages now use `addToast` instead of browser `alert()` for better UX
+- Updated installation page for public repository (git dependency)
+
 ## [0.1.0-beta.1] - 2025-01-16
 
 ### Added
@@ -51,6 +67,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dark-first design with light mode support
 - Privacy masking context
 
-[Unreleased]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.0-beta.1...HEAD
+[Unreleased]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.0-beta.2...HEAD
+[0.1.0-beta.2]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.0-beta.1...v0.1.0-beta.2
 [0.1.0-beta.1]: https://github.com/kiwiworks/ukiyoe/compare/v0.0.1...v0.1.0-beta.1
 [0.0.1]: https://github.com/kiwiworks/ukiyoe/releases/tag/v0.0.1

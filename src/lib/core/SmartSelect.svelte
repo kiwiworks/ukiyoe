@@ -217,20 +217,26 @@
 		bind:open
 		value={value || undefined}
 		onValueChange={handleSelect}
+		items={allItems}
 	>
 		<div class="relative">
-			<span class="absolute {iconPositions[size]} top-1/2 -translate-y-1/2 text-text-muted pointer-events-none">
+			<Combobox.Trigger class="absolute {iconPositions[size]} top-1/2 -translate-y-1/2 text-text-muted">
 				{#if loading}
 					<Loader2 size={iconSizes[size]} class="animate-spin" />
 				{:else}
 					<Search size={iconSizes[size]} />
 				{/if}
-			</span>
+			</Combobox.Trigger>
 			<Combobox.Input
 				{id}
 				aria-label={ariaLabel}
 				{placeholder}
-				oninput={handleInput}
+				onclick={() => { open = true; }}
+				onfocus={() => { open = true; }}
+				oninput={(e) => {
+					handleInput(e);
+					if (!open) open = true;
+				}}
 				class="w-full appearance-none bg-bg-secondary border border-border-default rounded-md font-mono text-text-primary transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:border-accent-brand focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:opacity-50 disabled:cursor-not-allowed placeholder:text-text-muted {sizeClasses[size]}"
 			/>
 		</div>
@@ -239,7 +245,6 @@
 			<Combobox.Content
 				class="z-50 overflow-hidden rounded-md shadow-lg border border-border-default bg-bg-elevated w-[var(--bits-combobox-anchor-width)] min-w-64"
 				sideOffset={4}
-				onmount={updateScrollState}
 			>
 				<div class="relative">
 					<div

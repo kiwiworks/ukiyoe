@@ -155,7 +155,6 @@
 		<Select.Content
 			class="z-50 overflow-hidden rounded-md shadow-lg border border-border-default bg-bg-elevated w-[var(--bits-select-anchor-width)]"
 			sideOffset={4}
-			onmount={updateScrollState}
 		>
 			<div class="relative">
 				<div

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { AgentInput, PageHeader, Text } from 'ukiyoe';
+	import { AgentInput, PageHeader, Text, addToast } from 'ukiyoe';
 	import type { Attachment } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 
@@ -10,7 +10,7 @@
 	let isLoading = $state(false);
 
 	function handleSubmit(value: string, atts: Attachment[]) {
-		alert(`Submitted: "${value}" with ${atts.length} attachment(s)`);
+		addToast({ description: `Submitted: "${value}" with ${atts.length} attachment(s)`, variant: 'success' });
 	}
 
 	function handleAttach(files: File[]) {
