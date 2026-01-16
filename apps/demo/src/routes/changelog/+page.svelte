@@ -8,15 +8,15 @@
 
 <PageHeader title="Changelog" subtitle="All notable changes to this project">
 	{#snippet badges()}
-		<Badge size="sm" variant="brand" text="v0.1.0-beta.2" />
+		<Badge size="sm" variant="brand" text="v0.1.0-beta.3" />
 	{/snippet}
 </PageHeader>
 
 <div class="mt-lg space-y-xxl">
 	<section>
 		<div class="flex items-center gap-md mb-md">
-			<Heading level={2} size="lg">Unreleased</Heading>
-			<Badge size="xs" variant="info" text="Next" />
+			<Heading level={2} size="lg">0.1.0-beta.3</Heading>
+			<Text size="sm" variant="muted">2026-01-16</Text>
 		</div>
 
 		<div class="space-y-lg">
