@@ -8,11 +8,39 @@
 
 <PageHeader title="Changelog" subtitle="All notable changes to this project">
 	{#snippet badges()}
-		<Badge size="sm" variant="brand" text="v0.1.0-beta.1" />
+		<Badge size="sm" variant="brand" text="v0.1.0-beta.2" />
 	{/snippet}
 </PageHeader>
 
 <div class="mt-lg space-y-xxl">
+	<section>
+		<div class="flex items-center gap-md mb-md">
+			<Heading level={2} size="lg">0.1.0-beta.2</Heading>
+			<Text size="sm" variant="muted">2025-01-16</Text>
+		</div>
+
+		<div class="space-y-lg">
+			<div>
+				<Heading level={3} size="md" class="text-info mb-sm">Fixed</Heading>
+				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
+					<li>ActionMenu positioning and z-index issues (migrated to bits-ui DropdownMenu with Portal)</li>
+					<li>SmartSelect dropdown not opening on click/focus</li>
+					<li>Missing 'xs' size in Input, Textarea, and RadioGroup iconSizes</li>
+					<li>DataTable Svelte 5 reactivity warnings</li>
+				</ul>
+			</div>
+
+			<div>
+				<Heading level={3} size="md" class="text-warning mb-sm">Changed</Heading>
+				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
+					<li>ActionMenu now uses bits-ui DropdownMenu for proper positioning</li>
+					<li>MenuItem uses DropdownMenu.Item, MenuDivider uses DropdownMenu.Separator</li>
+					<li>Demo pages use toast notifications instead of browser alerts</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
 	<section>
 		<div class="flex items-center gap-md mb-md">
 			<Heading level={2} size="lg">0.1.0-beta.1</Heading>
