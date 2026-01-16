@@ -1,106 +1,52 @@
 <script lang="ts" module>
+	export type ActionMenuSize = 'xs' | 'sm' | 'md' | 'lg';
+
 	export interface ActionMenuProps {
+		/** Button label */
 		label: string;
+		/** Size preset */
+		size?: ActionMenuSize;
+		/** Icon snippet to display before label */
 		icon?: import('svelte').Snippet;
+		/** Menu items */
 		children: import('svelte').Snippet;
+		/** Additional CSS classes */
+		class?: string;
 	}
 </script>
 
 <script lang="ts">
+	import { DropdownMenu } from 'bits-ui';
 	import { ChevronDown } from '@lucide/svelte';
 	import Button from './Button.svelte';
 
-	let { label, icon, children }: ActionMenuProps = $props();
-	let open = $state(false);
-
-	function handleClickOutside(event: MouseEvent) {
-		const target = event.target as HTMLElement;
-		if (!target.closest('.action-menu')) open = false;
-	}
+	let {
+		label,
+		size = 'sm',
+		icon,
+		children,
+		class: className = ''
+	}: ActionMenuProps = $props();
 </script>
 
-<svelte:window onclick={handleClickOutside} />
+<DropdownMenu.Root>
+	<DropdownMenu.Trigger asChild>
+		{#snippet children({ props })}
+			<Button {size} {...props} class={className}>
+				{#if icon}{@render icon()}{/if}
+				{label}
+				<ChevronDown size={12} />
+			</Button>
+		{/snippet}
+	</DropdownMenu.Trigger>
 
-<div class="action-menu">
-	<Button size="sm" onclick={() => (open = !open)} aria-expanded={open} aria-haspopup="menu">
-		{#if icon}{@render icon()}{/if}
-		{label}
-		<ChevronDown size={12} />
-	</Button>
-	{#if open}
-		<div class="dropdown" role="menu">
+	<DropdownMenu.Portal>
+		<DropdownMenu.Content
+			class="z-50 min-w-[180px] overflow-hidden rounded-md border border-border-default bg-bg-elevated p-1 shadow-lg"
+			sideOffset={4}
+			align="end"
+		>
 			{@render children()}
-		</div>
-	{/if}
-</div>
-
-<style>
-	.action-menu {
-		position: relative;
-	}
-
-	.dropdown {
-		position: absolute;
-		top: 100%;
-		right: 0;
-		margin-top: 0.25rem;
-		background: var(--bg-elevated);
-		border: 1px solid var(--border-subtle);
-		border-radius: var(--radius-md);
-		padding: 0.25rem;
-		min-width: 180px;
-		box-shadow: var(--shadow-lg);
-		z-index: var(--z-dropdown);
-	}
-
-	:global(.dropdown-item) {
-		all: unset;
-		box-sizing: border-box;
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		width: 100%;
-		padding: 0.5rem 0.75rem;
-		font-size: 12px;
-		color: var(--text-secondary);
-		border-radius: var(--radius-sm);
-		cursor: pointer;
-		transition: all 0.1s ease;
-	}
-
-	:global(.dropdown-item:hover:not(:disabled)) {
-		background: var(--bg-hover);
-		color: var(--text-primary);
-	}
-
-	:global(.dropdown-item:disabled) {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	:global(.dropdown-item.admin) {
-		color: var(--gold);
-	}
-
-	:global(.dropdown-item.admin:hover) {
-		background: color-mix(in srgb, var(--gold) 15%, transparent);
-	}
-
-	:global(.dropdown-divider) {
-		height: 1px;
-		background: var(--border-subtle);
-		margin: 0.25rem 0;
-	}
-
-	:global(.dropdown-label) {
-		display: flex;
-		align-items: center;
-		gap: 0.25rem;
-		padding: 0.25rem 0.75rem;
-		font-size: 9px;
-		font-weight: 600;
-		text-transform: uppercase;
-		color: var(--gold);
-		letter-spacing: 0.5px;
-	}
-</style>
+		</DropdownMenu.Content>
+	</DropdownMenu.Portal>
+</DropdownMenu.Root>

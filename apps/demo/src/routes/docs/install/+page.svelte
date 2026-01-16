@@ -8,13 +8,13 @@
 
 <PageHeader title="Installation" subtitle="Get started with Ukiyoe UI">
 	{#snippet badges()}
-		<Badge size="sm" variant="warning" text="Private Beta" />
+		<Badge size="sm" variant="info" text="Public Beta" />
 	{/snippet}
 </PageHeader>
 
-<Alert variant="warning" class="mt-lg">
-	<strong>Private Package</strong> — Ukiyoe is currently in private beta and not yet published to npm.
-	Contact the maintainers for access.
+<Alert variant="info" class="mt-lg">
+	<strong>Public Beta</strong> — Ukiyoe is open source but not yet published to npm.
+	Clone the repository or use a git dependency for now.
 </Alert>
 
 <div class="mt-xl space-y-xl">
@@ -28,9 +28,10 @@
 	</section>
 
 	<section>
-		<Heading level={2} size="lg" class="mb-md">Installation (Coming Soon)</Heading>
-		<Text variant="muted" class="mb-md">Once published, install via your package manager:</Text>
-		<CodeBlock code="bun add ukiyoe" />
+		<Heading level={2} size="lg" class="mb-md">Installation</Heading>
+		<Text variant="muted" class="mb-md">Install via git dependency:</Text>
+		<CodeBlock code="bun add github:kiwiworks/ukiyoe" />
+		<Text variant="muted" size="xs" class="mt-sm">Once published to npm, you'll be able to use: <code class="text-text-primary">bun add ukiyoe</code></Text>
 	</section>
 
 	<section>

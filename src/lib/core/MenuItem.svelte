@@ -2,16 +2,21 @@
 	export type MenuItemVariant = 'default' | 'danger' | 'admin';
 
 	export interface MenuItemProps {
+		/** Visual variant */
 		variant?: MenuItemVariant;
+		/** Disable interactions */
 		disabled?: boolean;
+		/** Click handler */
 		onclick?: () => void;
+		/** Icon snippet */
 		icon?: import('svelte').Snippet;
+		/** Item content */
 		children: import('svelte').Snippet;
 	}
 </script>
 
 <script lang="ts">
-	import type { Snippet } from 'svelte';
+	import { DropdownMenu } from 'bits-ui';
 
 	let {
 		variant = 'default',
@@ -20,68 +25,21 @@
 		icon,
 		children
 	}: MenuItemProps = $props();
+
+	const variantClasses: Record<MenuItemVariant, string> = {
+		default: 'text-text-secondary data-[highlighted]:text-text-primary',
+		danger: 'text-negative data-[highlighted]:bg-negative/15',
+		admin: 'text-warning data-[highlighted]:bg-warning/15'
+	};
 </script>
 
-<button
-	class="menu-item"
-	class:danger={variant === 'danger'}
-	class:admin={variant === 'admin'}
+<DropdownMenu.Item
 	{disabled}
-	aria-disabled={disabled}
-	{onclick}
-	role="menuitem"
+	onSelect={onclick}
+	class="flex items-center gap-2 w-full px-3 py-2 text-xs rounded-sm cursor-pointer select-none outline-none transition-colors data-[highlighted]:bg-bg-hover data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed {variantClasses[variant]}"
 >
 	{#if icon}
-		<span class="menu-item-icon">{@render icon()}</span>
+		<span class="flex items-center justify-center">{@render icon()}</span>
 	{/if}
 	{@render children()}
-</button>
-
-<style>
-	.menu-item {
-		all: unset;
-		box-sizing: border-box;
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		width: 100%;
-		padding: 0.5rem 0.75rem;
-		font-size: 12px;
-		color: var(--text-secondary);
-		border-radius: var(--radius-sm);
-		cursor: pointer;
-		transition: all 0.1s ease;
-	}
-
-	.menu-item:hover:not(:disabled) {
-		background: var(--bg-hover);
-		color: var(--text-primary);
-	}
-
-	.menu-item:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	.menu-item.danger {
-		color: var(--color-negative);
-	}
-
-	.menu-item.danger:hover:not(:disabled) {
-		background: color-mix(in srgb, var(--color-negative) 15%, transparent);
-	}
-
-	.menu-item.admin {
-		color: var(--gold);
-	}
-
-	.menu-item.admin:hover:not(:disabled) {
-		background: color-mix(in srgb, var(--gold) 15%, transparent);
-	}
-
-	.menu-item-icon {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-</style>
+</DropdownMenu.Item>
