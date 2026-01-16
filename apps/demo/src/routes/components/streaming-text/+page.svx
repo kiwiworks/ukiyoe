@@ -1,0 +1,66 @@
+<script lang="ts">
+	import { StreamingText, PageHeader, Button } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+
+	const sampleText = 'This text streams character by character, simulating LLM responses.';
+	let text = $state('');
+	let key = $state(0);
+
+	function start() {
+		text = '';
+		setTimeout(() => { key++; text = sampleText; }, 50);
+	}
+</script>
+
+<svelte:head>
+	<title>StreamingText - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="StreamingText" subtitle="Animated text reveal with cursor for LLM responses" />
+
+<div class="space-y-xl mt-lg">
+
+## Interactive Demo
+
+<div class="flex gap-md mb-md">
+	<Button size="sm" onclick={start}>Start Streaming</Button>
+	<Button size="sm" variant="outline" onclick={() => (text = sampleText)}>Instant</Button>
+	<Button size="sm" variant="ghost" onclick={() => (text = '')}>Reset</Button>
+</div>
+<div class="p-md bg-bg-secondary rounded-md min-h-[60px]">
+	{#if text}
+		{#key key}
+			<StreamingText {text} speed="natural" />
+		{/key}
+	{:else}
+		<span class="text-text-muted">Click "Start Streaming" to see animation</span>
+	{/if}
+</div>
+
+## Speeds
+
+```svelte preview title="Natural Speed (default)"
+<StreamingText text="Natural speed streaming." speed="natural" />
+```
+
+```svelte preview title="Fast Speed"
+<StreamingText text="Fast speed streaming." speed="fast" />
+```
+
+```svelte preview title="Instant"
+<StreamingText text="Instant display, no animation." speed="instant" />
+```
+
+## Without Cursor
+
+```svelte preview title="No Cursor"
+<StreamingText text="Text without cursor." speed="instant" cursor={false} />
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

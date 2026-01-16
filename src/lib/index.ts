@@ -205,3 +205,25 @@ export { default as NebulaOverlay } from './effects/NebulaOverlay.svelte';
 
 // Utilities
 export { renderMandelbrot } from './utils/mandelbrot';
+
+// Agentic components
+export {
+	Message,
+	StreamingText,
+	ThinkingIndicator,
+	AgentInput,
+	MessageList
+} from './agentic/index';
+export type {
+	MessageRole,
+	MessageStatus,
+	MessageProps,
+	StreamingSpeed,
+	StreamingTextProps,
+	ThinkingStatus,
+	ThinkingIndicatorProps,
+	AttachmentType,
+	Attachment,
+	AgentInputProps,
+	MessageListProps
+} from './agentic/index';

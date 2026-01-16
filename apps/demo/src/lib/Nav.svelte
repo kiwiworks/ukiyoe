@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { base } from '$app/paths';
 	import { ListItem, Sidebar, Heading, Text, Link } from 'ukiyoe';
 	import {
 		Home,
@@ -13,7 +14,9 @@
 		Sparkles,
 		Palette,
 		Type,
-		Box
+		Box,
+		Bot,
+		History
 	} from '@lucide/svelte';
 	import type { Component } from 'svelte';
 
@@ -34,7 +37,8 @@
 			title: 'Start',
 			items: [
 				{ label: 'Introduction', href: '/', icon: Home },
-				{ label: 'Installation', href: '/docs/install', icon: Download }
+				{ label: 'Installation', href: '/docs/install', icon: Download },
+				{ label: 'Changelog', href: '/changelog', icon: History }
 			]
 		},
 		{
@@ -124,6 +128,17 @@
 			]
 		},
 		{
+			title: 'Agentic',
+			icon: Bot,
+			items: [
+				{ label: 'Message', href: '/components/message' },
+				{ label: 'StreamingText', href: '/components/streaming-text' },
+				{ label: 'ThinkingIndicator', href: '/components/thinking-indicator' },
+				{ label: 'AgentInput', href: '/components/agent-input' },
+				{ label: 'MessageList', href: '/components/message-list' }
+			]
+		},
+		{
 			title: 'Visualization',
 			icon: BarChart3,
 			items: [
@@ -165,9 +180,10 @@
 					</Heading>
 				{/if}
 				{#each section.items as item}
-					{@const active = $page.url.pathname === item.href}
+					{@const fullHref = item.href === '/' ? (base || '/') : base + item.href}
+					{@const active = $page.url.pathname === fullHref}
 					{@const Icon = item.icon ?? section.icon}
-					<Link href={item.href} class="block px-sm">
+					<Link href={fullHref} class="block px-sm">
 						<ListItem interactive selected={active}>
 							{#snippet icon()}
 								{#if Icon}

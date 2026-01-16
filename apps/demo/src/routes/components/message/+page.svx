@@ -1,0 +1,62 @@
+<script lang="ts">
+	import { Message, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Message - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Message" subtitle="Role-based message bubbles for chat interfaces" />
+
+<div class="space-y-xl mt-lg">
+
+## Roles
+
+```svelte preview title="Message Roles"
+<Message role="user" status="complete">
+	This is a user message aligned to the right.
+</Message>
+<Message role="assistant" status="complete">
+	This is an assistant message with left alignment.
+</Message>
+<Message role="system" status="complete">
+	System messages are centered and subtle.
+</Message>
+```
+
+## With Timestamp
+
+```svelte preview title="With Timestamp"
+<Message role="user" status="complete" timestamp={new Date()}>
+	User message with timestamp
+</Message>
+<Message role="assistant" status="complete" timestamp={new Date()}>
+	Assistant message with timestamp
+</Message>
+```
+
+## Status States
+
+```svelte preview title="Status States"
+<Message role="assistant" status="idle">
+	Idle state (default)
+</Message>
+<Message role="assistant" status="streaming">
+	Streaming state with typing indicator
+</Message>
+<Message role="assistant" status="complete">
+	Complete state
+</Message>
+<Message role="assistant" status="error" error="Failed to generate response.">
+	Error content (hidden)
+</Message>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

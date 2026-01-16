@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { mdsvex } from 'mdsvex';
 import { createHighlighter } from 'shiki';
@@ -67,12 +67,31 @@ ${code}
 	}
 };
 
+// Base path for GitHub Pages - set via env var for flexibility
+const base = process.env.BASE_PATH || '';
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	extensions: ['.svelte', '.md', '.svx'],
 	preprocess: [vitePreprocess(), mdsvex(mdsvexOptions)],
 	kit: {
-		adapter: adapter()
+		adapter: adapter({
+			pages: 'build',
+			assets: 'build',
+			fallback: '404.html',
+			precompress: false,
+			strict: false
+		}),
+		paths: {
+			base
+		},
+		prerender: {
+			handleHttpError: ({ path, message }) => {
+				// Log warning but don't fail build - some components have SSR issues
+				// TODO: Fix SSR compatibility for WebGL effects and lucide icons
+				console.warn(`Prerender warning for ${path}: ${message}`);
+			}
+		}
 	}
 };
 

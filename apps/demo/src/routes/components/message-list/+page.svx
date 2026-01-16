@@ -1,0 +1,94 @@
+<script lang="ts">
+	import { MessageList, Message, ThinkingIndicator, AgentInput, PageHeader, Text } from 'ukiyoe';
+	import type { MessageRole, MessageStatus, Attachment } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+
+	interface DemoMessage {
+		id: string;
+		role: MessageRole;
+		content: string;
+		status: MessageStatus;
+		timestamp: Date;
+	}
+
+	let inputValue = $state('');
+	let attachments: Attachment[] = $state([]);
+	let isLoading = $state(false);
+
+	let messages: DemoMessage[] = $state([
+		{ id: '1', role: 'user', content: 'Can you help me?', status: 'complete', timestamp: new Date(Date.now() - 60000) },
+		{ id: '2', role: 'assistant', content: 'Of course! How can I assist you today?', status: 'complete', timestamp: new Date(Date.now() - 30000) },
+		{ id: '3', role: 'system', content: 'Context: 128k tokens available', status: 'complete', timestamp: new Date() }
+	]);
+
+	function handleSubmit(value: string) {
+		isLoading = true;
+		messages = [...messages, { id: crypto.randomUUID(), role: 'user', content: value, status: 'complete', timestamp: new Date() }];
+		setTimeout(() => {
+			messages = [...messages, { id: crypto.randomUUID(), role: 'assistant', content: `Received: "${value}"`, status: 'complete', timestamp: new Date() }];
+			isLoading = false;
+		}, 1500);
+	}
+
+	function handleAttach(files: File[]) {
+		attachments = [...attachments, ...files.map((f) => ({
+			id: crypto.randomUUID(),
+			type: f.type.startsWith('image/') ? 'image' as const : 'file' as const,
+			name: f.name,
+			size: f.size
+		}))];
+	}
+</script>
+
+<svelte:head>
+	<title>MessageList - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="MessageList" subtitle="Auto-scrolling container for chat messages" />
+
+<div class="space-y-xl mt-lg">
+
+## Full Conversation Demo
+
+<Text size="sm" variant="muted" class="mb-sm">Auto-scroll, scroll detection, and scroll-to-bottom button</Text>
+
+<div class="relative flex flex-col h-[400px] bg-bg-secondary rounded-lg border border-border-default overflow-hidden">
+	<MessageList class="flex-1 p-lg">
+		{#each messages as msg (msg.id)}
+			<Message role={msg.role} status={msg.status} timestamp={msg.timestamp}>
+				{msg.content}
+			</Message>
+		{/each}
+		{#if isLoading}
+			<ThinkingIndicator status="thinking" label="Generating..." />
+		{/if}
+	</MessageList>
+	<div class="border-t border-border-default p-md">
+		<AgentInput
+			bind:value={inputValue}
+			{attachments}
+			loading={isLoading}
+			placeholder="Send a message..."
+			onSubmit={handleSubmit}
+			onAttach={handleAttach}
+			onRemoveAttachment={(id) => (attachments = attachments.filter((a) => a.id !== id))}
+			onCancel={() => (isLoading = false)}
+		/>
+	</div>
+</div>
+
+## Features
+
+- **Auto-scroll** - Scrolls to bottom on new messages
+- **Scroll detection** - Pauses auto-scroll when user scrolls up
+- **Scroll-to-bottom** - Button appears when scrolled away
+- **Load more** - Callback when near top for history loading
+- **Accessibility** - Uses `role="log"` and `aria-live`
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

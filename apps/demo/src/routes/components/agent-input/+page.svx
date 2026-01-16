@@ -1,0 +1,93 @@
+<script lang="ts">
+	import { AgentInput, PageHeader, Text } from 'ukiyoe';
+	import type { Attachment } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+
+	let basicValue = $state('');
+	let attachValue = $state('');
+	let loadingValue = $state('');
+	let attachments: Attachment[] = $state([]);
+	let isLoading = $state(false);
+
+	function handleSubmit(value: string, atts: Attachment[]) {
+		alert(`Submitted: "${value}" with ${atts.length} attachment(s)`);
+	}
+
+	function handleAttach(files: File[]) {
+		attachments = [...attachments, ...files.map((f) => ({
+			id: crypto.randomUUID(),
+			type: f.type.startsWith('image/') ? 'image' as const : 'file' as const,
+			name: f.name,
+			size: f.size
+		}))];
+	}
+
+	function simulateLoading() {
+		isLoading = true;
+		setTimeout(() => { isLoading = false; }, 3000);
+	}
+</script>
+
+<svelte:head>
+	<title>AgentInput - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="AgentInput" subtitle="Enhanced textarea for agent chat interfaces" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+<Text size="sm" variant="muted" class="mb-sm">Value: {basicValue || '(empty)'}</Text>
+<div class="max-w-2xl">
+	<AgentInput
+		bind:value={basicValue}
+		placeholder="Type a message..."
+		onSubmit={handleSubmit}
+	/>
+</div>
+
+## With Attachments
+
+<Text size="sm" variant="muted" class="mb-sm">Click the paperclip to attach files</Text>
+<div class="max-w-2xl">
+	<AgentInput
+		bind:value={attachValue}
+		{attachments}
+		placeholder="Type or attach files..."
+		onSubmit={handleSubmit}
+		onAttach={handleAttach}
+		onRemoveAttachment={(id) => (attachments = attachments.filter((a) => a.id !== id))}
+	/>
+</div>
+
+## Loading State
+
+<Text size="sm" variant="muted" class="mb-sm">Shows stop button during generation</Text>
+<div class="max-w-2xl">
+	<AgentInput
+		bind:value={loadingValue}
+		loading={isLoading}
+		placeholder="Type a message..."
+		onSubmit={simulateLoading}
+		onCancel={() => (isLoading = false)}
+	/>
+</div>
+
+## Disabled
+
+```svelte preview title="Disabled"
+<AgentInput
+	value="Pre-filled text"
+	disabled
+	placeholder="Disabled..."
+/>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

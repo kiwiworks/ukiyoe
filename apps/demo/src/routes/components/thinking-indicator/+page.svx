@@ -1,0 +1,71 @@
+<script lang="ts">
+	import { ThinkingIndicator, PageHeader, Button } from 'ukiyoe';
+	import type { ThinkingStatus } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+
+	const statuses: ThinkingStatus[] = ['thinking', 'searching', 'reading', 'executing', 'writing'];
+	let index = $state(0);
+	let elapsed = $state(0);
+
+	$effect(() => {
+		const interval = setInterval(() => { elapsed++; }, 1000);
+		return () => clearInterval(interval);
+	});
+</script>
+
+<svelte:head>
+	<title>ThinkingIndicator - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="ThinkingIndicator" subtitle="Activity status indicator for agent operations" />
+
+<div class="space-y-xl mt-lg">
+
+## Status Types
+
+```svelte preview title="All Statuses"
+<ThinkingIndicator status="thinking" />
+<ThinkingIndicator status="searching" />
+<ThinkingIndicator status="reading" />
+<ThinkingIndicator status="executing" />
+<ThinkingIndicator status="writing" />
+```
+
+## Custom Labels
+
+```svelte preview title="Custom Labels"
+<ThinkingIndicator status="thinking" label="Analyzing your request..." />
+<ThinkingIndicator status="searching" label="Searching codebase..." />
+<ThinkingIndicator status="executing" label="Running npm install..." />
+```
+
+## With Elapsed Time
+
+<div class="flex gap-md mb-md">
+	<Button size="sm" onclick={() => (index = (index + 1) % statuses.length)}>
+		Cycle ({statuses[index]})
+	</Button>
+	<Button size="sm" variant="ghost" onclick={() => (elapsed = 0)}>Reset Timer</Button>
+</div>
+<div class="p-md bg-bg-secondary rounded-md">
+	<ThinkingIndicator status={statuses[index]} {elapsed} />
+</div>
+
+## Collapsible Content
+
+```svelte preview title="Collapsible"
+<ThinkingIndicator status="executing" label="Running tests..." collapsible>
+	<pre>$ npm test
+Running 42 tests...
+✓ test/unit/message.test.ts (12 tests)
+✓ test/unit/streaming.test.ts (8 tests)</pre>
+</ThinkingIndicator>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

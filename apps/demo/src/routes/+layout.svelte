@@ -8,7 +8,7 @@
 	<div class="h-screen bg-bg-primary text-text-primary flex flex-col overflow-hidden">
 		<Header title="Ukiyoe UI" subtitle="Component Library">
 			<ThemeToggle size="sm" />
-			<Badge size="xs" variant="brand" text="Alpha" />
+			<Badge size="xs" variant="brand" text="Beta" />
 		</Header>
 
 		<div class="flex flex-1 pt-[1.75rem] overflow-hidden">
