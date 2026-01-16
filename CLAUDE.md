@@ -78,28 +78,33 @@ Follow [Semantic Versioning](https://semver.org/):
 
 ### Release Process
 
-1. **Update version** in `package.json`
-2. **Update CHANGELOG.md** following [Keep a Changelog](https://keepachangelog.com/):
-   - Add entry under `## [Unreleased]` during development
-   - Move to versioned section on release
+**IMPORTANT**: Never use "Unreleased" section. Version changes directly.
+
+1. **Update version** in `package.json` (bump to next beta/patch)
+2. **Update CHANGELOG.md** with versioned section:
+   - Add `## [X.Y.Z] - YYYY-MM-DD` at the top
+   - Update comparison links at bottom
    - Categories: Added, Changed, Deprecated, Removed, Fixed, Security
-3. **Update demo changelog page** at `apps/demo/src/routes/changelog/+page.svelte`
+3. **Update demo changelog page** at `apps/demo/src/routes/changelog/+page.svelte`:
+   - Update badge version in PageHeader
+   - Add new section with version and date
 4. **Commit** with message: `chore: release vX.Y.Z`
-5. **Tag** the release: `git tag vX.Y.Z`
-6. **Push** with tags: `git push --tags`
+5. **Push** - deployment is automatic via GitHub Actions
 
 ### CHANGELOG Format
 ```markdown
 ## [X.Y.Z] - YYYY-MM-DD
 
-### Added
-- New features
-
 ### Changed
 - Changes to existing functionality
 
+### Added
+- New features
+
 ### Fixed
 - Bug fixes
+
+[X.Y.Z]: https://github.com/kiwiworks/ukiyoe/compare/vPREV...vX.Y.Z
 ```
 
 ## Demo Site
