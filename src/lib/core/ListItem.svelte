@@ -25,7 +25,7 @@
 		children
 	}: ListItemProps = $props();
 
-	const variantBorder: Record<string, string> = {
+	const variantBorder: Record<ListItemVariant, string> = {
 		default: '',
 		success: 'border-l-2 border-l-positive',
 		warning: 'border-l-2 border-l-warning',
@@ -33,11 +33,12 @@
 	};
 
 	const computedClasses = $derived.by(() => {
-		const base = 'list-item';
-		const interactiveClass = interactive ? 'interactive' : '';
-		const selectedClass = selected ? 'selected' : '';
+		const base = 'flex items-center justify-between p-md rounded-sm transition-colors duration-100 text-xs font-mono text-text-primary bg-bg-primary';
+		const interactiveClass = interactive ? 'cursor-pointer hover:bg-bg-hover' : '';
+		const selectedClass = selected ? 'bg-bg-secondary' : '';
+		const focusClass = interactive ? 'focus-visible:outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--accent-brand)]' : '';
 		const borderClass = variantBorder[variant];
-		return `${base} ${interactiveClass} ${selectedClass} ${borderClass} ${className}`.trim();
+		return [base, interactiveClass, selectedClass, focusClass, borderClass, className].filter(Boolean).join(' ');
 	});
 </script>
 
@@ -48,12 +49,12 @@
 	tabindex={interactive ? 0 : -1}
 >
 	{#if icon}
-		<div class="item-icon">
+		<div class="shrink-0">
 			{@render icon()}
 		</div>
 	{/if}
 
-	<div class="item-content">
+	<div class="flex-1 min-w-0 px-md overflow-hidden text-ellipsis whitespace-nowrap">
 		{#if left}
 			{@render left()}
 		{:else if children}
@@ -62,72 +63,8 @@
 	</div>
 
 	{#if right}
-		<div class="item-right">
+		<div class="shrink-0">
 			{@render right()}
 		</div>
 	{/if}
 </div>
-
-<style>
-	.list-item {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 0.5rem;
-		border-radius: var(--radius-sm);
-		transition: background-color 0.1s ease;
-		font-size: 11px;
-		font-family: var(--font-mono);
-		color: var(--text-primary);
-		background-color: var(--bg-primary);
-	}
-
-	.list-item.interactive {
-		cursor: pointer;
-	}
-
-	.list-item.interactive:hover {
-		background-color: var(--bg-hover);
-	}
-
-	.list-item.selected {
-		background-color: var(--bg-secondary);
-	}
-
-	.list-item.border-l-positive {
-		border-left: 2px solid var(--color-positive);
-	}
-
-	.list-item.border-l-warning {
-		border-left: 2px solid var(--color-warning);
-	}
-
-	.list-item.border-l-negative {
-		border-left: 2px solid var(--color-negative);
-	}
-
-	.item-icon {
-		flex-shrink: 0;
-	}
-
-	.item-content {
-		flex: 1;
-		min-width: 0;
-		padding: 0 0.5rem;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	.item-right {
-		flex-shrink: 0;
-	}
-
-	.list-item[role='button'] {
-		outline: none;
-	}
-
-	.list-item[role='button']:focus-visible {
-		box-shadow: inset 0 0 0 2px var(--accent-brand);
-	}
-</style>

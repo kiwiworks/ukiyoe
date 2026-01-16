@@ -286,16 +286,4 @@
 	});
 </script>
 
-<canvas bind:this={canvas} class="delaunay-canvas"></canvas>
-
-<style>
-	.delaunay-canvas {
-		position: fixed;
-		bottom: 0;
-		right: 0;
-		width: 85%;
-		height: 90%;
-		pointer-events: none;
-		z-index: 0;
-	}
-</style>
+<canvas bind:this={canvas} class="fixed bottom-0 right-0 w-[85%] h-[90%] pointer-events-none z-0"></canvas>

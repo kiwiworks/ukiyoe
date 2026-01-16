@@ -81,6 +81,18 @@
 	let editValue = $state('');
 	let editInputRef = $state<HTMLInputElement | null>(null);
 
+	const sizeClasses = {
+		sm: 'py-1.5 px-2 text-xs',
+		md: 'py-2 px-3 text-sm',
+		lg: 'py-2.5 px-4 text-base'
+	} as const;
+
+	const iconSizes = {
+		sm: 12,
+		md: 14,
+		lg: 18
+	} as const;
+
 	function handleGenerate() {
 		if (disabled) return;
 		const newName = generateName(config);
@@ -118,153 +130,65 @@
 	}
 </script>
 
-<div class="random-name size-{size}" class:disabled>
+<div
+	class="flex items-center gap-2 bg-[var(--bg-secondary)] border border-[var(--border-subtle)] rounded-[var(--radius-md)] transition-colors duration-150 focus-within:border-[var(--accent-brand)] {sizeClasses[size]}"
+	class:opacity-60={disabled}
+	class:pointer-events-none={disabled}
+>
 	{#if isEditing}
 		<input
 			type="text"
-			class="name-input"
+			class="flex-1 bg-transparent border-none outline-none font-[var(--font-mono)] text-[length:inherit] text-[var(--text-primary)] placeholder:text-[var(--text-muted)]"
 			bind:value={editValue}
 			bind:this={editInputRef}
 			onkeydown={handleKeydown}
 			{placeholder}
 		/>
-		<div class="actions">
-			<button type="button" class="action-btn confirm" onclick={confirmEdit} title="Confirm">
-				<Check size={size === 'sm' ? 12 : size === 'lg' ? 18 : 14} />
+		<div class="flex items-center gap-1">
+			<button
+				type="button"
+				class="flex items-center justify-center p-1 rounded-[var(--radius-sm)] text-[var(--text-muted)] cursor-pointer transition-all duration-150 hover:text-[var(--color-positive)] hover:bg-[var(--bg-tertiary)]"
+				onclick={confirmEdit}
+				title="Confirm"
+			>
+				<Check size={iconSizes[size]} />
 			</button>
-			<button type="button" class="action-btn cancel" onclick={cancelEdit} title="Cancel">
-				<X size={size === 'sm' ? 12 : size === 'lg' ? 18 : 14} />
+			<button
+				type="button"
+				class="flex items-center justify-center p-1 rounded-[var(--radius-sm)] text-[var(--text-muted)] cursor-pointer transition-all duration-150 hover:text-[var(--color-negative)] hover:bg-[var(--bg-tertiary)]"
+				onclick={cancelEdit}
+				title="Cancel"
+			>
+				<X size={iconSizes[size]} />
 			</button>
 		</div>
 	{:else}
-		<span class="name-display" class:empty={!value}>
+		<span
+			class="flex-1 font-medium text-[var(--text-primary)] whitespace-nowrap overflow-hidden text-ellipsis"
+			class:text-[var(--text-muted)]={!value}
+			class:font-normal={!value}
+		>
 			{value || placeholder}
 		</span>
-		<div class="actions">
+		<div class="flex items-center gap-1">
 			<button
 				type="button"
-				class="action-btn generate"
+				class="flex items-center justify-center p-1 rounded-[var(--radius-sm)] text-[var(--text-muted)] cursor-pointer transition-all duration-150 hover:text-[var(--accent-brand)] hover:bg-[var(--bg-tertiary)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:text-[var(--text-muted)] disabled:hover:bg-transparent"
 				onclick={handleGenerate}
 				{disabled}
 				title="Generate random name"
 			>
-				<Dices size={size === 'sm' ? 12 : size === 'lg' ? 18 : 14} />
+				<Dices size={iconSizes[size]} />
 			</button>
 			<button
 				type="button"
-				class="action-btn edit"
+				class="flex items-center justify-center p-1 rounded-[var(--radius-sm)] text-[var(--text-muted)] cursor-pointer transition-all duration-150 hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:text-[var(--text-muted)] disabled:hover:bg-transparent"
 				onclick={startEdit}
 				{disabled}
 				title="Edit name"
 			>
-				<Pencil size={size === 'sm' ? 12 : size === 'lg' ? 18 : 14} />
+				<Pencil size={iconSizes[size]} />
 			</button>
 		</div>
 	{/if}
 </div>
-
-<style>
-	.random-name {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		padding: 0.5rem 0.75rem;
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-subtle);
-		border-radius: var(--radius-md);
-		transition: border-color 0.15s ease;
-	}
-
-	.random-name:focus-within {
-		border-color: var(--accent-brand);
-	}
-
-	.random-name.disabled {
-		opacity: 0.6;
-		pointer-events: none;
-	}
-
-	.size-sm {
-		padding: 0.375rem 0.5rem;
-		font-size: 12px;
-	}
-
-	.size-md {
-		padding: 0.5rem 0.75rem;
-		font-size: 14px;
-	}
-
-	.size-lg {
-		padding: 0.625rem 1rem;
-		font-size: 16px;
-	}
-
-	.name-display {
-		flex: 1;
-		font-weight: 500;
-		color: var(--text-primary);
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-
-	.name-display.empty {
-		color: var(--text-muted);
-		font-weight: 400;
-	}
-
-	.name-input {
-		flex: 1;
-		background: transparent;
-		border: none;
-		outline: none;
-		font-family: var(--font-mono);
-		font-size: inherit;
-		color: var(--text-primary);
-	}
-
-	.name-input::placeholder {
-		color: var(--text-muted);
-	}
-
-	.actions {
-		display: flex;
-		align-items: center;
-		gap: 0.25rem;
-	}
-
-	.action-btn {
-		all: unset;
-		box-sizing: border-box;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0.25rem;
-		border-radius: var(--radius-sm);
-		color: var(--text-muted);
-		cursor: pointer;
-		transition: all 0.15s ease;
-	}
-
-	.action-btn:hover:not(:disabled) {
-		color: var(--text-primary);
-		background: var(--bg-tertiary);
-	}
-
-	.action-btn:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	.action-btn.generate:hover:not(:disabled) {
-		color: var(--accent-brand);
-	}
-
-	.action-btn.confirm:hover {
-		color: var(--color-positive);
-	}
-
-	.action-btn.cancel:hover {
-		color: var(--color-negative);
-	}
-</style>

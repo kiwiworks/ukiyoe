@@ -37,11 +37,10 @@
 	}
 </script>
 
-<div class="panel {className}">
+<div class="flex flex-col bg-bg-secondary border border-border-subtle rounded-md font-mono {className}">
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 	<div
-		class="panel-header"
-		class:panel-header-collapsible={collapsible}
+		class="flex items-center justify-between px-lg py-1.5 border-b border-border-subtle {collapsible ? 'cursor-pointer hover:bg-bg-tertiary' : ''}"
 		onclick={toggleCollapse}
 		role={collapsible ? 'button' : undefined}
 		tabindex={collapsible ? 0 : -1}
@@ -54,10 +53,10 @@
 			}
 		}}
 	>
-		<div class="panel-header-left">
-			<span class="panel-title">{title}</span>
+		<div class="flex items-center gap-md">
+			<span class="text-text-secondary text-[10px] font-bold uppercase tracking-wide">{title}</span>
 			{#if collapsible}
-				<div class="panel-collapse-icon">
+				<div class="text-text-muted">
 					{#if collapsed}
 						<ChevronDown size={12} />
 					{:else}
@@ -67,71 +66,14 @@
 			{/if}
 		</div>
 		{#if headerActions}
-			<div class="panel-actions" role="presentation" onpointerdown={(e) => e.stopPropagation()}>
+			<div class="flex items-center gap-sm" role="presentation" onpointerdown={(e) => e.stopPropagation()}>
 				{@render headerActions()}
 			</div>
 		{/if}
 	</div>
 	{#if !collapsed}
-		<div class="panel-body" id="panel-body">
+		<div class="flex-1 overflow-hidden transition-all duration-200 ease-out" id="panel-body">
 			{@render children()}
 		</div>
 	{/if}
 </div>
-
-<style>
-	.panel {
-		display: flex;
-		flex-direction: column;
-		background-color: var(--bg-secondary);
-		border: 1px solid var(--border-subtle);
-		border-radius: var(--radius-md);
-		font-family: var(--font-mono);
-	}
-
-	.panel-header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 0.375rem 0.75rem;
-		border-bottom: 1px solid var(--border-subtle);
-	}
-
-	.panel-header-collapsible {
-		cursor: pointer;
-	}
-
-	.panel-header-collapsible:hover {
-		background-color: var(--bg-tertiary);
-	}
-
-	.panel-header-left {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
-	.panel-title {
-		color: var(--text-secondary);
-		font-size: 10px;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-	}
-
-	.panel-collapse-icon {
-		color: var(--text-muted);
-	}
-
-	.panel-actions {
-		display: flex;
-		align-items: center;
-		gap: 0.25rem;
-	}
-
-	.panel-body {
-		flex: 1;
-		overflow: hidden;
-		transition: all 0.2s ease;
-	}
-</style>

@@ -29,14 +29,17 @@
 	}
 </script>
 
-<aside class="sidebar {className}" style="width: {currentWidth}px;">
-	<div class="sidebar-content" aria-hidden={collapsed}>
+<aside
+	class="self-stretch shrink-0 bg-bg-primary border-r border-border-subtle flex flex-col font-mono transition-all duration-300 ease-in-out {className}"
+	style:width="{currentWidth}px"
+>
+	<div class="flex-1 overflow-y-auto overflow-x-hidden" aria-hidden={collapsed}>
 		{@render children()}
 	</div>
-	<div class="sidebar-footer">
+	<div class="border-t border-border-subtle p-md">
 		<button
 			onclick={handleToggle}
-			class="sidebar-toggle"
+			class="w-full flex items-center justify-center p-1.5 text-text-muted rounded-md transition-all duration-100 ease-linear hover:text-text-primary hover:bg-bg-hover"
 			aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
 			aria-expanded={!collapsed}
 		>
@@ -48,43 +51,3 @@
 		</button>
 	</div>
 </aside>
-
-<style>
-	.sidebar {
-		align-self: stretch;
-		flex-shrink: 0;
-		background-color: var(--bg-primary);
-		border-right: 1px solid var(--border-subtle);
-		display: flex;
-		flex-direction: column;
-		font-family: var(--font-mono);
-		transition: width 0.3s ease-in-out;
-	}
-
-	.sidebar-content {
-		flex: 1;
-		overflow-y: auto;
-		overflow-x: hidden;
-	}
-
-	.sidebar-footer {
-		border-top: 1px solid var(--border-subtle);
-		padding: 0.5rem;
-	}
-
-	.sidebar-toggle {
-		width: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0.375rem;
-		color: var(--text-muted);
-		border-radius: var(--radius-md);
-		transition: all 0.1s ease;
-	}
-
-	.sidebar-toggle:hover {
-		color: var(--text-primary);
-		background-color: var(--bg-hover);
-	}
-</style>

@@ -20,27 +20,37 @@
 	let { items, showHome = true }: BreadcrumbProps = $props();
 </script>
 
-<nav class="breadcrumb" aria-label="Breadcrumb">
-	<ol>
+<nav class="font-mono" aria-label="Breadcrumb">
+	<ol class="m-0 flex list-none items-center gap-1 p-0">
 		{#if showHome}
-			<li>
-				<a href="/" class="breadcrumb-item home" aria-label="Home">
+			<li class="flex items-center gap-1">
+				<a
+					href="/"
+					class="flex items-center gap-1.5 rounded-[var(--radius-md)] p-1.5 text-[11px] font-medium text-text-muted no-underline transition-all duration-150 ease-out hover:bg-bg-secondary hover:text-text-primary"
+					aria-label="Home"
+				>
 					<Home size={14} />
 				</a>
-				<ChevronRight size={12} class="separator" />
+				<ChevronRight size={12} class="shrink-0 text-text-muted opacity-50" />
 			</li>
 		{/if}
 		{#each items as item, i}
-			<li>
+			<li class="flex items-center gap-1">
 				{#if item.href && i < items.length - 1}
-					<a href={item.href} class="breadcrumb-item">
+					<a
+						href={item.href}
+						class="flex items-center gap-1.5 rounded-[var(--radius-md)] px-2 py-1 text-[11px] font-medium text-text-muted no-underline transition-all duration-150 ease-out hover:bg-bg-secondary hover:text-text-primary"
+					>
 						{#if item.icon}
 							<item.icon size={14} />
 						{/if}
 						<span>{item.label}</span>
 					</a>
 				{:else}
-					<span class="breadcrumb-item current" aria-current="page">
+					<span
+						class="flex items-center gap-1.5 rounded-[var(--radius-md)] px-2 py-1 text-[11px] font-semibold text-text-primary"
+						aria-current="page"
+					>
 						{#if item.icon}
 							<item.icon size={14} />
 						{/if}
@@ -48,63 +58,9 @@
 					</span>
 				{/if}
 				{#if i < items.length - 1}
-					<ChevronRight size={12} class="separator" />
+					<ChevronRight size={12} class="shrink-0 text-text-muted opacity-50" />
 				{/if}
 			</li>
 		{/each}
 	</ol>
 </nav>
-
-<style>
-	.breadcrumb {
-		font-family: var(--font-mono);
-	}
-
-	ol {
-		display: flex;
-		align-items: center;
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		gap: 0.25rem;
-	}
-
-	li {
-		display: flex;
-		align-items: center;
-		gap: 0.25rem;
-	}
-
-	.breadcrumb-item {
-		display: flex;
-		align-items: center;
-		gap: 0.375rem;
-		padding: 0.25rem 0.5rem;
-		font-size: 11px;
-		font-weight: 500;
-		color: var(--text-muted);
-		text-decoration: none;
-		border-radius: 4px;
-		transition: all 0.15s ease;
-	}
-
-	.breadcrumb-item.home {
-		padding: 0.375rem;
-	}
-
-	a.breadcrumb-item:hover {
-		color: var(--text-primary);
-		background: var(--bg-secondary);
-	}
-
-	.breadcrumb-item.current {
-		color: var(--text-primary);
-		font-weight: 600;
-	}
-
-	:global(.separator) {
-		color: var(--text-muted);
-		opacity: 0.5;
-		flex-shrink: 0;
-	}
-</style>

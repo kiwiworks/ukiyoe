@@ -38,23 +38,33 @@
 	function togglePanel() {
 		open = !open;
 	}
+
+	const positionClasses: Record<SidePanelPosition, string> = {
+		left: 'border-r border-l-0 border-border-subtle',
+		right: 'border-l border-r-0 border-border-subtle'
+	};
 </script>
 
 <aside
-	class="side-panel side-panel-{position} {className}"
-	class:open
+	class="flex flex-col bg-bg-secondary border border-border-subtle h-full overflow-hidden transition-[width] duration-200 ease-out {positionClasses[position]} {className}"
 	style:width="{width}px"
 	aria-label={title}
 >
-	<header class="panel-header">
-		<span class="panel-title">{title}</span>
+	<header
+		class="flex items-center gap-3 px-4 py-3 border-b border-border-subtle shrink-0 bg-bg-primary"
+	>
+		<span
+			class="flex-1 text-xs font-semibold uppercase tracking-wider text-text-muted min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
+		>
+			{title}
+		</span>
 		{#if header}
-			<div class="panel-header-slot">
+			<div class="flex items-center shrink-0">
 				{@render header()}
 			</div>
 		{/if}
 		<button
-			class="panel-toggle"
+			class="flex items-center justify-center p-1.5 bg-transparent border-none text-text-muted cursor-pointer rounded-sm transition-all duration-150 ease-out shrink-0 hover:text-text-primary hover:bg-bg-hover"
 			onclick={togglePanel}
 			aria-label={open ? 'Close panel' : 'Open panel'}
 		>
@@ -63,98 +73,14 @@
 	</header>
 
 	{#if open}
-		<div class="panel-content">
+		<div class="flex-1 overflow-y-auto overflow-x-hidden p-3">
 			{@render children()}
 		</div>
 	{/if}
 
 	{#if footer && open}
-		<footer class="panel-footer">
+		<footer class="p-3 border-t border-border-subtle bg-bg-primary shrink-0">
 			{@render footer()}
 		</footer>
 	{/if}
 </aside>
-
-<style>
-	.side-panel {
-		display: flex;
-		flex-direction: column;
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-subtle);
-		height: 100%;
-		overflow: hidden;
-		transition: width 0.2s ease;
-	}
-
-	.side-panel-left {
-		border-right: 1px solid var(--border-subtle);
-		border-left: none;
-	}
-
-	.side-panel-right {
-		border-left: 1px solid var(--border-subtle);
-		border-right: none;
-	}
-
-	.panel-header {
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-		padding: 0.75rem 1rem;
-		border-bottom: 1px solid var(--border-subtle);
-		flex-shrink: 0;
-		background: var(--bg-primary);
-	}
-
-	.panel-title {
-		flex: 1;
-		font-size: 12px;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		color: var(--text-muted);
-		min-width: 0;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	.panel-header-slot {
-		display: flex;
-		align-items: center;
-		flex-shrink: 0;
-	}
-
-	.panel-toggle {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0.375rem;
-		background: transparent;
-		border: none;
-		color: var(--text-muted);
-		cursor: pointer;
-		border-radius: var(--radius-sm);
-		transition: all 0.15s ease;
-		flex-shrink: 0;
-	}
-
-	.panel-toggle:hover {
-		color: var(--text-primary);
-		background: var(--bg-hover);
-	}
-
-	.panel-content {
-		flex: 1;
-		overflow-y: auto;
-		overflow-x: hidden;
-		padding: 0.75rem;
-	}
-
-	.panel-footer {
-		padding: 0.75rem;
-		border-top: 1px solid var(--border-subtle);
-		background: var(--bg-primary);
-		flex-shrink: 0;
-	}
-</style>

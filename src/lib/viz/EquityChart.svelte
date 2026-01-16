@@ -169,11 +169,11 @@
 
 	// Trend for coloring
 	const trend = $derived(equityValues.length >= 2 ? equityValues[equityValues.length - 1] - equityValues[0] : 0);
-	const strokeColor = $derived(trend >= 0 ? 'var(--color-positive)' : 'var(--color-negative)');
+	const strokeColor = $derived(trend >= 0 ? 'var(--positive)' : 'var(--negative)');
 	const fillColor = $derived(
 		trend >= 0
-			? 'color-mix(in srgb, var(--color-positive) 16%, transparent)'
-			: 'color-mix(in srgb, var(--color-negative) 16%, transparent)'
+			? 'color-mix(in srgb, var(--positive) 16%, transparent)'
+			: 'color-mix(in srgb, var(--negative) 16%, transparent)'
 	);
 
 	// Format timestamp for display (timestamps are already normalized to milliseconds)
@@ -186,11 +186,11 @@
 	let hoveredTrade = $state<number | null>(null);
 </script>
 
-<div class="equity-chart-container {className}" bind:this={containerEl}>
-	<svg width={effectiveWidth} {height} class="equity-chart">
+<div class="relative w-full {className}" bind:this={containerEl}>
+	<svg width={effectiveWidth} {height} class="block w-full bg-bg-secondary rounded-md">
 		<!-- Drawdown area (background) -->
 		{#if showDrawdown && drawdownPath()}
-			<path d={drawdownPath()} fill="color-mix(in srgb, var(--color-negative) 10%, transparent)" />
+			<path d={drawdownPath()} fill="color-mix(in srgb, var(--negative) 10%, transparent)" />
 		{/if}
 
 		<!-- Equity fill -->
@@ -218,7 +218,7 @@
 				y1={marker.entryY}
 				x2={marker.exitX}
 				y2={marker.exitY}
-				stroke={marker.isWin ? 'var(--color-positive)' : 'var(--color-negative)'}
+				stroke={marker.isWin ? 'var(--positive)' : 'var(--negative)'}
 				stroke-width="1"
 				stroke-dasharray="2,2"
 				opacity={hoveredTrade === i ? 1 : 0.4}
@@ -226,7 +226,7 @@
 
 			<!-- Entry marker -->
 			<g
-				class="trade-marker entry"
+				class="cursor-pointer transition-transform duration-100 ease-out hover:scale-[1.3]"
 				transform="translate({marker.entryX}, {marker.entryY})"
 				role="img"
 				aria-label={`${marker.side} trade entry`}
@@ -237,7 +237,7 @@
 					<!-- Up arrow for BUY -->
 					<polygon
 						points="0,-5 4,2 -4,2"
-						fill="var(--color-positive)"
+						fill="var(--positive)"
 						stroke="var(--bg-primary)"
 						stroke-width="1"
 					/>
@@ -245,7 +245,7 @@
 					<!-- Down arrow for SELL -->
 					<polygon
 						points="0,5 4,-2 -4,-2"
-						fill="var(--color-negative)"
+						fill="var(--negative)"
 						stroke="var(--bg-primary)"
 						stroke-width="1"
 					/>
@@ -254,7 +254,7 @@
 
 			<!-- Exit marker -->
 			<g
-				class="trade-marker exit"
+				class="cursor-pointer transition-transform duration-100 ease-out hover:scale-[1.3]"
 				transform="translate({marker.exitX}, {marker.exitY})"
 				role="img"
 				aria-label={`${marker.side} trade exit`}
@@ -263,7 +263,7 @@
 			>
 				<circle
 					r="3"
-					fill={marker.isWin ? 'var(--color-positive)' : 'var(--color-negative)'}
+					fill={marker.isWin ? 'var(--positive)' : 'var(--negative)'}
 					stroke="var(--bg-primary)"
 					stroke-width="1"
 				/>
@@ -272,10 +272,19 @@
 
 		<!-- X-axis labels -->
 		{#if equityCurve.length > 0}
-			<text x={padding.left} y={height - 4} class="axis-label">
+			<text
+				x={padding.left}
+				y={height - 4}
+				class="text-[9px] font-mono fill-text-muted"
+			>
 				{formatTime(minTime)}
 			</text>
-			<text x={effectiveWidth - padding.right} y={height - 4} class="axis-label" text-anchor="end">
+			<text
+				x={effectiveWidth - padding.right}
+				y={height - 4}
+				class="text-[9px] font-mono fill-text-muted"
+				text-anchor="end"
+			>
 				{formatTime(maxTime)}
 			</text>
 		{/if}
@@ -285,14 +294,14 @@
 	{#if hoveredTrade !== null}
 		{@const trade = tradeMarkers()[hoveredTrade]}
 		<div
-			class="trade-tooltip"
+			class="absolute bg-bg-primary border border-border-default rounded-md px-2 py-1.5 text-[10px] font-mono pointer-events-none z-10 shadow-[0_2px_8px_color-mix(in_srgb,var(--bg-primary)_70%,transparent)]"
 			style="left: {Math.min(trade.exitX, effectiveWidth - 120)}px; top: {trade.exitY - 40}px;"
 		>
-			<div class="tooltip-row">
-				<span class="side" class:buy={trade.side === 'BUY'} class:sell={trade.side === 'SELL'}>
+			<div class="flex gap-2 items-center">
+				<span class="font-semibold {trade.side === 'BUY' ? 'text-positive' : 'text-negative'}">
 					{trade.side}
 				</span>
-				<span class="pnl-value">
+				<span class="font-semibold">
 					<Numeric value={trade.pnlPct} format="percent" colorBySign={true} />
 				</span>
 			</div>
@@ -300,107 +309,24 @@
 	{/if}
 
 	<!-- Legend -->
-	<div class="chart-legend">
-		<div class="legend-item">
-			<svg width="12" height="12">
-				<polygon points="6,2 10,9 2,9" fill="var(--color-positive)" />
+	<div class="flex gap-4 justify-center mt-2 text-[9px] text-text-muted">
+		<div class="flex items-center gap-1">
+			<svg width="12" height="12" class="shrink-0">
+				<polygon points="6,2 10,9 2,9" fill="var(--positive)" />
 			</svg>
 			<span>Buy Entry</span>
 		</div>
-		<div class="legend-item">
-			<svg width="12" height="12">
-				<polygon points="6,10 10,3 2,3" fill="var(--color-negative)" />
+		<div class="flex items-center gap-1">
+			<svg width="12" height="12" class="shrink-0">
+				<polygon points="6,10 10,3 2,3" fill="var(--negative)" />
 			</svg>
 			<span>Sell Entry</span>
 		</div>
-		<div class="legend-item">
-			<svg width="12" height="12">
+		<div class="flex items-center gap-1">
+			<svg width="12" height="12" class="shrink-0">
 				<circle cx="6" cy="6" r="3" fill="var(--text-muted)" />
 			</svg>
 			<span>Exit</span>
 		</div>
 	</div>
 </div>
-
-<style>
-	.equity-chart-container {
-		position: relative;
-		width: 100%;
-	}
-
-	.equity-chart {
-		display: block;
-		width: 100%;
-		background: var(--bg-secondary);
-		border-radius: 4px;
-	}
-
-	.axis-label {
-		font-size: 9px;
-		font-family: var(--font-mono);
-		fill: var(--text-muted);
-	}
-
-	.trade-marker {
-		cursor: pointer;
-		transition: transform 0.1s ease;
-	}
-
-	.trade-marker:hover {
-		transform: scale(1.3);
-	}
-
-	.trade-tooltip {
-		position: absolute;
-		background: var(--bg-primary);
-		border: 1px solid var(--border-default);
-		border-radius: 4px;
-		padding: 0.375rem 0.5rem;
-		font-size: 10px;
-		font-family: var(--font-mono);
-		pointer-events: none;
-		z-index: 10;
-		box-shadow: 0 2px 8px color-mix(in srgb, var(--bg-primary) 70%, transparent);
-	}
-
-	.tooltip-row {
-		display: flex;
-		gap: 0.5rem;
-		align-items: center;
-	}
-
-	.tooltip-row .side {
-		font-weight: 600;
-	}
-
-	.tooltip-row .side.buy {
-		color: var(--color-positive);
-	}
-
-	.tooltip-row .side.sell {
-		color: var(--color-negative);
-	}
-
-	.tooltip-row .pnl-value {
-		font-weight: 600;
-	}
-
-	.chart-legend {
-		display: flex;
-		gap: 1rem;
-		justify-content: center;
-		margin-top: 0.5rem;
-		font-size: 9px;
-		color: var(--text-muted);
-	}
-
-	.legend-item {
-		display: flex;
-		align-items: center;
-		gap: 0.25rem;
-	}
-
-	.legend-item svg {
-		flex-shrink: 0;
-	}
-</style>

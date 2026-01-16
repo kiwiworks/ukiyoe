@@ -28,6 +28,13 @@
 		/** Whether this is sensitive data - always true by default for IPs */
 		sensitive?: boolean;
 	}
+
+	const sizeClasses: Record<IpSize, string> = {
+		xs: 'text-[10px]',
+		sm: 'text-[11px]',
+		md: 'text-[13px]',
+		lg: 'text-base'
+	};
 </script>
 
 <script lang="ts">
@@ -64,49 +71,8 @@
 </script>
 
 <span
-	class="ip {className}"
-	class:ip--xs={size === 'xs'}
-	class:ip--sm={size === 'sm'}
-	class:ip--md={size === 'md'}
-	class:ip--lg={size === 'lg'}
-	class:ip--masked={isMasked}
-	class:ip--empty={!isValid}
+	class="font-mono tabular-nums text-text-primary whitespace-nowrap {sizeClasses[size]} {isMasked ? 'text-text-muted tracking-widest select-none' : ''} {!isValid ? 'text-text-muted' : ''} {className}"
 	aria-label={ariaLabel}
 >
 	{displayValue}
 </span>
-
-<style>
-	.ip {
-		font-family: var(--font-mono, monospace);
-		font-variant-numeric: tabular-nums;
-		color: var(--text-primary, inherit);
-		white-space: nowrap;
-	}
-
-	/* Sizes */
-	.ip--xs {
-		font-size: 10px;
-	}
-	.ip--sm {
-		font-size: 11px;
-	}
-	.ip--md {
-		font-size: 13px;
-	}
-	.ip--lg {
-		font-size: 16px;
-	}
-
-	/* Masked (privacy mode) */
-	.ip--masked {
-		color: var(--text-muted, #666);
-		letter-spacing: 0.1em;
-		user-select: none;
-	}
-
-	/* Empty/placeholder */
-	.ip--empty {
-		color: var(--text-muted, #666);
-	}
-</style>

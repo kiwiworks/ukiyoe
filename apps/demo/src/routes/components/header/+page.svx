@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Header, PageHeader, Text } from 'ukiyoe';
+	import { Header, PageHeader, Text, Button, Badge } from 'ukiyoe';
+	import { Hexagon, Settings, Bell } from '@lucide/svelte';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 </script>
 
@@ -11,19 +12,66 @@
 
 <div class="space-y-xl mt-lg">
 
-## Basic Usage
+## Sizes
 
-```svelte preview title="Header"
-<div class="w-full border border-border-subtle rounded-md overflow-hidden">
-	<Header title="My App" />
+```svelte preview title="Header Sizes"
+<div class="space-y-md">
+	<div class="relative h-12 border border-border-subtle rounded-md overflow-hidden">
+		<Header title="Small Header" subtitle="Compact" size="sm" fixed={false} />
+	</div>
+	<div class="relative h-14 border border-border-subtle rounded-md overflow-hidden">
+		<Header title="Medium Header" subtitle="Default" size="md" fixed={false} />
+	</div>
+	<div class="relative h-16 border border-border-subtle rounded-md overflow-hidden">
+		<Header title="Large Header" subtitle="Prominent" size="lg" fixed={false} />
+	</div>
+</div>
+```
+
+## With Icon
+
+```svelte preview title="Header with Icon"
+<div class="relative h-14 border border-border-subtle rounded-md overflow-hidden">
+	<Header title="Ukiyoe" subtitle="v0.1.0" size="lg" fixed={false}>
+		{#snippet icon()}
+			<Hexagon size={20} />
+		{/snippet}
+	</Header>
+</div>
+```
+
+## With Actions
+
+```svelte preview title="Header with Actions"
+<div class="relative h-14 border border-border-subtle rounded-md overflow-hidden">
+	<Header title="Dashboard" size="lg" fixed={false}>
+		{#snippet icon()}
+			<Hexagon size={20} />
+		{/snippet}
+		<Button size="sm" variant="ghost"><Bell size={16} /></Button>
+		<Button size="sm" variant="ghost"><Settings size={16} /></Button>
+	</Header>
+</div>
+```
+
+## Without Indicator
+
+```svelte preview title="No Indicator"
+<div class="relative h-14 border border-border-subtle rounded-md overflow-hidden">
+	<Header title="Clean Header" showIndicator={false} size="md" fixed={false}>
+		{#snippet icon()}
+			<Hexagon size={18} />
+		{/snippet}
+	</Header>
 </div>
 ```
 
 ## Usage Notes
 
 <Text variant="secondary" size="sm">
-The Header component is typically used at the top of your application layout.
-It provides consistent styling for the application title and navigation area.
+The Header component is fixed to the top of the viewport by default.
+Use the `size` prop for different prominence levels - `lg` is recommended for main app headers.
+Set `fixed={false}` for inline or embedded headers.
 </Text>
 
 </div>
@@ -31,5 +79,8 @@ It provides consistent styling for the application title and navigation area.
 <style>
 	:global(.space-y-xl > :not(:first-child)) {
 		margin-top: var(--spacing-xl);
+	}
+	:global(.space-y-md > :not(:first-child)) {
+		margin-top: var(--spacing-md);
 	}
 </style>

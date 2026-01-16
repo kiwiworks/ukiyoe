@@ -71,13 +71,13 @@
 	});
 </script>
 
-<div class="refresh-control" bind:this={dropdownRef}>
+<div class="flex items-center gap-2 text-xs" bind:this={dropdownRef}>
 	{#if lastUpdated && timeAgo}
-		<span class="last-updated">{timeAgo}</span>
+		<span class="text-text-muted tabular-nums">{timeAgo}</span>
 	{/if}
 
 	<button
-		class="refresh-btn"
+		class="flex items-center justify-center size-7 p-0 bg-bg-tertiary border border-border-subtle rounded-sm text-text-secondary cursor-pointer transition-all duration-150 hover:not-disabled:bg-bg-hover hover:not-disabled:text-text-primary hover:not-disabled:border-border-default disabled:opacity-50 disabled:cursor-not-allowed"
 		onclick={onrefresh}
 		disabled={loading}
 		title="Refresh now"
@@ -86,22 +86,23 @@
 	</button>
 
 	{#if onintervalchange}
-		<div class="interval-dropdown">
+		<div class="relative">
 			<button
-				class="interval-trigger"
+				class="flex items-center gap-1 px-2 py-1.5 bg-bg-tertiary border border-border-subtle rounded-sm text-text-secondary text-[11px] font-medium cursor-pointer transition-all duration-150 hover:bg-bg-hover hover:text-text-primary hover:border-border-default"
 				onclick={() => (dropdownOpen = !dropdownOpen)}
 				aria-expanded={dropdownOpen}
 			>
-				<span class="interval-label">{selectedLabel}</span>
-				<span class="chevron" class:open={dropdownOpen}><ChevronDown size={12} /></span>
+				<span>{selectedLabel}</span>
+				<span class="transition-transform duration-150 {dropdownOpen ? 'rotate-180' : ''}">
+					<ChevronDown size={12} />
+				</span>
 			</button>
 
 			{#if dropdownOpen}
-				<div class="interval-menu">
+				<div class="absolute top-[calc(100%+4px)] right-0 min-w-20 p-1 bg-bg-secondary border border-border-default rounded-md shadow-lg z-50">
 					{#each intervals as opt}
 						<button
-							class="interval-option"
-							class:selected={opt.value === interval}
+							class="flex items-center justify-between w-full px-2 py-1.5 bg-transparent border-none rounded-sm text-[11px] text-left cursor-pointer transition-all duration-100 {opt.value === interval ? 'text-accent-brand' : 'text-text-secondary'} hover:bg-bg-hover hover:text-text-primary"
 							onclick={() => selectInterval(opt.value)}
 						>
 							<span>{opt.label}</span>
@@ -115,114 +116,3 @@
 		</div>
 	{/if}
 </div>
-
-<style>
-	.refresh-control {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		font-size: 12px;
-	}
-
-	.last-updated {
-		color: var(--text-muted);
-		font-variant-numeric: tabular-nums;
-	}
-
-	.refresh-btn {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 28px;
-		height: 28px;
-		padding: 0;
-		background: var(--bg-tertiary);
-		border: 1px solid var(--border-subtle);
-		border-radius: var(--radius-sm);
-		color: var(--text-secondary);
-		cursor: pointer;
-		transition: all 0.15s ease;
-	}
-
-	.refresh-btn:hover:not(:disabled) {
-		background: var(--bg-hover);
-		color: var(--text-primary);
-		border-color: var(--border-default);
-	}
-
-	.refresh-btn:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	.interval-dropdown {
-		position: relative;
-	}
-
-	.interval-trigger {
-		display: flex;
-		align-items: center;
-		gap: 0.25rem;
-		padding: 0.375rem 0.5rem;
-		background: var(--bg-tertiary);
-		border: 1px solid var(--border-subtle);
-		border-radius: var(--radius-sm);
-		color: var(--text-secondary);
-		font-size: 11px;
-		font-weight: 500;
-		cursor: pointer;
-		transition: all 0.15s ease;
-	}
-
-	.interval-trigger:hover {
-		background: var(--bg-hover);
-		color: var(--text-primary);
-		border-color: var(--border-default);
-	}
-
-	.chevron {
-		transition: transform 0.15s ease;
-	}
-
-	.chevron.open {
-		transform: rotate(180deg);
-	}
-
-	.interval-menu {
-		position: absolute;
-		top: calc(100% + 4px);
-		right: 0;
-		min-width: 80px;
-		padding: 0.25rem;
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-default);
-		border-radius: var(--radius-md);
-		box-shadow: var(--shadow-lg);
-		z-index: 50;
-	}
-
-	.interval-option {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		width: 100%;
-		padding: 0.375rem 0.5rem;
-		background: transparent;
-		border: none;
-		border-radius: var(--radius-sm);
-		color: var(--text-secondary);
-		font-size: 11px;
-		text-align: left;
-		cursor: pointer;
-		transition: all 0.1s ease;
-	}
-
-	.interval-option:hover {
-		background: var(--bg-hover);
-		color: var(--text-primary);
-	}
-
-	.interval-option.selected {
-		color: var(--accent-brand);
-	}
-</style>

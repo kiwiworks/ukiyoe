@@ -187,7 +187,7 @@ export { default as ProgressRing } from './viz/ProgressRing.svelte';
 
 // Layout components
 export { default as Header } from './layout/Header.svelte';
-export type { HeaderProps } from './layout/Header.svelte';
+export type { HeaderProps, HeaderSize } from './layout/Header.svelte';
 export { default as Sidebar } from './layout/Sidebar.svelte';
 export type { SidebarProps } from './layout/Sidebar.svelte';
 export { default as Panel } from './layout/Panel.svelte';

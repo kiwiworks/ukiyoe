@@ -6,12 +6,12 @@
 
 <ThemeProvider>
 	<div class="h-screen bg-bg-primary text-text-primary flex flex-col overflow-hidden">
-		<Header title="Ukiyoe UI" subtitle="Component Library">
+		<Header title="Ukiyoe UI" subtitle="Component Library" size="lg" fixed={false}>
 			<ThemeToggle size="sm" />
 			<Badge size="xs" variant="brand" text="Beta" />
 		</Header>
 
-		<div class="flex flex-1 pt-[1.75rem] overflow-hidden">
+		<div class="flex flex-1 overflow-hidden">
 			<Nav />
 			<main class="flex-1 overflow-y-auto p-lg">
 				<div class="max-w-4xl">

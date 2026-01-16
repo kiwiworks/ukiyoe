@@ -442,41 +442,11 @@
 	});
 </script>
 
-<canvas bind:this={canvas} class="nebula-canvas"></canvas>
+<canvas bind:this={canvas} class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
 {#if showStats}
-	<div class="stats-overlay">
-		<span class="stat">{fps} FPS</span>
-		<span class="stat">{Math.round(quality.resolution * 100)}%</span>
+	<div class="absolute bottom-2 right-2 flex gap-2 font-mono text-[10px] z-10">
+		<span class="bg-bg-overlay text-positive px-1.5 py-0.5 rounded-sm">{fps} FPS</span>
+		<span class="bg-bg-overlay text-positive px-1.5 py-0.5 rounded-sm">{Math.round(quality.resolution * 100)}%</span>
 	</div>
 {/if}
-
-<style>
-	.nebula-canvas {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		pointer-events: none;
-		z-index: 0;
-	}
-
-	.stats-overlay {
-		position: absolute;
-		bottom: 8px;
-		right: 8px;
-		display: flex;
-		gap: 8px;
-		font-family: var(--font-mono);
-		font-size: 10px;
-		z-index: 10;
-	}
-
-	.stat {
-		background: var(--bg-overlay);
-		color: var(--positive);
-		padding: 2px 6px;
-		border-radius: 3px;
-	}
-</style>

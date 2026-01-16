@@ -204,16 +204,4 @@
 	});
 </script>
 
-<canvas bind:this={canvas} class="particle-flow-canvas"></canvas>
-
-<style>
-	.particle-flow-canvas {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		pointer-events: none;
-		z-index: 0;
-	}
-</style>
+<canvas bind:this={canvas} class="fixed inset-0 z-0 h-full w-full pointer-events-none"></canvas>
