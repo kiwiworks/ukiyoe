@@ -15,6 +15,37 @@
 <div class="mt-lg space-y-xxl">
 	<section>
 		<div class="flex items-center gap-md mb-md">
+			<Heading level={2} size="lg">Unreleased</Heading>
+			<Badge size="xs" variant="info" text="Next" />
+		</div>
+
+		<div class="space-y-lg">
+			<div>
+				<Heading level={3} size="md" class="text-warning mb-sm">Changed</Heading>
+				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
+					<li><strong>Header enhancements</strong>: size prop (sm/md/lg), fixed prop, showIndicator prop, icon snippet</li>
+					<li><strong>Tailwind refactoring</strong> - 18 components converted from style blocks to pure Tailwind:
+						<ul class="list-disc list-inside ml-lg mt-xs">
+							<li>Core: Breadcrumb, Ip, ListItem, RandomName, RefreshControl, SidePanel, Widget</li>
+							<li>Layout: Panel, Sidebar, StatusBar</li>
+							<li>Viz: BacktestChart, EquityChart</li>
+							<li>Effects: DelaunayBackground, GridPulseBackground, IsometricGridBackground, NebulaOverlay, ParticleFlowBackground, SupernovaBackground</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+
+			<div>
+				<Heading level={3} size="md" class="text-positive mb-sm">Added</Heading>
+				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
+					<li>Export <code>HeaderSize</code> and <code>HeaderProps</code> types</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="flex items-center gap-md mb-md">
 			<Heading level={2} size="lg">0.1.0-beta.2</Heading>
 			<Text size="sm" variant="muted">2025-01-16</Text>
 		</div>

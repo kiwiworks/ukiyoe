@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **Header component enhancements**:
+  - Add `size` prop (sm/md/lg) for different prominence levels
+  - Add `fixed` prop for positioning control (default: true)
+  - Add `showIndicator` prop to toggle brand dot
+  - Add `icon` snippet slot for custom logos
+- **Tailwind refactoring** - Converted 18 components from `<style>` blocks to pure Tailwind:
+  - Core: Breadcrumb, Ip, ListItem, RandomName, RefreshControl, SidePanel, Widget
+  - Layout: Panel, Sidebar, StatusBar
+  - Viz: BacktestChart, EquityChart
+  - Effects: DelaunayBackground, GridPulseBackground, IsometricGridBackground, NebulaOverlay, ParticleFlowBackground, SupernovaBackground
+
+### Added
+- Export `HeaderSize` and `HeaderProps` types from Header component
+
 ## [0.1.0-beta.2] - 2025-01-16
 
 ### Fixed
