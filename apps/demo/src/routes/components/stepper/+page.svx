@@ -1,0 +1,195 @@
+<script lang="ts">
+	import { Stepper, PageHeader } from 'ukiyoe';
+	import { FolderOpen, Search, FlaskConical, CheckCircle } from '@lucide/svelte';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+
+	let currentStep = $state('step2');
+</script>
+
+<svelte:head>
+	<title>Stepper - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Stepper" subtitle="Multi-step progress indicator for workflows" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Basic Stepper"
+<script>
+	import { Stepper } from 'ukiyoe';
+</script>
+
+<Stepper
+	steps={[
+		{ id: 'step1', label: 'Account' },
+		{ id: 'step2', label: 'Profile' },
+		{ id: 'step3', label: 'Review' },
+		{ id: 'step4', label: 'Complete' }
+	]}
+	currentStep="step2"
+/>
+```
+
+## With Icons
+
+```svelte preview title="Steps with Icons"
+<script>
+	import { Stepper } from 'ukiyoe';
+	import { FolderOpen, Search, FlaskConical, CheckCircle } from '@lucide/svelte';
+</script>
+
+<Stepper
+	steps={[
+		{ id: 'step1', label: 'Portfolio', icon: FolderOpen },
+		{ id: 'step2', label: 'Discovery', icon: Search },
+		{ id: 'step3', label: 'Validation', icon: FlaskConical, optional: true },
+		{ id: 'step4', label: 'Complete', icon: CheckCircle }
+	]}
+	currentStep="step2"
+/>
+```
+
+## Sizes
+
+```svelte preview title="Stepper Sizes"
+<script>
+	import { Stepper } from 'ukiyoe';
+</script>
+
+<div class="space-y-8">
+	<div>
+		<p class="text-text-muted text-xs mb-2">xs</p>
+		<Stepper
+			size="xs"
+			steps={[
+				{ id: 's1', label: 'Start' },
+				{ id: 's2', label: 'Middle' },
+				{ id: 's3', label: 'End' }
+			]}
+			currentStep="s2"
+		/>
+	</div>
+	<div>
+		<p class="text-text-muted text-xs mb-2">sm</p>
+		<Stepper
+			size="sm"
+			steps={[
+				{ id: 's1', label: 'Start' },
+				{ id: 's2', label: 'Middle' },
+				{ id: 's3', label: 'End' }
+			]}
+			currentStep="s2"
+		/>
+	</div>
+	<div>
+		<p class="text-text-muted text-xs mb-2">md (default)</p>
+		<Stepper
+			size="md"
+			steps={[
+				{ id: 's1', label: 'Start' },
+				{ id: 's2', label: 'Middle' },
+				{ id: 's3', label: 'End' }
+			]}
+			currentStep="s2"
+		/>
+	</div>
+	<div>
+		<p class="text-text-muted text-xs mb-2">lg</p>
+		<Stepper
+			size="lg"
+			steps={[
+				{ id: 's1', label: 'Start' },
+				{ id: 's2', label: 'Middle' },
+				{ id: 's3', label: 'End' }
+			]}
+			currentStep="s2"
+		/>
+	</div>
+</div>
+```
+
+## Vertical Orientation
+
+```svelte preview title="Vertical Stepper"
+<script>
+	import { Stepper } from 'ukiyoe';
+	import { User, CreditCard, Package, CheckCircle } from '@lucide/svelte';
+</script>
+
+<Stepper
+	orientation="vertical"
+	steps={[
+		{ id: 'account', label: 'Create Account', description: 'Enter your email and password', icon: User },
+		{ id: 'billing', label: 'Billing Info', description: 'Add payment method', icon: CreditCard },
+		{ id: 'shipping', label: 'Shipping', description: 'Enter delivery address', icon: Package },
+		{ id: 'confirm', label: 'Confirmation', description: 'Review and submit', icon: CheckCircle }
+	]}
+	currentStep="billing"
+/>
+```
+
+## Compact Mode
+
+```svelte preview title="Compact Stepper"
+<script>
+	import { Stepper } from 'ukiyoe';
+</script>
+
+<div class="space-y-4">
+	<Stepper
+		compact
+		steps={[
+			{ id: 's1', label: 'Step 1' },
+			{ id: 's2', label: 'Step 2' },
+			{ id: 's3', label: 'Step 3' },
+			{ id: 's4', label: 'Step 4' }
+		]}
+		currentStep="s3"
+	/>
+	<Stepper
+		compact
+		orientation="vertical"
+		steps={[
+			{ id: 's1', label: 'Step 1' },
+			{ id: 's2', label: 'Step 2' },
+			{ id: 's3', label: 'Step 3' }
+		]}
+		currentStep="s2"
+	/>
+</div>
+```
+
+## Interactive
+
+```svelte preview title="Clickable Steps"
+<script>
+	import { Stepper } from 'ukiyoe';
+
+	let step = $state('step2');
+</script>
+
+<div class="space-y-4">
+	<Stepper
+		steps={[
+			{ id: 'step1', label: 'Details' },
+			{ id: 'step2', label: 'Options' },
+			{ id: 'step3', label: 'Review' },
+			{ id: 'step4', label: 'Submit' }
+		]}
+		currentStep={step}
+		clickable
+		onStepClick={(id) => step = id}
+	/>
+	<p class="text-text-muted text-sm">Current: {step}</p>
+</div>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

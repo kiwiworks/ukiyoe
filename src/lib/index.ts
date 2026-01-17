@@ -122,8 +122,10 @@ export type { DateValue } from '@internationalized/date';
 // Navigation & Disclosure
 export { default as Tabs } from './core/Tabs.svelte';
 export { default as Accordion } from './core/Accordion.svelte';
+export { default as Stepper } from './core/Stepper.svelte';
 export type { TabItem, TabsSize, TabsProps } from './core/Tabs.svelte';
 export type { AccordionItem, AccordionProps } from './core/Accordion.svelte';
+export type { Step, StepState, StepperSize, StepperOrientation, StepperProps } from './core/Stepper.svelte';
 
 // Overlays
 export { default as Tooltip } from './core/Tooltip.svelte';

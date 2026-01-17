@@ -102,6 +102,7 @@
 				{ label: 'SidePanel', href: '/components/side-panel' },
 				{ label: 'Tabs', href: '/components/tabs' },
 				{ label: 'Accordion', href: '/components/accordion' },
+				{ label: 'Stepper', href: '/components/stepper' },
 				{ label: 'EmptyState', href: '/components/empty-state' },
 				{ label: 'Breadcrumb', href: '/components/breadcrumb' },
 				{ label: 'ListItem', href: '/components/list-item' },
