@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.0-beta.4] - 2026-01-17
+
+### Added
+- **Stepper component** for multi-step workflows:
+  - States: pending, active, completed, error
+  - Orientations: horizontal and vertical
+  - Sizes: xs, sm, md, lg
+  - Compact mode (indicators only)
+  - Clickable steps with navigation callbacks
+  - Icon support and optional step markers
+  - Description text for vertical layouts
+
 ## [0.1.0-beta.3] - 2026-01-16
 
 ### Changed
@@ -82,6 +94,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dark-first design with light mode support
 - Privacy masking context
 
+[0.1.0-beta.4]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.0-beta.3...v0.1.0-beta.4
 [0.1.0-beta.3]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.0-beta.2...v0.1.0-beta.3
 [0.1.0-beta.2]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.0-beta.1...v0.1.0-beta.2
 [0.1.0-beta.1]: https://github.com/kiwiworks/ukiyoe/compare/v0.0.1...v0.1.0-beta.1

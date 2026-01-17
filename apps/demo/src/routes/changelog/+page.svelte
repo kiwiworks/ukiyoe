@@ -8,11 +8,36 @@
 
 <PageHeader title="Changelog" subtitle="All notable changes to this project">
 	{#snippet badges()}
-		<Badge size="sm" variant="brand" text="v0.1.0-beta.3" />
+		<Badge size="sm" variant="brand" text="v0.1.0-beta.4" />
 	{/snippet}
 </PageHeader>
 
 <div class="mt-lg space-y-xxl">
+	<section>
+		<div class="flex items-center gap-md mb-md">
+			<Heading level={2} size="lg">0.1.0-beta.4</Heading>
+			<Text size="sm" variant="muted">2026-01-17</Text>
+		</div>
+
+		<div class="space-y-lg">
+			<div>
+				<Heading level={3} size="md" class="text-positive mb-sm">Added</Heading>
+				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
+					<li><strong>Stepper component</strong> for multi-step workflows:
+						<ul class="list-disc list-inside ml-lg mt-xs">
+							<li>States: pending, active, completed, error</li>
+							<li>Orientations: horizontal and vertical</li>
+							<li>Sizes: xs, sm, md, lg</li>
+							<li>Compact mode (indicators only)</li>
+							<li>Clickable steps with navigation callbacks</li>
+							<li>Icon support and optional step markers</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
 	<section>
 		<div class="flex items-center gap-md mb-md">
 			<Heading level={2} size="lg">0.1.0-beta.3</Heading>
