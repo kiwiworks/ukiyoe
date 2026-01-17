@@ -31,10 +31,10 @@
 
 	const variantClasses: Record<AlertVariant, string> = {
 		default: 'bg-bg-hover border-border-default text-text-secondary',
-		info: 'bg-color-info/10 border-color-info/30 text-color-info',
-		success: 'bg-color-positive/10 border-color-positive/30 text-color-positive',
-		warning: 'bg-color-warning/10 border-color-warning/30 text-color-warning',
-		danger: 'bg-color-negative/10 border-color-negative/30 text-color-negative'
+		info: 'bg-info/10 border-info/30 text-info',
+		success: 'bg-positive/10 border-positive/30 text-positive',
+		warning: 'bg-warning/10 border-warning/30 text-warning',
+		danger: 'bg-negative/10 border-negative/30 text-negative'
 	};
 
 	const defaultIcons: Record<AlertVariant, Component> = {

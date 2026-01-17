@@ -53,24 +53,24 @@
 </script>
 
 {#if showPagination}
-	<div class="data-table-footer {className}">
-		<div class="footer-left">
+	<div class="flex items-center justify-between px-4 py-3 border-t border-border-subtle bg-bg-primary {className}">
+		<div class="flex items-center gap-4">
 			{#if showPageSize}
-				<div class="page-size-selector">
-					<span class="page-size-label">Show</span>
+				<div class="flex items-center gap-2">
+					<span class="text-xs text-text-muted">Show</span>
 					<Select
 						value={currentPageSize}
 						options={pageSizeOptions}
 						size="sm"
 						disabled={ctx.isLoading}
 						onchange={handlePageSizeChange}
-						class="page-size-select"
+						class="w-20"
 					/>
 				</div>
 			{/if}
-			<span class="pagination-info">
+			<span class="text-[10px] text-text-muted">
 				{#if ctx.isLoading}
-					<Loader2 size={12} class="spinner" />
+					<Loader2 size={12} class="animate-spin" />
 				{:else if ctx.totalItems !== null}
 					{ctx.startItem}–{ctx.endItem} of {ctx.totalItems}
 				{:else}
@@ -78,15 +78,15 @@
 				{/if}
 			</span>
 		</div>
-		<div class="pagination-controls">
+		<div class="flex items-center gap-2">
 			<button
-				class="pagination-btn"
+				class="flex items-center justify-center w-7 h-7 bg-bg-secondary border border-border-subtle rounded-sm text-text-primary cursor-pointer transition-all duration-150 enabled:hover:bg-bg-hover enabled:hover:border-border-strong disabled:opacity-40 disabled:cursor-not-allowed"
 				disabled={!ctx.canGoPrev || ctx.isLoading}
 				onclick={handlePrev}
 			>
 				<ChevronLeft size={14} />
 			</button>
-			<span class="page-indicator">
+			<span class="text-[10px] text-text-muted min-w-[60px] text-center">
 				{#if ctx.totalPages !== null}
 					{ctx.displayPage} / {ctx.totalPages}
 				{:else}
@@ -94,7 +94,7 @@
 				{/if}
 			</span>
 			<button
-				class="pagination-btn"
+				class="flex items-center justify-center w-7 h-7 bg-bg-secondary border border-border-subtle rounded-sm text-text-primary cursor-pointer transition-all duration-150 enabled:hover:bg-bg-hover enabled:hover:border-border-strong disabled:opacity-40 disabled:cursor-not-allowed"
 				disabled={!ctx.canGoNext || ctx.isLoading}
 				onclick={handleNext}
 			>
@@ -103,86 +103,3 @@
 		</div>
 	</div>
 {/if}
-
-<style>
-	.data-table-footer {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 0.75rem 1rem;
-		border-top: 1px solid var(--border-subtle);
-		background: var(--bg-primary);
-	}
-
-	.footer-left {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-	}
-
-	.page-size-selector {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
-	.page-size-label {
-		font-size: 0.75rem;
-		color: var(--text-muted);
-	}
-
-	.page-size-selector :global(.page-size-select) {
-		width: 5rem;
-	}
-
-	.pagination-info {
-		font-size: 10px;
-		color: var(--text-muted);
-	}
-
-	.pagination-controls {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
-	.pagination-btn {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 28px;
-		height: 28px;
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-subtle);
-		border-radius: var(--radius-sm);
-		color: var(--text-primary);
-		cursor: pointer;
-		transition: all 0.15s ease;
-	}
-
-	.pagination-btn:hover:not(:disabled) {
-		background: var(--bg-hover);
-		border-color: var(--border-strong);
-	}
-
-	.pagination-btn:disabled {
-		opacity: 0.4;
-		cursor: not-allowed;
-	}
-
-	.page-indicator {
-		font-size: 10px;
-		color: var(--text-muted);
-		min-width: 60px;
-		text-align: center;
-	}
-
-	.pagination-info :global(.spinner) {
-		animation: spin 1s linear infinite;
-	}
-
-	@keyframes spin {
-		from { transform: rotate(0deg); }
-		to { transform: rotate(360deg); }
-	}
-</style>

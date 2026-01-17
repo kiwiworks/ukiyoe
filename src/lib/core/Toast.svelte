@@ -48,10 +48,10 @@
 
 	const variantClasses: Record<ToastVariant, string> = {
 		default: 'border-border-default',
-		info: 'border-color-info',
-		success: 'border-color-positive',
-		warning: 'border-color-warning',
-		danger: 'border-color-negative'
+		info: 'border-info',
+		success: 'border-positive',
+		warning: 'border-warning',
+		danger: 'border-negative'
 	};
 
 	const variantIcons: Record<ToastVariant, typeof Info> = {
@@ -64,10 +64,10 @@
 
 	const variantIconColors: Record<ToastVariant, string> = {
 		default: 'text-text-muted',
-		info: 'text-color-info',
-		success: 'text-color-positive',
-		warning: 'text-color-warning',
-		danger: 'text-color-negative'
+		info: 'text-info',
+		success: 'text-positive',
+		warning: 'text-warning',
+		danger: 'text-negative'
 	};
 
 	const Icon = $derived(variantIcons[toast.variant ?? 'default']);

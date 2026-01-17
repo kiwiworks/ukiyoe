@@ -13,18 +13,6 @@
 	let { class: className = '', children }: DataTableToolbarProps = $props();
 </script>
 
-<div class="data-table-toolbar {className}">
+<div class="flex items-center justify-between gap-4 px-4 py-3 border-b border-border-subtle bg-bg-primary {className}">
 	{@render children()}
 </div>
-
-<style>
-	.data-table-toolbar {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
-		padding: 0.75rem 1rem;
-		border-bottom: 1px solid var(--border-subtle);
-		background: var(--bg-primary);
-	}
-</style>

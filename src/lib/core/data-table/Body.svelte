@@ -11,34 +11,49 @@
 	let { class: className = '' }: DataTableBodyProps = $props();
 
 	const ctx = getDataTableContext();
+
+	const getTdClasses = (column: typeof ctx.columns[0], isLastRow: boolean) => {
+		const padding = ctx.compact ? 'px-3 py-1.5' : 'px-4 py-2.5';
+		const border = isLastRow ? '' : 'border-b border-border-subtle';
+		const align = column.align === 'center' ? 'text-center' : column.align === 'right' ? 'text-right' : '';
+		return `${padding} ${border} text-text-primary ${align}`;
+	};
+
+	const getRowClasses = (index: number) => {
+		const clickable = ctx.onRowClick ? 'cursor-pointer' : '';
+		const striped = ctx.striped && index % 2 === 0 ? 'bg-bg-primary' : '';
+		const hoverable = ctx.hoverable ? 'hover:bg-bg-hover' : '';
+		return `${clickable} ${striped} ${hoverable}`;
+	};
 </script>
 
 <tbody class={className}>
 	{#if ctx.paginatedData().length === 0}
-		<tr class="empty-row">
-			<td colspan={ctx.columns.length}>
+		<tr>
+			<td colspan={ctx.columns.length} class="p-0">
 				{#if ctx.emptySnippet}
 					{@render ctx.emptySnippet()}
 				{:else}
-					<div class="empty-state">{ctx.emptyMessage}</div>
+					<div class="flex items-center justify-center p-8 text-text-muted text-[11px]">
+						{ctx.emptyMessage}
+					</div>
 				{/if}
 			</td>
 		</tr>
 	{:else}
-		{#each ctx.paginatedData() as rowData, index (rowData[ctx.keyField])}
+		{@const dataRows = ctx.paginatedData()}
+		{#each dataRows as rowData, index (rowData[ctx.keyField])}
+			{@const isLastRow = index === dataRows.length - 1}
 			{#if ctx.rowSnippet}
 				{@render ctx.rowSnippet({ row: rowData, index })}
 			{:else}
 				<tr
-					class:clickable={!!ctx.onRowClick}
+					class={getRowClasses(index)}
 					onclick={() => ctx.onRowClick?.(rowData)}
 				>
 					{#each ctx.columns as column}
 						{@const value = ctx.getNestedValue(rowData as Record<string, unknown>, column.key)}
-						<td
-							class:text-center={column.align === 'center'}
-							class:text-right={column.align === 'right'}
-						>
+						<td class={getTdClasses(column, isLastRow)}>
 							{#if ctx.cellSnippet}
 								{@render ctx.cellSnippet({ row: rowData, column, value })}
 							{:else}
@@ -51,40 +66,3 @@
 		{/each}
 	{/if}
 </tbody>
-
-<style>
-	td {
-		padding: 0.625rem 1rem;
-		border-bottom: 1px solid var(--border-subtle);
-		color: var(--text-primary);
-	}
-
-	td.text-center {
-		text-align: center;
-	}
-
-	td.text-right {
-		text-align: right;
-	}
-
-	tr.clickable {
-		cursor: pointer;
-	}
-
-	tr:last-child td {
-		border-bottom: none;
-	}
-
-	.empty-row td {
-		padding: 0;
-	}
-
-	.empty-state {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 2rem;
-		color: var(--text-muted);
-		font-size: 11px;
-	}
-</style>

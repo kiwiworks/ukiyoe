@@ -77,7 +77,7 @@
 	{/if}
 
 	<button
-		class="flex items-center justify-center size-7 p-0 bg-bg-tertiary border border-border-subtle rounded-sm text-text-secondary cursor-pointer transition-all duration-150 hover:not-disabled:bg-bg-hover hover:not-disabled:text-text-primary hover:not-disabled:border-border-default disabled:opacity-50 disabled:cursor-not-allowed"
+		class="flex items-center justify-center size-7 p-0 bg-bg-tertiary border border-border-subtle rounded-sm text-text-secondary cursor-pointer transition-all duration-150 enabled:hover:bg-bg-hover enabled:hover:text-text-primary enabled:hover:border-border-default disabled:opacity-50 disabled:cursor-not-allowed"
 		onclick={onrefresh}
 		disabled={loading}
 		title="Refresh now"

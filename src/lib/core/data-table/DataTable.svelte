@@ -132,6 +132,10 @@
 	{header}
 	{empty}
 	{emptyMessage}
+	{compact}
+	{striped}
+	{hoverable}
+	{stickyHeader}
 	class={className}
 >
 	{#if showToolbar}
@@ -145,7 +149,7 @@
 		</Toolbar>
 	{/if}
 
-	<Table {compact} {striped} {hoverable} {stickyHeader}>
+	<Table>
 		<Header />
 		<Body />
 	</Table>

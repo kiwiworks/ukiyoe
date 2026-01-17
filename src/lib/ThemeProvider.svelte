@@ -16,15 +16,9 @@
 	});
 </script>
 
-<div class="theme-root">
+<div
+	class="bg-bg-primary text-text-primary font-mono"
+	style="min-height: calc(100vh / var(--ui-scale, 1))"
+>
 	{@render children()}
 </div>
-
-<style>
-	.theme-root {
-		min-height: calc(100vh / var(--ui-scale, 1));
-		background-color: var(--bg-primary);
-		color: var(--text-primary);
-		font-family: var(--font-mono);
-	}
-</style>

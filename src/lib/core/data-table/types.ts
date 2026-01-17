@@ -54,6 +54,12 @@ export interface DataTableContext<T = Record<string, unknown>> {
 	columns: Column<T>[];
 	keyField: string;
 
+	// Table styling
+	compact: boolean;
+	striped: boolean;
+	hoverable: boolean;
+	stickyHeader: boolean;
+
 	// Sorting state
 	sortable: boolean;
 	sortKey: string;

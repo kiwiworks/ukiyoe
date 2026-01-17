@@ -33,31 +33,14 @@
 	}
 </script>
 
-<div class="page-size-selector {className}">
-	<span class="page-size-label">{label}</span>
+<div class="flex items-center gap-2 {className}">
+	<span class="text-xs text-text-muted">{label}</span>
 	<Select
 		value={currentValue}
 		{options}
 		size="sm"
 		disabled={ctx.isLoading}
 		onchange={handleChange}
-		class="page-size-select"
+		class="w-20"
 	/>
 </div>
-
-<style>
-	.page-size-selector {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
-	.page-size-label {
-		font-size: 0.75rem;
-		color: var(--text-muted);
-	}
-
-	.page-size-selector :global(.page-size-select) {
-		width: 5rem;
-	}
-</style>

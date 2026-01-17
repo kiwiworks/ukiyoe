@@ -15,22 +15,10 @@
 	let { message = 'No data', class: className = '', children }: DataTableEmptyProps = $props();
 </script>
 
-<div class="empty-state {className}">
+<div class="flex items-center justify-center p-8 text-text-muted text-[11px] font-mono {className}">
 	{#if children}
 		{@render children()}
 	{:else}
 		{message}
 	{/if}
 </div>
-
-<style>
-	.empty-state {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 2rem;
-		color: var(--text-muted);
-		font-size: 11px;
-		font-family: var(--font-mono);
-	}
-</style>

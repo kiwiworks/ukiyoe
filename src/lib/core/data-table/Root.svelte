@@ -45,6 +45,14 @@
 		empty?: Snippet;
 		/** Empty state message */
 		emptyMessage?: string;
+		/** Compact row height */
+		compact?: boolean;
+		/** Striped rows */
+		striped?: boolean;
+		/** Hoverable rows */
+		hoverable?: boolean;
+		/** Sticky header */
+		stickyHeader?: boolean;
 		/** Additional CSS classes */
 		class?: string;
 		/** Children content */
@@ -78,6 +86,10 @@
 		header,
 		empty,
 		emptyMessage = 'No data',
+		compact = false,
+		striped = false,
+		hoverable = true,
+		stickyHeader = true,
 		class: className = '',
 		children
 	}: DataTableRootProps<T> = $props();
@@ -261,6 +273,10 @@
 		get data() { return data; },
 		get columns() { return columns; },
 		get keyField() { return keyField; },
+		get compact() { return compact; },
+		get striped() { return striped; },
+		get hoverable() { return hoverable; },
+		get stickyHeader() { return stickyHeader; },
 		get sortable() { return sortable; },
 		get sortKey() { return sortKey; },
 		get sortDir() { return sortDir; },
@@ -306,17 +322,6 @@
 	setDataTableContext(ctx as DataTableContext<Record<string, unknown>>);
 </script>
 
-<div class="data-table-root {className}">
+<div class="flex flex-col bg-bg-secondary border border-border-subtle rounded-md overflow-hidden {className}">
 	{@render children()}
 </div>
-
-<style>
-	.data-table-root {
-		display: flex;
-		flex-direction: column;
-		background: var(--bg-secondary);
-		border: 1px solid var(--border-subtle);
-		border-radius: var(--radius-md);
-		overflow: hidden;
-	}
-</style>

@@ -35,9 +35,9 @@
 
 	const variantClasses: Record<ProgressBarVariant, string> = {
 		default: 'bg-accent-brand',
-		success: 'bg-color-positive',
-		warning: 'bg-color-warning',
-		danger: 'bg-color-negative'
+		success: 'bg-positive',
+		warning: 'bg-warning',
+		danger: 'bg-negative'
 	};
 </script>
 
@@ -67,18 +67,3 @@
 		</div>
 	{/if}
 </div>
-
-<style>
-	@keyframes progress-indeterminate {
-		0% {
-			transform: translateX(-100%);
-		}
-		100% {
-			transform: translateX(400%);
-		}
-	}
-
-	:global(.animate-progress-indeterminate) {
-		animation: progress-indeterminate 1.5s ease-in-out infinite;
-	}
-</style>
