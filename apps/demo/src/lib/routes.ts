@@ -158,6 +158,7 @@ export const sections: NavSection[] = [
 		icon: Bot,
 		items: [
 			{ label: 'Message', href: '/components/message' },
+			{ label: 'Markdown', href: '/components/markdown' },
 			{ label: 'StreamingText', href: '/components/streaming-text' },
 			{ label: 'ThinkingIndicator', href: '/components/thinking-indicator' },
 			{ label: 'AgentInput', href: '/components/agent-input' },

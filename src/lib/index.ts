@@ -242,7 +242,8 @@ export {
 	StreamingText,
 	ThinkingIndicator,
 	AgentInput,
-	MessageList
+	MessageList,
+	Markdown
 } from './agentic/index';
 export type {
 	MessageRole,
@@ -255,5 +256,6 @@ export type {
 	AttachmentType,
 	Attachment,
 	AgentInputProps,
-	MessageListProps
+	MessageListProps,
+	MarkdownProps
 } from './agentic/index';

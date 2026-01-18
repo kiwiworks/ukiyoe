@@ -19,3 +19,6 @@ export type {
 
 export { default as MessageList } from './MessageList.svelte';
 export type { MessageListProps } from './MessageList.svelte';
+
+export { default as Markdown } from './Markdown.svelte';
+export type { MarkdownProps } from './Markdown.svelte';

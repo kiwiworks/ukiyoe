@@ -1,5 +1,223 @@
 <script lang="ts">
-	import { PageHeader, Text, Badge, Heading } from 'ukiyoe';
+	import { PageHeader, Text, Badge, Heading, Divider } from 'ukiyoe';
+
+	type ChangeType = 'added' | 'changed' | 'fixed' | 'deprecated' | 'removed' | 'security';
+
+	interface ChangeItem {
+		text: string;
+		subitems?: string[];
+	}
+
+	interface ChangelogEntry {
+		version: string;
+		date: string;
+		badge?: { text: string; variant: 'success' | 'brand' | 'default' };
+		description?: string;
+		changes: Partial<Record<ChangeType, ChangeItem[]>>;
+	}
+
+	const changeTypeConfig: Record<ChangeType, { label: string; color: string }> = {
+		added: { label: 'Added', color: 'text-positive' },
+		changed: { label: 'Changed', color: 'text-warning' },
+		fixed: { label: 'Fixed', color: 'text-info' },
+		deprecated: { label: 'Deprecated', color: 'text-text-muted' },
+		removed: { label: 'Removed', color: 'text-negative' },
+		security: { label: 'Security', color: 'text-negative' }
+	};
+
+	const changelog: ChangelogEntry[] = [
+		{
+			version: '0.1.2',
+			date: '2026-01-18',
+			badge: { text: 'Latest', variant: 'success' },
+			changes: {
+				added: [
+					{
+						text: 'Markdown component for rendering markdown content in chat messages',
+						subitems: [
+							'Uses HighlightedCodeBlock for code blocks with copy button and syntax highlighting',
+							'Full markdown support: headings, bold/italic, lists, links, blockquotes, tables, horizontal rules',
+							'Lexer-based rendering using Svelte components instead of HTML strings'
+						]
+					}
+				]
+			}
+		},
+		{
+			version: '0.1.1',
+			date: '2026-01-18',
+			changes: {
+				added: [
+					{ text: 'DataTable responsive columns: hideAt prop on Column definitions to hide columns below specific breakpoints (sm/md/lg/xl/2xl)' },
+					{ text: 'MetricCard brand variant: Gradient background styling for hero metrics' }
+				],
+				changed: [
+					{
+						text: 'Improved documentation discoverability for existing features',
+						subitems: [
+							'SectionCard: Added collapsible demo (feature existed but wasn\'t showcased)',
+							'Button: Dedicated loading state section with spinner examples',
+							'ListItem: Updated to clarify clickable card use case'
+						]
+					}
+				]
+			}
+		},
+		{
+			version: '0.1.0',
+			date: '2026-01-18',
+			badge: { text: 'Stable', variant: 'default' },
+			description: 'First stable release! Ukiyoe is now production-ready with 70+ components.',
+			changes: {
+				added: [
+					{ text: 'Kbd component for displaying keyboard shortcuts and key combinations' },
+					{ text: 'HighlightedCodeBlock component with optional Shiki syntax highlighting (tree-shakeable)' },
+					{ text: 'Command palette search button with keyboard shortcut hint in header' }
+				],
+				changed: [
+					{ text: 'Demo routing refactored to shared routes file for single source of truth' },
+					{ text: 'Shiki added as optional peer dependency for syntax highlighting' }
+				],
+				fixed: [
+					{ text: 'BacktestChart using incorrect Svelte 5 pattern ($derived vs $derived.by)' },
+					{ text: 'ThemeLabModal width constraints' },
+					{ text: 'Nav.svelte invalid props on SmartSelect and ListItem' }
+				]
+			}
+		},
+		{
+			version: '0.1.0-beta.5',
+			date: '2026-01-18',
+			changes: {
+				added: [
+					{ text: 'NotFound component for 404 pages with customizable navigation' },
+					{ text: 'ErrorPage component with status-specific defaults for common HTTP errors' },
+					{ text: 'cn() utility (clsx + tailwind-merge) for intelligent class merging' }
+				],
+				changed: [
+					{ text: 'All components now use cn() utility for className merging' },
+					{ text: 'Viz components (Gauge, Sparkline, ProgressRing) updated to follow codebase conventions' }
+				],
+				fixed: [
+					{ text: 'ListItem demo using incorrect API (Components instead of Snippets)' },
+					{ text: 'Stepper demo missing icon imports and state variable' },
+					{ text: 'Install page template literal parsing errors' }
+				]
+			}
+		},
+		{
+			version: '0.1.0-beta.4',
+			date: '2026-01-17',
+			changes: {
+				added: [
+					{
+						text: 'Stepper component for multi-step workflows',
+						subitems: [
+							'States: pending, active, completed, error',
+							'Orientations: horizontal and vertical',
+							'Sizes: xs, sm, md, lg',
+							'Compact mode (indicators only)',
+							'Clickable steps with navigation callbacks',
+							'Icon support and optional step markers'
+						]
+					}
+				]
+			}
+		},
+		{
+			version: '0.1.0-beta.3',
+			date: '2026-01-16',
+			changes: {
+				added: [
+					{ text: 'Export HeaderSize and HeaderProps types' }
+				],
+				changed: [
+					{ text: 'Header enhancements: size prop (sm/md/lg), fixed prop, showIndicator prop, icon snippet' },
+					{
+						text: 'Tailwind refactoring - 18 components converted from style blocks to pure Tailwind',
+						subitems: [
+							'Core: Breadcrumb, Ip, ListItem, RandomName, RefreshControl, SidePanel, Widget',
+							'Layout: Panel, Sidebar, StatusBar',
+							'Viz: BacktestChart, EquityChart',
+							'Effects: DelaunayBackground, GridPulseBackground, IsometricGridBackground, NebulaOverlay, ParticleFlowBackground, SupernovaBackground'
+						]
+					}
+				]
+			}
+		},
+		{
+			version: '0.1.0-beta.2',
+			date: '2025-01-16',
+			changes: {
+				fixed: [
+					{ text: 'ActionMenu positioning and z-index issues (migrated to bits-ui DropdownMenu with Portal)' },
+					{ text: 'SmartSelect dropdown not opening on click/focus' },
+					{ text: 'Missing \'xs\' size in Input, Textarea, and RadioGroup iconSizes' },
+					{ text: 'DataTable Svelte 5 reactivity warnings' }
+				],
+				changed: [
+					{ text: 'ActionMenu now uses bits-ui DropdownMenu for proper positioning' },
+					{ text: 'MenuItem uses DropdownMenu.Item, MenuDivider uses DropdownMenu.Separator' },
+					{ text: 'Demo pages use toast notifications instead of browser alerts' }
+				]
+			}
+		},
+		{
+			version: '0.1.0-beta.1',
+			date: '2025-01-16',
+			changes: {
+				added: [
+					{
+						text: 'Agentic components for conversational AI interfaces',
+						subitems: [
+							'Message - Role-based message bubbles (user/assistant/system)',
+							'StreamingText - Animated text reveal with cursor',
+							'ThinkingIndicator - Activity status indicator',
+							'AgentInput - Enhanced textarea with attachments',
+							'MessageList - Auto-scrolling container'
+						]
+					},
+					{ text: 'SmartSelect component with filtering, highlight matching, and scroll indicators' },
+					{ text: 'DateRangePicker component with modifier support' },
+					{ text: 'Loading state support for form components' },
+					{ text: 'Unit tests for core components' },
+					{ text: 'ARIA attributes for interactive components' },
+					{ text: 'GitHub Pages demo site' }
+				],
+				changed: [
+					{ text: 'Standardized size scale across all components (xs/sm/md/lg)' },
+					{ text: 'Standardized variant naming across feedback components' },
+					{ text: 'Aligned color token naming convention in theme system' },
+					{ text: 'Standardized z-index system with theme variables' }
+				],
+				fixed: [
+					{ text: 'SmartSelect filtering reactivity' },
+					{ text: 'Select scroll behavior with scroll indicators' },
+					{ text: 'Layout component prop type exports' }
+				]
+			}
+		},
+		{
+			version: '0.0.1',
+			date: '2025-01-04',
+			description: 'Initial release with core component library.',
+			changes: {
+				added: [
+					{ text: 'Core: Button, Input, Textarea, Select, Checkbox, Switch, RadioGroup, Slider' },
+					{ text: 'Data Display: Badge, StatusBadge, Numeric, MetricCard, DataTable' },
+					{ text: 'Typography: Text, Heading, Link, CodeBlock, Divider' },
+					{ text: 'Layout: PageHeader, Widget, Modal, SidePanel, Tabs, Accordion' },
+					{ text: 'Feedback: Alert, Toast, Tooltip, Popover, ProgressBar, Skeleton' },
+					{ text: 'Visualization: Sparkline, Gauge, ProgressRing, EquityChart' },
+					{ text: 'Effects: GridPulse, Delaunay, Isometric, ParticleFlow, Supernova backgrounds' },
+					{ text: 'Theme system with CSS variables and Tailwind v4 preset' },
+					{ text: 'Dark-first design with light mode support' }
+				]
+			}
+		}
+	];
+
+	const latestVersion = changelog[0].version;
 </script>
 
 <svelte:head>
@@ -8,280 +226,51 @@
 
 <PageHeader title="Changelog" subtitle="All notable changes to this project">
 	{#snippet badges()}
-		<Badge size="sm" variant="brand" text="v0.1.1" />
+		<Badge size="sm" variant="brand" text="v{latestVersion}" />
 	{/snippet}
 </PageHeader>
 
-<div class="mt-lg space-y-xxl">
-	<section>
-		<div class="flex items-center gap-md mb-md">
-			<Heading level={2} size="lg">0.1.1</Heading>
-			<Badge size="xs" variant="success" text="Latest" />
-			<Text size="sm" variant="muted">2026-01-18</Text>
-		</div>
-
-		<div class="space-y-lg">
-			<div>
-				<Heading level={3} size="md" class="text-positive mb-sm">Added</Heading>
-				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
-					<li><strong>DataTable responsive columns</strong>: <code>hideAt</code> prop on Column definitions to hide columns below specific breakpoints (sm/md/lg/xl/2xl)</li>
-					<li><strong>MetricCard brand variant</strong>: Gradient background styling for hero metrics</li>
-				</ul>
+<div class="mt-lg flex flex-col gap-xl">
+	{#each changelog as entry, idx}
+		<section>
+			<div class="flex items-center gap-md mb-md">
+				<Heading level={2} size="lg">{entry.version}</Heading>
+				{#if entry.badge}
+					<Badge size="xs" variant={entry.badge.variant} text={entry.badge.text} />
+				{/if}
+				<Text size="sm" variant="muted">{entry.date}</Text>
 			</div>
 
-			<div>
-				<Heading level={3} size="md" class="text-warning mb-sm">Changed</Heading>
-				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
-					<li>Improved documentation discoverability for existing features:
-						<ul class="list-disc list-inside ml-lg mt-xs">
-							<li>SectionCard: Added collapsible demo (feature existed but wasn't showcased)</li>
-							<li>Button: Dedicated loading state section with spinner examples</li>
-							<li>ListItem: Updated to clarify clickable card use case</li>
+			{#if entry.description}
+				<Text variant="secondary" class="mb-md">{entry.description}</Text>
+			{/if}
+
+			<div class="flex flex-col gap-lg">
+				{#each Object.entries(entry.changes) as [type, items]}
+					{@const config = changeTypeConfig[type as ChangeType]}
+					<div>
+						<Heading level={3} size="md" class="{config.color} mb-sm">{config.label}</Heading>
+						<ul class="list-disc list-inside text-sm text-text-secondary flex flex-col gap-xs">
+							{#each items as item}
+								<li>
+									{item.text}
+									{#if item.subitems}
+										<ul class="list-disc list-inside ml-lg mt-xs flex flex-col gap-xs">
+											{#each item.subitems as subitem}
+												<li>{subitem}</li>
+											{/each}
+										</ul>
+									{/if}
+								</li>
+							{/each}
 						</ul>
-					</li>
-				</ul>
+					</div>
+				{/each}
 			</div>
-		</div>
-	</section>
+		</section>
 
-	<section>
-		<div class="flex items-center gap-md mb-md">
-			<Heading level={2} size="lg">0.1.0</Heading>
-			<Badge size="xs" variant="default" text="Stable" />
-			<Text size="sm" variant="muted">2026-01-18</Text>
-		</div>
-
-		<Text variant="secondary" class="mb-md">First stable release! Ukiyoe is now production-ready with 70+ components.</Text>
-
-		<div class="space-y-lg">
-			<div>
-				<Heading level={3} size="md" class="text-positive mb-sm">Added</Heading>
-				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
-					<li><strong>Kbd component</strong> for displaying keyboard shortcuts and key combinations</li>
-					<li><strong>HighlightedCodeBlock component</strong> with optional Shiki syntax highlighting (tree-shakeable)</li>
-					<li>Command palette search button with keyboard shortcut hint in header</li>
-				</ul>
-			</div>
-
-			<div>
-				<Heading level={3} size="md" class="text-warning mb-sm">Changed</Heading>
-				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
-					<li>Demo routing refactored to shared routes file for single source of truth</li>
-					<li>Shiki added as optional peer dependency for syntax highlighting</li>
-				</ul>
-			</div>
-
-			<div>
-				<Heading level={3} size="md" class="text-info mb-sm">Fixed</Heading>
-				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
-					<li>BacktestChart using incorrect Svelte 5 pattern (<code>$derived</code> vs <code>$derived.by</code>)</li>
-					<li>ThemeLabModal width constraints</li>
-					<li>Nav.svelte invalid props on SmartSelect and ListItem</li>
-				</ul>
-			</div>
-		</div>
-	</section>
-
-	<section>
-		<div class="flex items-center gap-md mb-md">
-			<Heading level={2} size="lg">0.1.0-beta.5</Heading>
-			<Text size="sm" variant="muted">2026-01-18</Text>
-		</div>
-
-		<div class="space-y-lg">
-			<div>
-				<Heading level={3} size="md" class="text-positive mb-sm">Added</Heading>
-				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
-					<li><strong>NotFound component</strong> for 404 pages with customizable navigation</li>
-					<li><strong>ErrorPage component</strong> with status-specific defaults for common HTTP errors</li>
-					<li><strong><code>cn()</code> utility</strong> (clsx + tailwind-merge) for intelligent class merging</li>
-				</ul>
-			</div>
-
-			<div>
-				<Heading level={3} size="md" class="text-warning mb-sm">Changed</Heading>
-				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
-					<li>All components now use <code>cn()</code> utility for className merging</li>
-					<li>Viz components (Gauge, Sparkline, ProgressRing) updated to follow codebase conventions</li>
-				</ul>
-			</div>
-
-			<div>
-				<Heading level={3} size="md" class="text-info mb-sm">Fixed</Heading>
-				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
-					<li>ListItem demo using incorrect API (Components instead of Snippets)</li>
-					<li>Stepper demo missing icon imports and state variable</li>
-					<li>Install page template literal parsing errors</li>
-				</ul>
-			</div>
-		</div>
-	</section>
-
-	<section>
-		<div class="flex items-center gap-md mb-md">
-			<Heading level={2} size="lg">0.1.0-beta.4</Heading>
-			<Text size="sm" variant="muted">2026-01-17</Text>
-		</div>
-
-		<div class="space-y-lg">
-			<div>
-				<Heading level={3} size="md" class="text-positive mb-sm">Added</Heading>
-				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
-					<li><strong>Stepper component</strong> for multi-step workflows:
-						<ul class="list-disc list-inside ml-lg mt-xs">
-							<li>States: pending, active, completed, error</li>
-							<li>Orientations: horizontal and vertical</li>
-							<li>Sizes: xs, sm, md, lg</li>
-							<li>Compact mode (indicators only)</li>
-							<li>Clickable steps with navigation callbacks</li>
-							<li>Icon support and optional step markers</li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</section>
-
-	<section>
-		<div class="flex items-center gap-md mb-md">
-			<Heading level={2} size="lg">0.1.0-beta.3</Heading>
-			<Text size="sm" variant="muted">2026-01-16</Text>
-		</div>
-
-		<div class="space-y-lg">
-			<div>
-				<Heading level={3} size="md" class="text-warning mb-sm">Changed</Heading>
-				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
-					<li><strong>Header enhancements</strong>: size prop (sm/md/lg), fixed prop, showIndicator prop, icon snippet</li>
-					<li><strong>Tailwind refactoring</strong> - 18 components converted from style blocks to pure Tailwind:
-						<ul class="list-disc list-inside ml-lg mt-xs">
-							<li>Core: Breadcrumb, Ip, ListItem, RandomName, RefreshControl, SidePanel, Widget</li>
-							<li>Layout: Panel, Sidebar, StatusBar</li>
-							<li>Viz: BacktestChart, EquityChart</li>
-							<li>Effects: DelaunayBackground, GridPulseBackground, IsometricGridBackground, NebulaOverlay, ParticleFlowBackground, SupernovaBackground</li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-
-			<div>
-				<Heading level={3} size="md" class="text-positive mb-sm">Added</Heading>
-				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
-					<li>Export <code>HeaderSize</code> and <code>HeaderProps</code> types</li>
-				</ul>
-			</div>
-		</div>
-	</section>
-
-	<section>
-		<div class="flex items-center gap-md mb-md">
-			<Heading level={2} size="lg">0.1.0-beta.2</Heading>
-			<Text size="sm" variant="muted">2025-01-16</Text>
-		</div>
-
-		<div class="space-y-lg">
-			<div>
-				<Heading level={3} size="md" class="text-info mb-sm">Fixed</Heading>
-				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
-					<li>ActionMenu positioning and z-index issues (migrated to bits-ui DropdownMenu with Portal)</li>
-					<li>SmartSelect dropdown not opening on click/focus</li>
-					<li>Missing 'xs' size in Input, Textarea, and RadioGroup iconSizes</li>
-					<li>DataTable Svelte 5 reactivity warnings</li>
-				</ul>
-			</div>
-
-			<div>
-				<Heading level={3} size="md" class="text-warning mb-sm">Changed</Heading>
-				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
-					<li>ActionMenu now uses bits-ui DropdownMenu for proper positioning</li>
-					<li>MenuItem uses DropdownMenu.Item, MenuDivider uses DropdownMenu.Separator</li>
-					<li>Demo pages use toast notifications instead of browser alerts</li>
-				</ul>
-			</div>
-		</div>
-	</section>
-
-	<section>
-		<div class="flex items-center gap-md mb-md">
-			<Heading level={2} size="lg">0.1.0-beta.1</Heading>
-			<Text size="sm" variant="muted">2025-01-16</Text>
-		</div>
-
-		<div class="space-y-lg">
-			<div>
-				<Heading level={3} size="md" class="text-positive mb-sm">Added</Heading>
-				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
-					<li><strong>Agentic components</strong> for conversational AI interfaces:
-						<ul class="list-disc list-inside ml-lg mt-xs">
-							<li><code>Message</code> - Role-based message bubbles (user/assistant/system)</li>
-							<li><code>StreamingText</code> - Animated text reveal with cursor</li>
-							<li><code>ThinkingIndicator</code> - Activity status indicator</li>
-							<li><code>AgentInput</code> - Enhanced textarea with attachments</li>
-							<li><code>MessageList</code> - Auto-scrolling container</li>
-						</ul>
-					</li>
-					<li><code>SmartSelect</code> component with filtering, highlight matching, and scroll indicators</li>
-					<li><code>DateRangePicker</code> component with modifier support</li>
-					<li>Loading state support for form components</li>
-					<li>Unit tests for core components</li>
-					<li>ARIA attributes for interactive components</li>
-					<li>GitHub Pages demo site</li>
-				</ul>
-			</div>
-
-			<div>
-				<Heading level={3} size="md" class="text-warning mb-sm">Changed</Heading>
-				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
-					<li>Standardized size scale across all components (xs/sm/md/lg)</li>
-					<li>Standardized variant naming across feedback components</li>
-					<li>Aligned color token naming convention in theme system</li>
-					<li>Standardized z-index system with theme variables</li>
-				</ul>
-			</div>
-
-			<div>
-				<Heading level={3} size="md" class="text-info mb-sm">Fixed</Heading>
-				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
-					<li>SmartSelect filtering reactivity</li>
-					<li>Select scroll behavior with scroll indicators</li>
-					<li>Layout component prop type exports</li>
-				</ul>
-			</div>
-		</div>
-	</section>
-
-	<section>
-		<div class="flex items-center gap-md mb-md">
-			<Heading level={2} size="lg">0.0.1</Heading>
-			<Text size="sm" variant="muted">2025-01-04</Text>
-		</div>
-
-		<div>
-			<Heading level={3} size="md" class="text-positive mb-sm">Added</Heading>
-			<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
-				<li>Initial release with core component library</li>
-				<li><strong>Core</strong>: Button, Input, Textarea, Select, Checkbox, Switch, RadioGroup, Slider</li>
-				<li><strong>Data Display</strong>: Badge, StatusBadge, Numeric, MetricCard, DataTable</li>
-				<li><strong>Typography</strong>: Text, Heading, Link, CodeBlock, Divider</li>
-				<li><strong>Layout</strong>: PageHeader, Widget, Modal, SidePanel, Tabs, Accordion</li>
-				<li><strong>Feedback</strong>: Alert, Toast, Tooltip, Popover, ProgressBar, Skeleton</li>
-				<li><strong>Visualization</strong>: Sparkline, Gauge, ProgressRing, EquityChart</li>
-				<li><strong>Effects</strong>: GridPulse, Delaunay, Isometric, ParticleFlow, Supernova backgrounds</li>
-				<li>Theme system with CSS variables and Tailwind v4 preset</li>
-				<li>Dark-first design with light mode support</li>
-			</ul>
-		</div>
-	</section>
+		{#if idx < changelog.length - 1}
+			<Divider />
+		{/if}
+	{/each}
 </div>
-
-<style>
-	.space-y-xxl > :not(:first-child) {
-		margin-top: var(--spacing-xxl);
-	}
-	.space-y-lg > :not(:first-child) {
-		margin-top: var(--spacing-lg);
-	}
-	.space-y-xs > :not(:first-child) {
-		margin-top: var(--spacing-xs);
-	}
-</style>

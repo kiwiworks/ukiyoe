@@ -1,6 +1,6 @@
 {
 	"name": "ukiyoe",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Svelte 5 component library with dark-first design",
 	"type": "module",
 	"svelte": "./dist/index.js",
@@ -84,6 +84,7 @@
 	},
 	"dependencies": {
 		"clsx": "^2.1.1",
+		"marked": "^15.0.0",
 		"tailwind-merge": "^3.4.0"
 	}
 }

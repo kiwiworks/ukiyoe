@@ -1,0 +1,169 @@
+<script lang="ts">
+	import { Markdown, Message, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'content', type: 'string', default: '-', description: 'Markdown content to render' },
+		{ name: 'showLineNumbers', type: 'boolean', default: 'false', description: 'Show line numbers in code blocks' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
+
+	const basicMarkdown = `# Hello World
+
+This is a **bold** statement with *italic* text.
+
+- Item one
+- Item two
+- Item three`;
+
+	const codeMarkdown = `Here's a function:
+
+\`\`\`typescript
+function greet(name: string): string {
+  return \`Hello, \${name}!\`;
+}
+\`\`\`
+
+And some inline \`code\` too.`;
+
+	const richMarkdown = `## Features
+
+> Blockquotes are great for highlighting important information.
+
+### Links and Lists
+
+Check out [Svelte](https://svelte.dev) for more info.
+
+1. First ordered item
+2. Second ordered item
+3. Third ordered item
+
+---
+
+### Tables
+
+| Feature | Status |
+|---------|--------|
+| Markdown | Done |
+| Highlighting | Done |
+| Tables | Done |`;
+</script>
+
+<svelte:head>
+	<title>Markdown - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Markdown" subtitle="Render markdown content with syntax highlighting" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+Render markdown content as HTML with full styling support.
+
+```svelte preview title="Basic Markdown"
+<Markdown content={`# Hello World
+
+This is a **bold** statement with *italic* text.
+
+- Item one
+- Item two
+- Item three`} />
+```
+
+## Code Blocks
+
+Code blocks are syntax highlighted using Shiki (optional peer dependency).
+
+```svelte preview title="Code Highlighting"
+<Markdown content={`Here's a TypeScript function:
+
+\`\`\`typescript
+function greet(name: string): string {
+  return \\\`Hello, \\\${name}!\\\`;
+}
+
+const message = greet('World');
+console.log(message);
+\`\`\`
+
+And some inline \\\`code\\\` as well.`} />
+```
+
+## Rich Content
+
+Support for blockquotes, tables, horizontal rules, and more.
+
+```svelte preview title="Rich Content"
+<Markdown content={`> Blockquotes are great for highlighting important information.
+
+### Links and Lists
+
+Check out [Svelte](https://svelte.dev) for more info.
+
+1. First ordered item
+2. Second ordered item
+3. Third ordered item
+
+---
+
+| Feature | Status |
+|---------|--------|
+| Markdown | Done |
+| Highlighting | Done |
+| Tables | Done |`} />
+```
+
+## In Chat Messages
+
+Perfect for rendering AI assistant responses.
+
+```svelte preview title="Chat Integration"
+<Message role="assistant" status="complete">
+	<Markdown content={`I can help you with that! Here's an example:
+
+\`\`\`python
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+\`\`\`
+
+This recursive function calculates the **nth Fibonacci number**.`} />
+</Message>
+```
+
+## With Line Numbers
+
+Enable line numbers in code blocks.
+
+```svelte preview title="Line Numbers"
+<Markdown
+	showLineNumbers={true}
+	content={`Code with line numbers:
+
+\`\`\`typescript
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+function getUser(id: string): User {
+  return { id, name: 'John', email: 'john@example.com' };
+}
+\`\`\`
+`}
+/>
+```
+
+<PropsTable props={propDefs} />
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>
