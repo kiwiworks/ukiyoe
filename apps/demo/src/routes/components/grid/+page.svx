@@ -1,0 +1,97 @@
+<script lang="ts">
+	import { Grid, Widget, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Grid - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Grid" subtitle="CSS Grid layout component with responsive columns" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Grid
+
+```svelte preview title="2 Column Grid"
+<Grid cols={2} gap="md">
+	<Widget title="Widget 1">Content</Widget>
+	<Widget title="Widget 2">Content</Widget>
+	<Widget title="Widget 3">Content</Widget>
+	<Widget title="Widget 4">Content</Widget>
+</Grid>
+```
+
+## Multiple Columns
+
+```svelte preview title="3 Column Grid"
+<Grid cols={3} gap="md">
+	{#each Array(6) as _, i}
+		<div class="p-md bg-bg-secondary rounded text-center">Item {i + 1}</div>
+	{/each}
+</Grid>
+```
+
+## Responsive Columns
+
+```svelte preview title="Responsive Grid"
+<Grid cols={1} colsMd={2} colsLg={3} gap="md">
+	{#each Array(6) as _, i}
+		<div class="p-md bg-bg-secondary rounded text-center">
+			<span class="text-sm text-text-muted">Responsive Item</span>
+			<p class="text-lg font-bold">{i + 1}</p>
+		</div>
+	{/each}
+</Grid>
+```
+
+## Auto-fit Grid
+
+```svelte preview title="Auto-fit Columns"
+<Grid cols="auto" gap="md">
+	{#each Array(8) as _, i}
+		<div class="p-md bg-bg-secondary rounded text-center min-w-[150px]">Item {i + 1}</div>
+	{/each}
+</Grid>
+```
+
+## Gap Sizes
+
+```svelte preview title="Different Gap Sizes"
+<div class="space-y-lg">
+	<div>
+		<p class="text-xs text-text-muted mb-sm">gap="sm"</p>
+		<Grid cols={4} gap="sm">
+			{#each Array(4) as _, i}
+				<div class="p-sm bg-accent-brand/20 rounded text-center text-sm">{i + 1}</div>
+			{/each}
+		</Grid>
+	</div>
+	<div>
+		<p class="text-xs text-text-muted mb-sm">gap="lg"</p>
+		<Grid cols={4} gap="lg">
+			{#each Array(4) as _, i}
+				<div class="p-sm bg-accent-brand/20 rounded text-center text-sm">{i + 1}</div>
+			{/each}
+		</Grid>
+	</div>
+</div>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `cols` | `1-6 \| 12 \| 'auto'` | `1` | Number of columns |
+| `colsSm` | `1-6 \| 12 \| 'auto'` | - | Columns on small screens |
+| `colsMd` | `1-6 \| 12 \| 'auto'` | - | Columns on medium screens |
+| `colsLg` | `1-6 \| 12 \| 'auto'` | - | Columns on large screens |
+| `gap` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Gap between items |
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

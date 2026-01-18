@@ -1,0 +1,119 @@
+<script lang="ts">
+	import { CommandPalette, Button, PageHeader, type CommandItem } from 'ukiyoe';
+	import { Home, Settings, User, Search, FileText } from '@lucide/svelte';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+
+	let open1 = $state(false);
+	let open2 = $state(false);
+	let open3 = $state(false);
+	let selectedItem = $state<string | null>(null);
+
+	const basicItems: CommandItem[] = [
+		{ id: '1', label: 'Home', icon: Home, onSelect: () => selectedItem = 'Home' },
+		{ id: '2', label: 'Settings', icon: Settings, onSelect: () => selectedItem = 'Settings' },
+		{ id: '3', label: 'Profile', icon: User, onSelect: () => selectedItem = 'Profile' }
+	];
+
+	const groupedItems: CommandItem[] = [
+		{ id: '1', label: 'Dashboard', group: 'Navigation', icon: Home },
+		{ id: '2', label: 'Settings', group: 'Navigation', icon: Settings },
+		{ id: '3', label: 'Account', group: 'User', icon: User },
+		{ id: '4', label: 'Preferences', group: 'User', icon: Settings },
+		{ id: '5', label: 'Documentation', group: 'Help', icon: FileText },
+		{ id: '6', label: 'Search Docs', group: 'Help', icon: Search }
+	];
+
+	const shortcutItems: CommandItem[] = [
+		{ id: '1', label: 'New File', shortcut: '⌘N', icon: FileText },
+		{ id: '2', label: 'Open Settings', shortcut: '⌘,', icon: Settings },
+		{ id: '3', label: 'Search', shortcut: '⌘F', icon: Search },
+		{ id: '4', label: 'Go to Home', shortcut: '⌘H', icon: Home }
+	];
+</script>
+
+<svelte:head>
+	<title>CommandPalette - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="CommandPalette" subtitle="Keyboard-navigable command menu with fuzzy search" />
+
+<div class="space-y-xl mt-lg">
+
+## Keyboard Shortcut
+
+The CommandPalette can be opened globally with <kbd>⌘K</kbd> (Mac) or <kbd>Ctrl+K</kbd> (Windows/Linux).
+
+Try pressing it now to see the palette integrated into this documentation site!
+
+## Basic Usage
+
+```svelte preview title="Simple Command Palette"
+<Button onclick={() => open1 = true}>Open Command Palette</Button>
+{#if selectedItem}
+	<p class="mt-md text-sm text-text-muted">Selected: {selectedItem}</p>
+{/if}
+<CommandPalette
+	bind:open={open1}
+	items={basicItems}
+	placeholder="Search commands..."
+/>
+```
+
+## Grouped Items
+
+```svelte preview title="With Groups"
+<Button onclick={() => open2 = true}>Open Grouped Palette</Button>
+<CommandPalette
+	bind:open={open2}
+	items={groupedItems}
+	placeholder="Search..."
+/>
+```
+
+## With Keyboard Shortcuts
+
+```svelte preview title="Showing Shortcuts"
+<Button onclick={() => open3 = true}>Open Palette with Shortcuts</Button>
+<CommandPalette
+	bind:open={open3}
+	items={shortcutItems}
+	placeholder="Type a command..."
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | `false` | Whether the palette is open |
+| `items` | `CommandItem[]` | `[]` | List of command items |
+| `groups` | `CommandGroup[]` | `[]` | Pre-grouped items |
+| `placeholder` | `string` | `'Type a command...'` | Search input placeholder |
+| `emptyMessage` | `string` | `'No results found.'` | Message when no matches |
+| `onSelect` | `(item) => void` | - | Callback when item selected |
+| `onClose` | `() => void` | - | Callback when closed |
+
+## CommandItem Interface
+
+```typescript
+interface CommandItem {
+  id: string;
+  label: string;
+  description?: string;
+  icon?: Component;
+  shortcut?: string;
+  group?: string;
+  keywords?: string[];
+  disabled?: boolean;
+  onSelect?: () => void;
+  href?: string;
+}
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

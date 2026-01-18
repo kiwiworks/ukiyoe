@@ -1,22 +1,26 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { base } from '$app/paths';
-	import { ListItem, Sidebar, Heading, Text, Link } from 'ukiyoe';
+	import { goto } from '$app/navigation';
+	import { ListItem, Sidebar, Heading, Text, Link, SmartSelect, type SmartSelectOption } from 'ukiyoe';
 	import {
 		Home,
 		Download,
+		History,
 		MousePointer2,
 		FormInput,
 		LayoutGrid,
+		Type,
+		Box as BoxIcon,
+		Navigation,
 		Layers,
 		MessageSquare,
+		Wrench,
+		Bot,
 		BarChart3,
 		Sparkles,
 		Palette,
-		Type,
-		Box,
-		Bot,
-		History
+		Search
 	} from '@lucide/svelte';
 	import type { Component } from 'svelte';
 
@@ -34,7 +38,7 @@
 
 	const sections: NavSection[] = [
 		{
-			title: 'Start',
+			title: 'Getting Started',
 			items: [
 				{ label: 'Introduction', href: '/', icon: Home },
 				{ label: 'Installation', href: '/docs/install', icon: Download },
@@ -42,7 +46,7 @@
 			]
 		},
 		{
-			title: 'Buttons',
+			title: 'Actions',
 			icon: MousePointer2,
 			items: [
 				{ label: 'Button', href: '/components/button' },
@@ -51,32 +55,32 @@
 			]
 		},
 		{
-			title: 'Inputs',
+			title: 'Forms',
 			icon: FormInput,
 			items: [
 				{ label: 'Input', href: '/components/input' },
 				{ label: 'Textarea', href: '/components/textarea' },
 				{ label: 'Select', href: '/components/select' },
-			{ label: 'SmartSelect', href: '/components/smart-select' },
-				{ label: 'DateRangePicker', href: '/components/date-range-picker' },
+				{ label: 'SmartSelect', href: '/components/smart-select' },
 				{ label: 'Checkbox', href: '/components/checkbox' },
 				{ label: 'Switch', href: '/components/switch' },
 				{ label: 'RadioGroup', href: '/components/radio-group' },
 				{ label: 'Slider', href: '/components/slider' },
-				{ label: 'FormField', href: '/components/form-field' }
+				{ label: 'FormField', href: '/components/form-field' },
+				{ label: 'DateRangePicker', href: '/components/date-range-picker' }
 			]
 		},
 		{
-			title: 'Data Display',
+			title: 'Data',
 			icon: LayoutGrid,
 			items: [
 				{ label: 'Badge', href: '/components/badge' },
 				{ label: 'StatusBadge', href: '/components/status-badge' },
 				{ label: 'Numeric', href: '/components/numeric' },
 				{ label: 'Ip', href: '/components/ip' },
-				{ label: 'MetricCard', href: '/components/metric-card' },
 				{ label: 'DataTable', href: '/components/data-table' },
-				{ label: 'StatsGrid', href: '/components/stats-grid' }
+				{ label: 'StatsGrid', href: '/components/stats-grid' },
+				{ label: 'MetricCard', href: '/components/metric-card' }
 			]
 		},
 		{
@@ -91,24 +95,40 @@
 			]
 		},
 		{
-			title: 'Layout',
-			icon: Layers,
+			title: 'Containers',
+			icon: BoxIcon,
 			items: [
-				{ label: 'PageHeader', href: '/components/page-header' },
 				{ label: 'Widget', href: '/components/widget' },
 				{ label: 'SectionCard', href: '/components/section-card' },
 				{ label: 'Panel', href: '/components/panel' },
-				{ label: 'Modal', href: '/components/modal' },
-				{ label: 'SidePanel', href: '/components/side-panel' },
+				{ label: 'PageHeader', href: '/components/page-header' },
+				{ label: 'Stack', href: '/components/stack' },
+				{ label: 'Grid', href: '/components/grid' }
+			]
+		},
+		{
+			title: 'Navigation',
+			icon: Navigation,
+			items: [
 				{ label: 'Tabs', href: '/components/tabs' },
 				{ label: 'Accordion', href: '/components/accordion' },
 				{ label: 'Stepper', href: '/components/stepper' },
-				{ label: 'EmptyState', href: '/components/empty-state' },
 				{ label: 'Breadcrumb', href: '/components/breadcrumb' },
 				{ label: 'ListItem', href: '/components/list-item' },
-				{ label: 'Header', href: '/components/header' },
 				{ label: 'Sidebar', href: '/components/sidebar' },
+				{ label: 'Header', href: '/components/header' },
 				{ label: 'StatusBar', href: '/components/status-bar' }
+			]
+		},
+		{
+			title: 'Overlays',
+			icon: Layers,
+			items: [
+				{ label: 'Modal', href: '/components/modal' },
+				{ label: 'SidePanel', href: '/components/side-panel' },
+				{ label: 'CommandPalette', href: '/components/command-palette' },
+				{ label: 'Tooltip', href: '/components/tooltip' },
+				{ label: 'Popover', href: '/components/popover' }
 			]
 		},
 		{
@@ -117,10 +137,17 @@
 			items: [
 				{ label: 'Alert', href: '/components/alert' },
 				{ label: 'Toast', href: '/components/toast' },
-				{ label: 'Tooltip', href: '/components/tooltip' },
-				{ label: 'Popover', href: '/components/popover' },
 				{ label: 'ProgressBar', href: '/components/progress-bar' },
 				{ label: 'Skeleton', href: '/components/skeleton' },
+				{ label: 'EmptyState', href: '/components/empty-state' },
+				{ label: 'NotFound', href: '/components/not-found' },
+				{ label: 'ErrorPage', href: '/components/error-page' }
+			]
+		},
+		{
+			title: 'Utilities',
+			icon: Wrench,
+			items: [
 				{ label: 'PrivacyToggle', href: '/components/privacy-toggle' },
 				{ label: 'RefreshControl', href: '/components/refresh-control' },
 				{ label: 'MandelbrotAvatar', href: '/components/mandelbrot-avatar' },
@@ -140,7 +167,7 @@
 			]
 		},
 		{
-			title: 'Visualization',
+			title: 'Charts',
 			icon: BarChart3,
 			items: [
 				{ label: 'Sparkline', href: '/components/sparkline' },
@@ -169,10 +196,57 @@
 	];
 
 	let collapsed = $state(false);
+	let searchValue = $state('');
+	let navContainer: HTMLDivElement | undefined = $state();
+
+	// Generate SmartSelect options from sections
+	const searchOptions: SmartSelectOption[] = $derived(
+		sections.flatMap((section) =>
+			section.items.map((item) => ({
+				value: item.href,
+				label: item.label,
+				group: section.title
+			}))
+		)
+	);
+
+	function handleSearchSelect(value: string) {
+		if (value) {
+			const fullHref = value === '/' ? (base || '/') : base + value;
+			goto(fullHref);
+			searchValue = '';
+		}
+	}
+
+	// Auto-scroll to active item on mount and route change
+	$effect(() => {
+		const currentPath = $page.url.pathname;
+		requestAnimationFrame(() => {
+			const activeItem = navContainer?.querySelector('[data-active="true"]');
+			activeItem?.scrollIntoView({ block: 'center', behavior: 'instant' });
+		});
+	});
 </script>
 
 <Sidebar width={220} bind:collapsed>
-	<div class="flex flex-col py-sm">
+	<div bind:this={navContainer} class="flex flex-col py-sm">
+		<!-- Quick Search -->
+		{#if !collapsed}
+			<div class="px-sm mb-md">
+				<SmartSelect
+					options={searchOptions}
+					value={searchValue}
+					placeholder="Search..."
+					size="sm"
+					onchange={handleSearchSelect}
+				>
+					{#snippet prefix()}
+						<Search size={14} class="text-text-muted" />
+					{/snippet}
+				</SmartSelect>
+			</div>
+		{/if}
+
 		{#each sections as section}
 			<div class="mb-md">
 				{#if !collapsed}
@@ -185,12 +259,12 @@
 					{@const active = $page.url.pathname === fullHref}
 					{@const Icon = item.icon ?? section.icon}
 					<Link href={fullHref} class="block px-sm">
-						<ListItem interactive selected={active}>
+						<ListItem interactive selected={active} data-active={active}>
 							{#snippet icon()}
 								{#if Icon}
 									<Icon size={14} class={active ? 'text-accent-brand' : 'text-text-muted'} />
 								{:else}
-									<Box size={14} class={active ? 'text-accent-brand' : 'text-text-muted'} />
+									<BoxIcon size={14} class={active ? 'text-accent-brand' : 'text-text-muted'} />
 								{/if}
 							{/snippet}
 							{#if !collapsed}

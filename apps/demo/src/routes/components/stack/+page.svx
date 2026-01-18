@@ -1,0 +1,110 @@
+<script lang="ts">
+	import { Stack, Button, Badge, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Stack - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Stack" subtitle="Flexible vertical and horizontal layout component" />
+
+<div class="space-y-xl mt-lg">
+
+## Vertical Stack (Default)
+
+```svelte preview title="Vertical Stack"
+<Stack gap="md">
+	<Button>First</Button>
+	<Button>Second</Button>
+	<Button>Third</Button>
+</Stack>
+```
+
+## Horizontal Stack
+
+```svelte preview title="Horizontal Stack"
+<Stack direction="horizontal" gap="md">
+	<Button>First</Button>
+	<Button>Second</Button>
+	<Button>Third</Button>
+</Stack>
+```
+
+## Gap Sizes
+
+```svelte preview title="Different Gap Sizes"
+<Stack direction="horizontal" gap="lg" align="start">
+	<Stack gap="xs">
+		<span class="text-xs text-text-muted">xs</span>
+		<Badge>A</Badge>
+		<Badge>B</Badge>
+		<Badge>C</Badge>
+	</Stack>
+	<Stack gap="sm">
+		<span class="text-xs text-text-muted">sm</span>
+		<Badge>A</Badge>
+		<Badge>B</Badge>
+		<Badge>C</Badge>
+	</Stack>
+	<Stack gap="md">
+		<span class="text-xs text-text-muted">md</span>
+		<Badge>A</Badge>
+		<Badge>B</Badge>
+		<Badge>C</Badge>
+	</Stack>
+	<Stack gap="lg">
+		<span class="text-xs text-text-muted">lg</span>
+		<Badge>A</Badge>
+		<Badge>B</Badge>
+		<Badge>C</Badge>
+	</Stack>
+</Stack>
+```
+
+## Alignment
+
+```svelte preview title="Horizontal Alignment"
+<Stack direction="horizontal" gap="md" justify="between" class="w-full p-md bg-bg-secondary rounded">
+	<Button size="sm">Left</Button>
+	<Button size="sm">Center</Button>
+	<Button size="sm">Right</Button>
+</Stack>
+```
+
+```svelte preview title="Vertical Alignment in Horizontal Stack"
+<Stack direction="horizontal" gap="md" align="center" class="h-24 p-md bg-bg-secondary rounded">
+	<div class="h-8 w-16 bg-accent-brand rounded"></div>
+	<div class="h-12 w-16 bg-accent-brand rounded"></div>
+	<div class="h-6 w-16 bg-accent-brand rounded"></div>
+</Stack>
+```
+
+## Wrapping
+
+```svelte preview title="Wrapping Items"
+<Stack direction="horizontal" gap="sm" wrap class="w-64">
+	{#each Array(10) as _, i}
+		<Badge>Item {i + 1}</Badge>
+	{/each}
+</Stack>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `direction` | `'vertical' \| 'horizontal'` | `'vertical'` | Stack direction |
+| `gap` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Gap between items |
+| `align` | `'start' \| 'center' \| 'end' \| 'stretch' \| 'baseline'` | `'stretch'` | Cross-axis alignment |
+| `justify` | `'start' \| 'center' \| 'end' \| 'between' \| 'around' \| 'evenly'` | `'start'` | Main-axis alignment |
+| `wrap` | `boolean` | `false` | Wrap items |
+| `inline` | `boolean` | `false` | Render as inline-flex |
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

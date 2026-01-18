@@ -106,6 +106,8 @@ export { default as SidePanel } from './core/SidePanel.svelte';
 export type { SidePanelPosition, SidePanelProps } from './core/SidePanel.svelte';
 export { default as RefreshControl, DEFAULT_INTERVALS } from './core/RefreshControl.svelte';
 export type { RefreshInterval } from './core/RefreshControl.svelte';
+export { default as CommandPalette } from './core/CommandPalette.svelte';
+export type { CommandItem, CommandGroup, CommandPaletteProps } from './core/CommandPalette.svelte';
 
 // Form controls
 export { default as Checkbox } from './core/Checkbox.svelte';
@@ -206,6 +208,14 @@ export { default as Panel } from './layout/Panel.svelte';
 export type { PanelProps } from './layout/Panel.svelte';
 export { default as StatusBar } from './layout/StatusBar.svelte';
 export type { StatusBarProps } from './layout/StatusBar.svelte';
+export { default as PageContainer } from './layout/PageContainer.svelte';
+export type { PageContainerSize, PageContainerProps } from './layout/PageContainer.svelte';
+export { default as PageSection } from './layout/PageSection.svelte';
+export type { PageSectionSpacing, PageSectionProps } from './layout/PageSection.svelte';
+export { default as Stack } from './layout/Stack.svelte';
+export type { StackDirection, StackGap, StackAlign, StackJustify, StackProps } from './layout/Stack.svelte';
+export { default as Grid } from './layout/Grid.svelte';
+export type { GridColumns, GridGap, GridProps } from './layout/Grid.svelte';
 
 // Effects
 export { default as DelaunayBackground } from './effects/DelaunayBackground.svelte';

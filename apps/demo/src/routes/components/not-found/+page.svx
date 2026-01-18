@@ -1,0 +1,73 @@
+<script lang="ts">
+	import { NotFound, PageHeader, Button } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>NotFound - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="NotFound" subtitle="404 page component with customizable navigation" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Default 404 Page"
+<NotFound class="min-h-[400px]" />
+```
+
+## Custom Content
+
+```svelte preview title="Custom Title and Description"
+<NotFound
+	title="Oops! Page missing"
+	description="We couldn't find what you're looking for. It may have been moved or deleted."
+	class="min-h-[400px]"
+/>
+```
+
+## Navigation Options
+
+```svelte preview title="Custom Navigation"
+<NotFound
+	homeText="Back to Dashboard"
+	homeHref="/dashboard"
+	backText="Previous Page"
+	class="min-h-[400px]"
+/>
+```
+
+## Hide Buttons
+
+```svelte preview title="Home Only"
+<NotFound
+	showBack={false}
+	class="min-h-[400px]"
+/>
+```
+
+## Custom Actions
+
+```svelte preview title="Custom Actions Slot"
+<NotFound
+	title="Page not found"
+	description="The requested page doesn't exist"
+	showHome={false}
+	showBack={false}
+	class="min-h-[400px]"
+>
+	<div class="flex gap-sm">
+		<Button variant="outline" size="sm">Contact Support</Button>
+		<Button variant="primary" size="sm">Go to Homepage</Button>
+	</div>
+</NotFound>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

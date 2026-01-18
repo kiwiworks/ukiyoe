@@ -1,0 +1,100 @@
+<script lang="ts">
+	import { ErrorPage, PageHeader, Button } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+
+	let retryCount = $state(0);
+</script>
+
+<svelte:head>
+	<title>ErrorPage - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="ErrorPage" subtitle="Error page component with status-specific defaults" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Default 500 Error"
+<ErrorPage class="min-h-[400px]" />
+```
+
+## Common HTTP Errors
+
+```svelte preview title="400 Bad Request"
+<ErrorPage status={400} class="min-h-[400px]" />
+```
+
+```svelte preview title="401 Unauthorized"
+<ErrorPage status={401} class="min-h-[400px]" />
+```
+
+```svelte preview title="403 Forbidden"
+<ErrorPage status={403} class="min-h-[400px]" />
+```
+
+```svelte preview title="503 Service Unavailable"
+<ErrorPage status={503} class="min-h-[400px]" />
+```
+
+## Custom Messages
+
+```svelte preview title="Custom Error Message"
+<ErrorPage
+	status={500}
+	title="Database Connection Failed"
+	message="Unable to connect to the database. Our team has been notified and is working on it."
+	class="min-h-[400px]"
+/>
+```
+
+## With Retry Button
+
+```svelte preview title="Retry Action"
+<ErrorPage
+	status={500}
+	showRetry
+	onRetry={() => retryCount++}
+	message={retryCount > 0 ? `Retried ${retryCount} time(s)` : 'Something went wrong on our end.'}
+	class="min-h-[400px]"
+/>
+```
+
+## With Stack Trace
+
+```svelte preview title="Development Error with Stack"
+<ErrorPage
+	status={500}
+	title="Unhandled Exception"
+	showStack
+	stack={`Error: Cannot read property 'id' of undefined
+    at getUser (/app/src/lib/user.ts:42:15)
+    at async load (/app/src/routes/+page.server.ts:8:12)
+    at async Module.load_server_data (/.svelte-kit/runtime/server.js:234:18)`}
+	class="min-h-[400px]"
+/>
+```
+
+## Custom Actions
+
+```svelte preview title="Custom Actions Slot"
+<ErrorPage
+	status={500}
+	showHome={false}
+	showBack={false}
+	class="min-h-[400px]"
+>
+	<div class="flex gap-sm">
+		<Button variant="outline" size="sm">View Status Page</Button>
+		<Button variant="primary" size="sm">Try Again</Button>
+	</div>
+</ErrorPage>
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>
