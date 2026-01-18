@@ -44,6 +44,8 @@ export { default as ButtonGroup } from './core/ButtonGroup.svelte';
 export type { ButtonGroupProps } from './core/ButtonGroup.svelte';
 export { default as Badge } from './core/Badge.svelte';
 export type { BadgeVariant, BadgeSize, BadgeProps } from './core/Badge.svelte';
+export { default as Kbd } from './core/Kbd.svelte';
+export type { KbdSize, KbdProps } from './core/Kbd.svelte';
 export { default as Input } from './core/Input.svelte';
 export { default as Textarea } from './core/Textarea.svelte';
 export { default as Select } from './core/Select.svelte';
@@ -160,6 +162,7 @@ export type { ToasterPosition, ToasterProps } from './core/Toaster.svelte';
 export { default as Text } from './core/Text.svelte';
 export { default as Heading } from './core/Heading.svelte';
 export { default as CodeBlock } from './core/CodeBlock.svelte';
+export { default as HighlightedCodeBlock } from './core/HighlightedCodeBlock.svelte';
 export { default as Link } from './core/Link.svelte';
 export { default as Divider } from './core/Divider.svelte';
 export { default as MenuItem } from './core/MenuItem.svelte';
@@ -185,6 +188,7 @@ export type {
 	SmartSelectProps
 } from './core/SmartSelect.svelte';
 export type { CodeBlockProps } from './core/CodeBlock.svelte';
+export type { HighlightedCodeBlockProps } from './core/HighlightedCodeBlock.svelte';
 export type { NumericFormat, NumericVariant, NumericSize, NumericProps } from './core/Numeric.svelte';
 export type { IpSize, IpProps } from './core/Ip.svelte';
 export type { PrivacyToggleSize, PrivacyToggleProps } from './core/PrivacyToggle.svelte';

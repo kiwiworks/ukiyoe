@@ -55,7 +55,7 @@
 	const chartHeight = $derived(height - padding.top - padding.bottom);
 
 	// Build price points from trades (entry and exit points)
-	const pricePoints = $derived(() => {
+	const pricePoints = $derived.by(() => {
 		if (trades.length === 0) return [];
 
 		const points: { time: number; price: number; type: 'entry' | 'exit'; tradeIdx: number }[] = [];
@@ -71,20 +71,18 @@
 	});
 
 	// Time range
-	const timeExtent = $derived(() => {
-		const points = pricePoints();
-		if (points.length === 0) return { min: 0, max: 1 };
+	const timeExtent = $derived.by(() => {
+		if (pricePoints.length === 0) return { min: 0, max: 1 };
 		return {
-			min: Math.min(...points.map((p) => p.time)),
-			max: Math.max(...points.map((p) => p.time))
+			min: Math.min(...pricePoints.map((p) => p.time)),
+			max: Math.max(...pricePoints.map((p) => p.time))
 		};
 	});
 
 	// Price range with padding
-	const priceExtent = $derived(() => {
-		const points = pricePoints();
-		if (points.length === 0) return { min: 0, max: 1 };
-		const prices = points.map((p) => p.price);
+	const priceExtent = $derived.by(() => {
+		if (pricePoints.length === 0) return { min: 0, max: 1 };
+		const prices = pricePoints.map((p) => p.price);
 		const min = Math.min(...prices);
 		const max = Math.max(...prices);
 		const range = max - min || max * 0.01;
@@ -94,31 +92,30 @@
 		};
 	});
 
-	// Scale functions
-	const scaleX = $derived((time: number) => {
-		const { min, max } = timeExtent();
+	// Scale functions - these need to be functions that take parameters
+	function scaleX(time: number): number {
+		const { min, max } = timeExtent;
 		const range = max - min || 1;
 		return padding.left + ((time - min) / range) * chartWidth;
-	});
+	}
 
-	const scaleY = $derived((price: number) => {
-		const { min, max } = priceExtent();
+	function scaleY(price: number): number {
+		const { min, max } = priceExtent;
 		const range = max - min || 1;
 		return padding.top + chartHeight - ((price - min) / range) * chartHeight;
-	});
+	}
 
 	// Generate price line path (connecting all points)
-	const pricePath = $derived(() => {
-		const points = pricePoints();
-		if (points.length < 2) return '';
+	const pricePath = $derived.by(() => {
+		if (pricePoints.length < 2) return '';
 
-		return points
+		return pricePoints
 			.map((p, i) => `${i === 0 ? 'M' : 'L'} ${scaleX(p.time).toFixed(1)} ${scaleY(p.price).toFixed(1)}`)
 			.join(' ');
 	});
 
 	// Generate trade markers with positions
-	const tradeMarkers = $derived(() => {
+	const tradeMarkers = $derived.by(() => {
 		return trades.map((trade, idx) => ({
 			...trade,
 			entryX: scaleX(trade.entryTime),
@@ -131,8 +128,8 @@
 	});
 
 	// Y-axis price ticks
-	const yTicks = $derived(() => {
-		const { min, max } = priceExtent();
+	const yTicks = $derived.by(() => {
+		const { min, max } = priceExtent;
 		const range = max - min;
 		const tickCount = 5;
 		const ticks: number[] = [];
@@ -144,8 +141,8 @@
 	});
 
 	// X-axis time ticks
-	const xTicks = $derived(() => {
-		const { min, max } = timeExtent();
+	const xTicks = $derived.by(() => {
+		const { min, max } = timeExtent;
 		const range = max - min;
 		const tickCount = Math.min(6, Math.floor(chartWidth / 100));
 		const ticks: number[] = [];
@@ -182,7 +179,7 @@
 		<svg width={measuredWidth} {height} class="block w-full bg-bg-secondary rounded-md">
 			<!-- Grid lines -->
 			<g>
-				{#each yTicks() as tick}
+				{#each yTicks as tick}
 					<line
 						x1={padding.left}
 						y1={scaleY(tick)}
@@ -192,7 +189,7 @@
 						stroke-dasharray="2,4"
 					/>
 				{/each}
-				{#each xTicks() as tick}
+				{#each xTicks as tick}
 					<line
 						x1={scaleX(tick)}
 						y1={padding.top}
@@ -205,12 +202,12 @@
 			</g>
 
 			<!-- Price line -->
-			{#if pricePath()}
-				<path d={pricePath()} fill="none" stroke="var(--text-muted)" stroke-width="1" opacity="0.5" />
+			{#if pricePath}
+				<path d={pricePath} fill="none" stroke="var(--text-muted)" stroke-width="1" opacity="0.5" />
 			{/if}
 
 			<!-- Trade spans (entry to exit lines) -->
-			{#each tradeMarkers() as marker}
+			{#each tradeMarkers as marker}
 				<g opacity={hoveredTrade === marker.idx ? 1 : 0.6}>
 					<!-- Vertical entry line -->
 					<line
@@ -244,7 +241,7 @@
 			{/each}
 
 			<!-- Trade markers -->
-			{#each tradeMarkers() as marker}
+			{#each tradeMarkers as marker}
 				<g
 					class="group"
 					role="img"
@@ -293,7 +290,7 @@
 
 			<!-- Y-axis (price) -->
 			<g>
-				{#each yTicks() as tick}
+				{#each yTicks as tick}
 					<text
 						x={padding.left + chartWidth + 8}
 						y={scaleY(tick) + 3}
@@ -306,7 +303,7 @@
 
 			<!-- X-axis (time) -->
 			<g>
-				{#each xTicks() as tick}
+				{#each xTicks as tick}
 					<text
 						x={scaleX(tick)}
 						y={height - 8}
@@ -321,7 +318,7 @@
 
 		<!-- Tooltip for hovered trade -->
 		{#if hoveredTrade !== null}
-			{@const trade = tradeMarkers()[hoveredTrade]}
+			{@const trade = tradeMarkers[hoveredTrade]}
 			<div
 				class="absolute bg-bg-primary border border-border-default rounded-lg py-2 px-3 text-[11px] font-mono pointer-events-none z-10 shadow-[0_4px_12px_color-mix(in_srgb,var(--bg-primary)_70%,transparent)] min-w-[140px]"
 				style="left: {Math.min(Math.max(trade.exitX, 100), measuredWidth - 160)}px; top: {Math.min(trade.exitY, chartHeight)}px;"

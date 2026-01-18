@@ -1,10 +1,14 @@
 <script lang="ts">
-	import { SidePanel, Button, Text, PageHeader } from 'ukiyoe';
+	import { SidePanel, Button, Text, PageHeader, Badge } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	let rightPanel = $state(false);
 	let leftPanel = $state(false);
+	let noOverlayPanel = $state(false);
+	let customWidthPanel = $state(false);
+	let callbackPanel = $state(false);
+	let closeCount = $state(0);
 
 	const propDefs: PropDef[] = [
 		{ name: 'title', type: 'string', default: '-', description: 'Title displayed in the panel header' },
@@ -25,35 +29,118 @@
 	<title>SidePanel - Ukiyoe UI</title>
 </svelte:head>
 
-<PageHeader title="SidePanel" subtitle="Slide-out panel from the side of the screen" />
+<PageHeader title="SidePanel" subtitle="Slide-out panel with backdrop overlay and smooth animations" />
 
 <div class="space-y-xl mt-lg">
 
-## Right Side (Default)
+## Features
+
+The SidePanel component includes:
+
+- Smooth slide animation from left or right
+- Backdrop overlay with blur effect
+- Close button (X) in header
+- Escape key closes the panel
+- Body scroll lock when open
+- Customizable width and overlay behavior
+
+## Basic Usage (Right Side)
+
+The default panel slides in from the right side with a backdrop overlay.
 
 ```svelte preview title="Right Panel"
 <Button size="sm" onclick={() => (rightPanel = true)}>Open Right Panel</Button>
 
 <SidePanel bind:open={rightPanel} title="Panel Title">
 	<Text variant="secondary">
-		This panel slides in from the right side of the screen.
+		This panel slides in from the right side of the screen with a smooth animation.
+		Click the overlay, press Escape, or click the X button to close.
 	</Text>
 </SidePanel>
 ```
 
-## Left Side
+## Left Position
+
+Use `position="left"` for navigation-style panels.
 
 ```svelte preview title="Left Panel"
 <Button size="sm" onclick={() => (leftPanel = true)}>Open Left Panel</Button>
 
 <SidePanel bind:open={leftPanel} title="Navigation" position="left">
 	<Text variant="secondary">
-		This panel slides in from the left side.
+		This panel slides in from the left side, ideal for navigation menus.
 	</Text>
 </SidePanel>
 ```
 
+## Without Overlay
+
+Set `showOverlay={false}` to display the panel without a backdrop. This allows interaction with the page content while the panel is open.
+
+```svelte preview title="No Overlay"
+<Button size="sm" onclick={() => (noOverlayPanel = true)}>Open Without Overlay</Button>
+
+<SidePanel bind:open={noOverlayPanel} title="No Overlay" showOverlay={false}>
+	<Text variant="secondary">
+		This panel has no backdrop overlay. You can still interact with the page behind it.
+		Press Escape or click the X button to close.
+	</Text>
+</SidePanel>
+```
+
+## Custom Width
+
+Adjust the panel width with the `width` prop (in pixels).
+
+```svelte preview title="Custom Width (480px)"
+<Button size="sm" onclick={() => (customWidthPanel = true)}>Open Wide Panel</Button>
+
+<SidePanel bind:open={customWidthPanel} title="Wide Panel" width={480}>
+	<Text variant="secondary">
+		This panel is 480px wide instead of the default 320px.
+		Use wider panels for complex forms or detailed content.
+	</Text>
+</SidePanel>
+```
+
+## Close Callback
+
+Use the `onclose` callback to react when the panel is closed (via any method).
+
+```svelte preview title="With Callback"
+<div class="flex items-center gap-3">
+	<Button size="sm" onclick={() => (callbackPanel = true)}>Open Panel</Button>
+	<Badge variant="default">Closed {closeCount} times</Badge>
+</div>
+
+<SidePanel
+	bind:open={callbackPanel}
+	title="Callback Demo"
+	onclose={() => closeCount++}
+>
+	<Text variant="secondary">
+		Close this panel using any method (X button, Escape key, or overlay click)
+		and the counter will increment.
+	</Text>
+</SidePanel>
+```
+
+## Keyboard Navigation
+
+- **Escape**: Closes the panel when open
+- **Tab**: Navigates through focusable elements within the panel
+
+## Props
+
 <PropsTable props={propDefs} />
+
+## Snippets
+
+| Name | Description |
+|------|-------------|
+| `children` | Main scrollable content area |
+| `header` | Optional content rendered next to the title (e.g., search input) |
+| `footer` | Optional sticky footer content |
 
 </div>
 

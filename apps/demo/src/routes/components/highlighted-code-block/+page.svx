@@ -1,0 +1,166 @@
+<script lang="ts">
+	import { HighlightedCodeBlock, PageHeader, Text, Alert } from 'ukiyoe';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'code', type: 'string', default: '-', description: 'Code content to display and highlight' },
+		{ name: 'language', type: 'string', default: "'text'", description: 'Programming language for syntax highlighting' },
+		{ name: 'theme', type: 'string', default: "'github-dark'", description: 'Shiki theme for highlighting' },
+		{ name: 'filename', type: 'string', default: '-', description: 'Filename to display in header with icon' },
+		{ name: 'showLineNumbers', type: 'boolean', default: 'true', description: 'Show line numbers in gutter' },
+		{ name: 'highlightLines', type: 'number[]', default: '[]', description: 'Array of line numbers to highlight' },
+		{ name: 'inline', type: 'boolean', default: 'false', description: 'Render as inline code element' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
+</script>
+
+<svelte:head>
+	<title>HighlightedCodeBlock - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="HighlightedCodeBlock" subtitle="Code blocks with built-in syntax highlighting powered by Shiki" />
+
+<div class="space-y-xl mt-lg">
+
+<Alert variant="warning" title="Optional Dependency">
+	This component requires <code>shiki</code> as a peer dependency. Install it with: <code>bun add shiki</code>
+</Alert>
+
+## Overview
+
+`HighlightedCodeBlock` extends `CodeBlock` with runtime syntax highlighting using Shiki. It loads the highlighter dynamically, so projects that don't use this component won't bundle Shiki.
+
+- **CodeBlock** - Simple, no dependencies, for displaying code without highlighting
+- **HighlightedCodeBlock** - Includes Shiki for syntax highlighting, tree-shakeable
+
+## Basic Usage
+
+Provide code and a language for automatic syntax highlighting.
+
+```svelte preview title="TypeScript Highlighting"
+<HighlightedCodeBlock
+	language="typescript"
+	code={`interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+function greet(user: User): string {
+  return \`Hello, \${user.name}!\`;
+}`}
+/>
+```
+
+## Multiple Languages
+
+Supports all languages supported by Shiki.
+
+```svelte preview title="Rust"
+<HighlightedCodeBlock
+	language="rust"
+	filename="main.rs"
+	code={`fn main() {
+    let numbers: Vec<i32> = (1..=10).collect();
+    let sum: i32 = numbers.iter().sum();
+    println!("Sum: {}", sum);
+}`}
+/>
+```
+
+```svelte preview title="Python"
+<HighlightedCodeBlock
+	language="python"
+	filename="fibonacci.py"
+	code={`def fibonacci(n: int) -> int:
+    if n <= 1:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+# Generate first 10 fibonacci numbers
+for i in range(10):
+    print(fibonacci(i))`}
+/>
+```
+
+```svelte preview title="Svelte"
+<HighlightedCodeBlock
+	language="svelte"
+	filename="Counter.svelte"
+	code={`<script lang="ts">
+  let count = $state(0);
+  const doubled = $derived(count * 2);
+</script>
+
+<button onclick={() => count++}>
+  Count: {count} (doubled: {doubled})
+</button>`}
+/>
+```
+
+## Custom Themes
+
+Use different Shiki themes for various color schemes.
+
+```svelte preview title="GitHub Dark (Default)"
+<HighlightedCodeBlock
+	language="javascript"
+	theme="github-dark"
+	code={`const add = (a, b) => a + b;
+console.log(add(2, 3));`}
+/>
+```
+
+## Without Line Numbers
+
+Hide line numbers for shorter snippets.
+
+```svelte preview title="No Line Numbers"
+<HighlightedCodeBlock
+	language="bash"
+	showLineNumbers={false}
+	code="bun add ukiyoe shiki"
+/>
+```
+
+## Inline Code
+
+Inline highlighted code within text.
+
+```svelte preview title="Inline Usage"
+<Text>
+	Use <HighlightedCodeBlock inline language="typescript" code="$state()" /> for reactive state,
+	and <HighlightedCodeBlock inline language="typescript" code="$derived()" /> for computed values.
+</Text>
+```
+
+<PropsTable props={propDefs} />
+
+## Supported Languages
+
+HighlightedCodeBlock supports all languages that Shiki supports, including:
+
+| Language | Code |
+|----------|------|
+| JavaScript | `javascript` / `js` |
+| TypeScript | `typescript` / `ts` |
+| Svelte | `svelte` |
+| Rust | `rust` |
+| Python | `python` / `py` |
+| Go | `go` |
+| HTML | `html` |
+| CSS | `css` |
+| JSON | `json` |
+| Bash | `bash` / `sh` |
+| SQL | `sql` |
+| Markdown | `markdown` / `md` |
+
+See the [Shiki documentation](https://shiki.style/languages) for the full list.
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

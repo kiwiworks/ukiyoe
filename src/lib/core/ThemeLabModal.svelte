@@ -136,7 +136,7 @@
 		tabindex="-1"
 	>
 		<div
-			class="flex flex-col w-full max-w-lg max-h-[calc(100vh-2rem)] bg-bg-secondary border border-border-default rounded-lg shadow-2xl overflow-hidden mx-4"
+			class="flex flex-col w-full min-w-[32rem] max-w-2xl max-h-[calc(100vh-2rem)] bg-bg-secondary border border-border-default rounded-lg shadow-2xl overflow-hidden mx-4"
 			transition:scale={{ duration: 150, start: 0.95 }}
 		>
 			<!-- Header -->

@@ -4,7 +4,8 @@
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	const propDefs: PropDef[] = [
-		{ name: 'variant', type: "'text' | 'circular' | 'rectangular'", default: "'text'", description: 'Shape variant of the skeleton' },
+		{ name: 'variant', type: "'text' | 'circular' | 'rectangular' | 'card'", default: "'text'", description: 'Shape variant of the skeleton' },
+		{ name: 'animation', type: "'pulse' | 'shimmer' | 'none'", default: "'pulse'", description: 'Animation style for the loading effect' },
 		{ name: 'width', type: 'string', default: 'variant-based', description: 'Width of the skeleton (CSS value)' },
 		{ name: 'height', type: 'string', default: 'variant-based', description: 'Height of the skeleton (CSS value)' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
@@ -29,6 +30,49 @@
 </div>
 ```
 
+## Card Skeleton
+
+The `card` variant provides a pre-built card layout with title, description lines, and action buttons.
+
+```svelte preview title="Card Skeleton"
+<div class="flex gap-4">
+	<Skeleton variant="card" width="280px" />
+	<Skeleton variant="card" width="280px" height="12rem" />
+</div>
+```
+
+## Animation Types
+
+Control the loading animation with the `animation` prop.
+
+```svelte preview title="Animation Comparison"
+<div class="grid grid-cols-3 gap-4">
+	<div class="space-y-2">
+		<p class="text-sm text-text-secondary">Pulse (default)</p>
+		<Skeleton variant="rectangular" height="60px" animation="pulse" />
+	</div>
+	<div class="space-y-2">
+		<p class="text-sm text-text-secondary">Shimmer</p>
+		<Skeleton variant="rectangular" height="60px" animation="shimmer" />
+	</div>
+	<div class="space-y-2">
+		<p class="text-sm text-text-secondary">None</p>
+		<Skeleton variant="rectangular" height="60px" animation="none" />
+	</div>
+</div>
+```
+
+## Card with Shimmer
+
+The shimmer animation provides a more dynamic loading effect.
+
+```svelte preview title="Card with Shimmer Animation"
+<div class="flex gap-4">
+	<Skeleton variant="card" width="280px" animation="shimmer" />
+	<Skeleton variant="card" width="280px" animation="shimmer" />
+</div>
+```
+
 ## Custom Sizes
 
 ```svelte preview title="Custom Sizes"
@@ -40,9 +84,9 @@
 </div>
 ```
 
-## Card Loading
+## Profile Card Loading
 
-```svelte preview title="Card Skeleton"
+```svelte preview title="Profile Card Skeleton"
 <div class="flex items-center gap-4 p-4 border border-border-subtle rounded-lg w-full max-w-sm">
 	<Skeleton variant="circular" width="48px" height="48px" />
 	<div class="flex-1 space-y-2">

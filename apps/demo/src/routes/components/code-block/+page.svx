@@ -5,6 +5,10 @@
 
 	const propDefs: PropDef[] = [
 		{ name: 'code', type: 'string', default: '-', description: 'Code content to display' },
+		{ name: 'language', type: 'string', default: '-', description: 'Programming language for semantic styling (displays badge in header)' },
+		{ name: 'filename', type: 'string', default: '-', description: 'Filename to display in header with icon' },
+		{ name: 'showLineNumbers', type: 'boolean', default: 'true', description: 'Show line numbers in gutter' },
+		{ name: 'highlightLines', type: 'number[]', default: '[]', description: 'Array of line numbers to highlight' },
 		{ name: 'inline', type: 'boolean', default: 'false', description: 'Render as inline code element' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
 	];
@@ -14,32 +18,96 @@
 	<title>CodeBlock - Ukiyoe UI</title>
 </svelte:head>
 
-<PageHeader title="CodeBlock" subtitle="Display formatted code snippets" />
+<PageHeader title="CodeBlock" subtitle="Display formatted code snippets with syntax highlighting features" />
 
 <div class="space-y-xl mt-lg">
 
 ## Basic Usage
 
+A simple code block with line numbers and a copy button.
+
 ```svelte preview title="Code Block"
 <CodeBlock code="const greeting = 'Hello, World!';" />
 ```
 
-## Multi-line Code
+## With Filename and Language
 
-```svelte preview title="Multi-line Code"
-<CodeBlock code={`function fibonacci(n) {
+Display a header with filename and language badge for context.
+
+```svelte preview title="Filename and Language"
+<CodeBlock
+	filename="fibonacci.ts"
+	language="typescript"
+	code={`function fibonacci(n: number): number {
   if (n <= 1) return n;
   return fibonacci(n - 1) + fibonacci(n - 2);
-}`} />
+}`}
+/>
 ```
 
-## Different Languages
+## Line Highlighting
 
-```svelte preview title="Various Languages"
-<div class="space-y-md w-full">
-	<CodeBlock code="npm install ukiyoe" />
-	<CodeBlock code={`import { Button } from 'ukiyoe';`} />
-</div>
+Highlight specific lines to draw attention to important code sections.
+
+```svelte preview title="Highlighted Lines"
+<CodeBlock
+	filename="config.ts"
+	language="ts"
+	highlightLines={[2, 3, 4]}
+	code={`export const config = {
+  // These values are important
+  apiUrl: 'https://api.example.com',
+  timeout: 5000,
+  debug: false
+};`}
+/>
+```
+
+## Without Line Numbers
+
+Hide line numbers for cleaner presentation of short snippets.
+
+```svelte preview title="No Line Numbers"
+<CodeBlock
+	showLineNumbers={false}
+	code="npm install ukiyoe"
+/>
+```
+
+## Inline Code
+
+Use inline mode for code within text content.
+
+```svelte preview title="Inline Code"
+<p class="text-text-secondary">
+	Use the <CodeBlock inline code="$state" /> rune for reactive state in Svelte 5.
+	You can also use <CodeBlock inline code="$derived" /> for computed values.
+</p>
+```
+
+## Multi-line with All Features
+
+Combine multiple features for comprehensive code display.
+
+```svelte preview title="Full Featured"
+<CodeBlock
+	filename="Button.svelte"
+	language="svelte"
+	highlightLines={[5, 6, 7]}
+	code={`<script lang="ts">
+  import { cn } from '../utils/cn';
+
+  let {
+    variant = 'default',
+    size = 'md',
+    disabled = false
+  } = $props();
+</script>
+
+<button class={cn('btn', variant, size)}>
+  <slot />
+</button>`}
+/>
 ```
 
 <PropsTable props={propDefs} />

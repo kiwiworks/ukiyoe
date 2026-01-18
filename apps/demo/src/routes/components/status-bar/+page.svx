@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { StatusBar, PageHeader, Text } from 'ukiyoe';
+	import { StatusBar, PageHeader, Text, Badge } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	const propDefs: PropDef[] = [
-		{ name: 'children', type: 'Snippet', default: '-', description: 'Content to render in the left section' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Content to render in the left section (after the connection indicator)' },
 		{ name: 'rightContent', type: 'Snippet', default: '-', description: 'Content to render in the right section' },
-		{ name: 'connected', type: 'boolean', default: 'true', description: 'Connection status indicator' },
+		{ name: 'connected', type: 'boolean', default: 'true', description: 'Connection status indicator (shows green pulse when connected, red when disconnected)' },
 		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' }
 	];
 </script>
@@ -15,29 +15,86 @@
 	<title>StatusBar - Ukiyoe UI</title>
 </svelte:head>
 
-<PageHeader title="StatusBar" subtitle="Application status bar component" />
+<PageHeader title="StatusBar" subtitle="Application status bar with connection indicator" />
 
 <div class="space-y-xl mt-lg">
 
 ## Basic Usage
 
-```svelte preview title="Status Bar"
-<div class="w-full border border-border-subtle rounded-md overflow-hidden">
-	<StatusBar>
-		<Text size="xs" variant="muted">Ready</Text>
+A simple status bar with default connected state.
+
+```svelte preview title="Basic Status Bar"
+<div class="relative h-12 w-full border border-border-subtle rounded-md overflow-hidden bg-bg-secondary">
+	<StatusBar class="absolute" />
+</div>
+```
+
+## With Left and Right Content
+
+Use the `children` snippet for left-side content and `rightContent` for right-side content.
+
+```svelte preview title="Left and Right Content"
+<div class="relative h-12 w-full border border-border-subtle rounded-md overflow-hidden bg-bg-secondary">
+	<StatusBar class="absolute">
+		{#snippet children()}
+			<Text size="xs" variant="muted">|</Text>
+			<Text size="xs" variant="muted">main branch</Text>
+		{/snippet}
+		{#snippet rightContent()}
+			<Text size="xs" variant="muted">v1.0.0</Text>
+		{/snippet}
 	</StatusBar>
 </div>
 ```
 
-## With Multiple Items
+## Connected State
 
-```svelte preview title="Status Bar with Items"
-<div class="w-full border border-border-subtle rounded-md overflow-hidden">
-	<StatusBar>
-		<div class="flex justify-between w-full">
-			<Text size="xs" variant="muted">Connected</Text>
-			<Text size="xs" variant="muted">v1.0.0</Text>
-		</div>
+The default state shows a green pulsing indicator with "Connected" text.
+
+```svelte preview title="Connected"
+<div class="relative h-12 w-full border border-border-subtle rounded-md overflow-hidden bg-bg-secondary">
+	<StatusBar connected={true} class="absolute">
+		{#snippet rightContent()}
+			<Badge variant="success" size="sm">Online</Badge>
+		{/snippet}
+	</StatusBar>
+</div>
+```
+
+## Disconnected State
+
+Set `connected={false}` to show a red indicator with "Disconnected" text.
+
+```svelte preview title="Disconnected"
+<div class="relative h-12 w-full border border-border-subtle rounded-md overflow-hidden bg-bg-secondary">
+	<StatusBar connected={false} class="absolute">
+		{#snippet rightContent()}
+			<Badge variant="danger" size="sm">Offline</Badge>
+		{/snippet}
+	</StatusBar>
+</div>
+```
+
+## Multiple Status Items
+
+Combine multiple status items for a rich information display.
+
+```svelte preview title="Multiple Items"
+<div class="relative h-12 w-full border border-border-subtle rounded-md overflow-hidden bg-bg-secondary">
+	<StatusBar class="absolute">
+		{#snippet children()}
+			<Text size="xs" variant="muted">|</Text>
+			<Text size="xs" variant="muted">UTF-8</Text>
+			<Text size="xs" variant="muted">|</Text>
+			<Text size="xs" variant="muted">LF</Text>
+			<Text size="xs" variant="muted">|</Text>
+			<Text size="xs" variant="muted">TypeScript</Text>
+		{/snippet}
+		{#snippet rightContent()}
+			<Text size="xs" variant="muted">Ln 42, Col 15</Text>
+			<Text size="xs" variant="muted">|</Text>
+			<Text size="xs" variant="muted">Spaces: 2</Text>
+		{/snippet}
 	</StatusBar>
 </div>
 ```
@@ -45,8 +102,11 @@
 ## Usage Notes
 
 <Text variant="secondary" size="sm">
-The StatusBar component is typically positioned at the bottom of your application
-to show status information, connection state, or version numbers.
+The StatusBar component is typically positioned at the bottom of your application.
+It includes a built-in connection indicator on the left that shows connection state
+with an animated pulse effect. Use the children snippet to add items after the
+connection indicator, and rightContent for right-aligned items like version numbers
+or cursor position.
 </Text>
 
 <PropsTable props={propDefs} />

@@ -1,0 +1,138 @@
+<script lang="ts">
+	import { Kbd, PageHeader, Text } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'keys', type: 'string | string[]', description: 'Key or key combination to display' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md'", default: "'sm'", description: 'Size preset' },
+		{ name: 'class', type: 'string', description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', description: 'Custom content instead of keys prop' }
+	];
+</script>
+
+<svelte:head>
+	<title>Kbd - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Kbd" subtitle="Display keyboard shortcuts and key combinations" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+Display a single key or key combination.
+
+```svelte preview title="Single Keys"
+<div class="flex items-center gap-4">
+	<Kbd keys="⌘" />
+	<Kbd keys="K" />
+	<Kbd keys="Enter" />
+	<Kbd keys="⇧" />
+	<Kbd keys="Esc" />
+</div>
+```
+
+## Key Combinations
+
+Pass an array of keys to show a combination with `+` separator.
+
+```svelte preview title="Key Combinations"
+<div class="flex flex-wrap items-center gap-4">
+	<Kbd keys={['⌘', 'K']} />
+	<Kbd keys={['⌘', '⇧', 'P']} />
+	<Kbd keys={['Ctrl', 'Alt', 'Delete']} />
+	<Kbd keys={['⌘', 'S']} />
+</div>
+```
+
+## Sizes
+
+Three size presets available.
+
+```svelte preview title="Sizes"
+<div class="flex items-center gap-4">
+	<Kbd keys="⌘K" size="xs" />
+	<Kbd keys="⌘K" size="sm" />
+	<Kbd keys="⌘K" size="md" />
+</div>
+```
+
+## Inline with Text
+
+Use keyboard shortcuts inline with text content.
+
+```svelte preview title="Inline Usage"
+<Text>
+	Press <Kbd keys="⌘K" size="xs" /> to open the command palette,
+	or <Kbd keys={['⌘', '⇧', 'P']} size="xs" /> for the full command list.
+</Text>
+```
+
+## Common Shortcuts
+
+Display common keyboard shortcuts used in applications.
+
+```svelte preview title="Common Shortcuts"
+<div class="grid grid-cols-2 gap-4 max-w-md">
+	<div class="flex items-center justify-between">
+		<Text size="sm" variant="secondary">Save</Text>
+		<Kbd keys={['⌘', 'S']} size="xs" />
+	</div>
+	<div class="flex items-center justify-between">
+		<Text size="sm" variant="secondary">Undo</Text>
+		<Kbd keys={['⌘', 'Z']} size="xs" />
+	</div>
+	<div class="flex items-center justify-between">
+		<Text size="sm" variant="secondary">Copy</Text>
+		<Kbd keys={['⌘', 'C']} size="xs" />
+	</div>
+	<div class="flex items-center justify-between">
+		<Text size="sm" variant="secondary">Paste</Text>
+		<Kbd keys={['⌘', 'V']} size="xs" />
+	</div>
+	<div class="flex items-center justify-between">
+		<Text size="sm" variant="secondary">Find</Text>
+		<Kbd keys={['⌘', 'F']} size="xs" />
+	</div>
+	<div class="flex items-center justify-between">
+		<Text size="sm" variant="secondary">Select All</Text>
+		<Kbd keys={['⌘', 'A']} size="xs" />
+	</div>
+</div>
+```
+
+## Custom Content
+
+Use the children snippet for custom key content.
+
+```svelte preview title="Custom Content"
+<div class="flex items-center gap-4">
+	<Kbd size="sm">Space</Kbd>
+	<Kbd size="sm">Tab ⇥</Kbd>
+	<Kbd size="sm">⌫ Delete</Kbd>
+</div>
+```
+
+<PropsTable props={propDefs} />
+
+## Key Symbols Reference
+
+| Symbol | Key |
+|--------|-----|
+| `⌘` | Command (Mac) |
+| `⇧` | Shift |
+| `⌥` | Option/Alt |
+| `⌃` | Control |
+| `⇥` | Tab |
+| `⌫` | Backspace/Delete |
+| `⏎` | Return/Enter |
+| `⎋` | Escape |
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

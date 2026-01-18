@@ -8,11 +8,49 @@
 
 <PageHeader title="Changelog" subtitle="All notable changes to this project">
 	{#snippet badges()}
-		<Badge size="sm" variant="brand" text="v0.1.0-beta.5" />
+		<Badge size="sm" variant="brand" text="v0.1.0" />
 	{/snippet}
 </PageHeader>
 
 <div class="mt-lg space-y-xxl">
+	<section>
+		<div class="flex items-center gap-md mb-md">
+			<Heading level={2} size="lg">0.1.0</Heading>
+			<Badge size="xs" variant="success" text="Stable" />
+			<Text size="sm" variant="muted">2026-01-18</Text>
+		</div>
+
+		<Text variant="secondary" class="mb-md">First stable release! Ukiyoe is now production-ready with 70+ components.</Text>
+
+		<div class="space-y-lg">
+			<div>
+				<Heading level={3} size="md" class="text-positive mb-sm">Added</Heading>
+				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
+					<li><strong>Kbd component</strong> for displaying keyboard shortcuts and key combinations</li>
+					<li><strong>HighlightedCodeBlock component</strong> with optional Shiki syntax highlighting (tree-shakeable)</li>
+					<li>Command palette search button with keyboard shortcut hint in header</li>
+				</ul>
+			</div>
+
+			<div>
+				<Heading level={3} size="md" class="text-warning mb-sm">Changed</Heading>
+				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
+					<li>Demo routing refactored to shared routes file for single source of truth</li>
+					<li>Shiki added as optional peer dependency for syntax highlighting</li>
+				</ul>
+			</div>
+
+			<div>
+				<Heading level={3} size="md" class="text-info mb-sm">Fixed</Heading>
+				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
+					<li>BacktestChart using incorrect Svelte 5 pattern (<code>$derived</code> vs <code>$derived.by</code>)</li>
+					<li>ThemeLabModal width constraints</li>
+					<li>Nav.svelte invalid props on SmartSelect and ListItem</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
 	<section>
 		<div class="flex items-center gap-md mb-md">
 			<Heading level={2} size="lg">0.1.0-beta.5</Heading>

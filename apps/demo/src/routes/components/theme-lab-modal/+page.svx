@@ -1,0 +1,98 @@
+<script lang="ts">
+	import { ThemeLabModal, Button, Text, PageHeader, Alert } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+	import { Settings2 } from '@lucide/svelte';
+
+	let modalOpen = $state(false);
+
+	const propDefs: PropDef[] = [
+		{ name: 'open', type: 'boolean', default: 'false', description: 'Whether the modal is open (bindable)' },
+		{ name: 'onclose', type: '() => void', default: '-', description: 'Callback when modal is closed' }
+	];
+</script>
+
+<svelte:head>
+	<title>ThemeLabModal - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="ThemeLabModal" subtitle="Customizable theme configuration modal" />
+
+<div class="space-y-xl mt-lg">
+
+The ThemeLabModal provides a comprehensive interface for customizing the application's visual appearance. It includes controls for:
+
+- **Mode Toggle**: Switch between dark and light themes
+- **Accent Color Picker**: Choose from a palette of accent colors
+- **UI Scale Slider**: Adjust the interface scale (Compact, Normal, Comfortable, Spacious)
+- **Background Effect Selector**: Choose animated background effects
+- **Nebula Toggle**: Enable/disable cosmic glow overlay effects
+- **Text Shadow Toggle**: Improve text readability over effects
+- **Preview Section**: Live preview of buttons and badges with current settings
+
+<Alert variant="info" class="my-md">
+	This modal is also accessible via the floating gear button in the bottom-right corner of the screen.
+</Alert>
+
+## Basic Usage
+
+```svelte preview title="Open Theme Lab Modal"
+<Button size="sm" onclick={() => (modalOpen = true)}>
+	<Settings2 size={16} class="mr-xs" />
+	Open Theme Lab
+</Button>
+
+<ThemeLabModal bind:open={modalOpen} />
+```
+
+## Programmatic Control
+
+You can control the modal programmatically through the `open` prop:
+
+```svelte
+<script lang="ts">
+	import { ThemeLabModal, Button } from 'ukiyoe';
+
+	let open = $state(false);
+
+	function handleClose() {
+		console.log('Theme Lab closed');
+	}
+</script>
+
+<Button onclick={() => (open = true)}>Configure Theme</Button>
+
+<ThemeLabModal bind:open onclose={handleClose} />
+```
+
+## Features
+
+### Mode Toggle
+Switch between dark and light appearance modes. The theme persists across sessions via localStorage.
+
+### Accent Color
+Choose from a curated palette of accent colors that apply to interactive elements, highlights, and branded components throughout the UI.
+
+### UI Scale
+Adjust the overall interface density:
+- **Compact**: Tighter spacing for data-dense interfaces
+- **Normal**: Balanced default sizing
+- **Comfortable**: More breathing room between elements
+- **Spacious**: Maximum padding and margins
+
+### Background Effects
+Select from various animated background effects including grid patterns, particle systems, and geometric visualizations.
+
+### Effects Options
+- **Nebula Overlay**: Adds ambient cosmic glow effects
+- **Text Shadow**: Improves text readability when using complex backgrounds
+
+<PropsTable props={propDefs} />
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>
