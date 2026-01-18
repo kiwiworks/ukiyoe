@@ -17,13 +17,23 @@
 		`bg-bg-primary ${ctx.stickyHeader ? 'sticky top-0 z-[1]' : ''}`
 	);
 
+	// Map hideAt breakpoint to Tailwind max-* hidden class
+	const hideAtClasses: Record<string, string> = {
+		sm: 'max-sm:hidden',
+		md: 'max-md:hidden',
+		lg: 'max-lg:hidden',
+		xl: 'max-xl:hidden',
+		'2xl': 'max-2xl:hidden'
+	};
+
 	const getThClasses = (column: typeof ctx.columns[0], isSortable: boolean, isSorted: boolean) => {
 		const base = 'text-left text-text-muted font-medium uppercase text-[9px] tracking-wide border-b border-border-subtle whitespace-nowrap';
 		const padding = ctx.compact ? 'px-3 py-1.5' : 'px-4 py-2.5';
 		const sortable = isSortable ? 'cursor-pointer select-none transition-colors duration-150 hover:text-text-primary' : '';
 		const sorted = isSorted ? 'text-accent-brand' : '';
 		const align = column.align === 'center' ? 'text-center' : column.align === 'right' ? 'text-right' : '';
-		return `${base} ${padding} ${sortable} ${sorted} ${align}`;
+		const hidden = column.hideAt ? hideAtClasses[column.hideAt] : '';
+		return `${base} ${padding} ${sortable} ${sorted} ${align} ${hidden}`;
 	};
 </script>
 

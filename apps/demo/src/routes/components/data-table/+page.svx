@@ -68,6 +68,22 @@
 		{ key: 'role', header: 'Role' },
 		{ key: 'status', header: 'Status' }
 	];
+
+	// Responsive columns example (trading positions)
+	const positionsData = [
+		{ id: 1, symbol: 'BTC/USD', side: 'Long', qty: '0.5', entry: '42,150', current: '43,200', pnl: '+$525' },
+		{ id: 2, symbol: 'ETH/USD', side: 'Short', qty: '2.0', entry: '2,450', current: '2,380', pnl: '+$140' },
+		{ id: 3, symbol: 'SOL/USD', side: 'Long', qty: '50', entry: '98.50', current: '95.20', pnl: '-$165' }
+	];
+
+	const responsiveColumns: Column<(typeof positionsData)[0]>[] = [
+		{ key: 'symbol', header: 'Symbol' },
+		{ key: 'side', header: 'Side' },
+		{ key: 'qty', header: 'Qty', align: 'right', hideAt: 'lg' },
+		{ key: 'entry', header: 'Entry', align: 'right', hideAt: 'lg' },
+		{ key: 'current', header: 'Current', align: 'right', hideAt: 'lg' },
+		{ key: 'pnl', header: 'P&L', align: 'right' }
+	];
 </script>
 
 <svelte:head>
@@ -123,6 +139,25 @@ For advanced customization, use the compound component API:
 ```svelte preview title="Right-Aligned Numbers"
 <DataTable data={numericData} columns={numericColumns} keyField="id" />
 ```
+
+## Responsive Columns
+
+Use `hideAt` on column definitions to hide columns below specific breakpoints. Resize your browser to see columns hide on smaller screens.
+
+```svelte preview title="Responsive Column Hiding"
+<DataTable data={positionsData} columns={responsiveColumns} keyField="id" />
+```
+
+Column definition example:
+```ts
+const columns: Column[] = [
+  { key: 'symbol', header: 'Symbol' },           // always visible
+  { key: 'qty', header: 'Qty', hideAt: 'lg' },   // hidden below lg (1024px)
+  { key: 'pnl', header: 'P&L' }                  // always visible
+];
+```
+
+Available breakpoints: `sm` (640px), `md` (768px), `lg` (1024px), `xl` (1280px), `2xl` (1536px)
 
 <PropsTable props={propDefs} />
 

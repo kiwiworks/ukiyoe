@@ -53,6 +53,7 @@ export { default as SmartSelect } from './core/SmartSelect.svelte';
 // DataTable - Compound components
 export { DataTable } from './core/data-table/index';
 export type {
+	Breakpoint,
 	Column,
 	ServerPaginationState,
 	SortDirection,

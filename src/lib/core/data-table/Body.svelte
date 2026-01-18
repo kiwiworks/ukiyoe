@@ -12,11 +12,21 @@
 
 	const ctx = getDataTableContext();
 
+	// Map hideAt breakpoint to Tailwind max-* hidden class
+	const hideAtClasses: Record<string, string> = {
+		sm: 'max-sm:hidden',
+		md: 'max-md:hidden',
+		lg: 'max-lg:hidden',
+		xl: 'max-xl:hidden',
+		'2xl': 'max-2xl:hidden'
+	};
+
 	const getTdClasses = (column: typeof ctx.columns[0], isLastRow: boolean) => {
 		const padding = ctx.compact ? 'px-3 py-1.5' : 'px-4 py-2.5';
 		const border = isLastRow ? '' : 'border-b border-border-subtle';
 		const align = column.align === 'center' ? 'text-center' : column.align === 'right' ? 'text-right' : '';
-		return `${padding} ${border} text-text-primary ${align}`;
+		const hidden = column.hideAt ? hideAtClasses[column.hideAt] : '';
+		return `${padding} ${border} text-text-primary ${align} ${hidden}`;
 	};
 
 	const getRowClasses = (index: number) => {

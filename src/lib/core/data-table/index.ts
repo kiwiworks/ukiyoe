@@ -1,5 +1,6 @@
 // Types
 export type {
+	Breakpoint,
 	Column,
 	ServerPaginationState,
 	SortDirection,

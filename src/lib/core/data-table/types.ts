@@ -1,5 +1,8 @@
 import type { Snippet } from 'svelte';
 
+/** Tailwind breakpoints for responsive column hiding */
+export type Breakpoint = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+
 /**
  * Column definition for DataTable component.
  */
@@ -20,6 +23,8 @@ export interface Column<TRow = Record<string, unknown>> {
 	class?: string;
 	/** Whether to render as monospace */
 	mono?: boolean;
+	/** Hide column below this breakpoint (e.g., 'lg' hides on mobile/tablet) */
+	hideAt?: Breakpoint;
 }
 
 /**
