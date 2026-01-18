@@ -438,7 +438,9 @@
 		if (animationId) {
 			cancelAnimationFrame(animationId);
 		}
-		window.removeEventListener('resize', handleResize);
+		if (typeof window !== 'undefined') {
+			window.removeEventListener('resize', handleResize);
+		}
 	});
 </script>
 
