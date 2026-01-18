@@ -1,6 +1,16 @@
 <script lang="ts">
 	import { Tabs, Text, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'value', type: 'string', default: "''", description: 'Currently selected tab value (bindable)' },
+		{ name: 'tabs', type: 'TabItem[] | string[]', default: '-', description: 'Array of tab items or simple string labels' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size variant of the tabs' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'onchange', type: '(value: string) => void', default: '-', description: 'Callback when tab selection changes' },
+		{ name: 'children', type: 'Snippet<[string]>', default: '-', description: 'Content snippet receiving the current tab value' }
+	];
 </script>
 
 <svelte:head>
@@ -48,6 +58,8 @@
 	]}
 />
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

@@ -1,6 +1,16 @@
 <script lang="ts">
 	import { Panel, PageHeader, Text } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'title', type: 'string', default: '-', description: 'Panel title (required)' },
+		{ name: 'collapsible', type: 'boolean', default: 'false', description: 'Whether the panel can be collapsed' },
+		{ name: 'defaultCollapsed', type: 'boolean', default: 'false', description: 'Initial collapsed state' },
+		{ name: 'headerActions', type: 'Snippet', default: '-', description: 'Snippet for header action buttons' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Panel content (required)' },
+		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' }
+	];
 </script>
 
 <svelte:head>
@@ -31,6 +41,8 @@
 	</Panel>
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

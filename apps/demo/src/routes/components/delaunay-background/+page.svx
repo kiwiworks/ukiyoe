@@ -1,6 +1,13 @@
 <script lang="ts">
 	import { DelaunayBackground, PageHeader, Text, CodeBlock } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'pointCount', type: 'number', default: '24', description: 'Number of mesh points' },
+		{ name: 'animationSpeed', type: 'number', default: '0.3', description: 'Animation speed multiplier' },
+		{ name: 'opacity', type: 'number', default: '0.04', description: 'Stroke opacity (0-1)' }
+	];
 </script>
 
 <svelte:head>
@@ -43,6 +50,8 @@
 Creates a dynamic triangulated mesh using Delaunay triangulation.
 This effect is computationally intensive - use on limited sections of your page.
 </Text>
+
+<PropsTable props={propDefs} />
 
 </div>
 

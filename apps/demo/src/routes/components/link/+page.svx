@@ -1,6 +1,15 @@
 <script lang="ts">
 	import { Link, Text, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'href', type: 'string', default: '-', description: 'URL the link points to' },
+		{ name: 'variant', type: "'default' | 'muted' | 'brand'", default: "'default'", description: 'Visual style variant' },
+		{ name: 'external', type: 'boolean', default: 'false', description: 'Open link in new tab with rel="noopener noreferrer"' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Link content' }
+	];
 </script>
 
 <svelte:head>
@@ -34,6 +43,8 @@
 ```svelte preview title="External Links"
 <Link href="https://github.com" variant="underline">GitHub</Link>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

@@ -1,6 +1,13 @@
 <script lang="ts">
 	import { CodeBlock, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'code', type: 'string', default: '-', description: 'Code content to display' },
+		{ name: 'inline', type: 'boolean', default: 'false', description: 'Render as inline code element' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
 </script>
 
 <svelte:head>
@@ -34,6 +41,8 @@
 	<CodeBlock code={`import { Button } from 'ukiyoe';`} />
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

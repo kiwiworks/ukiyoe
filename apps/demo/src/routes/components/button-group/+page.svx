@@ -1,6 +1,12 @@
 <script lang="ts">
 	import { Button, ButtonGroup, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', description: 'Button elements to group' }
+	];
 </script>
 
 <svelte:head>
@@ -40,6 +46,8 @@
 	<Button size="sm">Year</Button>
 </ButtonGroup>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

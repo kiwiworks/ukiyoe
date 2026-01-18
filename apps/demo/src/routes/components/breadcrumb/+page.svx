@@ -1,6 +1,12 @@
 <script lang="ts">
 	import { Breadcrumb, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'items', type: 'BreadcrumbItem[]', description: 'Array of breadcrumb items' },
+		{ name: 'showHome', type: 'boolean', default: 'true', description: 'Whether to show home icon' }
+	];
 </script>
 
 <svelte:head>
@@ -47,6 +53,8 @@
 	]}
 />
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

@@ -2,8 +2,20 @@
 	import { Stepper, PageHeader } from 'ukiyoe';
 	import { FolderOpen, Search, FlaskConical, CheckCircle, User, CreditCard, Package } from '@lucide/svelte';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	let step = $state('step2');
+
+	const propDefs: PropDef[] = [
+		{ name: 'steps', type: 'Step[]', description: 'Array of step definitions' },
+		{ name: 'currentStep', type: 'string', description: 'Current active step ID' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size variant' },
+		{ name: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Layout orientation' },
+		{ name: 'compact', type: 'boolean', default: 'false', description: 'Compact mode - hides labels/descriptions' },
+		{ name: 'clickable', type: 'boolean', default: 'false', description: 'Allow clicking on completed steps' },
+		{ name: 'onStepClick', type: '(stepId: string) => void', default: '-', description: 'Step click handler' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
 </script>
 
 <svelte:head>
@@ -157,6 +169,8 @@
 	<p class="text-text-muted text-sm">Current: {step}</p>
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

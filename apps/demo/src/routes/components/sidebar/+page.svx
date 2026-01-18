@@ -1,6 +1,15 @@
 <script lang="ts">
 	import { Sidebar, PageHeader, Text } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'width', type: 'number', default: '256', description: 'Width of the sidebar in pixels when expanded' },
+		{ name: 'collapsed', type: 'boolean', default: 'false', description: 'Whether the sidebar is collapsed (bindable)' },
+		{ name: 'onToggle', type: '() => void', default: '-', description: 'Callback when toggle button is clicked' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Content to render inside the sidebar' },
+		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' }
+	];
 </script>
 
 <svelte:head>
@@ -30,6 +39,8 @@
 The Sidebar component provides a styled container for navigation elements.
 Use with ListItem components for navigation links.
 </Text>
+
+<PropsTable props={propDefs} />
 
 </div>
 

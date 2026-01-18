@@ -1,9 +1,23 @@
 <script lang="ts">
 	import { Slider, Text, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	let singleValue = $state([50]);
 	let rangeValue = $state([25, 75]);
+
+	const propDefs: PropDef[] = [
+		{ name: 'value', type: 'number[]', default: '[50]', description: 'Current value(s) (bindable)' },
+		{ name: 'min', type: 'number', default: '0', description: 'Minimum value' },
+		{ name: 'max', type: 'number', default: '100', description: 'Maximum value' },
+		{ name: 'step', type: 'number', default: '1', description: 'Step increment' },
+		{ name: 'disabled', type: 'boolean', default: 'false', description: 'Disable interactions' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size preset' },
+		{ name: 'aria-label', type: 'string', default: '-', description: 'Accessible label for screen readers' },
+		{ name: 'aria-describedby', type: 'string', default: '-', description: 'ID of element describing this slider' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'onchange', type: '(value: number[]) => void', default: '-', description: 'Change event handler' }
+	];
 </script>
 
 <svelte:head>
@@ -58,6 +72,8 @@
 	<Slider min={0} max={1000} step={10} value={[500]} />
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

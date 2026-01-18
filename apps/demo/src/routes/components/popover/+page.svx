@@ -1,6 +1,17 @@
 <script lang="ts">
 	import { Popover, Button, Text, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'open', type: 'boolean', default: 'false', description: 'Bindable open state' },
+		{ name: 'side', type: 'PopoverSide', default: "'bottom'", description: 'Position side (top, right, bottom, left)' },
+		{ name: 'sideOffset', type: 'number', default: '4', description: 'Offset from the trigger in pixels' },
+		{ name: 'align', type: "'start' | 'center' | 'end'", default: "'center'", description: 'Alignment relative to trigger' },
+		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes for the content' },
+		{ name: 'trigger', type: 'Snippet', default: '-', description: 'Trigger element snippet (required)' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Popover content (required)' }
+	];
 </script>
 
 <svelte:head>
@@ -43,6 +54,8 @@
 	</Popover>
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

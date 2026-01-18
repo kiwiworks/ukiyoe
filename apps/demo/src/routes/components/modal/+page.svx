@@ -1,10 +1,21 @@
 <script lang="ts">
 	import { Modal, Button, Text, Divider, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	let basicModal = $state(false);
 	let confirmModal = $state(false);
 	let largeModal = $state(false);
+
+	const propDefs: PropDef[] = [
+		{ name: 'open', type: 'boolean', default: 'false', description: 'Whether the modal is open (bindable)' },
+		{ name: 'title', type: 'string', default: '-', description: 'Title displayed in the modal header' },
+		{ name: 'width', type: 'string', default: "'var(--modal-width, auto)'", description: 'Width of the modal (CSS value)' },
+		{ name: 'height', type: 'string', default: "'var(--modal-height, auto)'", description: 'Height of the modal (CSS value)' },
+		{ name: 'showClose', type: 'boolean', default: 'true', description: 'Whether to show the close button' },
+		{ name: 'onclose', type: '() => void', default: '-', description: 'Callback when modal is closed' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Modal content' }
+	];
 </script>
 
 <svelte:head>
@@ -62,6 +73,8 @@
 	</div>
 </Modal>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

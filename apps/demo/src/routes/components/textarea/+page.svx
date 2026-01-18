@@ -1,6 +1,28 @@
 <script lang="ts">
 	import { Textarea, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'value', type: 'string', default: "''", description: 'Text value (bindable)' },
+		{ name: 'placeholder', type: 'string', default: "''", description: 'Placeholder text' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size variant' },
+		{ name: 'rows', type: 'number', default: '3', description: 'Number of visible rows' },
+		{ name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the textarea' },
+		{ name: 'loading', type: 'boolean', default: 'false', description: 'Show loading spinner and disable interactions' },
+		{ name: 'readonly', type: 'boolean', default: 'false', description: 'Make the textarea read-only' },
+		{ name: 'required', type: 'boolean', default: 'false', description: 'Mark as required' },
+		{ name: 'error', type: 'boolean', default: 'false', description: 'Show error state' },
+		{ name: 'id', type: 'string', default: '-', description: 'HTML id attribute' },
+		{ name: 'name', type: 'string', default: '-', description: 'HTML name attribute' },
+		{ name: 'aria-label', type: 'string', default: '-', description: 'Accessibility label' },
+		{ name: 'aria-describedby', type: 'string', default: '-', description: 'ID of element describing the textarea' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'oninput', type: '(event) => void', default: '-', description: 'Input event handler' },
+		{ name: 'onchange', type: '(event) => void', default: '-', description: 'Change event handler' },
+		{ name: 'onfocus', type: '(event) => void', default: '-', description: 'Focus event handler' },
+		{ name: 'onblur', type: '(event) => void', default: '-', description: 'Blur event handler' }
+	];
 </script>
 
 <svelte:head>
@@ -45,6 +67,8 @@
 	<Textarea placeholder="5 rows" rows={5} />
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

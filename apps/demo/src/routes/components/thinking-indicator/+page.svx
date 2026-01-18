@@ -2,6 +2,7 @@
 	import { ThinkingIndicator, PageHeader, Button } from 'ukiyoe';
 	import type { ThinkingStatus } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	const statuses: ThinkingStatus[] = ['thinking', 'searching', 'reading', 'executing', 'writing'];
 	let index = $state(0);
@@ -11,6 +12,15 @@
 		const interval = setInterval(() => { elapsed++; }, 1000);
 		return () => clearInterval(interval);
 	});
+
+	const propDefs: PropDef[] = [
+		{ name: 'status', type: "'thinking' | 'searching' | 'executing' | 'writing' | 'reading'", default: '-', description: 'Current activity status (required)' },
+		{ name: 'label', type: 'string', default: '-', description: 'Custom label to display (overrides default status label)' },
+		{ name: 'elapsed', type: 'number', default: '-', description: 'Elapsed time in seconds' },
+		{ name: 'collapsible', type: 'boolean', default: 'false', description: 'Allow collapsing to show expanded content' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Expanded thinking content' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
 </script>
 
 <svelte:head>
@@ -61,6 +71,8 @@ Running 42 tests...
 ✓ test/unit/streaming.test.ts (8 tests)</pre>
 </ThinkingIndicator>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

@@ -2,6 +2,15 @@
 	import { ActionMenu, PageHeader, MenuItem, MenuDivider } from 'ukiyoe';
 	import { MoreVertical, MoreHorizontal, Settings } from '@lucide/svelte';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'label', type: 'string', description: 'Button label text' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'sm'", description: 'Size preset' },
+		{ name: 'icon', type: 'Snippet', description: 'Icon to display before label' },
+		{ name: 'children', type: 'Snippet', description: 'Menu items content' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
 </script>
 
 <svelte:head>
@@ -45,6 +54,8 @@
 	<MenuItem>Notifications</MenuItem>
 </ActionMenu>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

@@ -1,6 +1,12 @@
 <script lang="ts">
 	import { SupernovaBackground, PageHeader, Text, CodeBlock } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'qualityOverride', type: 'BgQualityPreset', default: '-', description: 'Override quality settings (for preview in settings)' },
+		{ name: 'showStats', type: 'boolean', default: 'false', description: 'Show FPS overlay (for settings preview)' }
+	];
 </script>
 
 <svelte:head>
@@ -42,6 +48,8 @@
 <Text variant="secondary" size="sm">
 Creates an explosive, radial star effect. Best used for dramatic hero sections.
 </Text>
+
+<PropsTable props={propDefs} />
 
 </div>
 

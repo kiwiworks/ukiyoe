@@ -1,6 +1,16 @@
 <script lang="ts">
 	import { Tooltip, Button, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'content', type: 'string', default: '-', description: 'Tooltip text content (required)' },
+		{ name: 'side', type: "'top' | 'right' | 'bottom' | 'left'", default: "'top'", description: 'Position of the tooltip relative to trigger' },
+		{ name: 'sideOffset', type: 'number', default: '4', description: 'Distance in pixels from the trigger' },
+		{ name: 'delayDuration', type: 'number', default: '200', description: 'Delay in ms before showing tooltip' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes for the tooltip content' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Trigger element (required)' }
+	];
 </script>
 
 <svelte:head>
@@ -47,6 +57,8 @@
 	</button>
 </Tooltip>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

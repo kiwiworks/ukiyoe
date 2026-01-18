@@ -1,6 +1,23 @@
 <script lang="ts">
 	import { Button, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'variant', type: "'default' | 'primary' | 'success' | 'danger' | 'warning' | 'ghost' | 'outline'", default: "'default'", description: 'Visual style variant' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size preset' },
+		{ name: 'type', type: "'button' | 'submit' | 'reset'", default: "'button'", description: 'HTML button type attribute' },
+		{ name: 'disabled', type: 'boolean', default: 'false', description: 'Disable interactions' },
+		{ name: 'active', type: 'boolean', default: 'false', description: 'Visual active/pressed state' },
+		{ name: 'loading', type: 'boolean', default: 'false', description: 'Show loading spinner' },
+		{ name: 'href', type: 'string', default: '-', description: 'Render as anchor element' },
+		{ name: 'fullWidth', type: 'boolean', default: 'false', description: 'Make button full-width' },
+		{ name: 'aria-label', type: 'string', default: '-', description: 'Accessible label for icon-only buttons' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'style', type: 'string', default: '-', description: 'Inline styles' },
+		{ name: 'onclick', type: '(event: MouseEvent) => void', default: '-', description: 'Click handler' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Content to render inside' }
+	];
 </script>
 
 <svelte:head>
@@ -53,6 +70,8 @@
 	<Button variant="primary" class="w-full">Full Width Button</Button>
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

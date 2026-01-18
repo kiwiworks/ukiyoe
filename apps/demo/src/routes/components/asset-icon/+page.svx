@@ -1,6 +1,15 @@
 <script lang="ts">
 	import { AssetIcon, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'symbol', type: 'string', description: 'Asset symbol (e.g., "BTC", "USD")' },
+		{ name: 'logoUri', type: 'string | null', description: 'Logo URI for the asset' },
+		{ name: 'unicode', type: 'string | null', description: 'Unicode symbol for fiat (e.g., "$", "\u20ac")' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size preset' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
 </script>
 
 <svelte:head>
@@ -35,6 +44,8 @@
 <AssetIcon symbol="UNKNOWN" size="lg" />
 <AssetIcon symbol="XYZ" size="lg" />
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

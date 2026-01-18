@@ -1,6 +1,19 @@
 <script lang="ts">
 	import { SectionCard, Text, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'title', type: 'string', default: '-', description: 'Card title displayed in the header' },
+		{ name: 'icon', type: 'Component', default: '-', description: 'Optional icon component for the header' },
+		{ name: 'collapsible', type: 'boolean', default: 'false', description: 'Enable collapsible functionality' },
+		{ name: 'defaultOpen', type: 'boolean', default: 'true', description: 'Initial open state when collapsible' },
+		{ name: 'href', type: 'string', default: '-', description: 'Makes the card a clickable link' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'actions', type: 'Snippet', default: '-', description: 'Slot for action buttons in header' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Main content slot' },
+		{ name: 'empty', type: 'Snippet', default: '-', description: 'Fallback content when children is empty' }
+	];
 </script>
 
 <svelte:head>
@@ -45,6 +58,8 @@
 	</SectionCard>
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

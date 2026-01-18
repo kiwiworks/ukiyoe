@@ -1,6 +1,14 @@
 <script lang="ts">
 	import { Heading, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'level', type: '1 | 2 | 3 | 4 | 5 | 6', default: '2', description: 'HTML heading level (h1-h6)' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'", default: 'auto', description: 'Text size (defaults based on level: h1=2xl, h2=lg, h3=md, h4=sm, h5/h6=xs)' },
+		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', description: 'Heading content' }
+	];
 </script>
 
 <svelte:head>
@@ -32,6 +40,8 @@
 	<Heading level={1} size="md">H1 with MD size</Heading>
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

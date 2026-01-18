@@ -1,8 +1,21 @@
 <script lang="ts">
 	import { Switch, Text, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	let enabled = $state(false);
+
+	const propDefs: PropDef[] = [
+		{ name: 'checked', type: 'boolean', default: 'false', description: 'Checked state (bindable)' },
+		{ name: 'disabled', type: 'boolean', default: 'false', description: 'Disable interactions' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size preset' },
+		{ name: 'id', type: 'string', default: '-', description: 'HTML id attribute for label association' },
+		{ name: 'name', type: 'string', default: '-', description: 'HTML name attribute for form submission' },
+		{ name: 'aria-label', type: 'string', default: '-', description: 'Accessible label for screen readers' },
+		{ name: 'aria-describedby', type: 'string', default: '-', description: 'ID of element describing this switch' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'onchange', type: '(checked: boolean) => void', default: '-', description: 'Change event handler' }
+	];
 </script>
 
 <svelte:head>
@@ -42,6 +55,8 @@
 	<Switch disabled checked />
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

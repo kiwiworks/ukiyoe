@@ -1,6 +1,13 @@
 <script lang="ts">
 	import { GridPulseBackground, PageHeader, Text, CodeBlock } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'gridSize', type: 'number', default: '40', description: 'Size of grid cells in pixels' },
+		{ name: 'pulseSpeed', type: 'number', default: '0.8', description: 'Speed of the pulse animation' },
+		{ name: 'opacity', type: 'number', default: '0.035', description: 'Base opacity of the grid lines' }
+	];
 </script>
 
 <svelte:head>
@@ -43,6 +50,8 @@
 This is a canvas-based animation. Use sparingly for performance.
 The effect is best used as a subtle background for hero sections or landing pages.
 </Text>
+
+<PropsTable props={propDefs} />
 
 </div>
 

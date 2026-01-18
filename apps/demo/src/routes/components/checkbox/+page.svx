@@ -1,9 +1,24 @@
 <script lang="ts">
 	import { Checkbox, Text, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	let checked1 = $state(false);
 	let checked2 = $state(true);
+
+	const propDefs: PropDef[] = [
+		{ name: 'checked', type: 'boolean', default: 'false', description: 'Checked state (bindable)' },
+		{ name: 'disabled', type: 'boolean', default: 'false', description: 'Disable interactions' },
+		{ name: 'loading', type: 'boolean', default: 'false', description: 'Show loading spinner' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size preset' },
+		{ name: 'id', type: 'string', default: '-', description: 'HTML id for label association' },
+		{ name: 'name', type: 'string', default: '-', description: 'HTML name for form submission' },
+		{ name: 'aria-label', type: 'string', default: '-', description: 'Accessible label' },
+		{ name: 'aria-describedby', type: 'string', default: '-', description: 'ID of describing element' },
+		{ name: 'aria-invalid', type: 'boolean', default: '-', description: 'Indicates invalid value' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'onchange', type: '(checked: boolean) => void', default: '-', description: 'Change event handler' }
+	];
 </script>
 
 <svelte:head>
@@ -50,6 +65,8 @@
 	<Checkbox disabled checked />
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

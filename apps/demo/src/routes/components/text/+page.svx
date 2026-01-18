@@ -1,6 +1,18 @@
 <script lang="ts">
 	import { Text, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'", default: "'sm'", description: 'Text size variant' },
+		{ name: 'variant', type: "'primary' | 'secondary' | 'muted' | 'positive' | 'negative' | 'warning'", default: "'secondary'", description: 'Color variant' },
+		{ name: 'weight', type: "'normal' | 'medium' | 'semibold' | 'bold'", default: "'normal'", description: 'Font weight' },
+		{ name: 'as', type: "'p' | 'span' | 'div' | 'label'", default: "'p'", description: 'HTML element to render' },
+		{ name: 'mono', type: 'boolean', default: 'false', description: 'Use monospace font' },
+		{ name: 'truncate', type: 'boolean', default: 'false', description: 'Truncate text with ellipsis' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Text content' }
+	];
 </script>
 
 <svelte:head>
@@ -54,6 +66,8 @@
 <Text as="span">Span element</Text>
 <Text as="label">Label element</Text>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

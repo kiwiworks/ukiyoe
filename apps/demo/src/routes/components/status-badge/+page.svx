@@ -1,6 +1,16 @@
 <script lang="ts">
 	import { StatusBadge, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'label', type: 'string', description: 'Text label to display' },
+		{ name: 'variant', type: "'default' | 'info' | 'success' | 'warning' | 'danger'", description: 'Visual variant for the badge' },
+		{ name: 'icon', type: 'Component', default: '-', description: 'Optional icon component' },
+		{ name: 'pulse', type: 'boolean', default: 'false', description: 'Show pulse animation' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size preset' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
 </script>
 
 <svelte:head>
@@ -36,6 +46,8 @@
 <StatusBadge label="Disconnected" variant="error" />
 <StatusBadge label="Offline" variant="neutral" />
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

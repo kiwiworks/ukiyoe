@@ -1,6 +1,25 @@
 <script lang="ts">
 	import { SmartSelect, PageHeader, Text, addToast } from 'ukiyoe';
 	import { Settings, User, LogOut, FileText, Folder, Terminal } from '@lucide/svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'value', type: 'string', default: "''", description: 'Selected value (bindable)' },
+		{ name: 'options', type: 'SmartSelectOption[]', default: '[]', description: 'Available options' },
+		{ name: 'actions', type: 'SmartSelectAction[]', default: '[]', description: 'Actions that can be triggered' },
+		{ name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size preset' },
+		{ name: 'disabled', type: 'boolean', default: 'false', description: 'Disable interactions' },
+		{ name: 'loading', type: 'boolean', default: 'false', description: 'Show loading spinner' },
+		{ name: 'placeholder', type: 'string', default: "'Search...'", description: 'Placeholder text' },
+		{ name: 'emptyMessage', type: 'string', default: "'No results found'", description: 'Empty state message' },
+		{ name: 'id', type: 'string', default: '-', description: 'HTML id attribute' },
+		{ name: 'aria-label', type: 'string', default: '-', description: 'Accessible label' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'onchange', type: '(value: string) => void', default: '-', description: 'Change event handler for option selection' },
+		{ name: 'filter', type: '(option: SmartSelectOption, query: string) => boolean', default: '-', description: 'Custom filter function' },
+		{ name: 'highlightMatch', type: 'boolean', default: 'false', description: 'Highlight matching text in results' },
+		{ name: 'highlightClass', type: 'string', default: "'bg-accent-brand/20 text-accent-brand'", description: 'Custom class for highlighted text' }
+	];
 
 	let basicValue = $state('');
 	let descValue = $state('');
@@ -142,6 +161,8 @@
 			<SmartSelect size="lg" options={basicOptions} placeholder="Large..." class="w-56" />
 		</div>
 	</section>
+
+	<PropsTable props={propDefs} />
 </div>
 
 <style>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { StatsGrid, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	const stats = [
 		{ label: 'Total Users', value: '12,345' },
@@ -12,6 +13,13 @@
 	const twoColStats = [
 		{ label: 'Requests', value: '1.2M' },
 		{ label: 'Latency', value: '45ms' }
+	];
+
+	const propDefs: PropDef[] = [
+		{ name: 'items', type: 'StatItem[]', description: 'Array of stat items to display' },
+		{ name: 'columns', type: '2 | 3 | 4', default: '3', description: 'Number of columns in the grid' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size preset for values' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
 	];
 </script>
 
@@ -34,6 +42,8 @@
 ```svelte preview title="Two Column Grid"
 <StatsGrid stats={twoColStats} />
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

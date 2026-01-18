@@ -2,6 +2,18 @@
 	import { ListItem, PageHeader } from 'ukiyoe';
 	import { User, Settings, Bell, Lock } from '@lucide/svelte';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'variant', type: "'default' | 'success' | 'warning' | 'error'", default: "'default'", description: 'Visual style variant with colored left border' },
+		{ name: 'interactive', type: 'boolean', default: 'false', description: 'Enable hover and focus states for clickable items' },
+		{ name: 'selected', type: 'boolean', default: 'false', description: 'Mark item as selected with background highlight' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'icon', type: 'Snippet', default: '-', description: 'Icon displayed on the left side' },
+		{ name: 'left', type: 'Snippet', default: '-', description: 'Content for the left/main area' },
+		{ name: 'right', type: 'Snippet', default: '-', description: 'Content for the right side (badges, actions)' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Default content (used if left snippet not provided)' }
+	];
 </script>
 
 <svelte:head>
@@ -93,6 +105,8 @@ Use snippets to pass icons to list items:
 	</ListItem>
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

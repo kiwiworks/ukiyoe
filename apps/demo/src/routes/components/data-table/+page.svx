@@ -2,6 +2,33 @@
 	import { DataTable, PageHeader } from 'ukiyoe';
 	import type { Column } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'data', type: 'T[]', default: '-', description: 'Array of data rows' },
+		{ name: 'columns', type: 'Column<T>[]', default: '-', description: 'Column definitions' },
+		{ name: 'keyField', type: 'string', default: '-', description: 'Unique key field for each row' },
+		{ name: 'sortable', type: 'boolean', default: 'false', description: 'Enable sorting' },
+		{ name: 'defaultSortKey', type: 'string', default: "''", description: 'Default sort column key' },
+		{ name: 'defaultSortDir', type: "'asc' | 'desc'", default: "'asc'", description: 'Default sort direction' },
+		{ name: 'paginate', type: 'boolean', default: 'false', description: 'Enable client-side pagination' },
+		{ name: 'pageSize', type: 'number', default: '10', description: 'Page size' },
+		{ name: 'pageSizeOptions', type: 'number[]', default: '[10, 25, 50, 100]', description: 'Page size options' },
+		{ name: 'searchable', type: 'boolean', default: 'false', description: 'Enable client-side search' },
+		{ name: 'searchPlaceholder', type: 'string', default: "'Search...'", description: 'Search placeholder text' },
+		{ name: 'searchKeys', type: 'string[]', default: '[]', description: 'Keys to search' },
+		{ name: 'compact', type: 'boolean', default: 'false', description: 'Compact row height' },
+		{ name: 'stickyHeader', type: 'boolean', default: 'true', description: 'Sticky header' },
+		{ name: 'striped', type: 'boolean', default: 'false', description: 'Striped rows' },
+		{ name: 'hoverable', type: 'boolean', default: 'true', description: 'Hoverable rows' },
+		{ name: 'emptyMessage', type: 'string', default: "'No data'", description: 'Empty state message' },
+		{ name: 'onRowClick', type: '(row: T) => void', default: '-', description: 'Row click handler' },
+		{ name: 'cell', type: 'Snippet', default: '-', description: 'Custom cell renderer' },
+		{ name: 'row', type: 'Snippet', default: '-', description: 'Custom row renderer' },
+		{ name: 'header', type: 'Snippet', default: '-', description: 'Custom header cell renderer' },
+		{ name: 'empty', type: 'Snippet', default: '-', description: 'Custom empty state' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
 
 	const basicData = [
 		{ id: 1, name: 'Alice', email: 'alice@example.com', role: 'Admin' },
@@ -96,6 +123,8 @@ For advanced customization, use the compound component API:
 ```svelte preview title="Right-Aligned Numbers"
 <DataTable data={numericData} columns={numericColumns} keyField="id" />
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

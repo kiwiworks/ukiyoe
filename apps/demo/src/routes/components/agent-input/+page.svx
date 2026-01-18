@@ -2,6 +2,7 @@
 	import { AgentInput, PageHeader, Text, addToast } from 'ukiyoe';
 	import type { Attachment } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	let basicValue = $state('');
 	let attachValue = $state('');
@@ -26,6 +27,20 @@
 		isLoading = true;
 		setTimeout(() => { isLoading = false; }, 3000);
 	}
+
+	const propDefs: PropDef[] = [
+		{ name: 'value', type: 'string', default: "''", description: 'Current input value (bindable)' },
+		{ name: 'placeholder', type: 'string', default: "'Send a message...'", description: 'Placeholder text' },
+		{ name: 'disabled', type: 'boolean', default: 'false', description: 'Whether input is disabled' },
+		{ name: 'loading', type: 'boolean', default: 'false', description: 'Show loading/submitting state' },
+		{ name: 'attachments', type: 'Attachment[]', default: '[]', description: 'Current attachments' },
+		{ name: 'maxAttachments', type: 'number', default: '5', description: 'Maximum number of attachments' },
+		{ name: 'onSubmit', type: '(value: string, attachments: Attachment[]) => void', description: 'Handler for submit events' },
+		{ name: 'onAttach', type: '(files: File[]) => void', description: 'Handler when files are attached' },
+		{ name: 'onRemoveAttachment', type: '(id: string) => void', description: 'Handler when attachment is removed' },
+		{ name: 'onCancel', type: '() => void', description: 'Handler when stop is clicked during loading' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
 </script>
 
 <svelte:head>
@@ -83,6 +98,8 @@
 	placeholder="Disabled..."
 />
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

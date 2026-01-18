@@ -1,8 +1,27 @@
 <script lang="ts">
 	import { ErrorPage, PageHeader, Button } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	let retryCount = $state(0);
+
+	const propDefs: PropDef[] = [
+		{ name: 'status', type: 'number', default: '500', description: 'HTTP status code' },
+		{ name: 'title', type: 'string', default: '-', description: 'Error title (auto-generated from status if not provided)' },
+		{ name: 'message', type: 'string', default: '-', description: 'Error message/description (auto-generated from status if not provided)' },
+		{ name: 'stack', type: 'string', default: '-', description: 'Stack trace (only shown if showStack is true)' },
+		{ name: 'showStack', type: 'boolean', default: 'false', description: 'Show stack trace' },
+		{ name: 'backText', type: 'string', default: "'Go back'", description: 'Back button text' },
+		{ name: 'backHref', type: 'string', default: '-', description: 'Back button href (uses history.back() if not provided)' },
+		{ name: 'homeText', type: 'string', default: "'Go home'", description: 'Home button text' },
+		{ name: 'homeHref', type: 'string', default: "'/'", description: 'Home button href' },
+		{ name: 'showHome', type: 'boolean', default: 'true', description: 'Show home button' },
+		{ name: 'showBack', type: 'boolean', default: 'true', description: 'Show back button' },
+		{ name: 'onRetry', type: '() => void', default: '-', description: 'Retry callback function' },
+		{ name: 'showRetry', type: 'boolean', default: 'false', description: 'Show retry button' },
+		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Custom content slot (replaces default buttons)' }
+	];
 </script>
 
 <svelte:head>
@@ -90,6 +109,8 @@
 	</div>
 </ErrorPage>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

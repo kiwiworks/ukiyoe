@@ -1,10 +1,20 @@
 <script lang="ts">
 	import { RandomName, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	let name1 = $state('Swift Phoenix');
 	let name2 = $state('Stellar Horizon');
 	let name3 = $state('Cosmic Sentinel');
+
+	const propDefs: PropDef[] = [
+		{ name: 'value', type: 'string', default: '-', description: 'Current name value (bindable)' },
+		{ name: 'onchange', type: '(name: string) => void', default: '-', description: 'Callback when name changes' },
+		{ name: 'placeholder', type: 'string', default: "'Enter name...'", description: 'Placeholder for manual input' },
+		{ name: 'config', type: 'RandomNameConfig', default: '{}', description: 'Configuration for name generation' },
+		{ name: 'disabled', type: 'boolean', default: 'false', description: 'Disable interaction' },
+		{ name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size variant' }
+	];
 </script>
 
 <svelte:head>
@@ -34,6 +44,8 @@ Click the refresh icon to generate a new random name. The name is editable and c
 	<RandomName bind:value={name1} />
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

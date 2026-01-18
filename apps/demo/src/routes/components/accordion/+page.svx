@@ -1,11 +1,20 @@
 <script lang="ts">
 	import { Accordion, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	const items = [
 		{ value: 'item-1', title: 'Is this component accessible?', content: 'Yes, it follows WAI-ARIA design patterns for accordions.' },
 		{ value: 'item-2', title: 'Can I use custom content?', content: 'Yes, you can use the children snippet to render custom content for each item.' },
 		{ value: 'item-3', title: 'Is it animated?', content: 'Yes, the accordion includes smooth expand/collapse animations.' }
+	];
+
+	const propDefs: PropDef[] = [
+		{ name: 'items', type: 'AccordionItem[]', description: 'Array of accordion items to display' },
+		{ name: 'type', type: "'single' | 'multiple'", default: "'single'", description: 'Whether one or multiple items can be open' },
+		{ name: 'value', type: 'string | string[]', default: "'' | []", description: 'Currently open item value(s)' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet<[AccordionItem]>', description: 'Custom content renderer for each item' }
 	];
 </script>
 
@@ -46,6 +55,8 @@
 	/>
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

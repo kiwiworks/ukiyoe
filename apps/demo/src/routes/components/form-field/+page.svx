@@ -1,6 +1,16 @@
 <script lang="ts">
 	import { FormField, Input, Select, Textarea, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'label', type: 'string', description: 'Field label' },
+		{ name: 'error', type: 'string', default: '-', description: 'Error message (also triggers error state)' },
+		{ name: 'hint', type: 'string', default: '-', description: 'Hint text shown below the input' },
+		{ name: 'required', type: 'boolean', default: 'false', description: 'Mark field as required' },
+		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', description: 'Child content (input, select, textarea, etc.)' }
+	];
 </script>
 
 <svelte:head>
@@ -69,6 +79,8 @@
 	</FormField>
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

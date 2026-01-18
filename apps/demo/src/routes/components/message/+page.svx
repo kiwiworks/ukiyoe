@@ -1,6 +1,17 @@
 <script lang="ts">
 	import { Message, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'role', type: "'user' | 'assistant' | 'system'", default: '-', description: 'Message author role (determines alignment and styling)' },
+		{ name: 'status', type: "'idle' | 'streaming' | 'complete' | 'error'", default: "'idle'", description: 'Current message state' },
+		{ name: 'timestamp', type: 'Date', default: '-', description: 'Timestamp for the message' },
+		{ name: 'error', type: 'string', default: '-', description: 'Error message when status is error' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Message content' },
+		{ name: 'actions', type: 'Snippet', default: '-', description: 'Actions slot (copy, regenerate, etc.)' }
+	];
 </script>
 
 <svelte:head>
@@ -52,6 +63,8 @@
 	Error content (hidden)
 </Message>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

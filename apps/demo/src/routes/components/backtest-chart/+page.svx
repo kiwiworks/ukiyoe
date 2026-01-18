@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { BacktestChart, PageHeader, Text, CodeBlock } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 	import { browser } from '$app/environment';
 
 	const sampleTrades = [
@@ -9,6 +10,13 @@
 		{ entryTime: 1704412800, exitTime: 1704499200, side: 'long', entryPrice: 102, exitPrice: 110, pnl: 800, pnlPct: 0.078 },
 		{ entryTime: 1704585600, exitTime: 1704672000, side: 'long', entryPrice: 112, exitPrice: 108, pnl: -400, pnlPct: -0.036 },
 		{ entryTime: 1704758400, exitTime: 1704844800, side: 'short', entryPrice: 106, exitPrice: 100, pnl: 600, pnlPct: 0.057 }
+	];
+
+	const propDefs: PropDef[] = [
+		{ name: 'trades', type: 'Trade[]', description: 'Array of trade objects to display' },
+		{ name: 'equityCurve', type: 'EquityPoint[]', default: '[]', description: 'Optional equity curve data' },
+		{ name: 'height', type: 'number', default: '280', description: 'Chart height in pixels' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
 	];
 </script>
 
@@ -61,6 +69,8 @@
 Each trade object requires: `entryTime`, `exitTime` (Unix timestamps), `side` ('long' or 'short'),
 `entryPrice`, `exitPrice`, `pnl` (profit/loss), and `pnlPct` (percentage).
 </Text>
+
+<PropsTable props={propDefs} />
 
 </div>
 

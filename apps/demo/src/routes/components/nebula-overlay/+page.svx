@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { NebulaOverlay, PageHeader, Text, CodeBlock } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [];
 </script>
 
 <svelte:head>
@@ -41,7 +44,10 @@
 
 <Text variant="secondary" size="sm">
 Creates a cosmic nebula-like overlay effect. Works well layered over dark backgrounds.
+The overlay is controlled by the theme store's `nebula` setting and automatically adapts to light/dark mode.
 </Text>
+
+<PropsTable props={propDefs} title="Props (No configurable props - uses theme store)" />
 
 </div>
 

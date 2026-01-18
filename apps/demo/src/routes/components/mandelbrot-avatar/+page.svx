@@ -1,6 +1,14 @@
 <script lang="ts">
 	import { MandelbrotAvatar, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'uuid', type: 'string', default: '-', description: 'UUID used to deterministically generate the fractal pattern' },
+		{ name: 'size', type: 'number', default: '48', description: 'Avatar size in pixels' },
+		{ name: 'rounded', type: "'none' | 'sm' | 'md' | 'full'", default: "'md'", description: 'Border radius variant' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Optional icon overlay content' }
+	];
 </script>
 
 <svelte:head>
@@ -39,6 +47,8 @@ The same UUID always generates the same avatar pattern.
 <MandelbrotAvatar uuid="test-user-uuid-1234" size={48} />
 <MandelbrotAvatar uuid="test-user-uuid-1234" size={48} />
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

@@ -1,6 +1,14 @@
 <script lang="ts">
 	import { Divider, Text, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'variant', type: "'subtle' | 'default' | 'strong'", default: "'subtle'", description: 'Visual weight variant' },
+		{ name: 'spacing', type: "'none' | 'xs' | 'sm' | 'md' | 'lg'", default: "'sm'", description: 'Margin spacing' },
+		{ name: 'vertical', type: 'boolean', default: 'false', description: 'Render as vertical divider' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
 </script>
 
 <svelte:head>
@@ -53,6 +61,8 @@
 	</div>
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

@@ -1,6 +1,25 @@
 <script lang="ts">
 	import { Numeric, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'value', type: 'number | string | null | undefined', default: '-', description: 'The numeric value to display' },
+		{ name: 'format', type: 'NumericFormat', default: "'number'", description: 'Format type (number, integer, percent, percentPlain, currency, pnl, price, quantity, compact, duration, bytes, bps, ratio)' },
+		{ name: 'decimals', type: 'number', default: '-', description: 'Number of decimal places (overrides format default)' },
+		{ name: 'variant', type: 'NumericVariant', default: "'default'", description: 'Color variant (default, positive, negative, muted, accent)' },
+		{ name: 'colorBySign', type: 'boolean', default: 'false', description: 'Auto-color based on sign' },
+		{ name: 'size', type: 'NumericSize', default: "'md'", description: 'Size preset (xs, sm, md, lg)' },
+		{ name: 'showSign', type: 'boolean', default: '-', description: 'Show +/- sign for positive/negative (depends on format)' },
+		{ name: 'prefix', type: 'string', default: "''", description: 'Prefix string (e.g., $, EUR)' },
+		{ name: 'suffix', type: 'string', default: "''", description: 'Suffix string (e.g., %, bp, x)' },
+		{ name: 'locale', type: 'string', default: "'en-US'", description: 'Locale for number formatting' },
+		{ name: 'currency', type: 'string', default: "'USD'", description: 'Currency code for currency format' },
+		{ name: 'placeholder', type: 'string', default: "'-'", description: 'Placeholder when value is null/undefined' },
+		{ name: 'animate', type: 'boolean', default: 'false', description: 'Animate value changes' },
+		{ name: 'class', type: 'string', default: '-', description: 'Custom CSS class' },
+		{ name: 'sensitive', type: 'boolean', default: 'false', description: 'Mark as sensitive data - will be masked when privacy mode is enabled' }
+	];
 </script>
 
 <svelte:head>
@@ -52,6 +71,8 @@
 <Numeric value={42150.5} format="currency" size="md" />
 <Numeric value={42150.5} format="currency" size="lg" />
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

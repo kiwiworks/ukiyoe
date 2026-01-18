@@ -1,6 +1,14 @@
 <script lang="ts">
 	import { StatusBar, PageHeader, Text } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Content to render in the left section' },
+		{ name: 'rightContent', type: 'Snippet', default: '-', description: 'Content to render in the right section' },
+		{ name: 'connected', type: 'boolean', default: 'true', description: 'Connection status indicator' },
+		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' }
+	];
 </script>
 
 <svelte:head>
@@ -40,6 +48,8 @@
 The StatusBar component is typically positioned at the bottom of your application
 to show status information, connection state, or version numbers.
 </Text>
+
+<PropsTable props={propDefs} />
 
 </div>
 

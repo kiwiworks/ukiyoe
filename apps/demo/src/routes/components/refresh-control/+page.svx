@@ -1,6 +1,16 @@
 <script lang="ts">
 	import { RefreshControl, PageHeader, Text } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'loading', type: 'boolean', default: 'false', description: 'Show loading spinner on refresh button' },
+		{ name: 'lastUpdated', type: 'Date | null', default: 'null', description: 'Timestamp for "time ago" display' },
+		{ name: 'interval', type: 'number | null', default: 'null', description: 'Current auto-refresh interval in ms (null = off)' },
+		{ name: 'intervals', type: 'RefreshInterval[]', default: 'DEFAULT_INTERVALS', description: 'Available interval options' },
+		{ name: 'onrefresh', type: '() => void', default: '-', description: 'Callback when refresh button is clicked' },
+		{ name: 'onintervalchange', type: '(interval: number | null) => void', default: '-', description: 'Callback when interval selection changes' }
+	];
 </script>
 
 <svelte:head>
@@ -25,6 +35,8 @@
 	<RefreshControl onrefresh={() => console.log('Refreshing...')} />
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

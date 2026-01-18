@@ -1,9 +1,21 @@
 <script lang="ts">
 	import { SidePanel, Button, Text, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	let rightPanel = $state(false);
 	let leftPanel = $state(false);
+
+	const propDefs: PropDef[] = [
+		{ name: 'title', type: 'string', default: '-', description: 'Title displayed in the panel header' },
+		{ name: 'open', type: 'boolean', default: 'true', description: 'Whether the panel is open (bindable)' },
+		{ name: 'width', type: 'number', default: '280', description: 'Width of the panel in pixels' },
+		{ name: 'position', type: "'left' | 'right'", default: "'left'", description: 'Position of the panel (left or right side)' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'header', type: 'Snippet', default: '-', description: 'Header slot content (e.g., search input)' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Main scrollable content' },
+		{ name: 'footer', type: 'Snippet', default: '-', description: 'Sticky footer content' }
+	];
 </script>
 
 <svelte:head>
@@ -37,6 +49,8 @@
 	</Text>
 </SidePanel>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

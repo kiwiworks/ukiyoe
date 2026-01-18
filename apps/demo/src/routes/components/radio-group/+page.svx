@@ -1,8 +1,25 @@
 <script lang="ts">
 	import { RadioGroup, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	let selected = $state('option1');
+
+	const propDefs: PropDef[] = [
+		{ name: 'value', type: 'string', default: "''", description: 'Selected value (bindable)' },
+		{ name: 'options', type: 'RadioOption[] | string[]', default: '-', description: 'Available options' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size preset' },
+		{ name: 'disabled', type: 'boolean', default: 'false', description: 'Disable interactions' },
+		{ name: 'loading', type: 'boolean', default: 'false', description: 'Show loading spinner and disable interactions' },
+		{ name: 'orientation', type: "'horizontal' | 'vertical'", default: "'vertical'", description: 'Layout orientation' },
+		{ name: 'name', type: 'string', default: '-', description: 'HTML name attribute for form submission' },
+		{ name: 'required', type: 'boolean', default: 'false', description: 'Required field' },
+		{ name: 'aria-label', type: 'string', default: '-', description: 'Accessible label for screen readers' },
+		{ name: 'aria-describedby', type: 'string', default: '-', description: 'ID of element describing this radio group' },
+		{ name: 'aria-invalid', type: 'boolean', default: '-', description: 'Indicates radio group has invalid value' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'onchange', type: '(value: string) => void', default: '-', description: 'Change event handler' }
+	];
 </script>
 
 <svelte:head>
@@ -52,6 +69,8 @@
 	<RadioGroup size="lg" options={['Large']} value="Large" />
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

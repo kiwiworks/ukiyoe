@@ -2,6 +2,18 @@
 	import { EmptyState, Button, PageHeader } from 'ukiyoe';
 	import { Inbox, Search, FileX, Users } from '@lucide/svelte';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'icon', type: 'Component', default: '-', description: 'Icon component to display' },
+		{ name: 'title', type: 'string', default: '-', description: 'Title text (required)' },
+		{ name: 'description', type: 'string', default: '-', description: 'Description text' },
+		{ name: 'loading', type: 'boolean', default: 'false', description: 'Show loading spinner' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size preset' },
+		{ name: 'compact', type: 'boolean', default: 'false', description: 'Use compact layout' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Action content below description' }
+	];
 </script>
 
 <svelte:head>
@@ -50,6 +62,8 @@
 	<Button size="sm" variant="primary" class="mt-md">Invite Members</Button>
 </EmptyState>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

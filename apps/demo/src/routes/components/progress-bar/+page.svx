@@ -1,6 +1,17 @@
 <script lang="ts">
 	import { ProgressBar, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'value', type: 'number', default: '0', description: 'Current progress value' },
+		{ name: 'max', type: 'number', default: '100', description: 'Maximum progress value' },
+		{ name: 'size', type: 'ProgressBarSize', default: "'md'", description: 'Size preset (xs, sm, md, lg)' },
+		{ name: 'variant', type: 'ProgressBarVariant', default: "'default'", description: 'Color variant (default, success, warning, danger)' },
+		{ name: 'showValue', type: 'boolean', default: 'false', description: 'Show percentage value' },
+		{ name: 'indeterminate', type: 'boolean', default: 'false', description: 'Show indeterminate loading animation' },
+		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' }
+	];
 </script>
 
 <svelte:head>
@@ -58,6 +69,8 @@
 	<ProgressBar indeterminate />
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

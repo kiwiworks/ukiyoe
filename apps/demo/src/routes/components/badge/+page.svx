@@ -1,6 +1,16 @@
 <script lang="ts">
 	import { Badge, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'variant', type: "'default' | 'primary' | 'success' | 'danger' | 'warning' | 'info' | 'muted' | 'brand'", default: "'default'", description: 'Visual style variant' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'sm'", description: 'Badge size' },
+		{ name: 'pulse', type: 'boolean', default: 'false', description: 'Whether badge has pulse animation' },
+		{ name: 'showDot', type: 'boolean', default: 'false', description: 'Show as dot indicator instead' },
+		{ name: 'text', type: 'string', description: 'Badge text content' },
+		{ name: 'children', type: 'Snippet', description: 'Content to render inside' }
+	];
 </script>
 
 <svelte:head>
@@ -31,6 +41,8 @@
 <Badge text="Stable" variant="success" />
 <Badge text="v1.0.0" variant="muted" />
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

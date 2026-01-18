@@ -1,7 +1,18 @@
 <script lang="ts">
 	import { EquityChart, PageHeader, Text, CodeBlock } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 	import { browser } from '$app/environment';
+
+	const propDefs: PropDef[] = [
+		{ name: 'equityCurve', type: 'EquityPoint[]', default: '-', description: 'Array of equity data points' },
+		{ name: 'trades', type: 'Trade[]', default: '[]', description: 'Array of trade markers' },
+		{ name: 'width', type: "number | 'auto'", default: "'auto'", description: 'Chart width' },
+		{ name: 'height', type: 'number', default: '160', description: 'Chart height in pixels' },
+		{ name: 'showDrawdown', type: 'boolean', default: 'true', description: 'Show drawdown overlay' },
+		{ name: 'drawdownHeightRatio', type: 'number', default: '0.3', description: 'Drawdown height ratio (0-1)' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
 
 	const sampleEquityCurve = Array.from({ length: 50 }, (_, i) => ({
 		timestamp: 1704067200 + i * 86400,
@@ -53,6 +64,8 @@
 The EquityChart component displays equity curves with optional drawdown visualization.
 Each point requires `timestamp` (Unix), `equity` (value), and `drawdownPct` (percentage as decimal).
 </Text>
+
+<PropsTable props={propDefs} />
 
 </div>
 

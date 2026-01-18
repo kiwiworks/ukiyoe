@@ -2,6 +2,15 @@
 	import { MessageList, Message, ThinkingIndicator, AgentInput, PageHeader, Text } from 'ukiyoe';
 	import type { MessageRole, MessageStatus, Attachment } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'autoscroll', type: 'boolean', default: 'true', description: 'Enable auto-scroll to bottom on new messages' },
+		{ name: 'onLoadMore', type: '() => void', default: '-', description: 'Callback when user scrolls to top (for loading history)' },
+		{ name: 'loadingMore', type: 'boolean', default: 'false', description: 'Show loading indicator at top' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Message content' }
+	];
 
 	interface DemoMessage {
 		id: string;
@@ -84,6 +93,8 @@
 - **Scroll-to-bottom** - Button appears when scrolled away
 - **Load more** - Callback when near top for history loading
 - **Accessibility** - Uses `role="log"` and `aria-live`
+
+<PropsTable props={propDefs} />
 
 </div>
 

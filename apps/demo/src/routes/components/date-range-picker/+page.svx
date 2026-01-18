@@ -2,6 +2,23 @@
   import { DateRangePicker, PageHeader, Text, type DateRange, type DateModifier } from 'ukiyoe';
   import { CalendarDate, today, getLocalTimeZone } from '@internationalized/date';
   import ComponentPreview from '$lib/ComponentPreview.svelte';
+  import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+  const propDefs: PropDef[] = [
+    { name: 'value', type: 'DateRange | undefined', default: 'undefined', description: 'Selected date range (bindable)' },
+    { name: 'modifiers', type: 'DateModifier[]', default: '[]', description: 'Date modifiers for styling/behavior' },
+    { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size preset' },
+    { name: 'placeholder', type: 'string', default: "'Select date range'", description: 'Placeholder text' },
+    { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable interactions' },
+    { name: 'numberOfMonths', type: 'number', default: '2', description: 'Number of months to display' },
+    { name: 'minValue', type: 'DateValue', default: '-', description: 'Minimum selectable date' },
+    { name: 'maxValue', type: 'DateValue', default: '-', description: 'Maximum selectable date' },
+    { name: 'allowUnavailable', type: 'boolean', default: 'false', description: 'Allow selecting disabled dates' },
+    { name: 'id', type: 'string', default: '-', description: 'HTML id attribute' },
+    { name: 'aria-label', type: 'string', default: '-', description: 'Accessible label' },
+    { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    { name: 'onchange', type: '(value: DateRange | undefined) => void', default: '-', description: 'Change event handler' }
+  ];
 
   let basicRange: DateRange | undefined = $state(undefined);
   let modifiedRange: DateRange | undefined = $state(undefined);
@@ -102,6 +119,8 @@ Use `allowUnavailable` to still allow selection (dates remain styled).
 ```svelte preview title="Disabled State"
 <DateRangePicker disabled placeholder="Disabled picker" />
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

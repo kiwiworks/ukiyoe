@@ -1,6 +1,16 @@
 <script lang="ts">
 	import { MetricCard, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'label', type: 'string', default: '-', description: 'Metric label displayed above the value' },
+		{ name: 'value', type: 'string | number', default: '-', description: 'Metric value to display' },
+		{ name: 'icon', type: 'Component', default: '-', description: 'Lucide icon component to display' },
+		{ name: 'variant', type: "'default' | 'positive' | 'negative' | 'warning'", default: "'default'", description: 'Color variant for the value and icon' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size variant controlling padding and text size' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
 </script>
 
 <svelte:head>
@@ -47,6 +57,8 @@
 	<MetricCard label="Uptime" value="99.9%" variant="positive" />
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

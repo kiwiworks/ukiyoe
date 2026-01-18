@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { StreamingText, PageHeader, Button } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	const sampleText = 'This text streams character by character, simulating LLM responses.';
 	let text = $state('');
@@ -10,6 +11,14 @@
 		text = '';
 		setTimeout(() => { key++; text = sampleText; }, 50);
 	}
+
+	const propDefs: PropDef[] = [
+		{ name: 'text', type: 'string', description: 'Text to display' },
+		{ name: 'speed', type: "'instant' | 'fast' | 'natural'", default: "'natural'", description: 'Animation speed' },
+		{ name: 'cursor', type: 'boolean', default: 'true', description: 'Show blinking cursor' },
+		{ name: 'onComplete', type: '() => void', default: '-', description: 'Callback when streaming completes' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
 </script>
 
 <svelte:head>
@@ -56,6 +65,8 @@
 ```svelte preview title="No Cursor"
 <StreamingText text="Text without cursor." speed="instant" cursor={false} />
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

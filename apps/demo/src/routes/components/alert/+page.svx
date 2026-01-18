@@ -1,6 +1,17 @@
 <script lang="ts">
 	import { Alert, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'variant', type: "'default' | 'info' | 'success' | 'warning' | 'danger'", default: "'default'", description: 'Visual style variant' },
+		{ name: 'title', type: 'string', description: 'Alert title text' },
+		{ name: 'dismissible', type: 'boolean', default: 'false', description: 'Whether alert can be dismissed' },
+		{ name: 'icon', type: 'Component', description: 'Custom icon component' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', description: 'Alert content' },
+		{ name: 'ondismiss', type: '() => void', description: 'Handler for dismiss events' }
+	];
 </script>
 
 <svelte:head>
@@ -42,6 +53,8 @@
 	Your changes have been saved successfully.
 </Alert>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

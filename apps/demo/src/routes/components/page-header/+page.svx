@@ -1,6 +1,17 @@
 <script lang="ts">
 	import { PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'title', type: 'string', default: '-', description: 'Page title (required)' },
+		{ name: 'subtitle', type: 'string', default: '-', description: 'Subtitle text below the title' },
+		{ name: 'icon', type: 'Component', default: '-', description: 'Svelte component for the icon' },
+		{ name: 'backHref', type: 'string', default: '-', description: 'Back button link href' },
+		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' },
+		{ name: 'badges', type: 'Snippet', default: '-', description: 'Snippet for badges next to title' },
+		{ name: 'actions', type: 'Snippet', default: '-', description: 'Snippet for action buttons on the right' }
+	];
 </script>
 
 <svelte:head>
@@ -32,6 +43,8 @@
 	<PageHeader title="Analytics" subtitle="Performance and insights" />
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

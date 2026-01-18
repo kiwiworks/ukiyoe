@@ -1,6 +1,13 @@
 <script lang="ts">
 	import { PrivacyToggle, Text, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'size', type: 'PrivacyToggleSize', default: "'md'", description: 'Size preset (xs, sm, md, lg)' },
+		{ name: 'class', type: 'string', default: '-', description: 'Custom CSS class' },
+		{ name: 'showLabel', type: 'boolean', default: 'false', description: 'Show label text' }
+	];
 </script>
 
 <svelte:head>
@@ -29,6 +36,8 @@ The privacy toggle integrates with the privacy context to mask sensitive data ac
 	<Text size="sm" variant="muted">Click to toggle privacy mode</Text>
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

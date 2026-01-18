@@ -1,6 +1,25 @@
 <script lang="ts">
 	import { Select, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'value', type: 'string', default: "''", description: 'Selected value (bindable)' },
+		{ name: 'options', type: 'SelectOption[] | string[]', default: '-', description: 'Available options' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size preset' },
+		{ name: 'disabled', type: 'boolean', default: 'false', description: 'Disable interactions' },
+		{ name: 'loading', type: 'boolean', default: 'false', description: 'Show loading spinner and disable interactions' },
+		{ name: 'required', type: 'boolean', default: 'false', description: 'Required field' },
+		{ name: 'placeholder', type: 'string', default: "'Select...'", description: 'Placeholder text when no value selected' },
+		{ name: 'id', type: 'string', default: '-', description: 'HTML id attribute for label association' },
+		{ name: 'name', type: 'string', default: '-', description: 'HTML name attribute for form submission' },
+		{ name: 'aria-label', type: 'string', default: '-', description: 'Accessible label for screen readers' },
+		{ name: 'aria-describedby', type: 'string', default: '-', description: 'ID of element describing this select' },
+		{ name: 'aria-invalid', type: 'boolean', default: '-', description: 'Indicates select has invalid value' },
+		{ name: 'clearable', type: 'boolean', default: 'false', description: 'Show clear button when value is selected' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'onchange', type: '(value: string) => void', default: '-', description: 'Change event handler' }
+	];
 </script>
 
 <svelte:head>
@@ -60,6 +79,8 @@
 	class="w-48"
 />
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

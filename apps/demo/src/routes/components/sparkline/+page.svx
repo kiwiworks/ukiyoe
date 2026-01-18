@@ -1,10 +1,21 @@
 <script lang="ts">
 	import { Sparkline, Text, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	const uptrend = [10, 25, 15, 30, 22, 35, 28, 40, 32, 45, 38, 50];
 	const downtrend = [50, 45, 48, 40, 35, 38, 30, 25, 28, 20, 15, 10];
 	const volatile = [30, 45, 20, 55, 25, 40, 35, 50, 15, 45, 30, 40];
+
+	const propDefs: PropDef[] = [
+		{ name: 'data', type: 'number[]', description: 'Array of numeric data points' },
+		{ name: 'width', type: 'number', default: '80', description: 'Width in pixels' },
+		{ name: 'height', type: 'number', default: '24', description: 'Height in pixels' },
+		{ name: 'color', type: "'positive' | 'negative' | 'neutral' | 'auto'", default: "'auto'", description: 'Line color mode' },
+		{ name: 'fill', type: 'boolean', default: 'false', description: 'Show filled area under line' },
+		{ name: 'showDots', type: 'boolean', default: 'false', description: 'Show data point dots' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
 </script>
 
 <svelte:head>
@@ -49,6 +60,8 @@
 	<Sparkline data={volatile} width={300} height={60} />
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

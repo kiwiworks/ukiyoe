@@ -1,6 +1,19 @@
 <script lang="ts">
 	import { Gauge, Text, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'value', type: 'number', description: 'Current value to display' },
+		{ name: 'min', type: 'number', default: '0', description: 'Minimum value' },
+		{ name: 'max', type: 'number', default: '100', description: 'Maximum value' },
+		{ name: 'label', type: 'string', default: '-', description: 'Label text below the gauge' },
+		{ name: 'showValue', type: 'boolean', default: 'true', description: 'Show numeric value' },
+		{ name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size preset' },
+		{ name: 'variant', type: "'arc' | 'bar' | 'circle'", default: "'arc'", description: 'Visual variant' },
+		{ name: 'colorStops', type: 'GaugeColorStop[]', default: '[{value:0,color:negative},{value:50,color:warning},{value:100,color:positive}]', description: 'Color gradient stops based on value thresholds' },
+		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' }
+	];
 </script>
 
 <svelte:head>
@@ -52,6 +65,8 @@
 	</div>
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

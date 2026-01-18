@@ -1,6 +1,13 @@
 <script lang="ts">
 	import { ParticleFlowBackground, PageHeader, Text, CodeBlock } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'particleCount', type: 'number', default: '60', description: 'Number of particles to render' },
+		{ name: 'speed', type: 'number', default: '0.3', description: 'Particle movement speed' },
+		{ name: 'opacity', type: 'number', default: '0.04', description: 'Particle opacity' }
+	];
 </script>
 
 <svelte:head>
@@ -43,6 +50,8 @@
 Displays flowing particles that create an organic, dynamic background.
 Adjust particle count based on performance requirements.
 </Text>
+
+<PropsTable props={propDefs} />
 
 </div>
 

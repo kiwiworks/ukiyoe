@@ -1,6 +1,15 @@
 <script lang="ts">
 	import { Ip, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'value', type: 'string | null | undefined', description: 'The IP address to display' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size preset' },
+		{ name: 'placeholder', type: 'string', default: "'-'", description: 'Placeholder when value is null/undefined' },
+		{ name: 'class', type: 'string', default: '-', description: 'Custom CSS class' },
+		{ name: 'sensitive', type: 'boolean', default: 'true', description: 'Whether this is sensitive data (enables privacy masking)' }
+	];
 </script>
 
 <svelte:head>
@@ -33,6 +42,8 @@
 <Ip value="2001:0db8:85a3:0000:0000:8a2e:0370:7334" />
 <Ip value="::1" />
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

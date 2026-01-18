@@ -2,6 +2,18 @@
 	import { Header, PageHeader, Text, Button, Badge } from 'ukiyoe';
 	import { Hexagon, Settings, Bell } from '@lucide/svelte';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'title', type: 'string', description: 'Header title text' },
+		{ name: 'subtitle', type: 'string', default: '-', description: 'Optional subtitle' },
+		{ name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size variant' },
+		{ name: 'fixed', type: 'boolean', default: 'true', description: 'Fixed to top of viewport' },
+		{ name: 'showIndicator', type: 'boolean', default: 'true', description: 'Show the brand indicator dot' },
+		{ name: 'icon', type: 'Snippet', default: '-', description: 'Custom icon/logo slot' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Actions slot (right side)' },
+		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' }
+	];
 </script>
 
 <svelte:head>
@@ -73,6 +85,8 @@ The Header component is fixed to the top of the viewport by default.
 Use the `size` prop for different prominence levels - `lg` is recommended for main app headers.
 Set `fixed={false}` for inline or embedded headers.
 </Text>
+
+<PropsTable props={propDefs} />
 
 </div>
 

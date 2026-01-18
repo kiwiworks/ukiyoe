@@ -1,6 +1,14 @@
 <script lang="ts">
 	import { Skeleton, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'variant', type: "'text' | 'circular' | 'rectangular'", default: "'text'", description: 'Shape variant of the skeleton' },
+		{ name: 'width', type: 'string', default: 'variant-based', description: 'Width of the skeleton (CSS value)' },
+		{ name: 'height', type: 'string', default: 'variant-based', description: 'Height of the skeleton (CSS value)' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
 </script>
 
 <svelte:head>
@@ -59,6 +67,8 @@
 	{/each}
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

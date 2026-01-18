@@ -1,6 +1,16 @@
 <script lang="ts">
 	import { Widget, Text, Button, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'title', type: 'string', default: '-', description: 'Widget title displayed in header' },
+		{ name: 'subtitle', type: 'string', default: '-', description: 'Subtitle displayed next to title' },
+		{ name: 'variant', type: "'default' | 'compact' | 'borderless'", default: "'default'", description: 'Visual style variant' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'headerActions', type: 'Snippet', default: '-', description: 'Actions rendered in the header area' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Widget content (required)' }
+	];
 </script>
 
 <svelte:head>
@@ -39,6 +49,8 @@
 	</Widget>
 </div>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 

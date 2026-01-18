@@ -1,6 +1,20 @@
 <script lang="ts">
 	import { NotFound, PageHeader, Button } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'title', type: 'string', default: "'Page not found'", description: 'Page title' },
+		{ name: 'description', type: 'string', default: '"The page you\'re looking for..."', description: 'Description message' },
+		{ name: 'backText', type: 'string', default: "'Go back'", description: 'Back button text' },
+		{ name: 'backHref', type: 'string', default: '-', description: 'Back button href' },
+		{ name: 'homeText', type: 'string', default: "'Go home'", description: 'Home button text' },
+		{ name: 'homeHref', type: 'string', default: "'/'", description: 'Home button href' },
+		{ name: 'showHome', type: 'boolean', default: 'true', description: 'Show home button' },
+		{ name: 'showBack', type: 'boolean', default: 'true', description: 'Show back button' },
+		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Custom content slot' }
+	];
 </script>
 
 <svelte:head>
@@ -63,6 +77,8 @@
 	</div>
 </NotFound>
 ```
+
+<PropsTable props={propDefs} />
 
 </div>
 
