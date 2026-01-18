@@ -52,8 +52,18 @@
 
 ```svelte preview title="Button States"
 <Button disabled>Disabled</Button>
-<Button loading>Loading</Button>
 <Button active>Active</Button>
+```
+
+## Loading State
+
+The `loading` prop displays an animated spinner and disables the button. Useful for async actions like form submissions.
+
+```svelte preview title="Loading Buttons"
+<Button loading>Saving...</Button>
+<Button loading variant="primary">Submitting</Button>
+<Button loading variant="success" size="sm">Processing</Button>
+<Button loading variant="ghost">Loading</Button>
 ```
 
 ## As Link

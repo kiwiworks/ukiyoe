@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { MetricCard, PageHeader } from 'ukiyoe';
+	import { Wallet, TrendingUp, TrendingDown, AlertTriangle, Users, DollarSign } from '@lucide/svelte';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
@@ -7,7 +8,7 @@
 		{ name: 'label', type: 'string', default: '-', description: 'Metric label displayed above the value' },
 		{ name: 'value', type: 'string | number', default: '-', description: 'Metric value to display' },
 		{ name: 'icon', type: 'Component', default: '-', description: 'Lucide icon component to display' },
-		{ name: 'variant', type: "'default' | 'positive' | 'negative' | 'warning'", default: "'default'", description: 'Color variant for the value and icon' },
+		{ name: 'variant', type: "'default' | 'positive' | 'negative' | 'warning' | 'brand'", default: "'default'", description: 'Color variant for the value and icon' },
 		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size variant controlling padding and text size' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
 	];
@@ -30,10 +31,32 @@
 ## Variants
 
 ```svelte preview title="Metric Card Variants"
-<div class="grid grid-cols-3 gap-md w-full">
-	<MetricCard label="Revenue" value="$45,230" />
-	<MetricCard label="Growth" value="+12.5%" variant="positive" />
-	<MetricCard label="Churn" value="-2.3%" variant="negative" />
+<div class="grid grid-cols-2 gap-md w-full">
+	<MetricCard label="Revenue" value="$45,230" icon={DollarSign} />
+	<MetricCard label="Growth" value="+12.5%" variant="positive" icon={TrendingUp} />
+	<MetricCard label="Churn" value="-2.3%" variant="negative" icon={TrendingDown} />
+	<MetricCard label="At Risk" value="5 accounts" variant="warning" icon={AlertTriangle} />
+</div>
+```
+
+## Brand Variant
+
+Use the brand variant for hero metrics that need visual emphasis.
+
+```svelte preview title="Brand Variant"
+<div class="grid grid-cols-2 gap-md w-full">
+	<MetricCard
+		label="Portfolio Value"
+		value="$125,000"
+		icon={Wallet}
+		variant="brand"
+	/>
+	<MetricCard
+		label="Total Users"
+		value="12,847"
+		icon={Users}
+		variant="brand"
+	/>
 </div>
 ```
 
@@ -41,9 +64,9 @@
 
 ```svelte preview title="Dashboard Metrics"
 <div class="grid grid-cols-3 gap-md w-full">
-	<MetricCard label="Portfolio Value" value="$124,500" />
-	<MetricCard label="24h Change" value="+2.34%" variant="positive" />
-	<MetricCard label="Open Orders" value="12" />
+	<MetricCard label="Portfolio Value" value="$124,500" icon={Wallet} variant="brand" />
+	<MetricCard label="24h Change" value="+2.34%" variant="positive" icon={TrendingUp} />
+	<MetricCard label="Open Orders" value="12" icon={Users} />
 </div>
 ```
 

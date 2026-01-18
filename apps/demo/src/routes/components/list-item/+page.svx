@@ -20,7 +20,7 @@
 	<title>ListItem - Ukiyoe UI</title>
 </svelte:head>
 
-<PageHeader title="ListItem" subtitle="List item component for navigation and selection" />
+<PageHeader title="ListItem" subtitle="Versatile list item for navigation, selection, and clickable cards" />
 
 <div class="space-y-xl mt-lg">
 
@@ -59,9 +59,11 @@ Use snippets to pass icons to list items:
 </div>
 ```
 
-## Interactive State
+## Interactive & Selectable
 
-```svelte preview title="Interactive List Items"
+Use `interactive` for hover/focus states on clickable items. Combine with `selected` to indicate the current selection. This makes ListItem ideal for navigation menus, selectable cards, and clickable list entries.
+
+```svelte preview title="Clickable List Items"
 <div class="w-full max-w-sm space-y-1">
 	<ListItem interactive selected>
 		{#snippet icon()}<User size={16} />{/snippet}

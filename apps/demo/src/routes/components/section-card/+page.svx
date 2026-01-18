@@ -32,7 +32,24 @@
 </SectionCard>
 ```
 
+## Collapsible
+
+Use the `collapsible` prop to make sections expandable/collapsible. Use `defaultOpen` to control the initial state.
+
+```svelte preview title="Collapsible Sections"
+<div class="w-full space-y-md">
+	<SectionCard title="Expanded by Default" collapsible>
+		<Text size="sm" variant="muted">This section starts open and can be collapsed by clicking the header.</Text>
+	</SectionCard>
+	<SectionCard title="Collapsed by Default" collapsible defaultOpen={false}>
+		<Text size="sm" variant="muted">This section starts collapsed. Click to expand.</Text>
+	</SectionCard>
+</div>
+```
+
 ## Clickable Card
+
+Use `href` to make the entire card a navigation link.
 
 ```svelte preview title="Clickable Card"
 <SectionCard title="Click Me" href="#">
