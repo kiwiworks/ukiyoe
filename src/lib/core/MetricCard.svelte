@@ -13,6 +13,8 @@
 </script>
 
 <script lang="ts">
+	import { cn } from '../utils/cn';
+
 	let { label, value, icon, variant = 'default', size = 'md', class: className = '' }: MetricCardProps = $props();
 
 	const sizeClasses: Record<MetricCardSize, { card: string; icon: string; value: string }> = {
@@ -33,7 +35,7 @@
 	const vc = $derived(variantClasses[variant]);
 </script>
 
-<div class="flex items-center rounded-md border border-border-subtle bg-bg-secondary {sc.card} {className}">
+<div class={cn('flex items-center rounded-md border border-border-subtle bg-bg-secondary', sc.card, className)}>
 	{#if icon}
 		{@const Icon = icon}
 		<div class="flex shrink-0 items-center justify-center rounded-md {sc.icon} {vc.icon}">

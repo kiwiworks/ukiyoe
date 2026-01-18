@@ -36,6 +36,7 @@
 
 <script lang="ts">
 	import { Send, Square, Paperclip, X, File as FileIcon, Image as ImageIcon, Link as LinkIcon } from '@lucide/svelte';
+	import { cn } from '../utils/cn';
 
 	let {
 		value = $bindable(''),
@@ -102,7 +103,7 @@
 	}
 </script>
 
-<div class="flex flex-col gap-2 {className}">
+<div class={cn('flex flex-col gap-2', className)}>
 	<!-- Attachments -->
 	{#if attachments.length > 0}
 		<div class="flex flex-wrap gap-2">

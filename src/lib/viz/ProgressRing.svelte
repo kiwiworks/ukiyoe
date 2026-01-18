@@ -1,13 +1,24 @@
-<script lang="ts">
-	interface Props {
+<script lang="ts" module>
+	export interface ProgressRingProps {
+		/** Progress value (0-100) */
 		value: number;
+		/** Ring diameter in pixels */
 		size?: number;
+		/** Ring color (CSS color value) */
 		color?: string;
+		/** Label text below the ring */
 		label?: string;
+		/** Show percentage value in center */
 		showValue?: boolean;
+		/** Ring stroke width in pixels */
 		strokeWidth?: number;
+		/** Additional CSS classes */
 		class?: string;
 	}
+</script>
+
+<script lang="ts">
+	import { cn } from '../utils/cn';
 
 	let {
 		value,
@@ -17,7 +28,7 @@
 		showValue = true,
 		strokeWidth = 4,
 		class: className = ''
-	}: Props = $props();
+	}: ProgressRingProps = $props();
 
 	const clampedValue = $derived(Math.max(0, Math.min(100, value)));
 	const radius = $derived((size - strokeWidth) / 2);
@@ -26,7 +37,7 @@
 	const center = $derived(size / 2);
 </script>
 
-<div class="flex flex-col items-center gap-1 {className}">
+<div class={cn('flex flex-col items-center gap-1', className)}>
 	<svg width={size} height={size} class="transform -rotate-90">
 		<!-- Background circle -->
 		<circle

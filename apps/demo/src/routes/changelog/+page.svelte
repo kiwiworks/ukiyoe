@@ -8,11 +8,46 @@
 
 <PageHeader title="Changelog" subtitle="All notable changes to this project">
 	{#snippet badges()}
-		<Badge size="sm" variant="brand" text="v0.1.0-beta.4" />
+		<Badge size="sm" variant="brand" text="v0.1.0-beta.5" />
 	{/snippet}
 </PageHeader>
 
 <div class="mt-lg space-y-xxl">
+	<section>
+		<div class="flex items-center gap-md mb-md">
+			<Heading level={2} size="lg">0.1.0-beta.5</Heading>
+			<Text size="sm" variant="muted">2026-01-18</Text>
+		</div>
+
+		<div class="space-y-lg">
+			<div>
+				<Heading level={3} size="md" class="text-positive mb-sm">Added</Heading>
+				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
+					<li><strong>NotFound component</strong> for 404 pages with customizable navigation</li>
+					<li><strong>ErrorPage component</strong> with status-specific defaults for common HTTP errors</li>
+					<li><strong><code>cn()</code> utility</strong> (clsx + tailwind-merge) for intelligent class merging</li>
+				</ul>
+			</div>
+
+			<div>
+				<Heading level={3} size="md" class="text-warning mb-sm">Changed</Heading>
+				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
+					<li>All components now use <code>cn()</code> utility for className merging</li>
+					<li>Viz components (Gauge, Sparkline, ProgressRing) updated to follow codebase conventions</li>
+				</ul>
+			</div>
+
+			<div>
+				<Heading level={3} size="md" class="text-info mb-sm">Fixed</Heading>
+				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
+					<li>ListItem demo using incorrect API (Components instead of Snippets)</li>
+					<li>Stepper demo missing icon imports and state variable</li>
+					<li>Install page template literal parsing errors</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
 	<section>
 		<div class="flex items-center gap-md mb-md">
 			<Heading level={2} size="lg">0.1.0-beta.4</Heading>

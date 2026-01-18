@@ -40,6 +40,7 @@
 <script lang="ts">
 	import { RadioGroup } from 'bits-ui';
 	import { Loader2 } from '@lucide/svelte';
+	import { cn } from '../utils/cn';
 
 	let {
 		value = $bindable(''),
@@ -97,7 +98,7 @@
 	}
 </script>
 
-<div class="relative inline-block {className}">
+<div class={cn('relative inline-block', className)}>
 	<RadioGroup.Root
 		{name}
 		{value}

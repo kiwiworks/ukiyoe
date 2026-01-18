@@ -1,14 +1,36 @@
-<script lang="ts">
-	interface Props {
+<script lang="ts" module>
+	export type GaugeSize = 'sm' | 'md' | 'lg';
+	export type GaugeVariant = 'arc' | 'bar' | 'circle';
+
+	export interface GaugeColorStop {
 		value: number;
-		min?: number;
-		max?: number;
-		label?: string;
-		showValue?: boolean;
-		size?: 'sm' | 'md' | 'lg';
-		variant?: 'arc' | 'bar' | 'circle';
-		colorStops?: { value: number; color: string }[];
+		color: string;
 	}
+
+	export interface GaugeProps {
+		/** Current value to display */
+		value: number;
+		/** Minimum value */
+		min?: number;
+		/** Maximum value */
+		max?: number;
+		/** Label text below the gauge */
+		label?: string;
+		/** Show numeric value */
+		showValue?: boolean;
+		/** Size preset */
+		size?: GaugeSize;
+		/** Visual variant */
+		variant?: GaugeVariant;
+		/** Color gradient stops based on value thresholds */
+		colorStops?: GaugeColorStop[];
+		/** Additional CSS classes */
+		class?: string;
+	}
+</script>
+
+<script lang="ts">
+	import { cn } from '../utils/cn';
 
 	let {
 		value,
@@ -22,8 +44,9 @@
 			{ value: 0, color: 'var(--color-negative)' },
 			{ value: 50, color: 'var(--color-warning)' },
 			{ value: 100, color: 'var(--color-positive)' }
-		]
-	}: Props = $props();
+		],
+		class: className = ''
+	}: GaugeProps = $props();
 
 	const clampedValue = $derived(Math.min(max, Math.max(min, value)));
 	const percentage = $derived(((clampedValue - min) / (max - min)) * 100);
@@ -39,7 +62,7 @@
 
 	const currentColor = $derived(getColor(percentage));
 
-	const sizes = {
+	const sizes: Record<GaugeSize, { diameter: number; stroke: number; fontSize: number }> = {
 		sm: { diameter: 40, stroke: 4, fontSize: 10 },
 		md: { diameter: 60, stroke: 5, fontSize: 12 },
 		lg: { diameter: 80, stroke: 6, fontSize: 14 }
@@ -51,13 +74,12 @@
 
 	// Arc gauge calculations (180 degree arc)
 	const arcStartAngle = 135;
-	const arcEndAngle = 405;
 	const arcLength = $derived(circumference * 0.75); // 270 degrees
 	const arcOffset = $derived(arcLength * (1 - percentage / 100));
 </script>
 
 {#if variant === 'arc'}
-	<div class="flex flex-col items-center">
+	<div class={cn('flex flex-col items-center', className)}>
 		<svg
 			width={sizeConfig.diameter}
 			height={sizeConfig.diameter * 0.65}
@@ -101,7 +123,7 @@
 		{/if}
 	</div>
 {:else if variant === 'circle'}
-	<div class="flex flex-col items-center">
+	<div class={cn('flex flex-col items-center', className)}>
 		<svg width={sizeConfig.diameter} height={sizeConfig.diameter}>
 			<!-- Background circle -->
 			<circle
@@ -147,7 +169,7 @@
 	</div>
 {:else}
 	<!-- Bar variant -->
-	<div class="flex flex-col gap-xs">
+	<div class={cn('flex flex-col gap-xs', className)}>
 		{#if label}
 			<div class="flex justify-between items-center">
 				<span class="text-muted text-xs uppercase tracking-wider">{label}</span>

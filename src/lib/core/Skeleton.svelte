@@ -10,6 +10,8 @@
 </script>
 
 <script lang="ts">
+	import { cn } from '../utils/cn';
+
 	let {
 		variant = 'text',
 		width,
@@ -34,7 +36,7 @@
 </script>
 
 <div
-	class="animate-pulse bg-bg-tertiary {variantClasses[variant]} {className}"
+	class={cn('animate-pulse bg-bg-tertiary', variantClasses[variant], className)}
 	style="width: {finalWidth}; height: {finalHeight};"
 	role="status"
 	aria-label="Loading..."

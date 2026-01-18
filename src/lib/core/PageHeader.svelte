@@ -12,11 +12,12 @@
 
 <script lang="ts">
 	import { ArrowLeft } from '@lucide/svelte';
+	import { cn } from '../utils/cn';
 
 	let { title, subtitle, icon, backHref, class: classes = '', badges, actions }: PageHeaderProps = $props();
 </script>
 
-<header class="flex justify-between items-start gap-3 mb-6 pb-3 border-b border-border-subtle {classes}">
+<header class={cn('flex justify-between items-start gap-3 mb-6 pb-3 border-b border-border-subtle', classes)}>
 	<div class="flex items-start gap-3">
 		{#if backHref}
 			<a

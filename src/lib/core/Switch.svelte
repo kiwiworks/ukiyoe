@@ -25,6 +25,7 @@
 
 <script lang="ts">
 	import { Switch } from 'bits-ui';
+	import { cn } from '../utils/cn';
 
 	let {
 		checked = $bindable(false),
@@ -66,7 +67,7 @@
 	onCheckedChange={handleChange}
 	aria-label={ariaLabel}
 	aria-describedby={ariaDescribedby}
-	class="inline-flex shrink-0 cursor-pointer items-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-accent-brand data-[state=checked]:border-accent-brand data-[state=unchecked]:bg-bg-tertiary data-[state=unchecked]:border-border-default {trackSizes[size]} {className}"
+	class={cn('inline-flex shrink-0 cursor-pointer items-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-accent-brand data-[state=checked]:border-accent-brand data-[state=unchecked]:bg-bg-tertiary data-[state=unchecked]:border-border-default', trackSizes[size], className)}
 >
 	<Switch.Thumb
 		class="pointer-events-none block rounded-full shadow-sm ring-0 transition-transform data-[state=unchecked]:translate-x-0.5 data-[state=checked]:bg-white data-[state=unchecked]:bg-text-muted {thumbSizes[size]}"

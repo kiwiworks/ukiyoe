@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Numeric from '../core/Numeric.svelte';
+	import { cn } from '../utils/cn';
 
 	interface EquityPoint {
 		timestamp: number;
@@ -186,7 +187,7 @@
 	let hoveredTrade = $state<number | null>(null);
 </script>
 
-<div class="relative w-full {className}" bind:this={containerEl}>
+<div class={cn('relative w-full', className)} bind:this={containerEl}>
 	<svg width={effectiveWidth} {height} class="block w-full bg-bg-secondary rounded-md">
 		<!-- Drawdown area (background) -->
 		{#if showDrawdown && drawdownPath()}

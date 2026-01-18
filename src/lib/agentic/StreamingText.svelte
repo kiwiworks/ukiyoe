@@ -16,6 +16,8 @@
 </script>
 
 <script lang="ts">
+	import { cn } from '../utils/cn';
+
 	let {
 		text,
 		speed = 'natural',
@@ -71,7 +73,7 @@
 	});
 </script>
 
-<span class="whitespace-pre-wrap {className}">
+<span class={cn('whitespace-pre-wrap', className)}>
 	{displayedText}
 	{#if cursor && !isComplete}
 		<span class="inline-block w-2 h-4 ml-0.5 bg-accent-brand animate-pulse align-middle"></span>

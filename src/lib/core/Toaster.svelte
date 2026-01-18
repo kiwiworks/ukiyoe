@@ -9,6 +9,7 @@
 
 <script lang="ts">
 	import Toast, { getToasts, removeToast } from './Toast.svelte';
+	import { cn } from '../utils/cn';
 
 	let { position = 'bottom-right', class: className = '' }: ToasterProps = $props();
 
@@ -25,7 +26,7 @@
 </script>
 
 <div
-	class="fixed z-toast flex flex-col gap-2 pointer-events-none {positionClasses[position]} {className}"
+	class={cn('fixed z-toast flex flex-col gap-2 pointer-events-none', positionClasses[position], className)}
 >
 	{#each toasts as toast (toast.id)}
 		<Toast {toast} onclose={removeToast} />

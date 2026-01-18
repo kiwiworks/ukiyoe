@@ -15,6 +15,7 @@
 
 <script lang="ts">
 	import { Tooltip } from 'bits-ui';
+	import { cn } from '../utils/cn';
 
 	let {
 		content,
@@ -39,7 +40,7 @@
 			<Tooltip.Content
 				{side}
 				{sideOffset}
-				class="z-tooltip rounded-md bg-bg-elevated px-3 py-1.5 text-sm text-text-primary shadow-lg border border-border-subtle animate-in fade-in-0 zoom-in-95 {className}"
+				class={cn('z-tooltip rounded-md bg-bg-elevated px-3 py-1.5 text-sm text-text-primary shadow-lg border border-border-subtle animate-in fade-in-0 zoom-in-95', className)}
 			>
 				{content}
 				<Tooltip.Arrow class="fill-bg-elevated" />

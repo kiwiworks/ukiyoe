@@ -21,6 +21,7 @@
 
 <script lang="ts">
 	import { Tabs } from 'bits-ui';
+	import { cn } from '../utils/cn';
 
 	let {
 		value = $bindable(''),
@@ -55,7 +56,7 @@
 	}
 </script>
 
-<Tabs.Root {value} onValueChange={handleChange} class={className}>
+<Tabs.Root {value} onValueChange={handleChange} class={cn(className)}>
 	<Tabs.List
 		class="inline-flex items-center gap-1 rounded-lg bg-bg-tertiary p-1"
 	>

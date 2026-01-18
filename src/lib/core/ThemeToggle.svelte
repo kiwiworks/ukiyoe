@@ -11,6 +11,7 @@
 <script lang="ts">
 	import { Sun, Moon } from '@lucide/svelte';
 	import { themeStore } from '../stores/theme.svelte';
+	import { cn } from '../utils/cn';
 
 	let { size = 'md', class: className = '', showLabel = false }: ThemeToggleProps = $props();
 
@@ -26,11 +27,11 @@
 
 <button
 	type="button"
-	class="inline-flex items-center justify-center gap-1.5 border rounded-sm bg-transparent cursor-pointer transition-all font-mono
-		{sizeClasses[size]}
-		text-text-muted border-border-subtle hover:text-text-primary hover:border-border-default hover:bg-bg-hover
-		focus-visible:outline-2 focus-visible:outline-accent-brand focus-visible:outline-offset-2
-		{className}"
+	class={cn(
+		'inline-flex items-center justify-center gap-1.5 border rounded-sm bg-transparent cursor-pointer transition-all font-mono text-text-muted border-border-subtle hover:text-text-primary hover:border-border-default hover:bg-bg-hover focus-visible:outline-2 focus-visible:outline-accent-brand focus-visible:outline-offset-2',
+		sizeClasses[size],
+		className
+	)}
 	onclick={() => themeStore.toggleMode()}
 	title={themeStore.mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
 	aria-label={themeStore.mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}

@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { Stepper, PageHeader } from 'ukiyoe';
-	import { FolderOpen, Search, FlaskConical, CheckCircle } from '@lucide/svelte';
+	import { FolderOpen, Search, FlaskConical, CheckCircle, User, CreditCard, Package } from '@lucide/svelte';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 
-	let currentStep = $state('step2');
+	let step = $state('step2');
 </script>
 
 <svelte:head>
@@ -17,10 +17,6 @@
 ## Basic Usage
 
 ```svelte preview title="Basic Stepper"
-<script>
-	import { Stepper } from 'ukiyoe';
-</script>
-
 <Stepper
 	steps={[
 		{ id: 'step1', label: 'Account' },
@@ -35,11 +31,6 @@
 ## With Icons
 
 ```svelte preview title="Steps with Icons"
-<script>
-	import { Stepper } from 'ukiyoe';
-	import { FolderOpen, Search, FlaskConical, CheckCircle } from '@lucide/svelte';
-</script>
-
 <Stepper
 	steps={[
 		{ id: 'step1', label: 'Portfolio', icon: FolderOpen },
@@ -54,10 +45,6 @@
 ## Sizes
 
 ```svelte preview title="Stepper Sizes"
-<script>
-	import { Stepper } from 'ukiyoe';
-</script>
-
 <div class="space-y-8">
 	<div>
 		<p class="text-text-muted text-xs mb-2">xs</p>
@@ -113,11 +100,6 @@
 ## Vertical Orientation
 
 ```svelte preview title="Vertical Stepper"
-<script>
-	import { Stepper } from 'ukiyoe';
-	import { User, CreditCard, Package, CheckCircle } from '@lucide/svelte';
-</script>
-
 <Stepper
 	orientation="vertical"
 	steps={[
@@ -133,10 +115,6 @@
 ## Compact Mode
 
 ```svelte preview title="Compact Stepper"
-<script>
-	import { Stepper } from 'ukiyoe';
-</script>
-
 <div class="space-y-4">
 	<Stepper
 		compact
@@ -164,12 +142,6 @@
 ## Interactive
 
 ```svelte preview title="Clickable Steps"
-<script>
-	import { Stepper } from 'ukiyoe';
-
-	let step = $state('step2');
-</script>
-
 <div class="space-y-4">
 	<Stepper
 		steps={[

@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.0-beta.5] - 2026-01-18
+
+### Added
+- **NotFound component** for 404 pages with customizable navigation
+- **ErrorPage component** with status-specific defaults for common HTTP errors (400, 401, 403, 404, 500, 502, 503, 504)
+- **`cn()` utility** (clsx + tailwind-merge) for intelligent class merging with Tailwind conflict resolution
+
+### Changed
+- All components now use `cn()` utility for className merging
+- Viz components (Gauge, Sparkline, ProgressRing) updated to follow codebase conventions:
+  - Added module script with exported types
+  - Added JSDoc comments for all props
+
+### Fixed
+- ListItem demo using incorrect API (passing Components instead of Snippets)
+- Stepper demo missing icon imports and state variable
+- Install page template literal parsing errors with script tags
+
 ## [0.1.0-beta.4] - 2026-01-17
 
 ### Added
@@ -94,6 +112,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dark-first design with light mode support
 - Privacy masking context
 
+[0.1.0-beta.5]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.0-beta.4...v0.1.0-beta.5
 [0.1.0-beta.4]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.0-beta.3...v0.1.0-beta.4
 [0.1.0-beta.3]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.0-beta.2...v0.1.0-beta.3
 [0.1.0-beta.2]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.0-beta.1...v0.1.0-beta.2

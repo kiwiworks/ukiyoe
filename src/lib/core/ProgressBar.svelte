@@ -14,6 +14,8 @@
 </script>
 
 <script lang="ts">
+	import { cn } from '../utils/cn';
+
 	let {
 		value = 0,
 		max = 100,
@@ -41,7 +43,7 @@
 	};
 </script>
 
-<div class="w-full {className}">
+<div class={cn('w-full', className)}>
 	<div
 		class="w-full overflow-hidden rounded-full bg-bg-tertiary {sizeClasses[size]}"
 		role="progressbar"

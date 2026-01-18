@@ -19,6 +19,7 @@
 
 <script lang="ts">
 	import { Brain, Search, Play, PenLine, FileText, ChevronDown } from '@lucide/svelte';
+	import { cn } from '../utils/cn';
 
 	let {
 		status,
@@ -54,7 +55,7 @@
 	});
 </script>
 
-<div class="flex flex-col gap-2 {className}">
+<div class={cn('flex flex-col gap-2', className)}>
 	<button
 		type="button"
 		class="flex items-center gap-2 text-sm text-text-secondary group"

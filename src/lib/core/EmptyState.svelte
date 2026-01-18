@@ -15,6 +15,7 @@
 
 <script lang="ts">
 	import { Loader2 } from '@lucide/svelte';
+	import { cn } from '../utils/cn';
 
 	let {
 		icon,
@@ -60,7 +61,7 @@
 	const iconSize = $derived(iconSizes[effectiveSize]);
 </script>
 
-<div class="flex items-center justify-center w-full h-full min-h-[200px] {className}">
+<div class={cn('flex items-center justify-center w-full h-full min-h-[200px]', className)}>
 	<div class="flex flex-col items-center justify-center text-center {contentClasses[effectiveSize]}">
 		{#if loading}
 			<Loader2 size={iconSize} class="text-text-muted shrink-0 animate-spin" />

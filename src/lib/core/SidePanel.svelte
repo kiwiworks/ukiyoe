@@ -23,6 +23,7 @@
 
 <script lang="ts">
 	import { ChevronLeft } from '@lucide/svelte';
+	import { cn } from '../utils/cn';
 
 	let {
 		title,
@@ -46,7 +47,7 @@
 </script>
 
 <aside
-	class="flex flex-col bg-bg-secondary border border-border-subtle h-full overflow-hidden transition-[width] duration-200 ease-out {positionClasses[position]} {className}"
+	class={cn('flex flex-col bg-bg-secondary border border-border-subtle h-full overflow-hidden transition-[width] duration-200 ease-out', positionClasses[position], className)}
 	style:width="{width}px"
 	aria-label={title}
 >

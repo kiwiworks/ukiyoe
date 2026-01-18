@@ -30,6 +30,8 @@
 </script>
 
 <script lang="ts">
+	import { cn } from '../utils/cn';
+
 	let { symbol, logoUri, unicode, size = 'md', class: className = '' }: AssetIconProps = $props();
 
 	const showImage = $derived(!!logoUri);
@@ -52,7 +54,7 @@
 </script>
 
 <span
-	class="inline-flex items-center justify-center shrink-0 rounded-full overflow-hidden {sizeClasses[size]} {className}"
+	class={cn('inline-flex items-center justify-center shrink-0 rounded-full overflow-hidden', sizeClasses[size], className)}
 	title={symbol}
 >
 	{#if showImage && !imgError}

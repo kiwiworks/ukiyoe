@@ -15,6 +15,7 @@
 
 <script lang="ts">
 	import { Loader2 } from '@lucide/svelte';
+	import { cn } from '../utils/cn';
 
 	let {
 		autoscroll = true,
@@ -86,7 +87,7 @@
 
 <div
 	bind:this={containerRef}
-	class="flex flex-col gap-4 overflow-y-auto overscroll-contain {className}"
+	class={cn('flex flex-col gap-4 overflow-y-auto overscroll-contain', className)}
 	onscroll={handleScroll}
 	role="log"
 	aria-live="polite"

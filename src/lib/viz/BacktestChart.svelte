@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Numeric from '../core/Numeric.svelte';
+	import { cn } from '../utils/cn';
 
 	interface Trade {
 		entryTime: number;
@@ -166,7 +167,7 @@
 	}
 </script>
 
-<div class="relative w-full {className}" bind:this={containerEl}>
+<div class={cn('relative w-full', className)} bind:this={containerEl}>
 	{#if trades.length === 0}
 		<div class="flex items-center justify-center h-[200px] text-text-muted text-xs bg-bg-secondary rounded-md">
 			<span>No trades to display</span>

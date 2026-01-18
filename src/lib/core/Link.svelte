@@ -11,6 +11,8 @@
 </script>
 
 <script lang="ts">
+	import { cn } from '../utils/cn';
+
 	let {
 		href,
 		variant = 'default',
@@ -26,7 +28,7 @@
 	};
 
 	const computedClasses = $derived(
-		`transition-colors duration-100 ${variantClasses[variant]} ${className}`.trim()
+		cn('transition-colors duration-100', variantClasses[variant], className)
 	);
 </script>
 

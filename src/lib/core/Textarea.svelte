@@ -26,6 +26,7 @@
 
 <script lang="ts">
 	import { Loader2 } from '@lucide/svelte';
+	import { cn } from '../utils/cn';
 
 	let {
 		value = $bindable(''),
@@ -65,7 +66,7 @@
 	};
 </script>
 
-<div class="relative w-full {className}">
+<div class={cn('relative w-full', className)}>
 	<textarea
 		{id}
 		{name}

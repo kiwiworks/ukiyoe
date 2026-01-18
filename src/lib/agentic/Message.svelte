@@ -22,6 +22,7 @@
 
 <script lang="ts">
 	import { Bot, User, Terminal, AlertCircle } from '@lucide/svelte';
+	import { cn } from '../utils/cn';
 
 	let {
 		role,
@@ -54,7 +55,7 @@
 	);
 </script>
 
-<div class="flex flex-col gap-1 {config.align} {className}">
+<div class={cn('flex flex-col gap-1', config.align, className)}>
 	<!-- Header -->
 	<div class="flex items-center gap-2 text-xs text-text-muted">
 		{#if role === 'user'}

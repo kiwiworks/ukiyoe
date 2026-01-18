@@ -1,13 +1,26 @@
-<script lang="ts">
-	interface Props {
+<script lang="ts" module>
+	export type SparklineColor = 'positive' | 'negative' | 'neutral' | 'auto';
+
+	export interface SparklineProps {
+		/** Array of numeric data points */
 		data: number[];
+		/** Width in pixels */
 		width?: number;
+		/** Height in pixels */
 		height?: number;
-		color?: 'positive' | 'negative' | 'neutral' | 'auto';
+		/** Line color mode */
+		color?: SparklineColor;
+		/** Show filled area under line */
 		fill?: boolean;
+		/** Show data point dots */
 		showDots?: boolean;
+		/** Additional CSS classes */
 		class?: string;
 	}
+</script>
+
+<script lang="ts">
+	import { cn } from '../utils/cn';
 
 	let {
 		data,
@@ -17,7 +30,7 @@
 		fill = false,
 		showDots = false,
 		class: className = ''
-	}: Props = $props();
+	}: SparklineProps = $props();
 
 	const padding = 2;
 	const effectiveWidth = $derived(width - padding * 2);
@@ -71,7 +84,7 @@
 	);
 </script>
 
-<svg {width} {height} class="block {className}" viewBox="0 0 {width} {height}">
+<svg {width} {height} class={cn('block', className)} viewBox="0 0 {width} {height}">
 	{#if fill && data.length > 1}
 		<path d={fillPathD} fill={fillColor} />
 	{/if}

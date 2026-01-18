@@ -14,6 +14,7 @@
 
 <script lang="ts">
 	import { ChevronDown, ExternalLink } from '@lucide/svelte';
+	import { cn } from '../utils/cn';
 
 	let { title, icon, collapsible = false, defaultOpen = true, href, class: className = '', actions, children, empty }: SectionCardProps = $props();
 
@@ -31,7 +32,7 @@
 
 <svelte:element
 	this={href ? 'a' : 'div'}
-	class="block bg-bg-secondary border border-border-subtle rounded-md overflow-hidden {href ? 'cursor-pointer transition-all no-underline hover:border-border-default hover:bg-bg-tertiary' : ''} {className}"
+	class={cn('block bg-bg-secondary border border-border-subtle rounded-md overflow-hidden', href && 'cursor-pointer transition-all no-underline hover:border-border-default hover:bg-bg-tertiary', className)}
 	{href}
 >
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->

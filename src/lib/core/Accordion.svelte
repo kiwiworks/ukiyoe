@@ -19,6 +19,7 @@
 <script lang="ts">
 	import { Accordion } from 'bits-ui';
 	import { ChevronDown } from '@lucide/svelte';
+	import { cn } from '../utils/cn';
 
 	let {
 		items,
@@ -34,7 +35,7 @@
 		type="single"
 		value={value as string}
 		onValueChange={(v) => (value = v)}
-		class="w-full divide-y divide-border-subtle {className}"
+		class={cn('w-full divide-y divide-border-subtle', className)}
 	>
 		{#each items as item}
 			<Accordion.Item value={item.value} class="py-0">
@@ -65,7 +66,7 @@
 		type="multiple"
 		value={value as string[]}
 		onValueChange={(v) => (value = v)}
-		class="w-full divide-y divide-border-subtle {className}"
+		class={cn('w-full divide-y divide-border-subtle', className)}
 	>
 		{#each items as item}
 			<Accordion.Item value={item.value} class="py-0">

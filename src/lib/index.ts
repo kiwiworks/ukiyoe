@@ -1,3 +1,6 @@
+// Utilities
+export { cn } from './utils/cn';
+
 // Theme utilities
 export { theme, themeToCSS } from './theme';
 export type { Theme } from './theme';
@@ -77,6 +80,10 @@ export { default as MetricCard } from './core/MetricCard.svelte';
 export type { MetricCardVariant, MetricCardSize, MetricCardProps } from './core/MetricCard.svelte';
 export { default as EmptyState } from './core/EmptyState.svelte';
 export type { EmptyStateSize, EmptyStateProps } from './core/EmptyState.svelte';
+export { default as NotFound } from './core/NotFound.svelte';
+export type { NotFoundProps } from './core/NotFound.svelte';
+export { default as ErrorPage } from './core/ErrorPage.svelte';
+export type { ErrorPageProps } from './core/ErrorPage.svelte';
 export { default as PageHeader } from './core/PageHeader.svelte';
 export type { PageHeaderProps } from './core/PageHeader.svelte';
 export { default as StatusBadge } from './core/StatusBadge.svelte';
@@ -182,10 +189,13 @@ export type { RandomNameConfig } from './core/RandomName.svelte';
 
 // Visualization components
 export { default as Sparkline } from './viz/Sparkline.svelte';
+export type { SparklineColor, SparklineProps } from './viz/Sparkline.svelte';
 export { default as EquityChart } from './viz/EquityChart.svelte';
 export { default as BacktestChart } from './viz/BacktestChart.svelte';
 export { default as Gauge } from './viz/Gauge.svelte';
+export type { GaugeSize, GaugeVariant, GaugeColorStop, GaugeProps } from './viz/Gauge.svelte';
 export { default as ProgressRing } from './viz/ProgressRing.svelte';
+export type { ProgressRingProps } from './viz/ProgressRing.svelte';
 
 // Layout components
 export { default as Header } from './layout/Header.svelte';

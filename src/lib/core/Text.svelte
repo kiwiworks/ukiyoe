@@ -17,6 +17,8 @@
 </script>
 
 <script lang="ts">
+	import { cn } from '../utils/cn';
+
 	let {
 		size = 'sm',
 		variant = 'secondary',
@@ -53,16 +55,14 @@
 	};
 
 	const computedClasses = $derived(
-		[
+		cn(
 			sizeClasses[size],
 			variantClasses[variant],
 			weightClasses[weight],
-			mono ? 'font-mono' : '',
-			truncate ? 'truncate' : '',
+			mono && 'font-mono',
+			truncate && 'truncate',
 			className
-		]
-			.filter(Boolean)
-			.join(' ')
+		)
 	);
 </script>
 

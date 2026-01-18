@@ -59,6 +59,7 @@
 <script lang="ts">
 	import { Combobox } from 'bits-ui';
 	import { Search, Check, Loader2 } from '@lucide/svelte';
+	import { cn } from '../utils/cn';
 
 	let {
 		value = $bindable(''),
@@ -210,7 +211,7 @@
 	}
 </script>
 
-<div class="w-full {className}">
+<div class={cn('w-full', className)}>
 	<Combobox.Root
 		type="single"
 		{disabled}

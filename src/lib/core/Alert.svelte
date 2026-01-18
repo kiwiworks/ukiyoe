@@ -16,6 +16,7 @@
 
 <script lang="ts">
 	import { X, Info, CheckCircle, AlertTriangle, AlertCircle } from '@lucide/svelte';
+	import { cn } from '../utils/cn';
 
 	let {
 		variant = 'default',
@@ -55,7 +56,7 @@
 
 {#if visible}
 	<div
-		class="relative flex gap-3 rounded-lg border p-4 {variantClasses[variant]} {className}"
+		class={cn('relative flex gap-3 rounded-lg border p-4', variantClasses[variant], className)}
 		role="alert"
 	>
 		<Icon size={20} class="shrink-0 mt-0.5" />

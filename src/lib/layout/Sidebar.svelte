@@ -12,13 +12,14 @@
 
 <script lang="ts">
 	import { ChevronLeft, ChevronRight } from '@lucide/svelte';
+	import { cn } from '../utils/cn';
 
 	let {
 		width = 256,
 		collapsed = $bindable(false),
 		onToggle,
 		children,
-		class: className = ''
+		class: className
 	}: SidebarProps = $props();
 
 	const currentWidth = $derived(collapsed ? 48 : width);
@@ -30,7 +31,7 @@
 </script>
 
 <aside
-	class="self-stretch shrink-0 bg-bg-primary border-r border-border-subtle flex flex-col font-mono transition-all duration-300 ease-in-out {className}"
+	class={cn('self-stretch shrink-0 bg-bg-primary border-r border-border-subtle flex flex-col font-mono transition-all duration-300 ease-in-out', className)}
 	style:width="{currentWidth}px"
 >
 	<div class="flex-1 overflow-y-auto overflow-x-hidden" aria-hidden={collapsed}>

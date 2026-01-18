@@ -24,6 +24,8 @@
 </script>
 
 <script lang="ts">
+	import { cn } from '../utils/cn';
+
 	let {
 		title,
 		subtitle,
@@ -32,7 +34,7 @@
 		showIndicator = true,
 		icon,
 		children,
-		class: className = ''
+		class: className
 	}: HeaderProps = $props();
 
 	const sizeClasses: Record<HeaderSize, string> = {
@@ -67,7 +69,12 @@
 </script>
 
 <header
-	class="flex items-center justify-between bg-bg-primary border-b border-border-subtle font-mono {fixed ? 'fixed top-0 left-0 right-0 z-[var(--z-sticky)]' : ''} {sizeClasses[size]} {className}"
+	class={cn(
+		'flex items-center justify-between bg-bg-primary border-b border-border-subtle font-mono',
+		fixed && 'fixed top-0 left-0 right-0 z-[var(--z-sticky)]',
+		sizeClasses[size],
+		className
+	)}
 >
 	<div class="flex items-center {gapClasses[size]}">
 		{#if icon}

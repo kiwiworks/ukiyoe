@@ -52,6 +52,7 @@
 		getLocalTimeZone,
 		today
 	} from '@internationalized/date';
+	import { cn } from '../utils/cn';
 
 	let {
 		value = $bindable(undefined),
@@ -122,7 +123,7 @@
 	}
 </script>
 
-<div class="w-full {className}">
+<div class={cn('w-full', className)}>
 	<Popover.Root bind:open>
 		<Popover.Trigger
 			{id}

@@ -34,6 +34,8 @@
 </script>
 
 <script lang="ts">
+	import { cn } from '../utils/cn';
+
 	let {
 		variant = 'default',
 		size = 'md',
@@ -81,9 +83,13 @@
 	};
 
 	const computedClasses = $derived(
-		`${baseClasses} ${sizeClasses[size]} ${
-			active ? activeVariantClasses[variant] : variantClasses[variant]
-		} ${fullWidth ? 'w-full justify-center' : ''} ${className}`
+		cn(
+			baseClasses,
+			sizeClasses[size],
+			active ? activeVariantClasses[variant] : variantClasses[variant],
+			fullWidth && 'w-full justify-center',
+			className
+		)
 	);
 </script>
 

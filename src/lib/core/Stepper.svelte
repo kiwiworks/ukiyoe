@@ -35,6 +35,7 @@
 
 <script lang="ts">
 	import { Check, X } from '@lucide/svelte';
+	import { cn } from '../utils/cn';
 
 	let {
 		steps,
@@ -110,7 +111,7 @@
 	);
 </script>
 
-<div class="{containerClasses} {className}" role="navigation" aria-label="Progress">
+<div class={cn(containerClasses, className)} role="navigation" aria-label="Progress">
 	{#each steps as step, index}
 		{@const state = getStepState(index)}
 		{@const isClickable = clickable && (state === 'completed' || state === 'active')}

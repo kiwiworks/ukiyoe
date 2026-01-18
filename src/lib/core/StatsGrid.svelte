@@ -18,6 +18,8 @@
 </script>
 
 <script lang="ts">
+	import { cn } from '../utils/cn';
+
 	let { items, columns = 3, size = 'md', class: className = '' }: StatsGridProps = $props();
 
 	const columnClasses: Record<StatsGridColumns, string> = {
@@ -41,7 +43,7 @@
 	};
 </script>
 
-<div class="grid gap-3 {columnClasses[columns]} {className}">
+<div class={cn('grid gap-3', columnClasses[columns], className)}>
 	{#each items as item}
 		<div class="flex flex-col items-center text-center">
 			<span class="mb-1 font-bold {sizeClasses[size]} {variantClasses[item.variant ?? 'default']}">{item.value}</span>

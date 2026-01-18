@@ -11,6 +11,8 @@
 </script>
 
 <script lang="ts">
+	import { cn } from '../utils/cn';
+
 	let {
 		variant = 'subtle',
 		spacing = 'sm',
@@ -41,14 +43,12 @@
 	};
 
 	const computedClasses = $derived(
-		[
+		cn(
 			variantClasses[variant],
 			vertical ? 'w-px h-full' : 'h-px w-full',
 			vertical ? verticalSpacingClasses[spacing] : horizontalSpacingClasses[spacing],
 			className
-		]
-			.filter(Boolean)
-			.join(' ')
+		)
 	);
 </script>
 

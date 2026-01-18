@@ -24,31 +24,73 @@
 
 ## With Icons
 
+Use snippets to pass icons to list items:
+
 ```svelte preview title="List Items with Icons"
 <div class="w-full max-w-sm space-y-1">
-	<ListItem icon={User}>Profile</ListItem>
-	<ListItem icon={Settings}>Settings</ListItem>
-	<ListItem icon={Bell}>Notifications</ListItem>
-	<ListItem icon={Lock}>Security</ListItem>
+	<ListItem>
+		{#snippet icon()}<User size={16} />{/snippet}
+		Profile
+	</ListItem>
+	<ListItem>
+		{#snippet icon()}<Settings size={16} />{/snippet}
+		Settings
+	</ListItem>
+	<ListItem>
+		{#snippet icon()}<Bell size={16} />{/snippet}
+		Notifications
+	</ListItem>
+	<ListItem>
+		{#snippet icon()}<Lock size={16} />{/snippet}
+		Security
+	</ListItem>
 </div>
 ```
 
-## Active State
+## Interactive State
 
-```svelte preview title="Active List Item"
+```svelte preview title="Interactive List Items"
 <div class="w-full max-w-sm space-y-1">
-	<ListItem icon={User} active>Profile</ListItem>
-	<ListItem icon={Settings}>Settings</ListItem>
-	<ListItem icon={Bell}>Notifications</ListItem>
+	<ListItem interactive selected>
+		{#snippet icon()}<User size={16} />{/snippet}
+		Profile
+	</ListItem>
+	<ListItem interactive>
+		{#snippet icon()}<Settings size={16} />{/snippet}
+		Settings
+	</ListItem>
+	<ListItem interactive>
+		{#snippet icon()}<Bell size={16} />{/snippet}
+		Notifications
+	</ListItem>
 </div>
 ```
 
-## As Links
+## Variants
 
-```svelte preview title="List Items as Links"
+```svelte preview title="List Item Variants"
 <div class="w-full max-w-sm space-y-1">
-	<ListItem href="/profile" icon={User}>Profile</ListItem>
-	<ListItem href="/settings" icon={Settings}>Settings</ListItem>
+	<ListItem variant="default">Default item</ListItem>
+	<ListItem variant="success">Success item</ListItem>
+	<ListItem variant="warning">Warning item</ListItem>
+	<ListItem variant="error">Error item</ListItem>
+</div>
+```
+
+## With Right Content
+
+```svelte preview title="List Items with Right Slot"
+<div class="w-full max-w-sm space-y-1">
+	<ListItem>
+		{#snippet icon()}<User size={16} />{/snippet}
+		{#snippet left()}Profile{/snippet}
+		{#snippet right()}<span class="text-text-muted">Admin</span>{/snippet}
+	</ListItem>
+	<ListItem>
+		{#snippet icon()}<Bell size={16} />{/snippet}
+		{#snippet left()}Notifications{/snippet}
+		{#snippet right()}<span class="px-2 py-0.5 bg-accent-brand rounded-full text-[10px]">3</span>{/snippet}
+	</ListItem>
 </div>
 ```
 

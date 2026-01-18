@@ -10,16 +10,18 @@
 </script>
 
 <script lang="ts">
+	import { cn } from '../utils/cn';
+
 	let {
 		children,
 		rightContent,
 		connected = true,
-		class: className = ''
+		class: className
 	}: StatusBarProps = $props();
 </script>
 
 <footer
-	class="fixed bottom-0 left-0 right-0 h-xl flex items-center justify-between px-lg font-mono text-xs z-50 bg-bg-primary border-t border-border-subtle {className}"
+	class={cn('fixed bottom-0 left-0 right-0 h-xl flex items-center justify-between px-lg font-mono text-xs z-50 bg-bg-primary border-t border-border-subtle', className)}
 >
 	<div class="flex items-center gap-3">
 		<div class="flex items-center gap-1.5">

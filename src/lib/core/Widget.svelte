@@ -12,6 +12,8 @@
 </script>
 
 <script lang="ts">
+	import { cn } from '../utils/cn';
+
 	let {
 		title,
 		subtitle,
@@ -28,7 +30,7 @@
 	};
 </script>
 
-<div class="flex flex-col font-mono text-xs {variantClasses[variant]} {className}">
+<div class={cn('flex flex-col font-mono text-xs', variantClasses[variant], className)}>
 	{#if title}
 		<div class="flex items-center justify-between px-md py-xs border-b border-border-subtle">
 			<div class="flex items-center gap-md">

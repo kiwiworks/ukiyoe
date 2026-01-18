@@ -27,6 +27,7 @@
 
 <script lang="ts">
 	import { Slider } from 'bits-ui';
+	import { cn } from '../utils/cn';
 
 	let {
 		value = $bindable([50]),
@@ -73,7 +74,7 @@
 	}
 </script>
 
-<div class="w-full {className}">
+<div class={cn('w-full', className)}>
 	{#if value.length > 1}
 		<Slider.Root
 			type="multiple"

@@ -14,6 +14,8 @@
 </script>
 
 <script lang="ts">
+	import { cn } from '../utils/cn';
+
 	let {
 		variant = 'default',
 		interactive = false,
@@ -32,14 +34,16 @@
 		error: 'border-l-2 border-l-negative'
 	};
 
-	const computedClasses = $derived.by(() => {
-		const base = 'flex items-center justify-between p-md rounded-sm transition-colors duration-100 text-xs font-mono text-text-primary bg-bg-primary';
-		const interactiveClass = interactive ? 'cursor-pointer hover:bg-bg-hover' : '';
-		const selectedClass = selected ? 'bg-bg-secondary' : '';
-		const focusClass = interactive ? 'focus-visible:outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--accent-brand)]' : '';
-		const borderClass = variantBorder[variant];
-		return [base, interactiveClass, selectedClass, focusClass, borderClass, className].filter(Boolean).join(' ');
-	});
+	const computedClasses = $derived(
+		cn(
+			'flex items-center justify-between p-md rounded-sm transition-colors duration-100 text-xs font-mono text-text-primary bg-bg-primary',
+			interactive && 'cursor-pointer hover:bg-bg-hover',
+			selected && 'bg-bg-secondary',
+			interactive && 'focus-visible:outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--accent-brand)]',
+			variantBorder[variant],
+			className
+		)
+	);
 </script>
 
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
@@ -54,7 +58,7 @@
 		</div>
 	{/if}
 
-	<div class="flex-1 min-w-0 px-md overflow-hidden text-ellipsis whitespace-nowrap">
+	<div class="flex-1 min-w-0 px-md whitespace-nowrap">
 		{#if left}
 			{@render left()}
 		{:else if children}

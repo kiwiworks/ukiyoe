@@ -13,6 +13,7 @@
 
 <script lang="ts">
 	import { ChevronUp, ChevronDown } from '@lucide/svelte';
+	import { cn } from '../utils/cn';
 
 	let {
 		title,
@@ -20,7 +21,7 @@
 		defaultCollapsed = false,
 		headerActions,
 		children,
-		class: className = ''
+		class: className
 	}: PanelProps = $props();
 
 	let collapsed = $state(false);
@@ -37,7 +38,7 @@
 	}
 </script>
 
-<div class="flex flex-col bg-bg-secondary border border-border-subtle rounded-md font-mono {className}">
+<div class={cn('flex flex-col bg-bg-secondary border border-border-subtle rounded-md font-mono', className)}>
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 	<div
 		class="flex items-center justify-between px-lg py-1.5 border-b border-border-subtle {collapsible ? 'cursor-pointer hover:bg-bg-tertiary' : ''}"

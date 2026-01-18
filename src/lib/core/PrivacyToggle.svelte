@@ -28,6 +28,7 @@
 <script lang="ts">
 	import { Eye, EyeOff } from '@lucide/svelte';
 	import { getPrivacyContext } from '../stores/privacy.svelte';
+	import { cn } from '../utils/cn';
 
 	let { size = 'md', class: className = '', showLabel = false }: PrivacyToggleProps = $props();
 
@@ -50,13 +51,14 @@
 
 <button
 	type="button"
-	class="inline-flex items-center justify-center gap-1.5 border rounded-sm bg-transparent cursor-pointer transition-all font-mono
-		{sizeClasses[size]}
-		{privacy.enabled
+	class={cn(
+		'inline-flex items-center justify-center gap-1.5 border rounded-sm bg-transparent cursor-pointer transition-all font-mono focus-visible:outline-2 focus-visible:outline-accent-brand focus-visible:outline-offset-2',
+		sizeClasses[size],
+		privacy.enabled
 			? 'text-accent-brand border-accent-brand bg-accent-brand/10 hover:bg-accent-brand/15'
-			: 'text-text-muted border-border-subtle hover:text-text-primary hover:border-border-default hover:bg-bg-hover'}
-		focus-visible:outline-2 focus-visible:outline-accent-brand focus-visible:outline-offset-2
-		{className}"
+			: 'text-text-muted border-border-subtle hover:text-text-primary hover:border-border-default hover:bg-bg-hover',
+		className
+	)}
 	onclick={handleClick}
 	title={privacy.enabled ? 'Show sensitive data' : 'Hide sensitive data'}
 	aria-label={privacy.enabled ? 'Show sensitive data' : 'Hide sensitive data'}

@@ -13,6 +13,8 @@
 </script>
 
 <script lang="ts">
+	import { cn } from '../utils/cn';
+
 	let { label, variant, icon, pulse = false, size = 'md', class: className = '' }: StatusBadgeProps = $props();
 
 	const variantClasses: Record<StatusBadgeVariant, string> = {
@@ -48,7 +50,7 @@
 </script>
 
 <div
-	class="inline-flex items-center gap-1.5 py-1 px-2 rounded font-semibold uppercase {variantClasses[variant]} {sizeClasses[size]} {className}"
+	class={cn('inline-flex items-center gap-1.5 py-1 px-2 rounded font-semibold uppercase', variantClasses[variant], sizeClasses[size], className)}
 >
 	{#if pulse}
 		<span class="w-1.5 h-1.5 rounded-full shrink-0 animate-pulse {pulseColors[variant]}"></span>

@@ -11,6 +11,8 @@
 </script>
 
 <script lang="ts">
+	import { cn } from '../utils/cn';
+
 	let { level = 2, size, class: className = '', children }: HeadingProps = $props();
 
 	const defaultSizeByLevel: Record<HeadingLevel, HeadingSize> = {
@@ -33,7 +35,7 @@
 
 	const resolvedSize = $derived(size ?? defaultSizeByLevel[level]);
 	const computedClasses = $derived(
-		`${sizeClasses[resolvedSize]} font-medium text-text-primary ${className}`.trim()
+		cn(sizeClasses[resolvedSize], 'font-medium text-text-primary', className)
 	);
 </script>
 

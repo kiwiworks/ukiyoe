@@ -16,6 +16,7 @@
 
 <script lang="ts">
 	import { Popover } from 'bits-ui';
+	import { cn } from '../utils/cn';
 
 	let {
 		open = $bindable(false),
@@ -41,7 +42,7 @@
 			{side}
 			{sideOffset}
 			{align}
-			class="z-popover w-72 rounded-lg bg-bg-elevated p-4 shadow-lg border border-border-default animate-in fade-in-0 zoom-in-95 {className}"
+			class={cn('z-popover w-72 rounded-lg bg-bg-elevated p-4 shadow-lg border border-border-default animate-in fade-in-0 zoom-in-95', className)}
 		>
 			{@render children()}
 		</Popover.Content>

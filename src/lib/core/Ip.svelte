@@ -39,6 +39,7 @@
 
 <script lang="ts">
 	import { getPrivacyContext, PRIVACY_MASK } from '../stores/privacy.svelte';
+	import { cn } from '../utils/cn';
 
 	let {
 		value,
@@ -71,7 +72,7 @@
 </script>
 
 <span
-	class="font-mono tabular-nums text-text-primary whitespace-nowrap {sizeClasses[size]} {isMasked ? 'text-text-muted tracking-widest select-none' : ''} {!isValid ? 'text-text-muted' : ''} {className}"
+	class={cn('font-mono tabular-nums text-text-primary whitespace-nowrap', sizeClasses[size], isMasked && 'text-text-muted tracking-widest select-none', !isValid && 'text-text-muted', className)}
 	aria-label={ariaLabel}
 >
 	{displayValue}

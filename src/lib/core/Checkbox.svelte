@@ -30,6 +30,7 @@
 <script lang="ts">
 	import { Checkbox } from 'bits-ui';
 	import { Check, Loader2 } from '@lucide/svelte';
+	import { cn } from '../utils/cn';
 
 	let {
 		checked = $bindable(false),
@@ -79,7 +80,7 @@
 	aria-describedby={ariaDescribedby}
 	aria-invalid={ariaInvalid}
 	aria-busy={loading}
-	class="inline-flex items-center justify-center rounded border border-border-default bg-bg-secondary transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 focus-visible:border-accent-brand disabled:opacity-50 disabled:cursor-not-allowed data-[state=checked]:bg-accent-brand data-[state=checked]:border-accent-brand cursor-pointer {sizeClasses[size]} {className}"
+	class={cn('inline-flex items-center justify-center rounded border border-border-default bg-bg-secondary transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 focus-visible:border-accent-brand disabled:opacity-50 disabled:cursor-not-allowed data-[state=checked]:bg-accent-brand data-[state=checked]:border-accent-brand cursor-pointer', sizeClasses[size], className)}
 >
 	{#snippet children({ checked: isChecked })}
 		<span class="text-white flex items-center justify-center">

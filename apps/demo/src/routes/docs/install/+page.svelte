@@ -14,7 +14,6 @@
 
 <Alert variant="info" class="mt-lg">
 	<strong>Public Beta</strong> — Ukiyoe is open source but not yet published to npm.
-	Clone the repository or use a git dependency for now.
 </Alert>
 
 <div class="mt-xl space-y-xl">
@@ -31,13 +30,12 @@
 		<Heading level={2} size="lg" class="mb-md">Installation</Heading>
 		<Text variant="muted" class="mb-md">Install via git dependency:</Text>
 		<CodeBlock code="bun add github:kiwiworks/ukiyoe" />
-		<Text variant="muted" size="xs" class="mt-sm">Once published to npm, you'll be able to use: <code class="text-text-primary">bun add ukiyoe</code></Text>
 	</section>
 
 	<section>
 		<Heading level={2} size="lg" class="mb-md">Peer Dependencies</Heading>
 		<Text variant="muted" class="mb-md">Ukiyoe requires these peer dependencies:</Text>
-		<CodeBlock code={`bun add bits-ui @lucide/svelte @internationalized/date tailwindcss`} />
+		<CodeBlock code="bun add bits-ui @lucide/svelte @internationalized/date tailwindcss" />
 	</section>
 
 	<section>
@@ -60,7 +58,7 @@ export default {
 	<section>
 		<Heading level={2} size="lg" class="mb-md">Import Styles</Heading>
 		<Text variant="muted" class="mb-md">Import the base styles in your app entry:</Text>
-		<CodeBlock code={`import 'ukiyoe/styles.css';`} />
+		<CodeBlock code="import 'ukiyoe/styles.css';" />
 	</section>
 
 	<section>
@@ -69,9 +67,9 @@ export default {
 		<CodeBlock
 			code={`<script>
   import { Button, Input, Badge } from 'ukiyoe';
-</script>
+<\/script>
 
-<Button variant="primary">Click me</Button>
+<Button variant="primary">Click me<\/Button>
 <Input placeholder="Enter text..." />
 <Badge variant="success" text="Active" />`}
 		/>

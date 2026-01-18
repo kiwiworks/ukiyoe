@@ -16,6 +16,8 @@
 </script>
 
 <script lang="ts">
+	import { cn } from '../utils/cn';
+
 	let {
 		label,
 		error,
@@ -26,7 +28,7 @@
 	}: FormFieldProps = $props();
 </script>
 
-<div class="flex w-full flex-col gap-1.5 {className}">
+<div class={cn('flex w-full flex-col gap-1.5', className)}>
 	<label class="flex w-full flex-col gap-1.5">
 		<span class="text-xs text-text-muted uppercase tracking-wide font-medium">
 			{label}

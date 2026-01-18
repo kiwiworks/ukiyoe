@@ -7,6 +7,8 @@
 </script>
 
 <script lang="ts">
+	import { cn } from '../utils/cn';
+
 	let { code, inline = false, class: className = '' }: CodeBlockProps = $props();
 
 	const baseClasses = 'font-mono text-xs text-text-primary';
@@ -14,7 +16,7 @@
 	const inlineClasses = 'bg-bg-tertiary px-1 py-0.5 rounded-sm';
 
 	const computedClasses = $derived(
-		`${baseClasses} ${inline ? inlineClasses : blockClasses} ${className}`.trim()
+		cn(baseClasses, inline ? inlineClasses : blockClasses, className)
 	);
 </script>
 

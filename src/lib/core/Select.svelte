@@ -44,6 +44,7 @@
 <script lang="ts">
 	import { Select } from 'bits-ui';
 	import { ChevronDown, Check, X, Loader2 } from '@lucide/svelte';
+	import { cn } from '../utils/cn';
 
 	let {
 		value = $bindable(''),
@@ -109,7 +110,7 @@
 	}
 </script>
 
-<div class="w-full {className}">
+<div class={cn('w-full', className)}>
 	<Select.Root
 		type="single"
 		disabled={isDisabled}
