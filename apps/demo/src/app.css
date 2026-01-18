@@ -4,6 +4,12 @@
 /* Scan demo app files for Tailwind classes */
 @source "../";
 
+html,
+body {
+	height: 100%;
+	overflow: hidden;
+}
+
 html {
 	scroll-behavior: smooth;
 }
