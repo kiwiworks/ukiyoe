@@ -206,6 +206,7 @@
 		role="dialog"
 		aria-modal="true"
 		aria-label="Command palette"
+		tabindex="-1"
 	>
 		<div
 			class={cn(

@@ -3,6 +3,9 @@
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { Badge, Header, ThemeProvider, ThemeToggle, CommandPalette, type CommandItem } from 'ukiyoe';
+	import type { Snippet } from 'svelte';
+
+	let { children }: { children: Snippet } = $props();
 	import {
 		Home,
 		Download,
@@ -137,7 +140,7 @@
 			<Nav />
 			<main class="flex-1 overflow-y-auto p-lg">
 				<div class="max-w-4xl">
-					<slot />
+					{@render children()}
 				</div>
 			</main>
 		</div>
