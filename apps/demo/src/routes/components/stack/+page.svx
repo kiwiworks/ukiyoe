@@ -1,6 +1,16 @@
 <script lang="ts">
 	import { Stack, Button, Badge, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'direction', type: "'vertical' | 'horizontal'", default: "'vertical'", description: 'Stack direction' },
+		{ name: 'gap', type: "'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: 'Gap between items' },
+		{ name: 'align', type: "'start' | 'center' | 'end' | 'stretch' | 'baseline'", default: "'stretch'", description: 'Cross-axis alignment' },
+		{ name: 'justify', type: "'start' | 'center' | 'end' | 'between' | 'around' | 'evenly'", default: "'start'", description: 'Main-axis alignment' },
+		{ name: 'wrap', type: 'boolean', default: 'false', description: 'Wrap items' },
+		{ name: 'inline', type: 'boolean', default: 'false', description: 'Render as inline-flex' }
+	];
 </script>
 
 <svelte:head>
@@ -90,16 +100,7 @@
 </Stack>
 ```
 
-## Props
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `direction` | `'vertical' \| 'horizontal'` | `'vertical'` | Stack direction |
-| `gap` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Gap between items |
-| `align` | `'start' \| 'center' \| 'end' \| 'stretch' \| 'baseline'` | `'stretch'` | Cross-axis alignment |
-| `justify` | `'start' \| 'center' \| 'end' \| 'between' \| 'around' \| 'evenly'` | `'start'` | Main-axis alignment |
-| `wrap` | `boolean` | `false` | Wrap items |
-| `inline` | `boolean` | `false` | Render as inline-flex |
+<PropsTable props={propDefs} />
 
 </div>
 

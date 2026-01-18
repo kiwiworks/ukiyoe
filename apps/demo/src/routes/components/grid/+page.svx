@@ -1,6 +1,15 @@
 <script lang="ts">
 	import { Grid, Widget, PageHeader } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'cols', type: "1-6 | 12 | 'auto'", default: '1', description: 'Number of columns' },
+		{ name: 'colsSm', type: "1-6 | 12 | 'auto'", description: 'Columns on small screens' },
+		{ name: 'colsMd', type: "1-6 | 12 | 'auto'", description: 'Columns on medium screens' },
+		{ name: 'colsLg', type: "1-6 | 12 | 'auto'", description: 'Columns on large screens' },
+		{ name: 'gap', type: "'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: 'Gap between items' }
+	];
 </script>
 
 <svelte:head>
@@ -78,15 +87,7 @@
 </div>
 ```
 
-## Props
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `cols` | `1-6 \| 12 \| 'auto'` | `1` | Number of columns |
-| `colsSm` | `1-6 \| 12 \| 'auto'` | - | Columns on small screens |
-| `colsMd` | `1-6 \| 12 \| 'auto'` | - | Columns on medium screens |
-| `colsLg` | `1-6 \| 12 \| 'auto'` | - | Columns on large screens |
-| `gap` | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Gap between items |
+<PropsTable props={propDefs} />
 
 </div>
 
