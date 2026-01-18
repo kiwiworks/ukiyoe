@@ -88,20 +88,20 @@
 	}
 </script>
 
-<div class={cn('min-h-[60vh] flex items-center justify-center p-8', className)}>
-	<div class="text-center max-w-lg w-full">
-		<div class="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-negative/10">
+<div class={cn('min-h-[60vh] flex flex-col items-center justify-center p-8', className)}>
+	<div class="flex flex-col items-center text-center max-w-md w-full">
+		<div class="mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-negative/10">
 			<AlertTriangle size={48} class="text-negative" />
 		</div>
 
-		<p class="mb-2 font-mono text-sm text-text-muted">{status}</p>
-		<h1 class="mb-2 text-xl font-medium text-text-primary">{effectiveTitle}</h1>
-		<p class="mb-6 text-sm text-text-muted max-w-sm mx-auto">{effectiveMessage}</p>
+		<p class="mb-3 font-mono text-sm text-text-muted tracking-wider">{status}</p>
+		<h1 class="mb-3 text-2xl font-semibold text-text-primary">{effectiveTitle}</h1>
+		<p class="mb-8 text-base text-text-secondary leading-relaxed">{effectiveMessage}</p>
 
 		{#if children}
 			{@render children()}
 		{:else}
-			<div class="flex items-center justify-center gap-3">
+			<div class="flex flex-wrap items-center justify-center gap-3">
 				{#if showRetry && onRetry}
 					<Button variant="outline" onclick={onRetry}>
 						<RefreshCw size={16} class="mr-1" />
@@ -122,9 +122,9 @@
 		{/if}
 
 		{#if showStack && stack}
-			<div class="mt-8 text-left">
-				<p class="mb-2 text-xs text-text-muted">Stack trace</p>
-				<pre class="p-4 bg-bg-tertiary rounded-md text-xs text-text-secondary overflow-auto max-h-48">{stack}</pre>
+			<div class="mt-8 w-full text-left">
+				<p class="mb-2 text-xs font-medium text-text-muted uppercase tracking-wide">Stack trace</p>
+				<pre class="p-4 bg-bg-tertiary rounded-lg text-xs text-text-secondary overflow-auto max-h-48 font-mono">{stack}</pre>
 			</div>
 		{/if}
 	</div>

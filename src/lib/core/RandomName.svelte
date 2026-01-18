@@ -131,14 +131,14 @@
 </script>
 
 <div
-	class="flex items-center gap-2 bg-[var(--bg-secondary)] border border-[var(--border-subtle)] rounded-[var(--radius-md)] transition-colors duration-150 focus-within:border-[var(--accent-brand)] {sizeClasses[size]}"
+	class="w-full min-w-0 flex items-center gap-2 bg-[var(--bg-secondary)] border border-[var(--border-subtle)] rounded-[var(--radius-md)] transition-colors duration-150 focus-within:border-[var(--accent-brand)] {sizeClasses[size]}"
 	class:opacity-60={disabled}
 	class:pointer-events-none={disabled}
 >
 	{#if isEditing}
 		<input
 			type="text"
-			class="flex-1 bg-transparent border-none outline-none font-[var(--font-mono)] text-[length:inherit] text-[var(--text-primary)] placeholder:text-[var(--text-muted)]"
+			class="flex-1 min-w-0 bg-transparent border-none outline-none font-[var(--font-mono)] text-[length:inherit] text-[var(--text-primary)] placeholder:text-[var(--text-muted)]"
 			bind:value={editValue}
 			bind:this={editInputRef}
 			onkeydown={handleKeydown}
@@ -164,7 +164,7 @@
 		</div>
 	{:else}
 		<span
-			class="flex-1 font-medium text-[var(--text-primary)] whitespace-nowrap overflow-hidden text-ellipsis"
+			class="flex-1 min-w-0 font-medium text-[var(--text-primary)] whitespace-nowrap overflow-hidden text-ellipsis"
 			class:text-[var(--text-muted)]={!value}
 			class:font-normal={!value}
 		>

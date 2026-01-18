@@ -2,7 +2,7 @@
 	import '../app.css';
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
-	import { Badge, Header, ThemeProvider, ThemeToggle, CommandPalette, type CommandItem } from 'ukiyoe';
+	import { Badge, Header, ThemeProvider, ThemeToggle, CommandPalette, ThemeLabModal, type CommandItem } from 'ukiyoe';
 	import type { Snippet } from 'svelte';
 
 	let { children }: { children: Snippet } = $props();
@@ -22,11 +22,13 @@
 		Bot,
 		BarChart3,
 		Sparkles,
-		Palette
+		Palette,
+		Settings
 	} from '@lucide/svelte';
 	import Nav from '$lib/Nav.svelte';
 
 	let commandPaletteOpen = $state(false);
+	let themeLabOpen = $state(false);
 
 	const commandItems: CommandItem[] = [
 		// Getting Started
@@ -150,4 +152,15 @@
 		placeholder="Search components..."
 		onSelect={handleCommandSelect}
 	/>
+
+	<!-- Floating Settings Button -->
+	<button
+		class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-12 h-12 rounded-full bg-bg-elevated border border-border-default shadow-lg transition-all hover:bg-bg-hover hover:border-accent-brand hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-brand/50"
+		onclick={() => themeLabOpen = true}
+		aria-label="Open theme settings"
+	>
+		<Settings size={20} class="text-text-secondary" />
+	</button>
+
+	<ThemeLabModal bind:open={themeLabOpen} />
 </ThemeProvider>

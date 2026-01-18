@@ -32,8 +32,8 @@
 
 <div class={cn('flex flex-col font-mono text-xs', variantClasses[variant], className)}>
 	{#if title}
-		<div class="flex items-center justify-between px-md py-xs border-b border-border-subtle">
-			<div class="flex items-center gap-md">
+		<div class="flex items-center justify-between px-sm py-xs border-b border-border-subtle">
+			<div class="flex items-center gap-sm">
 				<span class="text-text-muted text-[10px] uppercase tracking-wide">{title}</span>
 				{#if subtitle}
 					<span class="text-border-strong text-[9px]">{subtitle}</span>
@@ -46,7 +46,7 @@
 			{/if}
 		</div>
 	{/if}
-	<div class="flex-1 overflow-visible">
+	<div class="flex-1 p-sm">
 		{@render children()}
 	</div>
 </div>

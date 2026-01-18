@@ -1,20 +1,238 @@
 <script lang="ts">
-	import { BacktestChart, PageHeader, Text, CodeBlock } from 'ukiyoe';
+	import { BacktestChart, PageHeader, Text, CodeBlock, Select, Numeric, Badge } from 'ukiyoe';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 	import { browser } from '$app/environment';
 
-	const sampleTrades = [
-		{ entryTime: 1704067200, exitTime: 1704153600, side: 'long', entryPrice: 100, exitPrice: 105, pnl: 500, pnlPct: 0.05 },
-		{ entryTime: 1704240000, exitTime: 1704326400, side: 'short', entryPrice: 108, exitPrice: 103, pnl: 500, pnlPct: 0.046 },
-		{ entryTime: 1704412800, exitTime: 1704499200, side: 'long', entryPrice: 102, exitPrice: 110, pnl: 800, pnlPct: 0.078 },
-		{ entryTime: 1704585600, exitTime: 1704672000, side: 'long', entryPrice: 112, exitPrice: 108, pnl: -400, pnlPct: -0.036 },
-		{ entryTime: 1704758400, exitTime: 1704844800, side: 'short', entryPrice: 106, exitPrice: 100, pnl: 600, pnlPct: 0.057 }
+	// Trading strategy definitions
+	type StrategyKey = 'momentum' | 'meanReversion' | 'breakout';
+
+	const strategies: Record<StrategyKey, { name: string; description: string }> = {
+		momentum: { name: 'Momentum Strategy', description: 'Follows strong price trends' },
+		meanReversion: { name: 'Mean Reversion', description: 'Trades price reversals to mean' },
+		breakout: { name: 'Breakout Strategy', description: 'Trades support/resistance breaks' }
+	};
+
+	// Generate realistic OHLC-like price data
+	function generatePriceData(startPrice: number, days: number, volatility: number = 0.02): number[] {
+		const prices: number[] = [startPrice];
+		for (let i = 1; i < days; i++) {
+			const change = (Math.random() - 0.48) * volatility * prices[i - 1];
+			const newPrice = Math.max(prices[i - 1] + change, startPrice * 0.5);
+			prices.push(Math.round(newPrice * 100) / 100);
+		}
+		return prices;
+	}
+
+	// Generate realistic trades based on strategy type
+	function generateTrades(strategy: StrategyKey, startDate: number, initialCapital: number) {
+		const trades: Array<{
+			entryTime: number;
+			exitTime: number;
+			side: string;
+			entryPrice: number;
+			exitPrice: number;
+			pnl: number;
+			pnlPct: number;
+		}> = [];
+
+		const dayInSeconds = 86400;
+		let equity = initialCapital;
+		const positionSize = 0.1; // 10% of equity per trade
+
+		// Generate base price movement for context
+		const basePrices = generatePriceData(42500, 90, 0.015);
+
+		if (strategy === 'momentum') {
+			// Momentum: Longer holds, follows trends
+			const tradeConfigs = [
+				{ entryDay: 3, holdDays: 8, side: 'BUY', winRate: 0.55 },
+				{ entryDay: 14, holdDays: 5, side: 'SELL', winRate: 0.6 },
+				{ entryDay: 22, holdDays: 12, side: 'BUY', winRate: 0.52 },
+				{ entryDay: 38, holdDays: 6, side: 'SELL', winRate: 0.58 },
+				{ entryDay: 48, holdDays: 10, side: 'BUY', winRate: 0.54 },
+				{ entryDay: 62, holdDays: 7, side: 'BUY', winRate: 0.56 },
+				{ entryDay: 75, holdDays: 9, side: 'SELL', winRate: 0.53 }
+			];
+
+			tradeConfigs.forEach((config, i) => {
+				const entryPrice = basePrices[config.entryDay];
+				const isWin = Math.random() < config.winRate;
+				const pnlPct = isWin
+					? 0.015 + Math.random() * 0.035  // 1.5% to 5% win
+					: -(0.008 + Math.random() * 0.022); // 0.8% to 3% loss
+
+				const exitPrice = config.side === 'BUY'
+					? entryPrice * (1 + pnlPct)
+					: entryPrice * (1 - pnlPct);
+
+				const positionValue = equity * positionSize;
+				const pnl = positionValue * pnlPct;
+				equity += pnl;
+
+				trades.push({
+					entryTime: startDate + config.entryDay * dayInSeconds,
+					exitTime: startDate + (config.entryDay + config.holdDays) * dayInSeconds,
+					side: config.side,
+					entryPrice: Math.round(entryPrice * 100) / 100,
+					exitPrice: Math.round(exitPrice * 100) / 100,
+					pnl: Math.round(pnl * 100) / 100,
+					pnlPct: Math.round(pnlPct * 10000) / 10000
+				});
+			});
+		} else if (strategy === 'meanReversion') {
+			// Mean reversion: Shorter holds, counter-trend
+			const tradeConfigs = [
+				{ entryDay: 2, holdDays: 2, side: 'SELL' },
+				{ entryDay: 7, holdDays: 3, side: 'BUY' },
+				{ entryDay: 13, holdDays: 2, side: 'SELL' },
+				{ entryDay: 18, holdDays: 4, side: 'BUY' },
+				{ entryDay: 25, holdDays: 2, side: 'SELL' },
+				{ entryDay: 32, holdDays: 3, side: 'BUY' },
+				{ entryDay: 40, holdDays: 2, side: 'SELL' },
+				{ entryDay: 47, holdDays: 3, side: 'BUY' },
+				{ entryDay: 55, holdDays: 2, side: 'SELL' },
+				{ entryDay: 63, holdDays: 4, side: 'BUY' },
+				{ entryDay: 72, holdDays: 2, side: 'SELL' },
+				{ entryDay: 80, holdDays: 3, side: 'BUY' }
+			];
+
+			tradeConfigs.forEach((config) => {
+				const entryPrice = basePrices[config.entryDay];
+				const isWin = Math.random() < 0.62; // Mean reversion has higher win rate but smaller gains
+				const pnlPct = isWin
+					? 0.008 + Math.random() * 0.018  // 0.8% to 2.6% win
+					: -(0.006 + Math.random() * 0.014); // 0.6% to 2% loss
+
+				const exitPrice = config.side === 'BUY'
+					? entryPrice * (1 + pnlPct)
+					: entryPrice * (1 - pnlPct);
+
+				const positionValue = equity * positionSize;
+				const pnl = positionValue * pnlPct;
+				equity += pnl;
+
+				trades.push({
+					entryTime: startDate + config.entryDay * dayInSeconds,
+					exitTime: startDate + (config.entryDay + config.holdDays) * dayInSeconds,
+					side: config.side,
+					entryPrice: Math.round(entryPrice * 100) / 100,
+					exitPrice: Math.round(exitPrice * 100) / 100,
+					pnl: Math.round(pnl * 100) / 100,
+					pnlPct: Math.round(pnlPct * 10000) / 10000
+				});
+			});
+		} else {
+			// Breakout: Medium holds, directional
+			const tradeConfigs = [
+				{ entryDay: 5, holdDays: 6, side: 'BUY' },
+				{ entryDay: 15, holdDays: 4, side: 'BUY' },
+				{ entryDay: 28, holdDays: 8, side: 'SELL' },
+				{ entryDay: 42, holdDays: 5, side: 'BUY' },
+				{ entryDay: 55, holdDays: 7, side: 'SELL' },
+				{ entryDay: 70, holdDays: 6, side: 'BUY' }
+			];
+
+			tradeConfigs.forEach((config) => {
+				const entryPrice = basePrices[config.entryDay];
+				const isWin = Math.random() < 0.48; // Breakout has lower win rate but bigger gains
+				const pnlPct = isWin
+					? 0.025 + Math.random() * 0.055  // 2.5% to 8% win
+					: -(0.012 + Math.random() * 0.018); // 1.2% to 3% loss
+
+				const exitPrice = config.side === 'BUY'
+					? entryPrice * (1 + pnlPct)
+					: entryPrice * (1 - pnlPct);
+
+				const positionValue = equity * positionSize;
+				const pnl = positionValue * pnlPct;
+				equity += pnl;
+
+				trades.push({
+					entryTime: startDate + config.entryDay * dayInSeconds,
+					exitTime: startDate + (config.entryDay + config.holdDays) * dayInSeconds,
+					side: config.side,
+					entryPrice: Math.round(entryPrice * 100) / 100,
+					exitPrice: Math.round(exitPrice * 100) / 100,
+					pnl: Math.round(pnl * 100) / 100,
+					pnlPct: Math.round(pnlPct * 10000) / 10000
+				});
+			});
+		}
+
+		return { trades, finalEquity: equity };
+	}
+
+	// Calculate performance statistics
+	function calculateStats(trades: typeof momentumData.trades, initialCapital: number, finalEquity: number) {
+		const wins = trades.filter(t => t.pnl > 0);
+		const losses = trades.filter(t => t.pnl < 0);
+		const winRate = trades.length > 0 ? wins.length / trades.length : 0;
+		const totalPnl = finalEquity - initialCapital;
+		const totalReturn = totalPnl / initialCapital;
+		const avgWin = wins.length > 0 ? wins.reduce((a, t) => a + t.pnlPct, 0) / wins.length : 0;
+		const avgLoss = losses.length > 0 ? Math.abs(losses.reduce((a, t) => a + t.pnlPct, 0) / losses.length) : 0;
+		const profitFactor = avgLoss > 0 ? (avgWin * wins.length) / (avgLoss * losses.length) : 0;
+		const maxDrawdown = calculateMaxDrawdown(trades, initialCapital);
+
+		return {
+			totalTrades: trades.length,
+			winRate,
+			totalPnl,
+			totalReturn,
+			profitFactor,
+			maxDrawdown,
+			avgWin,
+			avgLoss,
+			wins: wins.length,
+			losses: losses.length
+		};
+	}
+
+	function calculateMaxDrawdown(trades: typeof momentumData.trades, initialCapital: number) {
+		let equity = initialCapital;
+		let peak = equity;
+		let maxDd = 0;
+
+		for (const trade of trades) {
+			equity += trade.pnl;
+			if (equity > peak) peak = equity;
+			const dd = (peak - equity) / peak;
+			if (dd > maxDd) maxDd = dd;
+		}
+
+		return maxDd;
+	}
+
+	// State
+	let selectedStrategy = $state<StrategyKey>('momentum');
+	const initialCapital = 10000;
+	const startDate = 1704067200; // Jan 1, 2024
+
+	// Pre-generate data for each strategy (with consistent seed behavior)
+	const momentumData = generateTrades('momentum', startDate, initialCapital);
+	const meanReversionData = generateTrades('meanReversion', startDate, initialCapital);
+	const breakoutData = generateTrades('breakout', startDate, initialCapital);
+
+	const strategyData: Record<StrategyKey, { trades: typeof momentumData.trades; finalEquity: number }> = {
+		momentum: momentumData,
+		meanReversion: meanReversionData,
+		breakout: breakoutData
+	};
+
+	const currentTrades = $derived(strategyData[selectedStrategy].trades);
+	const currentFinalEquity = $derived(strategyData[selectedStrategy].finalEquity);
+	const stats = $derived(calculateStats(currentTrades, initialCapital, currentFinalEquity));
+
+	const strategyOptions = [
+		{ value: 'momentum', label: 'Momentum Strategy' },
+		{ value: 'meanReversion', label: 'Mean Reversion' },
+		{ value: 'breakout', label: 'Breakout Strategy' }
 	];
 
 	const propDefs: PropDef[] = [
-		{ name: 'trades', type: 'Trade[]', description: 'Array of trade objects to display' },
-		{ name: 'equityCurve', type: 'EquityPoint[]', default: '[]', description: 'Optional equity curve data' },
+		{ name: 'trades', type: 'Trade[]', description: 'Array of trade objects with entry/exit data' },
+		{ name: 'equityCurve', type: 'EquityPoint[]', default: '[]', description: 'Optional equity curve data points' },
 		{ name: 'height', type: 'number', default: '280', description: 'Chart height in pixels' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
 	];
@@ -24,58 +242,190 @@
 	<title>BacktestChart - Ukiyoe UI</title>
 </svelte:head>
 
-<PageHeader title="BacktestChart" subtitle="Specialized chart for backtest trade results" />
+<PageHeader title="BacktestChart" subtitle="Visualize backtest results with entry/exit markers and trade performance" />
 
-<div class="space-y-xl mt-lg">
+<div class="space-y-8 mt-6">
 
-## Preview
+## Interactive Demo
 
-<div class="w-full h-80 border border-border-subtle rounded-md overflow-hidden">
-	{#if browser}
-		<BacktestChart trades={sampleTrades} />
-	{:else}
-		<div class="flex items-center justify-center h-full">
-			<Text variant="muted" size="sm">Loading chart...</Text>
+<div class="rounded-lg border border-border-default bg-bg-secondary overflow-hidden">
+	<div class="p-4 border-b border-border-subtle">
+		<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+			<div class="flex items-center gap-3">
+				<label class="text-sm text-text-muted font-medium">Strategy:</label>
+				<div class="w-48">
+					<Select
+						bind:value={selectedStrategy}
+						options={strategyOptions}
+						size="sm"
+					/>
+				</div>
+			</div>
+			<div class="flex items-center gap-2">
+				<Badge variant={stats.totalReturn >= 0 ? 'success' : 'danger'} size="sm">
+					{stats.totalReturn >= 0 ? '+' : ''}{(stats.totalReturn * 100).toFixed(2)}% Return
+				</Badge>
+				<Badge variant="default" size="sm">
+					{stats.totalTrades} Trades
+				</Badge>
+			</div>
 		</div>
-	{/if}
+		<p class="text-xs text-text-muted mt-2">{strategies[selectedStrategy].description}</p>
+	</div>
+
+	<div class="p-4">
+		{#if browser}
+			<BacktestChart trades={currentTrades} height={320} />
+		{:else}
+			<div class="flex items-center justify-center h-80">
+				<Text variant="muted" size="sm">Loading chart...</Text>
+			</div>
+		{/if}
+	</div>
+
+	<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 border-t border-border-subtle bg-bg-tertiary">
+		<div class="text-center">
+			<div class="text-lg font-bold font-mono {stats.totalPnl >= 0 ? 'text-positive' : 'text-negative'}">
+				<Numeric value={stats.totalPnl} format="pnl" />
+			</div>
+			<div class="text-[10px] uppercase tracking-wide text-text-muted">Total P&L</div>
+		</div>
+		<div class="text-center">
+			<div class="text-lg font-bold font-mono text-text-primary">
+				<Numeric value={stats.winRate * 100} format="number" decimals={1} suffix="%" />
+			</div>
+			<div class="text-[10px] uppercase tracking-wide text-text-muted">Win Rate</div>
+		</div>
+		<div class="text-center">
+			<div class="text-lg font-bold font-mono text-text-primary">
+				<Numeric value={stats.profitFactor} format="ratio" decimals={2} />
+			</div>
+			<div class="text-[10px] uppercase tracking-wide text-text-muted">Profit Factor</div>
+		</div>
+		<div class="text-center">
+			<div class="text-lg font-bold font-mono text-negative">
+				<Numeric value={stats.maxDrawdown * 100} format="number" decimals={2} prefix="-" suffix="%" />
+			</div>
+			<div class="text-[10px] uppercase tracking-wide text-text-muted">Max Drawdown</div>
+		</div>
+	</div>
 </div>
 
 ## Usage
 
-```svelte preview title="Usage Example"
+```svelte preview title="Basic Example"
 <CodeBlock code={`<script>
   import { BacktestChart } from 'ukiyoe';
 
   const trades = [
     {
-      entryTime: 1704067200,  // Unix timestamp
-      exitTime: 1704153600,
-      side: 'long',
-      entryPrice: 100,
-      exitPrice: 105,
-      pnl: 500,
-      pnlPct: 0.05
+      entryTime: 1704067200,    // Unix timestamp (seconds)
+      exitTime: 1704326400,
+      side: 'BUY',             // 'BUY' or 'SELL'
+      entryPrice: 42500.00,
+      exitPrice: 43750.50,
+      pnl: 125.05,             // Absolute P&L
+      pnlPct: 0.0294           // Percentage (0.0294 = 2.94%)
     },
-    // ...more trades
+    {
+      entryTime: 1704412800,
+      exitTime: 1704672000,
+      side: 'SELL',
+      entryPrice: 44100.00,
+      exitPrice: 43200.00,
+      pnl: 90.00,
+      pnlPct: 0.0204
+    }
   ];
 </script>
 
-<BacktestChart {trades} />`} />
+<BacktestChart {trades} height={300} />`} />
 ```
 
-## Trade Format
+## Trade Object Schema
 
-<Text variant="secondary" size="sm">
-Each trade object requires: `entryTime`, `exitTime` (Unix timestamps), `side` ('long' or 'short'),
-`entryPrice`, `exitPrice`, `pnl` (profit/loss), and `pnlPct` (percentage).
-</Text>
+<div class="rounded-lg border border-border-subtle overflow-hidden">
+	<table class="w-full text-sm">
+		<thead class="bg-bg-secondary">
+			<tr>
+				<th class="text-left px-4 py-2 font-medium text-text-primary">Property</th>
+				<th class="text-left px-4 py-2 font-medium text-text-primary">Type</th>
+				<th class="text-left px-4 py-2 font-medium text-text-primary">Description</th>
+			</tr>
+		</thead>
+		<tbody class="divide-y divide-border-subtle">
+			<tr>
+				<td class="px-4 py-2 font-mono text-xs text-accent-brand">entryTime</td>
+				<td class="px-4 py-2 text-text-muted">number</td>
+				<td class="px-4 py-2">Unix timestamp (seconds) for trade entry</td>
+			</tr>
+			<tr>
+				<td class="px-4 py-2 font-mono text-xs text-accent-brand">exitTime</td>
+				<td class="px-4 py-2 text-text-muted">number</td>
+				<td class="px-4 py-2">Unix timestamp (seconds) for trade exit</td>
+			</tr>
+			<tr>
+				<td class="px-4 py-2 font-mono text-xs text-accent-brand">side</td>
+				<td class="px-4 py-2 text-text-muted">'BUY' | 'SELL'</td>
+				<td class="px-4 py-2">Trade direction (long or short)</td>
+			</tr>
+			<tr>
+				<td class="px-4 py-2 font-mono text-xs text-accent-brand">entryPrice</td>
+				<td class="px-4 py-2 text-text-muted">number</td>
+				<td class="px-4 py-2">Price at entry</td>
+			</tr>
+			<tr>
+				<td class="px-4 py-2 font-mono text-xs text-accent-brand">exitPrice</td>
+				<td class="px-4 py-2 text-text-muted">number</td>
+				<td class="px-4 py-2">Price at exit</td>
+			</tr>
+			<tr>
+				<td class="px-4 py-2 font-mono text-xs text-accent-brand">pnl</td>
+				<td class="px-4 py-2 text-text-muted">number</td>
+				<td class="px-4 py-2">Absolute profit/loss amount</td>
+			</tr>
+			<tr>
+				<td class="px-4 py-2 font-mono text-xs text-accent-brand">pnlPct</td>
+				<td class="px-4 py-2 text-text-muted">number</td>
+				<td class="px-4 py-2">Percentage return (0.05 = 5%)</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+## Visual Legend
+
+<div class="flex flex-wrap gap-6 p-4 rounded-lg border border-border-subtle bg-bg-secondary">
+	<div class="flex items-center gap-2">
+		<svg width="16" height="16" class="shrink-0">
+			<polygon points="8,2 14,12 2,12" fill="var(--positive)" />
+		</svg>
+		<span class="text-sm text-text-secondary">Long Entry (BUY)</span>
+	</div>
+	<div class="flex items-center gap-2">
+		<svg width="16" height="16" class="shrink-0">
+			<polygon points="8,14 14,4 2,4" fill="var(--negative)" />
+		</svg>
+		<span class="text-sm text-text-secondary">Short Entry (SELL)</span>
+	</div>
+	<div class="flex items-center gap-2">
+		<svg width="16" height="16" class="shrink-0">
+			<circle cx="8" cy="8" r="6" fill="var(--positive)" />
+			<line x1="5" y1="5" x2="11" y2="11" stroke="var(--bg-primary)" stroke-width="2" />
+			<line x1="11" y1="5" x2="5" y2="11" stroke="var(--bg-primary)" stroke-width="2" />
+		</svg>
+		<span class="text-sm text-text-secondary">Winning Exit</span>
+	</div>
+	<div class="flex items-center gap-2">
+		<svg width="16" height="16" class="shrink-0">
+			<circle cx="8" cy="8" r="6" fill="var(--negative)" />
+			<line x1="5" y1="5" x2="11" y2="11" stroke="var(--bg-primary)" stroke-width="2" />
+			<line x1="11" y1="5" x2="5" y2="11" stroke="var(--bg-primary)" stroke-width="2" />
+		</svg>
+		<span class="text-sm text-text-secondary">Losing Exit</span>
+	</div>
+</div>
 
 <PropsTable props={propDefs} />
 
 </div>
-
-<style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-</style>

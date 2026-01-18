@@ -24,7 +24,7 @@
 ## Basic Usage
 
 ```svelte preview title="Panel"
-<Panel class="w-full">
+<Panel title="Basic Panel" class="w-full">
 	<Text variant="secondary">Panel content goes here.</Text>
 </Panel>
 ```
@@ -33,13 +33,21 @@
 
 ```svelte preview title="Panel Layout"
 <div class="flex gap-md w-full">
-	<Panel class="flex-1">
-		<Text size="sm" variant="secondary">Left panel</Text>
+	<Panel title="Left Section" class="flex-1">
+		<Text size="sm" variant="secondary">Left panel content</Text>
 	</Panel>
-	<Panel class="flex-1">
-		<Text size="sm" variant="secondary">Right panel</Text>
+	<Panel title="Right Section" class="flex-1">
+		<Text size="sm" variant="secondary">Right panel content</Text>
 	</Panel>
 </div>
+```
+
+## Collapsible Panel
+
+```svelte preview title="Collapsible"
+<Panel title="Collapsible Section" collapsible class="w-full">
+	<Text variant="secondary">This panel can be collapsed by clicking the header.</Text>
+</Panel>
 ```
 
 <PropsTable props={propDefs} />

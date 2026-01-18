@@ -21,7 +21,7 @@
 </script>
 
 <footer
-	class={cn('fixed bottom-0 left-0 right-0 h-xl flex items-center justify-between px-lg font-mono text-xs z-50 bg-bg-primary border-t border-border-subtle', className)}
+	class={cn('fixed bottom-0 left-0 right-0 h-7 flex items-center justify-between px-3 font-mono text-xs z-50 bg-bg-primary border-t border-border-subtle', className)}
 >
 	<div class="flex items-center gap-3">
 		<div class="flex items-center gap-1.5">

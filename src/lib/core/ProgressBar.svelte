@@ -43,7 +43,7 @@
 	};
 </script>
 
-<div class={cn('w-full', className)}>
+<div class={cn('w-full min-w-0 flex-shrink-0', className)}>
 	<div
 		class="w-full overflow-hidden rounded-full bg-bg-tertiary {sizeClasses[size]}"
 		role="progressbar"

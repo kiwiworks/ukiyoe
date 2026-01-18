@@ -38,10 +38,13 @@
 	}
 </script>
 
-<div class={cn('flex flex-col bg-bg-secondary border border-border-subtle rounded-md font-mono', className)}>
+<div class={cn('flex flex-col bg-bg-secondary border border-border-subtle rounded-md font-mono text-xs', className)}>
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 	<div
-		class="flex items-center justify-between px-lg py-1.5 border-b border-border-subtle {collapsible ? 'cursor-pointer hover:bg-bg-tertiary' : ''}"
+		class={cn(
+			'flex items-center justify-between px-sm py-xs border-b border-border-subtle',
+			collapsible && 'cursor-pointer hover:bg-bg-tertiary'
+		)}
 		onclick={toggleCollapse}
 		role={collapsible ? 'button' : undefined}
 		tabindex={collapsible ? 0 : -1}
@@ -54,8 +57,8 @@
 			}
 		}}
 	>
-		<div class="flex items-center gap-md">
-			<span class="text-text-secondary text-[10px] font-bold uppercase tracking-wide">{title}</span>
+		<div class="flex items-center gap-sm">
+			<span class="text-text-muted text-[10px] font-semibold uppercase tracking-wide">{title}</span>
 			{#if collapsible}
 				<div class="text-text-muted">
 					{#if collapsed}
@@ -67,13 +70,13 @@
 			{/if}
 		</div>
 		{#if headerActions}
-			<div class="flex items-center gap-sm" role="presentation" onpointerdown={(e) => e.stopPropagation()}>
+			<div class="flex items-center gap-xs" role="presentation" onpointerdown={(e) => e.stopPropagation()}>
 				{@render headerActions()}
 			</div>
 		{/if}
 	</div>
 	{#if !collapsed}
-		<div class="flex-1 overflow-hidden transition-all duration-200 ease-out" id="panel-body">
+		<div class="flex-1 p-sm" id="panel-body">
 			{@render children()}
 		</div>
 	{/if}

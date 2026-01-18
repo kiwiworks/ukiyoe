@@ -5,7 +5,7 @@
 	interface Trade {
 		entryTime: number;
 		exitTime: number;
-		side: string;
+		side: string; // 'BUY' | 'SELL' | 'long' | 'short' | 'LONG' | 'SHORT'
 		entryPrice: number;
 		exitPrice: number;
 		pnl: number;
@@ -25,6 +25,12 @@
 	}
 
 	let { trades, equityCurve = [], height = 280, class: className = '' }: Props = $props();
+
+	// Normalize side value to 'long' or 'short'
+	function isLongTrade(side: string): boolean {
+		const normalized = side.toLowerCase();
+		return normalized === 'buy' || normalized === 'long';
+	}
 
 	// Container reference for auto-sizing
 	let containerEl = $state<HTMLDivElement | null>(null);
@@ -212,7 +218,7 @@
 						y1={padding.top}
 						x2={marker.entryX}
 						y2={padding.top + chartHeight}
-						stroke={marker.side === 'BUY' ? 'var(--positive)' : 'var(--negative)'}
+						stroke={isLongTrade(marker.side) ? 'var(--positive)' : 'var(--negative)'}
 						stroke-width="1"
 						stroke-dasharray="4,4"
 						opacity="0.3"
@@ -248,7 +254,7 @@
 				>
 					<!-- Entry marker -->
 					<g transform="translate({marker.entryX}, {marker.entryY})">
-						{#if marker.side === 'BUY'}
+						{#if isLongTrade(marker.side)}
 							<!-- Up arrow for BUY -->
 							<polygon
 								points="0,-8 6,0 -6,0"
@@ -321,7 +327,7 @@
 				style="left: {Math.min(Math.max(trade.exitX, 100), measuredWidth - 160)}px; top: {Math.min(trade.exitY, chartHeight)}px;"
 			>
 				<div class="flex justify-between items-center mb-2 pb-1.5 border-b border-border-subtle">
-					<span class="font-bold text-xs {trade.side === 'BUY' ? 'text-positive' : 'text-negative'}">
+					<span class="font-bold text-xs {isLongTrade(trade.side) ? 'text-positive' : 'text-negative'}">
 						{trade.side}
 					</span>
 					<span class="font-bold">

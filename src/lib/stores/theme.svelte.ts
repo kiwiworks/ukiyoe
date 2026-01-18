@@ -17,11 +17,25 @@ export const accentPalette: AccentColor[] = [
 		mutedHex: '#cc5500'
 	},
 	{
+		id: 'coral',
+		name: 'Coral',
+		hex: '#ff6b6b',
+		hoverHex: '#ff8585',
+		mutedHex: '#e55a5a'
+	},
+	{
 		id: 'amber',
 		name: 'Amber',
 		hex: '#f59e0b',
 		hoverHex: '#fbbf24',
 		mutedHex: '#d97706'
+	},
+	{
+		id: 'lime',
+		name: 'Lime',
+		hex: '#84cc16',
+		hoverHex: '#a3e635',
+		mutedHex: '#65a30d'
 	},
 	{
 		id: 'emerald',
@@ -31,11 +45,25 @@ export const accentPalette: AccentColor[] = [
 		mutedHex: '#059669'
 	},
 	{
+		id: 'teal',
+		name: 'Teal',
+		hex: '#14b8a6',
+		hoverHex: '#2dd4bf',
+		mutedHex: '#0d9488'
+	},
+	{
 		id: 'cyan',
 		name: 'Cyan',
 		hex: '#06b6d4',
 		hoverHex: '#22d3ee',
 		mutedHex: '#0891b2'
+	},
+	{
+		id: 'sky',
+		name: 'Sky',
+		hex: '#0ea5e9',
+		hoverHex: '#38bdf8',
+		mutedHex: '#0284c7'
 	},
 	{
 		id: 'blue',
@@ -45,11 +73,25 @@ export const accentPalette: AccentColor[] = [
 		mutedHex: '#2563eb'
 	},
 	{
+		id: 'indigo',
+		name: 'Indigo',
+		hex: '#6366f1',
+		hoverHex: '#818cf8',
+		mutedHex: '#4f46e5'
+	},
+	{
 		id: 'violet',
 		name: 'Violet',
 		hex: '#8b5cf6',
 		hoverHex: '#a78bfa',
 		mutedHex: '#7c3aed'
+	},
+	{
+		id: 'fuchsia',
+		name: 'Fuchsia',
+		hex: '#d946ef',
+		hoverHex: '#e879f9',
+		mutedHex: '#c026d3'
 	},
 	{
 		id: 'pink',
@@ -64,6 +106,13 @@ export const accentPalette: AccentColor[] = [
 		hex: '#f43f5e',
 		hoverHex: '#fb7185',
 		mutedHex: '#e11d48'
+	},
+	{
+		id: 'slate',
+		name: 'Slate',
+		hex: '#64748b',
+		hoverHex: '#94a3b8',
+		mutedHex: '#475569'
 	}
 ];
 

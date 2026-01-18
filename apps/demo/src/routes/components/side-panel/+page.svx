@@ -8,9 +8,12 @@
 
 	const propDefs: PropDef[] = [
 		{ name: 'title', type: 'string', default: '-', description: 'Title displayed in the panel header' },
-		{ name: 'open', type: 'boolean', default: 'true', description: 'Whether the panel is open (bindable)' },
-		{ name: 'width', type: 'number', default: '280', description: 'Width of the panel in pixels' },
-		{ name: 'position', type: "'left' | 'right'", default: "'left'", description: 'Position of the panel (left or right side)' },
+		{ name: 'open', type: 'boolean', default: 'false', description: 'Whether the panel is open (bindable)' },
+		{ name: 'width', type: 'number', default: '320', description: 'Width of the panel in pixels' },
+		{ name: 'position', type: "'left' | 'right'", default: "'right'", description: 'Position of the panel (left or right side)' },
+		{ name: 'showOverlay', type: 'boolean', default: 'true', description: 'Whether to show backdrop overlay' },
+		{ name: 'closeOnOverlayClick', type: 'boolean', default: 'true', description: 'Close panel when clicking overlay' },
+		{ name: 'onclose', type: '() => void', default: '-', description: 'Callback when panel is closed' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
 		{ name: 'header', type: 'Snippet', default: '-', description: 'Header slot content (e.g., search input)' },
 		{ name: 'children', type: 'Snippet', default: '-', description: 'Main scrollable content' },
@@ -43,7 +46,7 @@
 ```svelte preview title="Left Panel"
 <Button size="sm" onclick={() => (leftPanel = true)}>Open Left Panel</Button>
 
-<SidePanel bind:open={leftPanel} title="Navigation" side="left">
+<SidePanel bind:open={leftPanel} title="Navigation" position="left">
 	<Text variant="secondary">
 		This panel slides in from the left side.
 	</Text>

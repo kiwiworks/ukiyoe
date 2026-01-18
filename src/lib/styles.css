@@ -280,6 +280,23 @@ select option:hover {
 	}
 }
 
+/* Animation utility classes for Nebula overlay */
+.animate-nebula-pulse {
+	animation: nebula-pulse 12s ease-in-out infinite;
+}
+
+.animate-nebula-pulse-delayed-1 {
+	animation: nebula-pulse 12s ease-in-out infinite -4s;
+}
+
+.animate-nebula-pulse-delayed-2 {
+	animation: nebula-pulse 12s ease-in-out infinite -8s;
+}
+
+.animate-stars-twinkle {
+	animation: stars-twinkle 8s ease-in-out infinite;
+}
+
 /* Progress bar indeterminate animation */
 @keyframes progress-indeterminate {
 	0% {
@@ -292,4 +309,18 @@ select option:hover {
 
 .animate-progress-indeterminate {
 	animation: progress-indeterminate 1.5s ease-in-out infinite;
+}
+
+/* Skeleton shimmer animation */
+@keyframes shimmer {
+	0% {
+		background-position: 200% 0;
+	}
+	100% {
+		background-position: -200% 0;
+	}
+}
+
+.animate-shimmer {
+	animation: shimmer 2s ease-in-out infinite;
 }

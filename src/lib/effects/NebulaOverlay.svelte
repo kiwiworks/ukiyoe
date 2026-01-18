@@ -1,8 +1,21 @@
 <script lang="ts">
 	import { themeStore } from '../stores/theme.svelte';
 
+	// Track if component is mounted on client
+	let mounted = $state(false);
+
+	$effect(() => {
+		mounted = true;
+		return () => {
+			mounted = false;
+		};
+	});
+
 	const enabled = $derived(themeStore.nebula);
 	const isDark = $derived(themeStore.mode === 'dark');
+
+	// Only show when mounted on client and enabled
+	const shouldRender = $derived(mounted && enabled);
 
 	const blendLayerStyle = $derived(
 		isDark
@@ -24,7 +37,7 @@
 		'background: radial-gradient(circle, rgba(230, 179, 51, 0.12) 0%, rgba(204, 153, 0, 0.06) 50%, transparent 70%);';
 </script>
 
-{#if enabled}
+{#if shouldRender}
 	<div class="absolute inset-0 pointer-events-none z-[1] overflow-hidden">
 		<!-- Blend layer -->
 		<div
@@ -34,22 +47,22 @@
 
 		<!-- Glow orbs -->
 		<div
-			class="absolute rounded-full -top-[10%] -right-[5%] w-[600px] h-[600px] {isDark ? 'blur-[80px] opacity-100' : 'blur-[100px] opacity-35'}"
-			style="{glow1Style} animation: nebula-pulse 12s ease-in-out infinite;"
+			class="absolute rounded-full -top-[10%] -right-[5%] w-[600px] h-[600px] animate-nebula-pulse {isDark ? 'blur-[80px] opacity-100' : 'blur-[100px] opacity-35'}"
+			style={glow1Style}
 		></div>
 		<div
-			class="absolute rounded-full bottom-[10%] -left-[5%] w-[550px] h-[550px] {isDark ? 'blur-[80px] opacity-100' : 'blur-[100px] opacity-35'}"
-			style="{glow2Style} animation: nebula-pulse 12s ease-in-out infinite -4s;"
+			class="absolute rounded-full bottom-[10%] -left-[5%] w-[550px] h-[550px] animate-nebula-pulse-delayed-1 {isDark ? 'blur-[80px] opacity-100' : 'blur-[100px] opacity-35'}"
+			style={glow2Style}
 		></div>
 		<div
-			class="absolute rounded-full top-[40%] right-[20%] w-[400px] h-[400px] {isDark ? 'blur-[80px] opacity-100' : 'blur-[100px] opacity-35'}"
-			style="{glow3Style} animation: nebula-pulse 12s ease-in-out infinite -8s;"
+			class="absolute rounded-full top-[40%] right-[20%] w-[400px] h-[400px] animate-nebula-pulse-delayed-2 {isDark ? 'blur-[80px] opacity-100' : 'blur-[100px] opacity-35'}"
+			style={glow3Style}
 		></div>
 
 		<!-- Stars -->
 		<div
-			class="absolute inset-0 {isDark ? 'opacity-50' : 'opacity-0'}"
-			style="{starsStyle} {isDark ? 'animation: stars-twinkle 8s ease-in-out infinite;' : ''}"
+			class="absolute inset-0 {isDark ? 'opacity-50 animate-stars-twinkle' : 'opacity-0'}"
+			style={starsStyle}
 		></div>
 	</div>
 {/if}

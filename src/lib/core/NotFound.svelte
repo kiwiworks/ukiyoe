@@ -48,20 +48,20 @@
 	}
 </script>
 
-<div class={cn('min-h-[60vh] flex items-center justify-center p-8', className)}>
-	<div class="text-center">
-		<div class="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-bg-tertiary">
+<div class={cn('min-h-[60vh] flex flex-col items-center justify-center p-8', className)}>
+	<div class="flex flex-col items-center text-center max-w-md w-full">
+		<div class="mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-bg-tertiary">
 			<FileQuestion size={48} class="text-text-muted" />
 		</div>
 
-		<p class="mb-2 font-mono text-sm text-text-muted">404</p>
-		<h1 class="mb-2 text-xl font-medium text-text-primary">{title}</h1>
-		<p class="mb-6 text-sm text-text-muted max-w-sm mx-auto">{description}</p>
+		<p class="mb-3 font-mono text-sm text-text-muted tracking-wider">404</p>
+		<h1 class="mb-3 text-2xl font-semibold text-text-primary">{title}</h1>
+		<p class="mb-8 text-base text-text-secondary leading-relaxed">{description}</p>
 
 		{#if children}
 			{@render children()}
 		{:else}
-			<div class="flex items-center justify-center gap-3">
+			<div class="flex flex-wrap items-center justify-center gap-3">
 				{#if showBack}
 					{#if backHref}
 						<Button variant="outline" href={backHref}>{backText}</Button>

@@ -72,6 +72,8 @@ export { default as Ip } from './core/Ip.svelte';
 export { default as PrivacyToggle } from './core/PrivacyToggle.svelte';
 export { default as ThemeToggle } from './core/ThemeToggle.svelte';
 export type { ThemeToggleSize, ThemeToggleProps } from './core/ThemeToggle.svelte';
+export { default as ThemeLabModal } from './core/ThemeLabModal.svelte';
+export type { ThemeLabModalProps } from './core/ThemeLabModal.svelte';
 export { default as Modal } from './core/Modal.svelte';
 export type { ModalProps } from './core/Modal.svelte';
 export { default as SectionCard } from './core/SectionCard.svelte';
@@ -150,7 +152,7 @@ export { default as Toast, addToast, removeToast, getToasts } from './core/Toast
 export { default as Toaster } from './core/Toaster.svelte';
 export type { AlertVariant, AlertProps } from './core/Alert.svelte';
 export type { ProgressBarSize, ProgressBarVariant, ProgressBarProps } from './core/ProgressBar.svelte';
-export type { SkeletonVariant, SkeletonProps } from './core/Skeleton.svelte';
+export type { SkeletonVariant, SkeletonAnimation, SkeletonProps } from './core/Skeleton.svelte';
 export type { ToastVariant, ToastData, ToastProps } from './core/Toast.svelte';
 export type { ToasterPosition, ToasterProps } from './core/Toaster.svelte';
 
@@ -193,6 +195,7 @@ export type { RandomNameConfig } from './core/RandomName.svelte';
 export { default as Sparkline } from './viz/Sparkline.svelte';
 export type { SparklineColor, SparklineProps } from './viz/Sparkline.svelte';
 export { default as EquityChart } from './viz/EquityChart.svelte';
+export type { EquityPoint, TradeMarker, EquityChartProps } from './viz/EquityChart.svelte';
 export { default as BacktestChart } from './viz/BacktestChart.svelte';
 export { default as Gauge } from './viz/Gauge.svelte';
 export type { GaugeSize, GaugeVariant, GaugeColorStop, GaugeProps } from './viz/Gauge.svelte';
