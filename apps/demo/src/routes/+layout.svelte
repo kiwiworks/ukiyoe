@@ -139,9 +139,7 @@
 		<div class="flex flex-1 overflow-hidden">
 			<Nav />
 			<main class="flex-1 overflow-y-auto p-lg">
-				<div class="max-w-4xl">
-					{@render children()}
-				</div>
+				{@render children()}
 			</main>
 		</div>
 	</div>
