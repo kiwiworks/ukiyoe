@@ -1,7 +1,31 @@
 <script lang="ts">
-	import { CommandPalette, Button, PageHeader, type CommandItem } from 'ukiyoe';
+	import { CommandPalette, Button, PageHeader, CodeBlock, type CommandItem } from 'ukiyoe';
 	import { Home, Settings, User, Search, FileText } from '@lucide/svelte';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'open', type: 'boolean', default: 'false', description: 'Whether the palette is open' },
+		{ name: 'items', type: 'CommandItem[]', default: '[]', description: 'List of command items' },
+		{ name: 'groups', type: 'CommandGroup[]', default: '[]', description: 'Pre-grouped items' },
+		{ name: 'placeholder', type: 'string', default: "'Type a command...'", description: 'Search input placeholder' },
+		{ name: 'emptyMessage', type: 'string', default: "'No results found.'", description: 'Message when no matches' },
+		{ name: 'onSelect', type: '(item) => void', description: 'Callback when item selected' },
+		{ name: 'onClose', type: '() => void', description: 'Callback when closed' }
+	];
+
+	const interfaceCode = `interface CommandItem {
+  id: string;
+  label: string;
+  description?: string;
+  icon?: Component;
+  shortcut?: string;
+  group?: string;
+  keywords?: string[];
+  disabled?: boolean;
+  onSelect?: () => void;
+  href?: string;
+}`;
 
 	let open1 = $state(false);
 	let open2 = $state(false);
@@ -81,34 +105,11 @@ Try pressing it now to see the palette integrated into this documentation site!
 />
 ```
 
-## Props
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `open` | `boolean` | `false` | Whether the palette is open |
-| `items` | `CommandItem[]` | `[]` | List of command items |
-| `groups` | `CommandGroup[]` | `[]` | Pre-grouped items |
-| `placeholder` | `string` | `'Type a command...'` | Search input placeholder |
-| `emptyMessage` | `string` | `'No results found.'` | Message when no matches |
-| `onSelect` | `(item) => void` | - | Callback when item selected |
-| `onClose` | `() => void` | - | Callback when closed |
+<PropsTable props={propDefs} />
 
 ## CommandItem Interface
 
-```typescript
-interface CommandItem {
-  id: string;
-  label: string;
-  description?: string;
-  icon?: Component;
-  shortcut?: string;
-  group?: string;
-  keywords?: string[];
-  disabled?: boolean;
-  onSelect?: () => void;
-  href?: string;
-}
-```
+<CodeBlock code={interfaceCode} language="typescript" />
 
 </div>
 
