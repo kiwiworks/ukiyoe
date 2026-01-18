@@ -8,15 +8,46 @@
 
 <PageHeader title="Changelog" subtitle="All notable changes to this project">
 	{#snippet badges()}
-		<Badge size="sm" variant="brand" text="v0.1.0" />
+		<Badge size="sm" variant="brand" text="v0.1.1" />
 	{/snippet}
 </PageHeader>
 
 <div class="mt-lg space-y-xxl">
 	<section>
 		<div class="flex items-center gap-md mb-md">
+			<Heading level={2} size="lg">0.1.1</Heading>
+			<Badge size="xs" variant="success" text="Latest" />
+			<Text size="sm" variant="muted">2026-01-18</Text>
+		</div>
+
+		<div class="space-y-lg">
+			<div>
+				<Heading level={3} size="md" class="text-positive mb-sm">Added</Heading>
+				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
+					<li><strong>DataTable responsive columns</strong>: <code>hideAt</code> prop on Column definitions to hide columns below specific breakpoints (sm/md/lg/xl/2xl)</li>
+					<li><strong>MetricCard brand variant</strong>: Gradient background styling for hero metrics</li>
+				</ul>
+			</div>
+
+			<div>
+				<Heading level={3} size="md" class="text-warning mb-sm">Changed</Heading>
+				<ul class="list-disc list-inside text-sm text-text-secondary space-y-xs">
+					<li>Improved documentation discoverability for existing features:
+						<ul class="list-disc list-inside ml-lg mt-xs">
+							<li>SectionCard: Added collapsible demo (feature existed but wasn't showcased)</li>
+							<li>Button: Dedicated loading state section with spinner examples</li>
+							<li>ListItem: Updated to clarify clickable card use case</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="flex items-center gap-md mb-md">
 			<Heading level={2} size="lg">0.1.0</Heading>
-			<Badge size="xs" variant="success" text="Stable" />
+			<Badge size="xs" variant="default" text="Stable" />
 			<Text size="sm" variant="muted">2026-01-18</Text>
 		</div>
 

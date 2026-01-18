@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 2026-01-18
+
+### Added
+- **DataTable responsive columns**: `hideAt` prop on Column definitions to hide columns below specific breakpoints (sm/md/lg/xl/2xl)
+- **MetricCard brand variant**: Gradient background styling for hero metrics
+
+### Changed
+- Improved documentation discoverability for existing features:
+  - SectionCard: Added collapsible demo (feature existed but wasn't showcased)
+  - Button: Dedicated loading state section with spinner examples
+  - ListItem: Updated to clarify clickable card use case
+
 ## [0.1.0] - 2026-01-18
 
 First stable release! Ukiyoe is now production-ready with 70+ components.
@@ -130,6 +142,7 @@ First stable release! Ukiyoe is now production-ready with 70+ components.
 - Dark-first design with light mode support
 - Privacy masking context
 
+[0.1.1]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.0-beta.5...v0.1.0
 [0.1.0-beta.5]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.0-beta.4...v0.1.0-beta.5
 [0.1.0-beta.4]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.0-beta.3...v0.1.0-beta.4
