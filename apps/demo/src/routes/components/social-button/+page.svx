@@ -1,0 +1,144 @@
+<script lang="ts">
+	import { SocialButton, PageHeader, Badge } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'platform', type: 'SocialPlatform', description: 'Social platform (github, twitter, discord, linkedin, npm, youtube, mastodon, bluesky)' },
+		{ name: 'href', type: 'string', description: 'External link URL' },
+		{ name: 'label', type: 'string', default: '-', description: 'Optional text label (icon-only if omitted)' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size preset' },
+		{ name: 'variant', type: "'filled' | 'outline' | 'ghost'", default: "'filled'", description: 'Style variant' },
+		{ name: 'showExternalIndicator', type: 'boolean', default: 'true', description: 'Show external link arrow' },
+		{ name: 'badge', type: 'Snippet', default: '-', description: 'Custom badge snippet (right side)' },
+		{ name: 'stars', type: 'number | Snippet', default: '-', description: 'GitHub star count or custom snippet' },
+		{ name: 'forks', type: 'number', default: '-', description: 'GitHub fork count' },
+		{ name: 'members', type: 'number', default: '-', description: 'Discord member count' },
+		{ name: 'downloads', type: 'number | string', default: '-', description: 'npm download count' },
+		{ name: 'version', type: 'string', default: '-', description: 'npm package version' },
+		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' }
+	];
+</script>
+
+<svelte:head>
+	<title>SocialButton - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="SocialButton" subtitle="Branded buttons for social and external links" />
+
+<div class="space-y-xl mt-lg">
+
+## Platforms
+
+Official brand colors and icons for each platform.
+
+```svelte preview title="All Platforms"
+<div class="flex flex-wrap gap-3">
+	<SocialButton platform="github" href="#" label="GitHub" />
+	<SocialButton platform="twitter" href="#" label="Twitter" />
+	<SocialButton platform="discord" href="#" label="Discord" />
+	<SocialButton platform="linkedin" href="#" label="LinkedIn" />
+	<SocialButton platform="npm" href="#" label="npm" />
+	<SocialButton platform="youtube" href="#" label="YouTube" />
+	<SocialButton platform="mastodon" href="#" label="Mastodon" />
+	<SocialButton platform="bluesky" href="#" label="Bluesky" />
+</div>
+```
+
+## Icon Only
+
+Compact buttons without labels.
+
+```svelte preview title="Icon Only"
+<div class="flex gap-2">
+	<SocialButton platform="github" href="#" />
+	<SocialButton platform="twitter" href="#" />
+	<SocialButton platform="discord" href="#" />
+	<SocialButton platform="linkedin" href="#" />
+	<SocialButton platform="npm" href="#" />
+	<SocialButton platform="youtube" href="#" />
+	<SocialButton platform="mastodon" href="#" />
+	<SocialButton platform="bluesky" href="#" />
+</div>
+```
+
+## Variants
+
+```svelte preview title="Style Variants"
+<div class="flex flex-wrap gap-3">
+	<SocialButton platform="github" href="#" label="Filled" variant="filled" />
+	<SocialButton platform="github" href="#" label="Outline" variant="outline" />
+	<SocialButton platform="github" href="#" label="Ghost" variant="ghost" />
+</div>
+```
+
+## Sizes
+
+```svelte preview title="Size Variants"
+<div class="flex items-center gap-3">
+	<SocialButton platform="github" href="#" label="Extra Small" size="xs" />
+	<SocialButton platform="github" href="#" label="Small" size="sm" />
+	<SocialButton platform="github" href="#" label="Medium" size="md" />
+	<SocialButton platform="github" href="#" label="Large" size="lg" />
+</div>
+```
+
+## GitHub with Stats
+
+Display repository statistics.
+
+```svelte preview title="GitHub Stats"
+<div class="flex flex-wrap gap-3">
+	<SocialButton platform="github" href="#" label="kiwiworks/ukiyoe" stars={1234} />
+	<SocialButton platform="github" href="#" label="repo" stars={890} forks={123} />
+	<SocialButton platform="github" href="#" label="popular" stars={45600} />
+</div>
+```
+
+## Discord with Members
+
+```svelte preview title="Discord Members"
+<div class="flex gap-3">
+	<SocialButton platform="discord" href="#" label="Join Community" members={1500} />
+	<SocialButton platform="discord" href="#" label="Chat" members={234} variant="outline" />
+</div>
+```
+
+## npm with Package Info
+
+```svelte preview title="npm Package"
+<div class="flex flex-wrap gap-3">
+	<SocialButton platform="npm" href="#" label="ukiyoe" version="0.1.3" />
+	<SocialButton platform="npm" href="#" label="package" downloads={12500} />
+	<SocialButton platform="npm" href="#" label="popular" downloads="1.2M" version="2.0.0" />
+</div>
+```
+
+## Custom Badge
+
+```svelte preview title="Custom Badge"
+<SocialButton platform="github" href="#" label="Source Code">
+	{#snippet badge()}
+		<Badge size="xs" variant="success" text="MIT" />
+	{/snippet}
+</SocialButton>
+```
+
+## Without External Indicator
+
+```svelte preview title="No External Arrow"
+<div class="flex gap-3">
+	<SocialButton platform="github" href="#" label="GitHub" showExternalIndicator={false} />
+	<SocialButton platform="discord" href="#" label="Discord" showExternalIndicator={false} />
+</div>
+```
+
+<PropsTable props={propDefs} />
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

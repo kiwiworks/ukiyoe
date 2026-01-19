@@ -42,6 +42,13 @@ export type { WidgetVariant, WidgetProps } from './core/Widget.svelte';
 export { default as Button } from './core/Button.svelte';
 export { default as ButtonGroup } from './core/ButtonGroup.svelte';
 export type { ButtonGroupProps } from './core/ButtonGroup.svelte';
+export { default as SocialButton, platformColors } from './core/SocialButton.svelte';
+export type {
+	SocialPlatform,
+	SocialButtonVariant,
+	SocialButtonSize,
+	SocialButtonProps
+} from './core/SocialButton.svelte';
 export { default as Badge } from './core/Badge.svelte';
 export type { BadgeVariant, BadgeSize, BadgeProps } from './core/Badge.svelte';
 export { default as Kbd } from './core/Kbd.svelte';

@@ -46,6 +46,7 @@ export const sections: NavSection[] = [
 		items: [
 			{ label: 'Button', href: '/components/button' },
 			{ label: 'ButtonGroup', href: '/components/button-group' },
+			{ label: 'SocialButton', href: '/components/social-button' },
 			{ label: 'ActionMenu', href: '/components/action-menu' }
 		]
 	},
