@@ -38,32 +38,35 @@ bun add github:kiwiworks/ukiyoe
 Ukiyoe requires these peer dependencies:
 
 ```bash
-bun add bits-ui @lucide/svelte @internationalized/date tailwindcss
+bun add bits-ui @lucide/svelte @internationalized/date tailwindcss @tailwindcss/vite
 ```
 
-## Tailwind Configuration
+## Vite Configuration
 
-Import the Ukiyoe preset in your Tailwind config:
+Add the Tailwind CSS plugin to your Vite config:
 
 ```typescript
-// tailwind.config.ts
-import ukiyoePreset from 'ukiyoe/tailwind.preset';
+// vite.config.ts
+import { sveltekit } from '@sveltejs/kit/vite';
+import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'vite';
 
-export default {
-  presets: [ukiyoePreset],
-  content: [
-    './src/**/*.{html,js,svelte,ts}',
-    './node_modules/ukiyoe/dist/**/*.{html,js,svelte,ts}'
-  ]
-};
+export default defineConfig({
+  plugins: [tailwindcss(), sveltekit()]
+});
 ```
 
-## Import Styles
+## CSS Setup
 
-Import the base styles in your app entry:
+In your main CSS file (e.g., `app.css`):
 
-```typescript
-import 'ukiyoe/styles.css';
+```css
+@import 'tailwindcss';
+@import 'ukiyoe/styles.css';
+
+/* Scan your app and ukiyoe for Tailwind classes */
+@source "../";
+@source "../../node_modules/ukiyoe/dist";
 ```
 
 ## Usage
