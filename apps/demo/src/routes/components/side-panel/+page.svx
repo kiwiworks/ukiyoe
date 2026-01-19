@@ -144,8 +144,3 @@ Use the `onclose` callback to react when the panel is closed (via any method).
 
 </div>
 
-<style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-</style>

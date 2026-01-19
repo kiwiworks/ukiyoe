@@ -355,3 +355,28 @@ select option:hover {
 .animate-accordion-up {
 	animation: accordion-up 200ms ease-out;
 }
+
+/* Semantic spacing utilities */
+.space-y-xxl > :not(:first-child) {
+	margin-top: var(--spacing-xxl);
+}
+
+.space-y-xl > :not(:first-child) {
+	margin-top: var(--spacing-xl);
+}
+
+.space-y-lg > :not(:first-child) {
+	margin-top: var(--spacing-lg);
+}
+
+.space-y-md > :not(:first-child) {
+	margin-top: var(--spacing-md);
+}
+
+.space-y-sm > :not(:first-child) {
+	margin-top: var(--spacing-sm);
+}
+
+.space-y-xs > :not(:first-child) {
+	margin-top: var(--spacing-xs);
+}

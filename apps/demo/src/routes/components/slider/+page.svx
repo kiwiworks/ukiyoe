@@ -78,23 +78,19 @@
 </div>
 
 <style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-
 	:global(.slider-demo) {
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
+		gap: var(--spacing-md);
 		width: 100%;
-		max-width: 320px;
+		max-width: var(--demo-width-sm, 20rem);
 	}
 
 	:global(.slider-demo-stack) {
 		display: flex;
 		flex-direction: column;
-		gap: 24px;
+		gap: var(--spacing-xxl);
 		width: 100%;
-		max-width: 320px;
+		max-width: var(--demo-width-sm, 20rem);
 	}
 </style>

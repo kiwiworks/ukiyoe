@@ -113,8 +113,3 @@ Try pressing it now to see the palette integrated into this documentation site!
 
 </div>
 
-<style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-</style>

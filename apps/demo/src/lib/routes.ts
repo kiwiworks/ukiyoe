@@ -147,6 +147,7 @@ export const sections: NavSection[] = [
 		title: 'Utilities',
 		icon: Wrench,
 		items: [
+			{ label: 'BrandIcon', href: '/components/brand-icon' },
 			{ label: 'PrivacyToggle', href: '/components/privacy-toggle' },
 			{ label: 'RefreshControl', href: '/components/refresh-control' },
 			{ label: 'MandelbrotAvatar', href: '/components/mandelbrot-avatar' },

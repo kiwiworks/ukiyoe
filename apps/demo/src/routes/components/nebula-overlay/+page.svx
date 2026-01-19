@@ -51,8 +51,3 @@ The overlay is controlled by the theme store's `nebula` setting and automaticall
 
 </div>
 
-<style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-</style>

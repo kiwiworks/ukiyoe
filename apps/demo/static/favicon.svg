@@ -1,0 +1,42 @@
+<svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .circle { fill: none; stroke-opacity: 0.3; }
+    .stroke { fill: none; }
+    .dot { }
+
+    .circle, .stroke, .dot { stroke: #1a1a1a; fill: #1a1a1a; }
+    .stroke { fill: none; }
+
+    @media (prefers-color-scheme: dark) {
+      .circle, .stroke, .dot { stroke: #e5e5e5; fill: #e5e5e5; }
+      .stroke { fill: none; }
+    }
+  </style>
+
+  <!-- Subtle circle frame -->
+  <circle cx="24" cy="24" r="22" class="circle" stroke-width="1.5"/>
+
+  <!-- Calligraphy brush strokes - abstract expression of 浮世 -->
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <!-- Primary flowing stroke -->
+    <path
+      d="M16 12 C18 14, 20 18, 19 22 C18 26, 16 30, 18 34 C19 36, 22 37, 24 36"
+      class="stroke"
+      stroke-width="3.5"
+    />
+    <!-- Crossing stroke -->
+    <path
+      d="M14 20 C20 19, 28 21, 34 18"
+      class="stroke"
+      stroke-width="2.5"
+    />
+    <!-- Accent stroke -->
+    <path
+      d="M28 26 C30 24, 34 22, 36 24 C37 26, 36 30, 32 32"
+      class="stroke"
+      stroke-width="2"
+    />
+    <!-- Dot -->
+    <circle cx="32" cy="14" r="1.6" class="dot"/>
+  </g>
+</svg>

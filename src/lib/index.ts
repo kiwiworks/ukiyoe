@@ -105,6 +105,8 @@ export type { MandelbrotAvatarRounded, MandelbrotAvatarProps } from './core/Mand
 export { default as AssetIcon } from './core/AssetIcon.svelte';
 export { default as ActionMenu } from './core/ActionMenu.svelte';
 export type { ActionMenuProps } from './core/ActionMenu.svelte';
+export { default as BrandIcon } from './core/BrandIcon.svelte';
+export type { BrandIconSize, BrandIconAnimation, BrandIconProps } from './core/BrandIcon.svelte';
 // Form - Compound components
 export { Form } from './core/form/index';
 export type {

@@ -55,8 +55,3 @@ The effect is best used as a subtle background for hero sections or landing page
 
 </div>
 
-<style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-</style>

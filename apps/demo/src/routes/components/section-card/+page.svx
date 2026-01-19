@@ -80,8 +80,3 @@ Use `href` to make the entire card a navigation link.
 
 </div>
 
-<style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-</style>

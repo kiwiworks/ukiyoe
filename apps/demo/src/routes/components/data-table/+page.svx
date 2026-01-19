@@ -163,8 +163,3 @@ Available breakpoints: `sm` (640px), `md` (768px), `lg` (1024px), `xl` (1280px),
 
 </div>
 
-<style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-</style>

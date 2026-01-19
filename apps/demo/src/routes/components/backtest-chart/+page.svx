@@ -244,14 +244,14 @@
 
 <PageHeader title="BacktestChart" subtitle="Visualize backtest results with entry/exit markers and trade performance" />
 
-<div class="space-y-8 mt-6">
+<div class="space-y-xl mt-lg">
 
 ## Interactive Demo
 
 <div class="rounded-lg border border-border-default bg-bg-secondary overflow-hidden">
-	<div class="p-4 border-b border-border-subtle">
-		<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-			<div class="flex items-center gap-3">
+	<div class="p-xl border-b border-border-subtle">
+		<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-xl">
+			<div class="flex items-center gap-lg">
 				<label class="text-sm text-text-muted font-medium">Strategy:</label>
 				<div class="w-48">
 					<Select
@@ -261,7 +261,7 @@
 					/>
 				</div>
 			</div>
-			<div class="flex items-center gap-2">
+			<div class="flex items-center gap-md">
 				<Badge variant={stats.totalReturn >= 0 ? 'success' : 'danger'} size="sm">
 					{stats.totalReturn >= 0 ? '+' : ''}{(stats.totalReturn * 100).toFixed(2)}% Return
 				</Badge>
@@ -270,10 +270,10 @@
 				</Badge>
 			</div>
 		</div>
-		<p class="text-xs text-text-muted mt-2">{strategies[selectedStrategy].description}</p>
+		<p class="text-xs text-text-muted mt-md">{strategies[selectedStrategy].description}</p>
 	</div>
 
-	<div class="p-4">
+	<div class="p-xl">
 		{#if browser}
 			<BacktestChart trades={currentTrades} height={320} />
 		{:else}
@@ -283,7 +283,7 @@
 		{/if}
 	</div>
 
-	<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 border-t border-border-subtle bg-bg-tertiary">
+	<div class="grid grid-cols-2 sm:grid-cols-4 gap-xl p-xl border-t border-border-subtle bg-bg-tertiary">
 		<div class="text-center">
 			<div class="text-lg font-bold font-mono {stats.totalPnl >= 0 ? 'text-positive' : 'text-negative'}">
 				<Numeric value={stats.totalPnl} format="pnl" />
@@ -348,46 +348,46 @@
 	<table class="w-full text-sm">
 		<thead class="bg-bg-secondary">
 			<tr>
-				<th class="text-left px-4 py-2 font-medium text-text-primary">Property</th>
-				<th class="text-left px-4 py-2 font-medium text-text-primary">Type</th>
-				<th class="text-left px-4 py-2 font-medium text-text-primary">Description</th>
+				<th class="text-left px-xl py-md font-medium text-text-primary">Property</th>
+				<th class="text-left px-xl py-md font-medium text-text-primary">Type</th>
+				<th class="text-left px-xl py-md font-medium text-text-primary">Description</th>
 			</tr>
 		</thead>
 		<tbody class="divide-y divide-border-subtle">
 			<tr>
-				<td class="px-4 py-2 font-mono text-xs text-accent-brand">entryTime</td>
-				<td class="px-4 py-2 text-text-muted">number</td>
-				<td class="px-4 py-2">Unix timestamp (seconds) for trade entry</td>
+				<td class="px-xl py-md font-mono text-xs text-accent-brand">entryTime</td>
+				<td class="px-xl py-md text-text-muted">number</td>
+				<td class="px-xl py-md">Unix timestamp (seconds) for trade entry</td>
 			</tr>
 			<tr>
-				<td class="px-4 py-2 font-mono text-xs text-accent-brand">exitTime</td>
-				<td class="px-4 py-2 text-text-muted">number</td>
-				<td class="px-4 py-2">Unix timestamp (seconds) for trade exit</td>
+				<td class="px-xl py-md font-mono text-xs text-accent-brand">exitTime</td>
+				<td class="px-xl py-md text-text-muted">number</td>
+				<td class="px-xl py-md">Unix timestamp (seconds) for trade exit</td>
 			</tr>
 			<tr>
-				<td class="px-4 py-2 font-mono text-xs text-accent-brand">side</td>
-				<td class="px-4 py-2 text-text-muted">'BUY' | 'SELL'</td>
-				<td class="px-4 py-2">Trade direction (long or short)</td>
+				<td class="px-xl py-md font-mono text-xs text-accent-brand">side</td>
+				<td class="px-xl py-md text-text-muted">'BUY' | 'SELL'</td>
+				<td class="px-xl py-md">Trade direction (long or short)</td>
 			</tr>
 			<tr>
-				<td class="px-4 py-2 font-mono text-xs text-accent-brand">entryPrice</td>
-				<td class="px-4 py-2 text-text-muted">number</td>
-				<td class="px-4 py-2">Price at entry</td>
+				<td class="px-xl py-md font-mono text-xs text-accent-brand">entryPrice</td>
+				<td class="px-xl py-md text-text-muted">number</td>
+				<td class="px-xl py-md">Price at entry</td>
 			</tr>
 			<tr>
-				<td class="px-4 py-2 font-mono text-xs text-accent-brand">exitPrice</td>
-				<td class="px-4 py-2 text-text-muted">number</td>
-				<td class="px-4 py-2">Price at exit</td>
+				<td class="px-xl py-md font-mono text-xs text-accent-brand">exitPrice</td>
+				<td class="px-xl py-md text-text-muted">number</td>
+				<td class="px-xl py-md">Price at exit</td>
 			</tr>
 			<tr>
-				<td class="px-4 py-2 font-mono text-xs text-accent-brand">pnl</td>
-				<td class="px-4 py-2 text-text-muted">number</td>
-				<td class="px-4 py-2">Absolute profit/loss amount</td>
+				<td class="px-xl py-md font-mono text-xs text-accent-brand">pnl</td>
+				<td class="px-xl py-md text-text-muted">number</td>
+				<td class="px-xl py-md">Absolute profit/loss amount</td>
 			</tr>
 			<tr>
-				<td class="px-4 py-2 font-mono text-xs text-accent-brand">pnlPct</td>
-				<td class="px-4 py-2 text-text-muted">number</td>
-				<td class="px-4 py-2">Percentage return (0.05 = 5%)</td>
+				<td class="px-xl py-md font-mono text-xs text-accent-brand">pnlPct</td>
+				<td class="px-xl py-md text-text-muted">number</td>
+				<td class="px-xl py-md">Percentage return (0.05 = 5%)</td>
 			</tr>
 		</tbody>
 	</table>
@@ -395,20 +395,20 @@
 
 ## Visual Legend
 
-<div class="flex flex-wrap gap-6 p-4 rounded-lg border border-border-subtle bg-bg-secondary">
-	<div class="flex items-center gap-2">
+<div class="flex flex-wrap gap-xxl p-xl rounded-lg border border-border-subtle bg-bg-secondary">
+	<div class="flex items-center gap-md">
 		<svg width="16" height="16" class="shrink-0">
 			<polygon points="8,2 14,12 2,12" fill="var(--positive)" />
 		</svg>
 		<span class="text-sm text-text-secondary">Long Entry (BUY)</span>
 	</div>
-	<div class="flex items-center gap-2">
+	<div class="flex items-center gap-md">
 		<svg width="16" height="16" class="shrink-0">
 			<polygon points="8,14 14,4 2,4" fill="var(--negative)" />
 		</svg>
 		<span class="text-sm text-text-secondary">Short Entry (SELL)</span>
 	</div>
-	<div class="flex items-center gap-2">
+	<div class="flex items-center gap-md">
 		<svg width="16" height="16" class="shrink-0">
 			<circle cx="8" cy="8" r="6" fill="var(--positive)" />
 			<line x1="5" y1="5" x2="11" y2="11" stroke="var(--bg-primary)" stroke-width="2" />
@@ -416,7 +416,7 @@
 		</svg>
 		<span class="text-sm text-text-secondary">Winning Exit</span>
 	</div>
-	<div class="flex items-center gap-2">
+	<div class="flex items-center gap-md">
 		<svg width="16" height="16" class="shrink-0">
 			<circle cx="8" cy="8" r="6" fill="var(--negative)" />
 			<line x1="5" y1="5" x2="11" y2="11" stroke="var(--bg-primary)" stroke-width="2" />

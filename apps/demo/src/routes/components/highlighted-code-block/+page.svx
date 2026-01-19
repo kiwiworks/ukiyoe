@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { HighlightedCodeBlock, PageHeader, Text, Alert } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	const propDefs: PropDef[] = [
@@ -159,8 +160,3 @@ See the [Shiki documentation](https://shiki.style/languages) for the full list.
 
 </div>
 
-<style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-</style>

@@ -273,8 +273,3 @@ You can use a custom validation function instead of or alongside Zod.
 
 </div>
 
-<style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-</style>

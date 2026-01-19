@@ -158,8 +158,3 @@ Scrollable list with 50 options.
 
 </div>
 
-<style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-</style>

@@ -27,9 +27,39 @@
 
 	const changelog: ChangelogEntry[] = [
 		{
-			version: '0.1.4',
+			version: '0.2.0',
 			date: '2026-01-19',
 			badge: { text: 'Latest', variant: 'success' },
+			description: 'Brand identity component with customizable animations and support for custom SVG designs.',
+			changes: {
+				added: [
+					{
+						text: 'BrandIcon component for animated brand identity icons',
+						subitems: [
+							'Calligraphy-inspired default design evoking 浮世絵 (ukiyo-e) aesthetics',
+							'Size presets (xs/sm/md/lg/xl) and custom pixel values',
+							'Three animations: wave (stroke drawing), pulse (ink spreading), breathe (subtle opacity)',
+							'Customizable colors via color and backgroundColor props',
+							'CSS variables for custom SVG content (--ukiyoe-color, --ukiyoe-bg, --ukiyoe-duration)',
+							'children snippet for fully custom SVG designs',
+							'showCircle prop to toggle background circle'
+						]
+					},
+					{ text: 'Theme-adaptive favicon with prefers-color-scheme media query support' }
+				],
+				changed: [
+					{ text: 'Demo header now uses BrandIcon instead of simple indicator dot' },
+					{ text: 'Demo BrandIcon page includes interactive speed slider and custom SVG examples' }
+				],
+				fixed: [
+					{ text: 'Form component type errors with partial initial values' },
+					{ text: 'Added zod as optional peer dependency for Form validation types' }
+				]
+			}
+		},
+		{
+			version: '0.1.4',
+			date: '2026-01-19',
 			changes: {
 				added: [
 					{

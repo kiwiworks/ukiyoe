@@ -104,6 +104,20 @@
 	const sizeConfig = $derived(sizeClasses[size]);
 	const isIconOnly = $derived(!label && !stars && !forks && !members && !downloads && !version && !badge);
 
+	/** Platform display names for accessibility */
+	const platformLabels: Record<SocialPlatform, string> = {
+		github: 'GitHub',
+		twitter: 'Twitter',
+		discord: 'Discord',
+		linkedin: 'LinkedIn',
+		npm: 'npm',
+		youtube: 'YouTube',
+		mastodon: 'Mastodon',
+		bluesky: 'Bluesky'
+	};
+
+	const accessibleLabel = $derived(isIconOnly ? platformLabels[platform] : undefined);
+
 	const baseClasses =
 		'inline-flex items-center justify-center rounded-md font-medium transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-bg-primary';
 
@@ -211,6 +225,7 @@
 	{href}
 	target="_blank"
 	rel="noopener noreferrer"
+	aria-label={accessibleLabel}
 	class={cn(
 		baseClasses,
 		isIconOnly ? iconOnlySizeClasses[size] : sizeConfig.button,

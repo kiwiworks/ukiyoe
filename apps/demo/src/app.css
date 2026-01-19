@@ -23,6 +23,10 @@ body {
 :root {
 	--demo-header-height: 28px;
 	--demo-status-height: 20px;
+	/* Demo width tokens */
+	--demo-width-sm: 20rem;
+	--demo-width-md: 28rem;
+	--demo-width-lg: 36rem;
 }
 
 .demo-shell {
@@ -129,3 +133,4 @@ h3 .heading-anchor::before,
 h4 .heading-anchor::before {
 	left: -1.25em;
 }
+

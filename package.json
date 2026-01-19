@@ -1,6 +1,6 @@
 {
 	"name": "ukiyoe",
-	"version": "0.1.4",
+	"version": "0.2.0",
 	"description": "Svelte 5 component library with dark-first design",
 	"type": "module",
 	"svelte": "./dist/index.js",
@@ -54,14 +54,19 @@
 		"bits-ui": "^2.0.0",
 		"shiki": "^3.0.0",
 		"svelte": "^5.0.0",
-		"tailwindcss": "^4.0.0"
+		"tailwindcss": "^4.0.0",
+		"zod": "^3.0.0"
 	},
 	"peerDependenciesMeta": {
 		"shiki": {
 			"optional": true
+		},
+		"zod": {
+			"optional": true
 		}
 	},
 	"devDependencies": {
+		"zod": "^3.24.0",
 		"shiki": "^3.3.0",
 		"@eslint/js": "^9.18.0",
 		"@sveltejs/kit": "^2.15.0",

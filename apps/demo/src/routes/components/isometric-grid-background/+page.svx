@@ -54,8 +54,3 @@ Creates a 3D isometric grid effect. Great for tech-focused landing pages.
 
 </div>
 
-<style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-</style>

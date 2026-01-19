@@ -2,7 +2,7 @@
 	import '../app.css';
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
-	import { Badge, Header, ThemeProvider, ThemeToggle, CommandPalette, ThemeLabModal, Kbd, Toaster, type CommandItem } from 'ukiyoe';
+	import { Badge, BrandIcon, Header, ThemeProvider, ThemeToggle, CommandPalette, ThemeLabModal, Kbd, Toaster, type CommandItem } from 'ukiyoe';
 	import { Settings } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
 	import Nav from '$lib/Nav.svelte';
@@ -25,16 +25,19 @@
 
 <ThemeProvider>
 	<div class="h-screen bg-bg-primary text-text-primary flex flex-col overflow-hidden">
-		<Header title="Ukiyoe UI" subtitle="Component Library" size="lg" fixed={false}>
+		<Header title="Ukiyoe UI" subtitle="Component Library" size="lg" fixed={false} showIndicator={false}>
+			{#snippet icon()}
+				<BrandIcon size="md" animation="wave" animationDuration={15} color="var(--accent-brand)" />
+			{/snippet}
 			<button
 				onclick={() => commandPaletteOpen = true}
-				class="flex items-center gap-2 px-3 py-1.5 text-sm text-text-muted bg-bg-tertiary border border-border-default rounded-md hover:bg-bg-hover hover:border-border-strong transition-colors"
+				class="flex items-center gap-md px-lg py-sm text-sm text-text-muted bg-bg-tertiary border border-border-default rounded-md hover:bg-bg-hover hover:border-border-strong transition-colors"
 			>
 				<span>Search...</span>
 				<Kbd keys="⌘K" size="xs" />
 			</button>
 			<ThemeToggle size="sm" />
-			<Badge size="xs" variant="brand" text="v0.1" />
+			<Badge size="xs" variant="brand" text="v0.2" />
 		</Header>
 
 		<div class="flex flex-1 overflow-hidden">

@@ -1,0 +1,155 @@
+<script lang="ts">
+	import { BrandIcon, PageHeader, Slider } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	let duration = $state(4);
+
+	const propDefs: PropDef[] = [
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'xl' | number", default: "'md'", description: 'Size preset or custom pixel value' },
+		{ name: 'color', type: 'string', default: "'currentColor'", description: 'Stroke color - available as var(--ukiyoe-color)' },
+		{ name: 'backgroundColor', type: 'string', default: "'transparent'", description: 'Background color - available as var(--ukiyoe-bg)' },
+		{ name: 'animation', type: "'none' | 'wave' | 'pulse' | 'breathe'", default: "'none'", description: 'Animation style' },
+		{ name: 'animationDuration', type: 'number', default: '2', description: 'Animation duration - available as var(--ukiyoe-duration)' },
+		{ name: 'paused', type: 'boolean', default: 'false', description: 'Whether animation is paused' },
+		{ name: 'showCircle', type: 'boolean', default: 'true', description: 'Whether to show the background circle' },
+		{ name: 'ariaLabel', type: 'string', default: "'Brand icon'", description: 'Accessible label' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Custom SVG content (replaces default design)' }
+	];
+</script>
+
+<svelte:head>
+	<title>BrandIcon - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="BrandIcon" subtitle="Animated brand identity icon with customizable colors and animations" />
+
+<div class="space-y-xl mt-lg">
+
+An animated SVG brand icon component designed for headers, loading states, and brand identity. Customize colors and animations to match your application's theme.
+
+## Sizes
+
+Preset sizes from `xs` (16px) to `xl` (64px), or pass a custom pixel value.
+
+```svelte preview title="Size Presets"
+<BrandIcon size="xs" />
+<BrandIcon size="sm" />
+<BrandIcon size="md" />
+<BrandIcon size="lg" />
+<BrandIcon size="xl" />
+<BrandIcon size={96} />
+```
+
+## Animations
+
+Three animation styles for different use cases: `wave` draws strokes progressively, `pulse` creates a heartbeat effect, and `breathe` provides subtle opacity changes.
+
+```svelte preview title="Animation Styles"
+<BrandIcon size="lg" animation="wave" animationDuration={4} />
+<BrandIcon size="lg" animation="pulse" animationDuration={3} />
+<BrandIcon size="lg" animation="breathe" animationDuration={4} />
+```
+
+## Custom Colors
+
+Use CSS variables or hex colors. The icon uses monochromatic strokes by default.
+
+```svelte preview title="Brand Variants"
+<BrandIcon size="lg" color="var(--accent-brand)" />
+<BrandIcon size="lg" color="#22c55e" backgroundColor="#052e16" />
+<BrandIcon size="lg" color="#3b82f6" backgroundColor="#1e3a5f" />
+<BrandIcon size="lg" color="#a855f7" backgroundColor="#2e1065" />
+```
+
+## Animation Speed
+
+Control timing with `animationDuration` (in seconds). Use the slider to see the effect.
+
+<ComponentPreview title="Interactive Duration">
+  <div class="flex flex-col gap-lg items-center">
+    <div class="flex items-center gap-lg">
+      <BrandIcon size="lg" animation="wave" animationDuration={duration} />
+      <BrandIcon size="lg" animation="pulse" animationDuration={duration} />
+      <BrandIcon size="lg" animation="breathe" animationDuration={duration} />
+    </div>
+    <div class="flex items-center gap-md w-64">
+      <Slider bind:value={duration} min={0.5} max={10} step={0.5} size="sm" />
+      <span class="text-sm text-text-secondary w-12">{duration}s</span>
+    </div>
+  </div>
+</ComponentPreview>
+
+## Paused State
+
+Programmatically pause animations with the `paused` prop.
+
+```svelte preview title="Paused"
+<BrandIcon size="lg" animation="wave" animationDuration={4} paused />
+<BrandIcon size="lg" animation="pulse" animationDuration={3} paused />
+```
+
+## Use Cases
+
+```svelte preview title="Header Branding"
+<div class="flex items-center gap-3">
+  <BrandIcon size="sm" animation="breathe" animationDuration={6} color="var(--accent-brand)" />
+  <span class="font-semibold">Your App</span>
+</div>
+```
+
+```svelte preview title="Loading Indicator"
+<div class="flex items-center gap-2">
+  <BrandIcon size="sm" animation="pulse" animationDuration={1.5} />
+  <span class="text-muted">Loading...</span>
+</div>
+```
+
+```svelte preview title="Accent Colors"
+<div class="flex items-center gap-4">
+  <BrandIcon size="lg" color="#ef4444" animation="breathe" animationDuration={5} />
+  <BrandIcon size="lg" color="#eab308" animation="breathe" animationDuration={6} />
+  <BrandIcon size="lg" color="#22c55e" animation="breathe" animationDuration={7} />
+</div>
+```
+
+## Custom SVG
+
+Pass your own SVG content as children to replace the default design. The viewBox is `0 0 48 48`. Use `var(--ukiyoe-color)` for stroke/fill to inherit the `color` prop.
+
+```svelte preview title="Custom Design"
+<BrandIcon size="lg" color="var(--accent-brand)" animation="pulse" animationDuration={3}>
+  <!-- Simple geometric logo -->
+  <polygon points="24,8 40,40 8,40" fill="none" stroke="var(--ukiyoe-color)" stroke-width="2.5" />
+  <circle cx="24" cy="28" r="6" fill="var(--ukiyoe-color)" />
+</BrandIcon>
+<BrandIcon size="lg" color="#f97316" animation="breathe" animationDuration={4} showCircle={false}>
+  <!-- Abstract paths -->
+  <path d="M12 24 Q24 8 36 24 Q24 40 12 24" fill="var(--ukiyoe-color)" opacity="0.3" />
+  <path d="M12 24 Q24 8 36 24" fill="none" stroke="var(--ukiyoe-color)" stroke-width="2" />
+  <path d="M36 24 Q24 40 12 24" fill="none" stroke="var(--ukiyoe-color)" stroke-width="2" />
+</BrandIcon>
+<BrandIcon size="lg" color="#06b6d4" animation="pulse" animationDuration={2.5}>
+  <!-- Concentric circles -->
+  <circle cx="24" cy="24" r="8" fill="none" stroke="var(--ukiyoe-color)" stroke-width="2" />
+  <circle cx="24" cy="24" r="14" fill="none" stroke="var(--ukiyoe-color)" stroke-width="1.5" opacity="0.6" />
+  <circle cx="24" cy="24" r="3" fill="var(--ukiyoe-color)" />
+</BrandIcon>
+```
+
+<aside class="my-lg p-md bg-bg-secondary border border-border-subtle rounded-md">
+  <p class="text-sm text-text-secondary">
+    <strong class="text-text-primary">About the default design:</strong> The icon's brush strokes are inspired by the calligraphic tradition of 浮世絵 (ukiyo-e), evoking the concept of the "floating world" through flowing, abstract forms rather than literal representation.
+  </p>
+</aside>
+
+<PropsTable props={propDefs} />
+
+</div>
+
+<style>
+  :global(.space-y-xl > :not(:first-child)) {
+    margin-top: var(--spacing-xl);
+  }
+</style>

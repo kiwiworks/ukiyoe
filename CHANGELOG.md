@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-01-19
+
+### Added
+- **BrandIcon component** for animated brand identity icons:
+  - Calligraphy-inspired default design evoking 浮世絵 (ukiyo-e) aesthetics
+  - Size presets (xs/sm/md/lg/xl) and custom pixel values
+  - Three animation styles: `wave` (stroke drawing), `pulse` (ink spreading), `breathe` (subtle opacity)
+  - Customizable colors via `color` and `backgroundColor` props
+  - CSS variables exposed for custom SVG content (`--ukiyoe-color`, `--ukiyoe-bg`, `--ukiyoe-duration`)
+  - `children` snippet for fully custom SVG designs
+  - `showCircle` prop to toggle background circle
+  - `paused` prop for programmatic animation control
+- **Theme-adaptive favicon** with `prefers-color-scheme` media query support
+
+### Changed
+- Demo header now uses BrandIcon instead of simple indicator dot
+- Demo BrandIcon page includes interactive speed slider and custom SVG examples
+
+### Fixed
+- Form component type errors with partial initial values
+- Added `zod` as optional peer dependency for Form validation types
+
 ## [0.1.4] - 2026-01-19
 
 ### Added
@@ -182,6 +204,7 @@ First stable release! Ukiyoe is now production-ready with 70+ components.
 - Dark-first design with light mode support
 - Privacy masking context
 
+[0.2.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.4...v0.2.0
 [0.1.4]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.1...v0.1.2

@@ -58,8 +58,3 @@ Use `id` and `anchor` props to enable clickable anchor links. Hover to see the `
 
 </div>
 
-<style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-</style>

@@ -73,20 +73,16 @@
 </div>
 
 <style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-
 	:global(.textarea-demo) {
 		width: 100%;
-		max-width: 400px;
+		max-width: var(--demo-width-md, 28rem);
 	}
 
 	:global(.textarea-demo-stack) {
 		display: flex;
 		flex-direction: column;
-		gap: 12px;
+		gap: var(--spacing-lg);
 		width: 100%;
-		max-width: 400px;
+		max-width: var(--demo-width-md, 28rem);
 	}
 </style>

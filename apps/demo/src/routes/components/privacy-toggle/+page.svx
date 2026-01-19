@@ -41,8 +41,3 @@ The privacy toggle integrates with the privacy context to mask sensitive data ac
 
 </div>
 
-<style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-</style>

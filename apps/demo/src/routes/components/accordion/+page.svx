@@ -61,12 +61,8 @@
 </div>
 
 <style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-
 	:global(.accordion-demo) {
 		width: 100%;
-		max-width: 28rem;
+		max-width: var(--demo-width-md, 28rem);
 	}
 </style>

@@ -85,8 +85,3 @@ The `loading` prop displays an animated spinner and disables the button. Useful 
 
 </div>
 
-<style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-</style>

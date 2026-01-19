@@ -131,8 +131,3 @@ Use the children snippet for custom key content.
 
 </div>
 
-<style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-</style>

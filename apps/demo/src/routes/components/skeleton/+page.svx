@@ -116,8 +116,3 @@ The shimmer animation provides a more dynamic loading effect.
 
 </div>
 
-<style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-</style>

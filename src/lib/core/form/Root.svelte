@@ -21,7 +21,7 @@
 	}: FormRootProps = $props();
 
 	// Capture initial values at mount time (intentionally non-reactive)
-	const _initialValues = untrack(() => ({ ...initialValues }));
+	const _initialValues = untrack(() => ({ ...initialValues })) as Record<string, FieldValue>;
 	const _validateOnBlur = untrack(() => validateOnBlur);
 	const _validateOnChange = untrack(() => validateOnChange);
 	const _showErrorsOnTouched = untrack(() => showErrorsOnTouched);

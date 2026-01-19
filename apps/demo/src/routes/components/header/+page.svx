@@ -90,11 +90,3 @@ Set `fixed={false}` for inline or embedded headers.
 
 </div>
 
-<style>
-	:global(.space-y-xl > :not(:first-child)) {
-		margin-top: var(--spacing-xl);
-	}
-	:global(.space-y-md > :not(:first-child)) {
-		margin-top: var(--spacing-md);
-	}
-</style>
