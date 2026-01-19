@@ -89,7 +89,7 @@
 </script>
 
 <div class={cn('min-h-[60vh] flex flex-col items-center justify-center p-8', className)}>
-	<div class="flex flex-col items-center text-center max-w-md w-full">
+	<div class="flex flex-col items-center text-center max-w-md w-full self-stretch">
 		<div class="mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-negative/10">
 			<AlertTriangle size={48} class="text-negative" />
 		</div>
