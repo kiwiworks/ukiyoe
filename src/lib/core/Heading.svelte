@@ -17,6 +17,18 @@
 
 	let { level = 2, size, id, anchor = false, class: className = '', children }: HeadingProps = $props();
 
+	function handleAnchorClick(event: MouseEvent) {
+		if (!id) return;
+		event.preventDefault();
+
+		const element = document.getElementById(id);
+		if (element) {
+			element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			// Update URL without triggering navigation
+			history.pushState(null, '', `#${id}`);
+		}
+	}
+
 	const defaultSizeByLevel: Record<HeadingLevel, HeadingSize> = {
 		1: '2xl',
 		2: 'lg',
@@ -43,7 +55,7 @@
 
 {#snippet content()}
 	{#if id && anchor}
-		<a href="#{id}" class="heading-anchor">{@render children()}</a>
+		<a href="#{id}" class="heading-anchor" onclick={handleAnchorClick}>{@render children()}</a>
 	{:else}
 		{@render children()}
 	{/if}
