@@ -7,14 +7,10 @@
 	<title>Installation - Ukiyoe UI</title>
 </svelte:head>
 
-<PageHeader title="Installation" subtitle="Get started with Ukiyoe UI">
-	{#snippet badges()}
-		<Badge size="sm" variant="info" text="Public Beta" />
-	{/snippet}
-</PageHeader>
+<PageHeader title="Installation" subtitle="Get started with Ukiyoe UI" />
 
 <Alert variant="info" class="mt-lg">
-	<strong>Public Beta</strong> — Ukiyoe is open source but not yet published to npm.
+	Ukiyoe is open source but not yet published to npm. Install via GitHub.
 </Alert>
 
 <div class="mt-xl space-y-xl">

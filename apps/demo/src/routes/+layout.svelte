@@ -34,7 +34,7 @@
 				<Kbd keys="⌘K" size="xs" />
 			</button>
 			<ThemeToggle size="sm" />
-			<Badge size="xs" variant="brand" text="Beta" />
+			<Badge size="xs" variant="brand" text="v0.1" />
 		</Header>
 
 		<div class="flex flex-1 overflow-hidden">

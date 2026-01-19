@@ -9,7 +9,7 @@
 
 <PageHeader title="Ukiyoe UI" subtitle="Themeable Svelte 5 component library for modern web apps">
 	{#snippet badges()}
-		<Badge size="sm" variant="brand" text="Beta" />
+		<Badge size="sm" variant="brand" text="v0.1" />
 	{/snippet}
 </PageHeader>
 
