@@ -1,0 +1,54 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-gradient" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="100%" stop-color="#171717"/>
+    </linearGradient>
+    <linearGradient id="accent-gradient" x1="0" y1="0" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-gradient)"/>
+
+  <!-- Subtle grid pattern -->
+  <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#262626" stroke-width="1"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid)" opacity="0.5"/>
+
+  <!-- Accent glow -->
+  <ellipse cx="600" cy="315" rx="400" ry="200" fill="url(#accent-gradient)" opacity="0.1"/>
+
+  <!-- Brand Icon (larger, centered) -->
+  <g transform="translate(500, 180)">
+    <circle cx="100" cy="100" r="88" fill="none" stroke="#6366f1" stroke-width="3" stroke-opacity="0.3"/>
+    <g fill="none" stroke="#6366f1" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M66 50 C75 58, 83 75, 79 92 C75 108, 66 125, 75 142 C79 150, 92 154, 100 150" stroke-width="7"/>
+      <path d="M58 83 C83 79, 117 88, 142 75" stroke-width="5"/>
+      <path d="M117 108 C125 100, 142 92, 150 100 C154 108, 150 125, 133 133" stroke-width="4"/>
+      <circle cx="133" cy="58" r="6" fill="#6366f1"/>
+    </g>
+  </g>
+
+  <!-- Title -->
+  <text x="600" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="700" fill="#fafafa" text-anchor="middle">
+    Ukiyoe UI
+  </text>
+
+  <!-- Subtitle -->
+  <text x="600" y="480" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="400" fill="#a1a1aa" text-anchor="middle">
+    Svelte 5 Component Library
+  </text>
+
+  <!-- Version badge -->
+  <g transform="translate(540, 510)">
+    <rect x="0" y="0" width="120" height="32" rx="16" fill="#6366f1" fill-opacity="0.2"/>
+    <rect x="0" y="0" width="120" height="32" rx="16" fill="none" stroke="#6366f1" stroke-opacity="0.5"/>
+    <text x="60" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="500" fill="#a5b4fc" text-anchor="middle">
+      v0.2.0
+    </text>
+  </g>
+</svg>

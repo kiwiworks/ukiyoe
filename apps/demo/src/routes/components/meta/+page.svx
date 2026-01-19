@@ -1,0 +1,154 @@
+<script lang="ts">
+	import { Meta, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'title', type: 'string', default: '-', description: 'Page title - used for <title> and og:title' },
+		{ name: 'siteName', type: 'string', default: '-', description: 'Site name - appended to title as "Page | Site Name"' },
+		{ name: 'description', type: 'string', default: '-', description: 'Page description for meta and og:description' },
+		{ name: 'url', type: 'string', default: '-', description: 'Canonical URL of the page' },
+		{ name: 'image', type: 'string', default: '-', description: 'Open Graph image URL (recommended: 1200x630px)' },
+		{ name: 'imageAlt', type: 'string', default: '-', description: 'Alt text for the Open Graph image' },
+		{ name: 'type', type: "'website' | 'article' | 'profile' | 'product'", default: "'website'", description: 'Open Graph type' },
+		{ name: 'twitterCard', type: "'summary' | 'summary_large_image' | 'app' | 'player'", default: "'summary_large_image'", description: 'Twitter card type' },
+		{ name: 'twitterSite', type: 'string', default: '-', description: 'Twitter username (without @)' },
+		{ name: 'themeColor', type: 'string', default: '-', description: 'Theme color for browser UI' },
+		{ name: 'robots', type: 'string', default: '-', description: 'Robots directive (e.g., "noindex, nofollow")' },
+		{ name: 'publishedTime', type: 'string', default: '-', description: 'Article publish date (ISO 8601)' },
+		{ name: 'author', type: 'string', default: '-', description: 'Article author' },
+		{ name: 'keywords', type: 'string[]', default: '-', description: 'Keywords for SEO' },
+		{ name: 'locale', type: 'string', default: "'en_US'", description: 'Open Graph locale' }
+	];
+</script>
+
+<svelte:head>
+	<title>Meta - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Meta" subtitle="SEO and social sharing meta tags for better link previews" />
+
+<div class="space-y-xl mt-lg">
+
+A utility component that generates SEO-friendly meta tags for Open Graph, Twitter Cards, and standard HTML meta elements. Place it in your layout for site-wide defaults, and override in individual pages as needed.
+
+## Basic Usage
+
+Add the Meta component to your layout file for site-wide defaults:
+
+```svelte
+<script>
+  import { Meta } from 'ukiyoe';
+</script>
+
+<Meta
+  siteName="My App"
+  description="A great application built with Svelte"
+  url="https://myapp.com"
+  image="https://myapp.com/og-image.png"
+/>
+```
+
+## Page-Specific Meta
+
+Override defaults in individual pages by adding another Meta component. Later meta tags override earlier ones:
+
+```svelte
+<!-- In your page component -->
+<Meta
+  title="Dashboard"
+  description="View your analytics and metrics"
+/>
+```
+
+This produces: `<title>Dashboard | My App</title>` when combined with the layout's `siteName`.
+
+## Open Graph for Articles
+
+For blog posts and articles, use the `article` type with publish date and author:
+
+```svelte
+<Meta
+  title="Getting Started with Svelte 5"
+  description="Learn the new runes API and reactive primitives"
+  type="article"
+  publishedTime="2026-01-19T10:00:00Z"
+  author="Jane Developer"
+  url="https://blog.example.com/svelte-5-guide"
+  image="https://blog.example.com/images/svelte-5.png"
+/>
+```
+
+## Twitter Cards
+
+Control how your links appear on Twitter/X:
+
+```svelte
+<Meta
+  title="Ukiyoe UI"
+  description="Svelte 5 component library with dark-first design"
+  twitterCard="summary_large_image"
+  twitterSite="kiwiworks"
+  image="https://kiwiworks.github.io/ukiyoe/og-image.svg"
+/>
+```
+
+## SEO Keywords
+
+Add keywords for search engine optimization:
+
+```svelte
+<Meta
+  title="Component Library"
+  keywords={['svelte', 'components', 'ui', 'design-system', 'tailwind']}
+/>
+```
+
+## Robots Directive
+
+Control search engine indexing:
+
+```svelte
+<!-- Don't index staging/preview environments -->
+<Meta robots="noindex, nofollow" />
+
+<!-- Allow indexing but don't follow links -->
+<Meta robots="index, nofollow" />
+```
+
+## Generated Tags
+
+The component generates the following meta tags based on provided props:
+
+| Prop | Generated Tags |
+|------|---------------|
+| `title` + `siteName` | `<title>`, `og:title`, `twitter:title` |
+| `description` | `<meta name="description">`, `og:description`, `twitter:description` |
+| `url` | `<link rel="canonical">`, `og:url` |
+| `image` | `og:image`, `twitter:image` |
+| `imageAlt` | `og:image:alt`, `twitter:image:alt` |
+| `type` | `og:type` |
+| `twitterCard` | `twitter:card` |
+| `twitterSite` | `twitter:site` |
+| `themeColor` | `<meta name="theme-color">` |
+| `robots` | `<meta name="robots">` |
+| `publishedTime` | `article:published_time` |
+| `author` | `<meta name="author">`, `article:author` |
+| `keywords` | `<meta name="keywords">` |
+| `locale` | `og:locale` |
+
+<aside class="my-lg p-md bg-bg-secondary border border-border-subtle rounded-md">
+  <p class="text-sm text-text-secondary">
+    <strong class="text-text-primary">Image recommendations:</strong> Open Graph images should be 1200x630px for optimal display. Use PNG or JPEG for best compatibility - some platforms don't render SVG images in previews.
+  </p>
+</aside>
+
+<PropsTable props={propDefs} />
+
+</div>
+
+<style>
+  :global(.space-y-xl > :not(:first-child)) {
+    margin-top: var(--spacing-xl);
+  }
+</style>

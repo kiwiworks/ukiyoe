@@ -1,14 +1,17 @@
 <script lang="ts">
 	import '../app.css';
 	import { goto } from '$app/navigation';
-	import { base } from '$app/paths';
-	import { Badge, BrandIcon, Header, ThemeProvider, ThemeToggle, CommandPalette, ThemeLabModal, Kbd, Toaster, type CommandItem } from 'ukiyoe';
+	import { base, assets } from '$app/paths';
+	import { Badge, BrandIcon, Header, ThemeProvider, ThemeToggle, CommandPalette, ThemeLabModal, Kbd, Toaster, Meta, type CommandItem } from 'ukiyoe';
 	import { Settings } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
 	import Nav from '$lib/Nav.svelte';
 	import { getCommandItems } from '$lib/routes';
 
 	let { children }: { children: Snippet } = $props();
+
+	const siteUrl = 'https://kiwiworks.github.io/ukiyoe';
+	const ogImage = `${siteUrl}/og-image.svg`;
 
 	let commandPaletteOpen = $state(false);
 	let themeLabOpen = $state(false);
@@ -22,6 +25,16 @@
 		}
 	}
 </script>
+
+<Meta
+	siteName="Ukiyoe UI"
+	description="Svelte 5 component library with dark-first design. 70+ accessible, customizable components for modern web applications."
+	url={siteUrl}
+	image={ogImage}
+	imageAlt="Ukiyoe UI - Svelte 5 Component Library"
+	twitterCard="summary_large_image"
+	keywords={['svelte', 'svelte5', 'components', 'ui', 'design-system', 'dark-mode', 'tailwind']}
+/>
 
 <ThemeProvider>
 	<div class="h-screen bg-bg-primary text-text-primary flex flex-col overflow-hidden">
