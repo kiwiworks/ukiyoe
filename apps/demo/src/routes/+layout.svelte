@@ -55,7 +55,7 @@
 
 		<div class="flex flex-1 overflow-hidden">
 			<Nav />
-			<main class="flex-1 overflow-y-auto p-lg">
+			<main class="flex-1 overflow-y-auto overflow-x-hidden p-lg">
 				{@render children()}
 			</main>
 		</div>
