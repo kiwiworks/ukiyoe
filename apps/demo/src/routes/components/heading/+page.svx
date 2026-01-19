@@ -6,6 +6,8 @@
 	const propDefs: PropDef[] = [
 		{ name: 'level', type: '1 | 2 | 3 | 4 | 5 | 6', default: '2', description: 'HTML heading level (h1-h6)' },
 		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'", default: 'auto', description: 'Text size (defaults based on level: h1=2xl, h2=lg, h3=md, h4=sm, h5/h6=xs)' },
+		{ name: 'id', type: 'string', default: '-', description: 'HTML id for anchor linking' },
+		{ name: 'anchor', type: 'boolean', default: 'false', description: 'Show anchor link on hover (requires id)' },
 		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' },
 		{ name: 'children', type: 'Snippet', description: 'Heading content' }
 	];
@@ -38,6 +40,17 @@
 <div class="space-y-md">
 	<Heading level={3} size="xl">H3 with XL size</Heading>
 	<Heading level={1} size="md">H1 with MD size</Heading>
+</div>
+```
+
+## Anchor Links
+
+Use `id` and `anchor` props to enable clickable anchor links. Hover to see the `#` indicator.
+
+```svelte preview title="With Anchor"
+<div class="space-y-md">
+	<Heading level={2} id="section-one" anchor>Section One</Heading>
+	<Heading level={3} id="subsection" anchor>Subsection</Heading>
 </div>
 ```
 

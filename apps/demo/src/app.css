@@ -103,3 +103,29 @@ pre.shiki {
 .demo-reveal {
 	animation: fade-up 0.6s ease-out both;
 }
+
+/* Heading anchor links */
+.heading-anchor {
+	position: relative;
+	text-decoration: none;
+}
+
+.heading-anchor::before {
+	content: '#';
+	position: absolute;
+	left: -1.25em;
+	opacity: 0;
+	color: var(--text-muted);
+	transition: opacity 0.15s ease;
+}
+
+.heading-anchor:hover::before,
+.heading-anchor:focus::before {
+	opacity: 1;
+}
+
+h2 .heading-anchor::before,
+h3 .heading-anchor::before,
+h4 .heading-anchor::before {
+	left: -1.25em;
+}

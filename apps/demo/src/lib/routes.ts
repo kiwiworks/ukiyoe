@@ -61,7 +61,7 @@ export const sections: NavSection[] = [
 			{ label: 'Switch', href: '/components/switch' },
 			{ label: 'RadioGroup', href: '/components/radio-group' },
 			{ label: 'Slider', href: '/components/slider' },
-			{ label: 'FormField', href: '/components/form-field' },
+			{ label: 'Form', href: '/components/form' },
 			{ label: 'DateRangePicker', href: '/components/date-range-picker' }
 		]
 	},

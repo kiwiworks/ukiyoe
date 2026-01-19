@@ -2,6 +2,8 @@ import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { mdsvex } from 'mdsvex';
 import { createHighlighter } from 'shiki';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 /** @type {ReturnType<typeof createHighlighter> | null} */
 let highlighterPromise = null;
@@ -64,7 +66,19 @@ ${code}
 	},
 	smartypants: {
 		dashes: 'oldschool'
-	}
+	},
+	rehypePlugins: [
+		rehypeSlug,
+		[
+			rehypeAutolinkHeadings,
+			{
+				behavior: 'wrap',
+				properties: {
+					class: 'heading-anchor'
+				}
+			}
+		]
+	]
 };
 
 // Base path for GitHub Pages - set via env var for flexibility

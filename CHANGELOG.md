@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.3] - 2026-01-19
+
+### Added
+- **Form compound component** with three sub-components:
+  - `Form.Root` - State management with Zod and custom validation support
+  - `Form.Field` - Auto-wiring for labels, IDs, aria attributes, and error display
+  - `Form.Auto` - Data-driven field generation from schema definitions
+- **Heading anchor links**: `id` and `anchor` props for clickable section links
+- **Demo site heading anchors** via rehype-slug and rehype-autolink-headings
+
+### Changed
+- Demo site now includes `Toaster` component in layout for toast notifications
+
+### Fixed
+- **Toaster width**: Fixed toast notifications collapsing to zero width
+
+### Removed
+- **FormField component**: Replaced by `Form.Field` with improved API
+
 ## [0.1.2] - 2026-01-18
 
 ### Added

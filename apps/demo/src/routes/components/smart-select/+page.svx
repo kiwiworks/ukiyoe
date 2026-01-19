@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { SmartSelect, PageHeader, Text, addToast } from 'ukiyoe';
+	import { SmartSelect, PageHeader, addToast } from 'ukiyoe';
 	import { Settings, User, LogOut, FileText, Folder, Terminal } from '@lucide/svelte';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	const propDefs: PropDef[] = [
@@ -20,13 +21,6 @@
 		{ name: 'highlightMatch', type: 'boolean', default: 'false', description: 'Highlight matching text in results' },
 		{ name: 'highlightClass', type: 'string', default: "'bg-accent-brand/20 text-accent-brand'", description: 'Custom class for highlighted text' }
 	];
-
-	let basicValue = $state('');
-	let descValue = $state('');
-	let iconValue = $state('');
-	let actionValue = $state('');
-	let groupValue = $state('');
-	let manyValue = $state('');
 
 	const basicOptions = [
 		{ value: 'react', label: 'React' },
@@ -84,89 +78,88 @@
 <PageHeader title="SmartSelect" subtitle="Searchable select with autocomplete and actions" />
 
 <div class="space-y-xl mt-lg">
-	<section>
-		<Text size="lg" weight="semibold" class="mb-md">Basic Usage</Text>
-		<Text size="sm" variant="muted" class="mb-sm">Selected: {basicValue || 'none'}</Text>
-		<SmartSelect
-			bind:value={basicValue}
-			options={basicOptions}
-			placeholder="Search frameworks..."
-			highlightMatch
-			class="w-72"
-		/>
-	</section>
 
-	<section>
-		<Text size="lg" weight="semibold" class="mb-md">With Descriptions</Text>
-		<Text size="sm" variant="muted" class="mb-sm">Selected: {descValue || 'none'}</Text>
-		<SmartSelect
-			bind:value={descValue}
-			options={descOptions}
-			placeholder="Search languages..."
-			highlightMatch
-			class="w-80"
-		/>
-	</section>
+## Basic Usage
 
-	<section>
-		<Text size="lg" weight="semibold" class="mb-md">With Icons</Text>
-		<Text size="sm" variant="muted" class="mb-sm">Selected: {iconValue || 'none'}</Text>
-		<SmartSelect
-			bind:value={iconValue}
-			options={iconOptions}
-			placeholder="Quick actions..."
-			class="w-80"
-		/>
-	</section>
+```svelte preview title="Basic SmartSelect"
+<SmartSelect
+	options={basicOptions}
+	placeholder="Search frameworks..."
+	highlightMatch
+	class="w-72"
+/>
+```
 
-	<section>
-		<Text size="lg" weight="semibold" class="mb-md">With Actions (Command Palette Style)</Text>
-		<Text size="sm" variant="muted" class="mb-sm">Selected: {actionValue || 'none'}</Text>
-		<SmartSelect
-			bind:value={actionValue}
-			options={commandOptions}
-			actions={commandActions}
-			placeholder="Search or run command..."
-			class="w-80"
-		/>
-	</section>
+## With Descriptions
 
-	<section>
-		<Text size="lg" weight="semibold" class="mb-md">Grouped Options</Text>
-		<Text size="sm" variant="muted" class="mb-sm">Selected: {groupValue || 'none'}</Text>
-		<SmartSelect
-			bind:value={groupValue}
-			options={groupedOptions}
-			placeholder="Search food..."
-			class="w-72"
-		/>
-	</section>
+```svelte preview title="Options with Descriptions"
+<SmartSelect
+	options={descOptions}
+	placeholder="Search languages..."
+	highlightMatch
+	class="w-80"
+/>
+```
 
-	<section>
-		<Text size="lg" weight="semibold" class="mb-md">Many Options (Scrollable)</Text>
-		<Text size="sm" variant="muted" class="mb-sm">Selected: {manyValue || 'none'}</Text>
-		<SmartSelect
-			bind:value={manyValue}
-			options={manyOptions}
-			placeholder="Search 50 options..."
-			class="w-72"
-		/>
-	</section>
+## With Icons
 
-	<section>
-		<Text size="lg" weight="semibold" class="mb-md">Sizes</Text>
-		<div class="flex gap-md items-start">
-			<SmartSelect size="sm" options={basicOptions} placeholder="Small..." class="w-56" />
-			<SmartSelect size="md" options={basicOptions} placeholder="Medium..." class="w-56" />
-			<SmartSelect size="lg" options={basicOptions} placeholder="Large..." class="w-56" />
-		</div>
-	</section>
+```svelte preview title="Options with Icons"
+<SmartSelect
+	options={iconOptions}
+	placeholder="Quick actions..."
+	class="w-80"
+/>
+```
 
-	<PropsTable props={propDefs} />
+## With Actions
+
+Command palette style with separate action items.
+
+```svelte preview title="With Actions"
+<SmartSelect
+	options={commandOptions}
+	actions={commandActions}
+	placeholder="Search or run command..."
+	class="w-80"
+/>
+```
+
+## Grouped Options
+
+```svelte preview title="Grouped Options"
+<SmartSelect
+	options={groupedOptions}
+	placeholder="Search food..."
+	class="w-72"
+/>
+```
+
+## Many Options
+
+Scrollable list with 50 options.
+
+```svelte preview title="Scrollable List"
+<SmartSelect
+	options={manyOptions}
+	placeholder="Search 50 options..."
+	class="w-72"
+/>
+```
+
+## Sizes
+
+```svelte preview title="Size Variants"
+<SmartSelect size="sm" options={basicOptions} placeholder="Small..." class="w-56" />
+<SmartSelect size="md" options={basicOptions} placeholder="Medium..." class="w-56" />
+<SmartSelect size="lg" options={basicOptions} placeholder="Large..." class="w-56" />
+```
+
+<PropsTable props={propDefs} />
+
 </div>
 
 <style>
-	.space-y-xl > :not(:first-child) {
+	:global(.space-y-xl > :not(:first-child)) {
 		margin-top: var(--spacing-xl);
 	}
 </style>

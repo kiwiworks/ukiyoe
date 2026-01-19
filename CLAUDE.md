@@ -112,24 +112,44 @@ Follow [Semantic Versioning](https://semver.org/):
 ### Adding Component Demos
 1. Create `apps/demo/src/routes/components/{name}/+page.svx`
 2. Use MDsveX format with `preview` code blocks
-3. Import `ComponentPreview` from `$lib/ComponentPreview.svelte`
-4. Add to nav in `apps/demo/src/lib/Nav.svelte`
+3. **REQUIRED**: Import `ComponentPreview` from `$lib/ComponentPreview.svelte`
+4. Import `PropsTable` from `$lib/PropsTable.svelte` for props documentation
+5. Add to nav in `apps/demo/src/lib/routes.ts`
 
 ### Demo Format
 ```svx
 <script lang="ts">
   import { Component, PageHeader } from 'ukiyoe';
   import ComponentPreview from '$lib/ComponentPreview.svelte';
+  import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+  const propDefs: PropDef[] = [
+    { name: 'prop', type: 'string', default: '-', description: 'Description' }
+  ];
 </script>
 
 <PageHeader title="Component" subtitle="Description" />
+
+<div class="space-y-xl mt-lg">
 
 ## Section
 
 ```svelte preview title="Example"
 <Component prop="value">Content</Component>
 ```
+
+<PropsTable props={propDefs} />
+
+</div>
+
+<style>
+  :global(.space-y-xl > :not(:first-child)) {
+    margin-top: var(--spacing-xl);
+  }
+</style>
 ```
+
+**IMPORTANT**: The `ComponentPreview` import is REQUIRED even if not explicitly used in code. MDsveX `preview` code blocks automatically transform to use it at runtime.
 
 ## Deployment
 

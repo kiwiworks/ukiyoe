@@ -2,7 +2,7 @@
 	import '../app.css';
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
-	import { Badge, Header, ThemeProvider, ThemeToggle, CommandPalette, ThemeLabModal, Kbd, type CommandItem } from 'ukiyoe';
+	import { Badge, Header, ThemeProvider, ThemeToggle, CommandPalette, ThemeLabModal, Kbd, Toaster, type CommandItem } from 'ukiyoe';
 	import { Settings } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
 	import Nav from '$lib/Nav.svelte';
@@ -62,4 +62,5 @@
 	</button>
 
 	<ThemeLabModal bind:open={themeLabOpen} />
+	<Toaster position="top-right" />
 </ThemeProvider>

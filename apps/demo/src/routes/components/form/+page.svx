@@ -1,0 +1,280 @@
+<script lang="ts">
+	import { Form, Input, Select, Textarea, Checkbox, Switch, Button, PageHeader, type FieldSchema } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+	import { z } from 'zod';
+
+	// Zod schema for validation example
+	const userSchema = z.object({
+		email: z.string().email('Please enter a valid email'),
+		password: z.string().min(8, 'Password must be at least 8 characters'),
+		name: z.string().min(1, 'Name is required')
+	});
+
+	// Form.Auto fields
+	const autoFields: FieldSchema[] = [
+		{ name: 'fullName', type: 'text', label: 'Full Name', required: true, placeholder: 'John Doe' },
+		{ name: 'email', type: 'email', label: 'Email', required: true, placeholder: 'john@example.com' },
+		{ name: 'role', type: 'select', label: 'Role', options: ['Admin', 'Editor', 'Viewer'], placeholder: 'Select role' },
+		{ name: 'bio', type: 'textarea', label: 'Bio', hint: 'Brief description', rows: 3 },
+		{ name: 'notifications', type: 'switch', label: 'Email Notifications' },
+		{ name: 'terms', type: 'checkbox', label: 'Accept Terms', required: true }
+	];
+
+	// Root props
+	const rootPropDefs: PropDef[] = [
+		{ name: 'initialValues', type: 'Partial<T>', default: '{}', description: 'Initial form values' },
+		{ name: 'validate', type: '(values: T) => Record<string, string>', default: '-', description: 'Custom validation function' },
+		{ name: 'schema', type: 'z.ZodObject', default: '-', description: 'Zod schema for validation' },
+		{ name: 'onsubmit', type: '(values: T) => void | Promise<void>', default: '-', description: 'Form submit handler' },
+		{ name: 'validateOnBlur', type: 'boolean', default: 'true', description: 'Validate fields on blur' },
+		{ name: 'validateOnChange', type: 'boolean', default: 'false', description: 'Validate fields on change' },
+		{ name: 'showErrorsOnTouched', type: 'boolean', default: 'true', description: 'Only show errors after field is touched' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', description: 'Form content' }
+	];
+
+	// Field props
+	const fieldPropDefs: PropDef[] = [
+		{ name: 'name', type: 'string', description: 'Field key in form values' },
+		{ name: 'label', type: 'string', description: 'Field label' },
+		{ name: 'hint', type: 'string', default: '-', description: 'Hint text below the field' },
+		{ name: 'required', type: 'boolean', default: 'false', description: 'Show required marker (visual only)' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet<[FieldRenderProps]>', description: 'Child snippet receiving field props' }
+	];
+
+	// Auto props
+	const autoPropDefs: PropDef[] = [
+		{ name: 'fields', type: 'FieldSchema[]', description: 'Field definitions for auto-generation' },
+		{ name: 'layout', type: "'stack' | 'grid'", default: "'stack'", description: 'Layout mode' },
+		{ name: 'columns', type: '1 | 2 | 3 | 4', default: '1', description: 'Grid columns (when layout is grid)' },
+		{ name: 'gap', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Gap between fields' }
+	];
+
+	// FieldSchema props for PropsTable
+	const fieldSchemaPropDefs: PropDef[] = [
+		{ name: 'name', type: 'string', description: 'Field key in form values' },
+		{ name: 'type', type: 'FieldType', description: 'Field type (text, email, select, etc.)' },
+		{ name: 'label', type: 'string', description: 'Field label' },
+		{ name: 'hint', type: 'string', default: '-', description: 'Hint text below field' },
+		{ name: 'required', type: 'boolean', default: 'false', description: 'Mark as required' },
+		{ name: 'placeholder', type: 'string', default: '-', description: 'Placeholder text' },
+		{ name: 'options', type: 'FieldOption[] | string[]', default: '-', description: 'Options for select/radio' },
+		{ name: 'defaultValue', type: 'FieldValue', default: '-', description: 'Default value' },
+		{ name: 'min', type: 'number', default: '-', description: 'Minimum value for number/slider' },
+		{ name: 'max', type: 'number', default: '-', description: 'Maximum value for number/slider' },
+		{ name: 'step', type: 'number', default: '-', description: 'Step increment for number/slider' },
+		{ name: 'rows', type: 'number', default: '-', description: 'Rows for textarea' },
+		{ name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the field' }
+	];
+</script>
+
+<svelte:head>
+	<title>Form - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Form" subtitle="Form state management with validation, auto-wiring, and data-driven generation" />
+
+<div class="space-y-xl mt-lg">
+
+## Overview
+
+The Form component provides a complete form solution with three sub-components:
+
+- **Form.Root** - State management container with validation support
+- **Form.Field** - Auto-wires labels, IDs, aria attributes, and error display
+- **Form.Auto** - Generates fields from a schema definition
+
+## Basic Usage
+
+Use `Form.Root` with `Form.Field` to create controlled forms with automatic state management.
+
+```svelte preview title="Basic Form"
+<Form.Root
+	initialValues={{ username: '', email: '' }}
+	onsubmit={(values) => alert(JSON.stringify(values))}
+	class="w-80 flex flex-col gap-4"
+>
+	<Form.Field name="username" label="Username" required>
+		{#snippet children(field)}
+			<Input
+				id={field.id}
+				value={typeof field.value === 'string' ? field.value : ''}
+				placeholder="Enter username"
+				error={field.error}
+				aria-describedby={field['aria-describedby']}
+				onchange={(e) => field.onchange(e.currentTarget.value)}
+				onblur={field.onblur}
+			/>
+		{/snippet}
+	</Form.Field>
+	<Form.Field name="email" label="Email" hint="We'll never share your email">
+		{#snippet children(field)}
+			<Input
+				id={field.id}
+				type="email"
+				value={typeof field.value === 'string' ? field.value : ''}
+				placeholder="you@example.com"
+				error={field.error}
+				aria-describedby={field['aria-describedby']}
+				onchange={(e) => field.onchange(e.currentTarget.value)}
+				onblur={field.onblur}
+			/>
+		{/snippet}
+	</Form.Field>
+	<Button type="submit">Submit</Button>
+</Form.Root>
+```
+
+## Zod Validation
+
+Pass a Zod schema for automatic validation. Errors display after the field is touched.
+
+```svelte preview title="With Zod Validation"
+<Form.Root
+	schema={userSchema}
+	initialValues={{ name: '', email: '', password: '' }}
+	onsubmit={(values) => alert('Form submitted!')}
+	class="w-80 flex flex-col gap-4"
+>
+	<Form.Field name="name" label="Name" required>
+		{#snippet children(field)}
+			<Input
+				id={field.id}
+				value={typeof field.value === 'string' ? field.value : ''}
+				placeholder="Your name"
+				error={field.error}
+				aria-describedby={field['aria-describedby']}
+				onchange={(e) => field.onchange(e.currentTarget.value)}
+				onblur={field.onblur}
+			/>
+		{/snippet}
+	</Form.Field>
+	<Form.Field name="email" label="Email" required>
+		{#snippet children(field)}
+			<Input
+				id={field.id}
+				type="email"
+				value={typeof field.value === 'string' ? field.value : ''}
+				placeholder="you@example.com"
+				error={field.error}
+				aria-describedby={field['aria-describedby']}
+				onchange={(e) => field.onchange(e.currentTarget.value)}
+				onblur={field.onblur}
+			/>
+		{/snippet}
+	</Form.Field>
+	<Form.Field name="password" label="Password" required hint="Minimum 8 characters">
+		{#snippet children(field)}
+			<Input
+				id={field.id}
+				type="password"
+				value={typeof field.value === 'string' ? field.value : ''}
+				placeholder="Enter password"
+				error={field.error}
+				aria-describedby={field['aria-describedby']}
+				onchange={(e) => field.onchange(e.currentTarget.value)}
+				onblur={field.onblur}
+			/>
+		{/snippet}
+	</Form.Field>
+	<Button type="submit">Sign Up</Button>
+</Form.Root>
+```
+
+## Data-Driven with Form.Auto
+
+Use `Form.Auto` to generate fields from a schema definition.
+
+```svelte preview title="Auto-Generated Form (Stack)"
+<Form.Root
+	initialValues={{ fullName: '', email: '', role: '', bio: '', notifications: true, terms: false }}
+	onsubmit={(values) => alert(JSON.stringify(values))}
+	class="w-80"
+>
+	<Form.Auto fields={autoFields} layout="stack" gap="md" />
+	<div class="mt-4">
+		<Button type="submit">Submit</Button>
+	</div>
+</Form.Root>
+```
+
+## Grid Layout
+
+Use `layout="grid"` with `columns` for multi-column forms.
+
+```svelte preview title="Auto-Generated Form (Grid)"
+<Form.Root
+	initialValues={{ fullName: '', email: '', role: '', bio: '', notifications: true, terms: false }}
+	onsubmit={(values) => alert(JSON.stringify(values))}
+	class="w-full max-w-2xl"
+>
+	<Form.Auto fields={autoFields} layout="grid" columns={2} gap="md" />
+	<div class="mt-4">
+		<Button type="submit">Submit</Button>
+	</div>
+</Form.Root>
+```
+
+## Custom Validation
+
+You can use a custom validation function instead of or alongside Zod.
+
+```svelte preview title="Custom Validation"
+<Form.Root
+	initialValues={{ age: '' }}
+	validate={(values) => {
+		const errors = {};
+		const age = Number(values.age);
+		if (!values.age) {
+			errors.age = 'Age is required';
+		} else if (isNaN(age) || age < 18 || age > 120) {
+			errors.age = 'Age must be between 18 and 120';
+		}
+		return errors;
+	}}
+	onsubmit={(values) => alert(`Age: ${values.age}`)}
+	class="w-80 flex flex-col gap-4"
+>
+	<Form.Field name="age" label="Age" required>
+		{#snippet children(field)}
+			<Input
+				id={field.id}
+				type="number"
+				value={typeof field.value === 'string' ? field.value : ''}
+				placeholder="Enter your age"
+				error={field.error}
+				aria-describedby={field['aria-describedby']}
+				onchange={(e) => field.onchange(e.currentTarget.value)}
+				onblur={field.onblur}
+			/>
+		{/snippet}
+	</Form.Field>
+	<Button type="submit">Submit</Button>
+</Form.Root>
+```
+
+## Form.Root Props
+
+<PropsTable props={rootPropDefs} />
+
+## Form.Field Props
+
+<PropsTable props={fieldPropDefs} />
+
+## Form.Auto Props
+
+<PropsTable props={autoPropDefs} />
+
+## FieldSchema Interface
+
+<PropsTable props={fieldSchemaPropDefs} />
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

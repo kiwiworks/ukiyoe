@@ -1,0 +1,89 @@
+<script lang="ts">
+	import { PageHeader, Alert, Badge } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+</script>
+
+<svelte:head>
+	<title>Installation - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Installation" subtitle="Get started with Ukiyoe UI">
+	{#snippet badges()}
+		<Badge size="sm" variant="info" text="Public Beta" />
+	{/snippet}
+</PageHeader>
+
+<Alert variant="info" class="mt-lg">
+	<strong>Public Beta</strong> — Ukiyoe is open source but not yet published to npm.
+</Alert>
+
+<div class="mt-xl space-y-xl">
+
+## Requirements
+
+- Svelte 5.0+
+- Tailwind CSS 4.0+
+- Node.js 18+ or Bun
+
+## Installation
+
+Install via git dependency:
+
+```bash
+bun add github:kiwiworks/ukiyoe
+```
+
+## Peer Dependencies
+
+Ukiyoe requires these peer dependencies:
+
+```bash
+bun add bits-ui @lucide/svelte @internationalized/date tailwindcss
+```
+
+## Tailwind Configuration
+
+Import the Ukiyoe preset in your Tailwind config:
+
+```typescript
+// tailwind.config.ts
+import ukiyoePreset from 'ukiyoe/tailwind.preset';
+
+export default {
+  presets: [ukiyoePreset],
+  content: [
+    './src/**/*.{html,js,svelte,ts}',
+    './node_modules/ukiyoe/dist/**/*.{html,js,svelte,ts}'
+  ]
+};
+```
+
+## Import Styles
+
+Import the base styles in your app entry:
+
+```typescript
+import 'ukiyoe/styles.css';
+```
+
+## Usage
+
+Import and use components:
+
+```svelte
+<script>
+  import { Button, Input, Badge } from 'ukiyoe';
+</script>
+
+<Button variant="primary">Click me</Button>
+<Input placeholder="Enter text..." />
+<Badge variant="success" text="Active" />
+```
+
+</div>
+
+<style>
+	:global(.space-y-xl > :not(:first-child)) {
+		margin-top: var(--spacing-xl);
+	}
+</style>

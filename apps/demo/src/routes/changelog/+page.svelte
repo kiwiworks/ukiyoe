@@ -27,9 +27,36 @@
 
 	const changelog: ChangelogEntry[] = [
 		{
+			version: '0.1.3',
+			date: '2026-01-19',
+			badge: { text: 'Latest', variant: 'success' },
+			changes: {
+				added: [
+					{
+						text: 'Form compound component with three sub-components',
+						subitems: [
+							'Form.Root - State management with Zod and custom validation support',
+							'Form.Field - Auto-wiring for labels, IDs, aria attributes, and error display',
+							'Form.Auto - Data-driven field generation from schema definitions'
+						]
+					},
+					{ text: 'Heading anchor links: id and anchor props for clickable section links' },
+					{ text: 'Demo site heading anchors via rehype-slug and rehype-autolink-headings' }
+				],
+				changed: [
+					{ text: 'Demo site now includes Toaster component in layout for toast notifications' }
+				],
+				fixed: [
+					{ text: 'Toaster width: Fixed toast notifications collapsing to zero width' }
+				],
+				removed: [
+					{ text: 'FormField component: Replaced by Form.Field with improved API' }
+				]
+			}
+		},
+		{
 			version: '0.1.2',
 			date: '2026-01-18',
-			badge: { text: 'Latest', variant: 'success' },
 			changes: {
 				added: [
 					{
@@ -234,7 +261,7 @@
 	{#each changelog as entry, idx}
 		<section>
 			<div class="flex items-center gap-md mb-md">
-				<Heading level={2} size="lg">{entry.version}</Heading>
+				<Heading level={2} size="lg" id="v{entry.version}" anchor>{entry.version}</Heading>
 				{#if entry.badge}
 					<Badge size="xs" variant={entry.badge.variant} text={entry.badge.text} />
 				{/if}

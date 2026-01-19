@@ -78,7 +78,7 @@
 </script>
 
 <div
-	class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-bg-elevated shadow-lg border-l-4 {variantClasses[toast.variant ?? 'default']}"
+	class="pointer-events-auto w-full overflow-hidden rounded-lg bg-bg-elevated shadow-lg border-l-4 {variantClasses[toast.variant ?? 'default']}"
 	role="alert"
 >
 	<div class="flex items-start gap-3 p-4">

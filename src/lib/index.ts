@@ -98,8 +98,21 @@ export type { MandelbrotAvatarRounded, MandelbrotAvatarProps } from './core/Mand
 export { default as AssetIcon } from './core/AssetIcon.svelte';
 export { default as ActionMenu } from './core/ActionMenu.svelte';
 export type { ActionMenuProps } from './core/ActionMenu.svelte';
-export { default as FormField } from './core/FormField.svelte';
-export type { FormFieldProps } from './core/FormField.svelte';
+// Form - Compound components
+export { Form } from './core/form/index';
+export type {
+	FieldValue,
+	FieldType,
+	FieldOption,
+	FieldSchema,
+	FieldRenderProps,
+	FormValidateFn,
+	FormContext,
+	FormRootProps,
+	FormFieldProps,
+	FormAutoProps
+} from './core/form/index';
+export { getFormContext } from './core/form/index';
 export { default as RandomName, generateName } from './core/RandomName.svelte';
 export { default as StatsGrid } from './core/StatsGrid.svelte';
 export type { StatsGridVariant, StatsGridSize, StatsGridColumns, StatItem, StatsGridProps } from './core/StatsGrid.svelte';

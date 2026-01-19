@@ -5,6 +5,8 @@
 	export interface HeadingProps {
 		level?: HeadingLevel;
 		size?: HeadingSize;
+		id?: string;
+		anchor?: boolean;
 		class?: string;
 		children: import('svelte').Snippet;
 	}
@@ -13,7 +15,7 @@
 <script lang="ts">
 	import { cn } from '../utils/cn';
 
-	let { level = 2, size, class: className = '', children }: HeadingProps = $props();
+	let { level = 2, size, id, anchor = false, class: className = '', children }: HeadingProps = $props();
 
 	const defaultSizeByLevel: Record<HeadingLevel, HeadingSize> = {
 		1: '2xl',
@@ -39,16 +41,24 @@
 	);
 </script>
 
+{#snippet content()}
+	{#if id && anchor}
+		<a href="#{id}" class="heading-anchor">{@render children()}</a>
+	{:else}
+		{@render children()}
+	{/if}
+{/snippet}
+
 {#if level === 1}
-	<h1 class={computedClasses}>{@render children()}</h1>
+	<h1 {id} class={computedClasses}>{@render content()}</h1>
 {:else if level === 2}
-	<h2 class={computedClasses}>{@render children()}</h2>
+	<h2 {id} class={computedClasses}>{@render content()}</h2>
 {:else if level === 3}
-	<h3 class={computedClasses}>{@render children()}</h3>
+	<h3 {id} class={computedClasses}>{@render content()}</h3>
 {:else if level === 4}
-	<h4 class={computedClasses}>{@render children()}</h4>
+	<h4 {id} class={computedClasses}>{@render content()}</h4>
 {:else if level === 5}
-	<h5 class={computedClasses}>{@render children()}</h5>
+	<h5 {id} class={computedClasses}>{@render content()}</h5>
 {:else}
-	<h6 class={computedClasses}>{@render children()}</h6>
+	<h6 {id} class={computedClasses}>{@render content()}</h6>
 {/if}
