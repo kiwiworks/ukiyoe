@@ -44,7 +44,7 @@
 
 ```svelte preview title="Header with Icon"
 <div class="relative h-14 border border-border-subtle rounded-md overflow-hidden">
-	<Header title="Ukiyoe" subtitle="v0.1.0" size="lg" fixed={false}>
+	<Header title="Ukiyoe" subtitle="Component Library" size="lg" fixed={false}>
 		{#snippet icon()}
 			<Hexagon size={20} />
 		{/snippet}
