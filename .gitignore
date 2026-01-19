@@ -34,3 +34,9 @@ pnpm-lock.yaml
 
 # Test coverage
 coverage/
+
+# Test results
+test-results/
+
+# Playwright MCP
+.playwright-mcp/
