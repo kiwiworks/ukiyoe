@@ -27,9 +27,30 @@
 
 	const changelog: ChangelogEntry[] = [
 		{
-			version: '0.1.3',
+			version: '0.1.4',
 			date: '2026-01-19',
 			badge: { text: 'Latest', variant: 'success' },
+			changes: {
+				added: [
+					{
+						text: 'SocialButton component for branded social/external links',
+						subitems: [
+							'Official SVG icons for 8 platforms (GitHub, Twitter, Discord, LinkedIn, npm, YouTube, Mastodon, Bluesky)',
+							'Official brand colors from platform guidelines',
+							'Platform-specific props: stars/forks (GitHub), members (Discord), downloads/version (npm)',
+							'Variants: filled, outline, ghost',
+							'Custom badge snippet support'
+						]
+					}
+				],
+				changed: [
+					{ text: 'Install page redesigned with Ukiyoe components (MetricCard, Stepper, SectionCard)' }
+				]
+			}
+		},
+		{
+			version: '0.1.3',
+			date: '2026-01-19',
 			changes: {
 				added: [
 					{
