@@ -1,0 +1,101 @@
+<script lang="ts">
+	import { EndpointList, PageHeader, Text } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'groups', type: 'EndpointGroup[]', description: 'Array of endpoint groups (by tag)' },
+		{ name: 'selectedEndpoint', type: 'Endpoint | null', description: 'Currently selected endpoint' },
+		{ name: 'onSelect', type: '(endpoint: Endpoint) => void', description: 'Callback when an endpoint is selected' },
+		{ name: 'class', type: 'string', description: 'Additional CSS classes' }
+	];
+
+	// Sample endpoint groups
+	const groups = [
+		{
+			tag: 'pets',
+			description: 'Pet operations',
+			endpoints: [
+				{ id: 'get-pets', path: '/pets', method: 'get', summary: 'List all pets', operation: {} },
+				{ id: 'post-pets', path: '/pets', method: 'post', summary: 'Create a pet', operation: {} },
+				{ id: 'get-pet', path: '/pets/{petId}', method: 'get', summary: 'Get pet by ID', operation: {} },
+				{ id: 'put-pet', path: '/pets/{petId}', method: 'put', summary: 'Update a pet', operation: {} },
+				{ id: 'delete-pet', path: '/pets/{petId}', method: 'delete', summary: 'Delete a pet', operation: {} }
+			]
+		},
+		{
+			tag: 'store',
+			description: 'Store operations',
+			endpoints: [
+				{ id: 'get-inventory', path: '/store/inventory', method: 'get', summary: 'Get inventory', operation: {} },
+				{ id: 'post-order', path: '/store/order', method: 'post', summary: 'Place an order', operation: {} },
+				{ id: 'get-order', path: '/store/order/{orderId}', method: 'get', summary: 'Get order by ID', operation: {} }
+			]
+		}
+	];
+
+	const deprecatedGroups = [
+		{
+			tag: 'legacy',
+			description: 'Legacy endpoints',
+			endpoints: [
+				{ id: 'old-search', path: '/search', method: 'get', summary: 'Search', deprecated: true, operation: {} },
+				{ id: 'old-upload', path: '/upload', method: 'post', summary: 'Upload file', deprecated: true, operation: {} }
+			]
+		}
+	];
+
+	let selectedEndpoint = $state(null);
+	let selectedDeprecated = $state(null);
+
+	function handleSelect(endpoint) {
+		selectedEndpoint = endpoint;
+	}
+
+	function handleSelectDeprecated(endpoint) {
+		selectedDeprecated = endpoint;
+	}
+</script>
+
+<svelte:head>
+	<title>EndpointList - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="EndpointList" subtitle="Sidebar navigation for OpenAPI endpoints grouped by tags" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+Display endpoints grouped by tags with HTTP method badges.
+
+<ComponentPreview title="Endpoint Navigation">
+	<div class="w-64 bg-bg-secondary rounded-lg p-md">
+		<EndpointList {groups} {selectedEndpoint} onSelect={handleSelect} />
+	</div>
+	{#if selectedEndpoint}
+		<Text class="mt-md">Selected: <code>{selectedEndpoint.method.toUpperCase()} {selectedEndpoint.path}</code></Text>
+	{/if}
+</ComponentPreview>
+
+## Deprecated Endpoints
+
+Deprecated endpoints show with strikethrough styling.
+
+<ComponentPreview title="Deprecated Endpoints">
+	<div class="w-64 bg-bg-secondary rounded-lg p-md">
+		<EndpointList groups={deprecatedGroups} selectedEndpoint={selectedDeprecated} onSelect={handleSelectDeprecated} />
+	</div>
+</ComponentPreview>
+
+## HTTP Method Colors
+
+Each HTTP method has a distinct color for quick identification:
+- **GET** - Green
+- **POST** - Blue
+- **PUT/PATCH** - Amber
+- **DELETE** - Red
+
+<PropsTable props={propDefs} />
+
+</div>

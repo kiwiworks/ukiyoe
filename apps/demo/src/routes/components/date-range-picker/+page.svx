@@ -1,6 +1,6 @@
 <script lang="ts">
   import { DateRangePicker, PageHeader, Text, type DateRange, type DateModifier } from 'ukiyoe';
-  import { CalendarDate, today, getLocalTimeZone } from '@internationalized/date';
+  import { CalendarDate, getLocalTimeZone } from '@internationalized/date';
   import ComponentPreview from '$lib/ComponentPreview.svelte';
   import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

@@ -69,7 +69,7 @@ The `loading` prop displays an animated spinner and disables the button. Useful 
 ## As Link
 
 ```svelte preview title="Button as Link"
-<Button href="/" size="sm">Navigate Home</Button>
+<Button href="#" size="sm">Navigate Home</Button>
 <Button href="https://github.com" size="sm" variant="ghost">External Link</Button>
 ```
 

@@ -35,25 +35,25 @@
 ## Basic Usage
 
 ```svelte preview title="Default 500 Error"
-<ErrorPage class="min-h-[400px]" />
+<ErrorPage homeHref="#" class="min-h-[400px]" />
 ```
 
 ## Common HTTP Errors
 
 ```svelte preview title="400 Bad Request"
-<ErrorPage status={400} class="min-h-[400px]" />
+<ErrorPage status={400} homeHref="#" class="min-h-[400px]" />
 ```
 
 ```svelte preview title="401 Unauthorized"
-<ErrorPage status={401} class="min-h-[400px]" />
+<ErrorPage status={401} homeHref="#" class="min-h-[400px]" />
 ```
 
 ```svelte preview title="403 Forbidden"
-<ErrorPage status={403} class="min-h-[400px]" />
+<ErrorPage status={403} homeHref="#" class="min-h-[400px]" />
 ```
 
 ```svelte preview title="503 Service Unavailable"
-<ErrorPage status={503} class="min-h-[400px]" />
+<ErrorPage status={503} homeHref="#" class="min-h-[400px]" />
 ```
 
 ## Custom Messages
@@ -63,6 +63,7 @@
 	status={500}
 	title="Database Connection Failed"
 	message="Unable to connect to the database. Our team has been notified and is working on it."
+	homeHref="#"
 	class="min-h-[400px]"
 />
 ```
@@ -75,6 +76,7 @@
 	showRetry
 	onRetry={() => retryCount++}
 	message={retryCount > 0 ? `Retried ${retryCount} time(s)` : 'Something went wrong on our end.'}
+	homeHref="#"
 	class="min-h-[400px]"
 />
 ```
@@ -90,6 +92,7 @@
     at getUser (/app/src/lib/user.ts:42:15)
     at async load (/app/src/routes/+page.server.ts:8:12)
     at async Module.load_server_data (/.svelte-kit/runtime/server.js:234:18)`}
+	homeHref="#"
 	class="min-h-[400px]"
 />
 ```

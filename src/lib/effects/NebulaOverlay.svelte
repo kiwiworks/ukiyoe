@@ -1,6 +1,13 @@
 <script lang="ts">
 	import { themeStore } from '../stores/theme.svelte';
 
+	interface Props {
+		/** Force enable the effect regardless of theme store setting */
+		enabled?: boolean;
+	}
+
+	let { enabled: enabledProp }: Props = $props();
+
 	// Track if component is mounted on client
 	let mounted = $state(false);
 
@@ -11,11 +18,12 @@
 		};
 	});
 
-	const enabled = $derived(themeStore.nebula);
+	// Use prop if provided, otherwise fall back to store
+	const isEnabled = $derived(enabledProp !== undefined ? enabledProp : themeStore.nebula);
 	const isDark = $derived(themeStore.mode === 'dark');
 
 	// Only show when mounted on client and enabled
-	const shouldRender = $derived(mounted && enabled);
+	const shouldRender = $derived(mounted && isEnabled);
 
 	const blendLayerStyle = $derived(
 		isDark

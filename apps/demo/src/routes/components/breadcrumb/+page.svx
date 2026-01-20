@@ -21,9 +21,10 @@
 
 ```svelte preview title="Basic Breadcrumb"
 <Breadcrumb
+	showHome={false}
 	items={[
-		{ label: 'Home', href: '/' },
-		{ label: 'Components', href: '/components' },
+		{ label: 'Home', href: '#' },
+		{ label: 'Components', href: '#' },
 		{ label: 'Breadcrumb' }
 	]}
 />
@@ -33,8 +34,9 @@
 
 ```svelte preview title="Two Levels"
 <Breadcrumb
+	showHome={false}
 	items={[
-		{ label: 'Dashboard', href: '/' },
+		{ label: 'Dashboard', href: '#' },
 		{ label: 'Settings' }
 	]}
 />
@@ -44,11 +46,12 @@
 
 ```svelte preview title="Deep Nesting"
 <Breadcrumb
+	showHome={false}
 	items={[
-		{ label: 'Home', href: '/' },
-		{ label: 'Products', href: '/products' },
-		{ label: 'Electronics', href: '/products/electronics' },
-		{ label: 'Phones', href: '/products/electronics/phones' },
+		{ label: 'Home', href: '#' },
+		{ label: 'Products', href: '#' },
+		{ label: 'Electronics', href: '#' },
+		{ label: 'Phones', href: '#' },
 		{ label: 'iPhone 15' }
 	]}
 />

@@ -28,7 +28,7 @@
 ## Basic Usage
 
 ```svelte preview title="Default 404 Page"
-<NotFound class="min-h-[400px]" />
+<NotFound homeHref="#" class="min-h-[400px]" />
 ```
 
 ## Custom Content
@@ -37,6 +37,7 @@
 <NotFound
 	title="Oops! Page missing"
 	description="We couldn't find what you're looking for. It may have been moved or deleted."
+	homeHref="#"
 	class="min-h-[400px]"
 />
 ```
@@ -46,7 +47,7 @@
 ```svelte preview title="Custom Navigation"
 <NotFound
 	homeText="Back to Dashboard"
-	homeHref="/dashboard"
+	homeHref="#"
 	backText="Previous Page"
 	class="min-h-[400px]"
 />
@@ -57,6 +58,7 @@
 ```svelte preview title="Home Only"
 <NotFound
 	showBack={false}
+	homeHref="#"
 	class="min-h-[400px]"
 />
 ```

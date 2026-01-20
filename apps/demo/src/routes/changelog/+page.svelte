@@ -27,9 +27,38 @@
 
 	const changelog: ChangelogEntry[] = [
 		{
+			version: '0.2.1',
+			date: '2026-01-20',
+			badge: { text: 'Latest', variant: 'success' },
+			description: 'OpenAPI documentation module with interactive API testing and comprehensive schema visualization.',
+			changes: {
+				added: [
+					{
+						text: 'OpenAPI module with comprehensive API documentation components',
+						subitems: [
+							'OpenApiViewer - Full-featured OpenAPI spec viewer with endpoint navigation',
+							'EndpointList - Grouped endpoint navigation sidebar',
+							'EndpointDetail - Detailed endpoint documentation view',
+							'EndpointTester - Interactive API request testing with parameter forms',
+							'ParametersTable - Parameter documentation table',
+							'SchemaView - Expandable JSON schema visualization',
+							'SchemaForm - Dynamic form generation from JSON schemas',
+							'ResponseViewer - API response display with syntax highlighting'
+						]
+					},
+					{ text: 'CodeEditor component - Monaco-style code editor with syntax highlighting' },
+					{ text: 'NebulaOverlay enabled prop for manual control over theme store setting' }
+				],
+				fixed: [
+					{ text: 'SchemaView reactivity warning with depth prop capture' },
+					{ text: 'DateRangePicker unused today import' },
+					{ text: 'Demo a11y warnings in breadcrumb, tooltip, button, error-page, not-found, and backtest-chart pages' }
+				]
+			}
+		},
+		{
 			version: '0.2.0',
 			date: '2026-01-19',
-			badge: { text: 'Latest', variant: 'success' },
 			description: 'Brand identity component with customizable animations and support for custom SVG designs.',
 			changes: {
 				added: [

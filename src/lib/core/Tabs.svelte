@@ -58,9 +58,9 @@
 
 <Tabs.Root {value} onValueChange={handleChange} class={cn(className)}>
 	<Tabs.List
-		class="inline-flex items-center gap-1 rounded-lg bg-bg-tertiary p-1"
+		class="inline-flex items-center gap-1 rounded-lg bg-bg-tertiary p-1 shrink-0"
 	>
-		{#each items as tab}
+		{#each items as tab (tab.value)}
 			<Tabs.Trigger
 				value={tab.value}
 				disabled={tab.disabled}
@@ -72,9 +72,11 @@
 	</Tabs.List>
 
 	{#if children}
-		{#each items as tab}
-			<Tabs.Content value={tab.value} class="mt-4">
-				{@render children(tab.value)}
+		{#each items as tab (tab.value)}
+			<Tabs.Content value={tab.value} class="mt-4 flex-1 min-h-0 flex flex-col">
+				<div class="flex-1 min-h-0 flex flex-col">
+					{@render children(tab.value)}
+				</div>
 			</Tabs.Content>
 		{/each}
 	{/if}

@@ -46,12 +46,7 @@
 <script lang="ts">
 	import { RangeCalendar, Popover } from 'bits-ui';
 	import { Calendar, ChevronLeft, ChevronRight } from '@lucide/svelte';
-	import {
-		CalendarDate,
-		DateFormatter,
-		getLocalTimeZone,
-		today
-	} from '@internationalized/date';
+	import { CalendarDate, DateFormatter, getLocalTimeZone } from '@internationalized/date';
 	import { cn } from '../utils/cn';
 
 	let {

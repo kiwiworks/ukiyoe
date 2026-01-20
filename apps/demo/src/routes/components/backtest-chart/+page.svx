@@ -252,7 +252,7 @@
 	<div class="p-xl border-b border-border-subtle">
 		<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-xl">
 			<div class="flex items-center gap-lg">
-				<label class="text-sm text-text-muted font-medium">Strategy:</label>
+				<span class="text-sm text-text-muted font-medium">Strategy:</span>
 				<div class="w-48">
 					<Select
 						bind:value={selectedStrategy}

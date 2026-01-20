@@ -33,6 +33,26 @@ export {
 } from './stores/privacy.svelte';
 export type { PrivacyContext } from './stores/privacy.svelte';
 
+// Formatting store
+export {
+	getFormattingContext,
+	setFormattingContext
+} from './stores/formatting.svelte';
+export type { FormattingContext, FormattingContextOptions } from './stores/formatting.svelte';
+
+// Asset store
+export {
+	getAssetContext,
+	setAssetContext,
+	getDefaultDecimals
+} from './stores/assets.svelte';
+export type {
+	AssetType,
+	AssetFormat,
+	AssetContext,
+	AssetContextOptions
+} from './stores/assets.svelte';
+
 // Theme provider
 export { default as ThemeProvider } from './ThemeProvider.svelte';
 
@@ -188,6 +208,7 @@ export { default as Text } from './core/Text.svelte';
 export { default as Heading } from './core/Heading.svelte';
 export { default as CodeBlock } from './core/CodeBlock.svelte';
 export { default as HighlightedCodeBlock } from './core/HighlightedCodeBlock.svelte';
+export { default as CodeEditor } from './core/CodeEditor.svelte';
 export { default as Link } from './core/Link.svelte';
 export { default as Divider } from './core/Divider.svelte';
 export { default as MenuItem } from './core/MenuItem.svelte';
@@ -214,6 +235,7 @@ export type {
 } from './core/SmartSelect.svelte';
 export type { CodeBlockProps } from './core/CodeBlock.svelte';
 export type { HighlightedCodeBlockProps } from './core/HighlightedCodeBlock.svelte';
+export type { CodeEditorProps } from './core/CodeEditor.svelte';
 export type { NumericFormat, NumericVariant, NumericSize, NumericProps } from './core/Numeric.svelte';
 export type { IpSize, IpProps } from './core/Ip.svelte';
 export type { PrivacyToggleSize, PrivacyToggleProps } from './core/PrivacyToggle.svelte';
@@ -283,3 +305,26 @@ export type {
 	MessageListProps,
 	MarkdownProps
 } from './agentic/index';
+
+// OpenAPI Viewer components
+export {
+	OpenApiViewer,
+	EndpointList,
+	EndpointDetail,
+	ParametersTable,
+	SchemaView,
+	extractEndpoints,
+	groupEndpointsByTag,
+	getMethodColor,
+	getMethodBgColor,
+	getApiInfo
+} from './openapi/index';
+export type {
+	OpenAPI,
+	OpenAPIV3,
+	OpenAPIV3_1,
+	HttpMethod,
+	Endpoint,
+	EndpointGroup,
+	OpenApiViewerProps
+} from './openapi/index';

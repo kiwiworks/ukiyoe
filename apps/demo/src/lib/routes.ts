@@ -13,7 +13,8 @@ import {
 	Wrench,
 	Bot,
 	BarChart3,
-	Sparkles
+	Sparkles,
+	FileCode
 } from '@lucide/svelte';
 import type { Component } from 'svelte';
 import type { CommandItem } from 'ukiyoe';
@@ -189,6 +190,17 @@ export const sections: NavSection[] = [
 			{ label: 'ParticleFlowBackground', href: '/components/particle-flow-background' },
 			{ label: 'SupernovaBackground', href: '/components/supernova-background' },
 			{ label: 'NebulaOverlay', href: '/components/nebula-overlay' }
+		]
+	},
+	{
+		title: 'OpenAPI',
+		icon: FileCode,
+		items: [
+			{ label: 'OpenApiViewer', href: '/tools/openapi' },
+			{ label: 'EndpointList', href: '/components/endpoint-list' },
+			{ label: 'EndpointDetail', href: '/components/endpoint-detail' },
+			{ label: 'ParametersTable', href: '/components/parameters-table' },
+			{ label: 'SchemaView', href: '/components/schema-view' }
 		]
 	}
 ];

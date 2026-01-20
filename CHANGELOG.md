@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2026-01-20
+
+### Added
+- **OpenAPI module** with comprehensive API documentation components:
+  - `OpenApiViewer` - Full-featured OpenAPI spec viewer with endpoint navigation
+  - `EndpointList` - Grouped endpoint navigation sidebar
+  - `EndpointDetail` - Detailed endpoint documentation view
+  - `EndpointTester` - Interactive API request testing with parameter forms
+  - `ParametersTable` - Parameter documentation table
+  - `SchemaView` - Expandable JSON schema visualization
+  - `SchemaForm` - Dynamic form generation from JSON schemas
+  - `ResponseViewer` - API response display with syntax highlighting
+- **CodeEditor component** - Monaco-style code editor with syntax highlighting
+- **NebulaOverlay `enabled` prop** - Manual control to override theme store setting
+
+### Fixed
+- SchemaView reactivity warning with `depth` prop capture
+- DateRangePicker unused `today` import
+- Demo a11y warnings in breadcrumb, tooltip, button, error-page, not-found, and backtest-chart pages
+
 ## [0.2.0] - 2026-01-19
 
 ### Added
@@ -204,6 +224,7 @@ First stable release! Ukiyoe is now production-ready with 70+ components.
 - Dark-first design with light mode support
 - Privacy masking context
 
+[0.2.1]: https://github.com/kiwiworks/ukiyoe/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.4...v0.2.0
 [0.1.4]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.2...v0.1.3

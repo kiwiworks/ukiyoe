@@ -3,7 +3,9 @@
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
-	const propDefs: PropDef[] = [];
+	const propDefs: PropDef[] = [
+		{ name: 'enabled', type: 'boolean', default: 'undefined', description: 'Force enable/disable the effect regardless of theme store setting. If undefined, uses themeStore.nebula.' }
+	];
 </script>
 
 <svelte:head>
@@ -18,7 +20,7 @@
 
 ```svelte preview title="Nebula Overlay"
 <div class="relative w-full h-48 rounded-md overflow-hidden border border-border-subtle bg-bg-primary">
-	<NebulaOverlay />
+	<NebulaOverlay enabled={true} />
 	<div class="absolute inset-0 flex items-center justify-center">
 		<Text variant="secondary">Content overlay</Text>
 	</div>
@@ -32,8 +34,17 @@
   import { NebulaOverlay } from 'ukiyoe';
 </script>
 
+<!-- Uses theme store setting by default -->
 <div class="relative">
   <NebulaOverlay />
+  <div class="relative z-10">
+    Your content here
+  </div>
+</div>
+
+<!-- Force enable regardless of theme store -->
+<div class="relative">
+  <NebulaOverlay enabled={true} />
   <div class="relative z-10">
     Your content here
   </div>
@@ -47,7 +58,7 @@ Creates a cosmic nebula-like overlay effect. Works well layered over dark backgr
 The overlay is controlled by the theme store's `nebula` setting and automatically adapts to light/dark mode.
 </Text>
 
-<PropsTable props={propDefs} title="Props (No configurable props - uses theme store)" />
+<PropsTable props={propDefs} />
 
 </div>
 
