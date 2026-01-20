@@ -1,9 +1,6 @@
 // Utilities
 export { cn } from './utils/cn';
 
-// Theme utilities
-export { theme, themeToCSS } from './theme';
-export type { Theme } from './theme';
 
 // Theme store
 export {
@@ -125,6 +122,14 @@ export type { MandelbrotAvatarRounded, MandelbrotAvatarProps } from './core/Mand
 export { default as AssetIcon } from './core/AssetIcon.svelte';
 export { default as ActionMenu } from './core/ActionMenu.svelte';
 export type { ActionMenuProps } from './core/ActionMenu.svelte';
+// ContextMenu - Compound components
+export { ContextMenu } from './core/context-menu/index';
+export type {
+	ContextMenuRootProps,
+	ContextMenuItemVariant,
+	ContextMenuItemProps,
+	ContextMenuDividerProps
+} from './core/context-menu/index';
 export { default as BrandIcon } from './core/BrandIcon.svelte';
 export type { BrandIconSize, BrandIconAnimation, BrandIconProps } from './core/BrandIcon.svelte';
 export { default as Meta } from './core/Meta.svelte';

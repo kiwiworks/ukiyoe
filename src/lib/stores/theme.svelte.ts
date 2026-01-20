@@ -10,11 +10,11 @@ export interface AccentColor {
 
 export const accentPalette: AccentColor[] = [
 	{
-		id: 'orange',
-		name: 'Rahapuu Orange',
-		hex: '#ff6b00',
-		hoverHex: '#ff8533',
-		mutedHex: '#cc5500'
+		id: 'cyan',
+		name: 'Cyan',
+		hex: '#06b6d4',
+		hoverHex: '#22d3ee',
+		mutedHex: '#0891b2'
 	},
 	{
 		id: 'coral',
@@ -50,13 +50,6 @@ export const accentPalette: AccentColor[] = [
 		hex: '#14b8a6',
 		hoverHex: '#2dd4bf',
 		mutedHex: '#0d9488'
-	},
-	{
-		id: 'cyan',
-		name: 'Cyan',
-		hex: '#06b6d4',
-		hoverHex: '#22d3ee',
-		mutedHex: '#0891b2'
 	},
 	{
 		id: 'sky',
@@ -207,7 +200,7 @@ const darkColors: ThemeColors = {
 	},
 	chart: {
 		line1: '#00ff88',
-		line2: '#ff6b00',
+		line2: '#06b6d4', // Note: Actually uses accent color via generateCssVars
 		line3: '#9966ff',
 		line4: '#00aaff',
 		area: 'rgba(0, 255, 136, 0.1)',
@@ -258,7 +251,7 @@ const lightColors: ThemeColors = {
 	},
 	chart: {
 		line1: '#00aa55',
-		line2: '#dd6600',
+		line2: '#0891b2', // Note: Actually uses accent color via generateCssVars
 		line3: '#7744dd',
 		line4: '#0088dd',
 		area: 'rgba(0, 170, 85, 0.1)',

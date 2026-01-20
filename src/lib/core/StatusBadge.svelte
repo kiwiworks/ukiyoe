@@ -18,7 +18,7 @@
 	let { label, variant, icon, pulse = false, size = 'md', class: className = '' }: StatusBadgeProps = $props();
 
 	const variantClasses: Record<StatusBadgeVariant, string> = {
-		default: 'text-text-muted bg-text-muted/10',
+		default: 'text-text-muted bg-neutral/10',
 		info: 'text-info bg-info/10',
 		success: 'text-positive bg-positive/10',
 		warning: 'text-warning bg-warning/10',
@@ -33,7 +33,7 @@
 	};
 
 	const pulseColors: Record<StatusBadgeVariant, string> = {
-		default: 'bg-text-muted',
+		default: 'bg-neutral',
 		info: 'bg-info',
 		success: 'bg-positive',
 		warning: 'bg-warning',

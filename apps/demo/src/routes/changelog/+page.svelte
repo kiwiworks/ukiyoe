@@ -27,9 +27,38 @@
 
 	const changelog: ChangelogEntry[] = [
 		{
-			version: '0.2.1',
+			version: '0.2.2',
 			date: '2026-01-20',
 			badge: { text: 'Latest', variant: 'success' },
+			description: 'ContextMenu component and theme system cleanup with Cyan as default accent.',
+			changes: {
+				added: [
+					{
+						text: 'ContextMenu component - Right-click contextual menu using bits-ui',
+						subitems: [
+							'ContextMenu.Root - Wrapper with trigger area and menu content',
+							'ContextMenu.Item - Menu item with variants (default/danger) and icon support',
+							'ContextMenu.Divider - Separator between item groups',
+							'Keyboard navigation, click-outside dismissal, portal rendering'
+						]
+					}
+				],
+				changed: [
+					{ text: 'Default accent color changed from Orange to Cyan (#06b6d4)' }
+				],
+				removed: [
+					{ text: 'Dead theme.ts file (exported but never used)' },
+					{ text: '"Rahapuu Orange" from accent color palette' }
+				],
+				fixed: [
+					{ text: 'Invalid CSS variables: bg-bg-danger, text-text-brand, text-text-danger → semantic equivalents' },
+					{ text: 'Semantic CSS variable misuse: text-border-strong, bg-text-muted → proper categories' }
+				]
+			}
+		},
+		{
+			version: '0.2.1',
+			date: '2026-01-20',
 			description: 'OpenAPI documentation module with interactive API testing and comprehensive schema visualization.',
 			changes: {
 				added: [

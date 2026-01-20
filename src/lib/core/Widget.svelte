@@ -36,7 +36,7 @@
 			<div class="flex items-center gap-sm">
 				<span class="text-text-muted text-[10px] uppercase tracking-wide">{title}</span>
 				{#if subtitle}
-					<span class="text-border-strong text-[9px]">{subtitle}</span>
+					<span class="text-text-muted text-[9px]">{subtitle}</span>
 				{/if}
 			</div>
 			{#if headerActions}

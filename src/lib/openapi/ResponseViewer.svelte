@@ -95,7 +95,7 @@
 			</div>
 
 			{#if response.error}
-				<div class="p-md bg-bg-danger/10 border border-border-danger rounded-md">
+				<div class="p-md bg-negative/10 border border-negative rounded-md">
 					<Text variant="negative" size="sm">{response.error}</Text>
 				</div>
 			{/if}
@@ -120,7 +120,7 @@
 							<div class="bg-bg-tertiary rounded-md p-md font-mono text-sm space-y-xs max-h-60 overflow-auto">
 								{#each headerEntries as [key, value] (key)}
 									<div class="flex gap-sm">
-										<span class="text-text-brand font-medium">{key}:</span>
+										<span class="text-accent-brand font-medium">{key}:</span>
 										<span class="text-text-secondary break-all">{value}</span>
 									</div>
 								{/each}

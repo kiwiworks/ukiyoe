@@ -88,7 +88,7 @@
 		<span class="flex gap-0.5">
 			{#each [0, 1, 2] as i}
 				<span
-					class="w-1 h-1 rounded-full bg-text-muted animate-bounce"
+					class="w-1 h-1 rounded-full bg-neutral animate-bounce"
 					style="animation-delay: {i * 150}ms; animation-duration: 0.8s;"
 				></span>
 			{/each}

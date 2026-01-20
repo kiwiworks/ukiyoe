@@ -1,0 +1,128 @@
+<script lang="ts">
+	import { ContextMenu, PageHeader, Widget } from 'ukiyoe';
+	import { Copy, Trash2, Edit, Eye, Download, Share } from '@lucide/svelte';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const rootPropDefs: PropDef[] = [
+		{ name: 'children', type: 'Snippet', description: 'Trigger area content (right-clickable area)' },
+		{ name: 'items', type: 'Snippet', description: 'Menu items to display' },
+		{ name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the context menu' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes for menu content' }
+	];
+
+	const itemPropDefs: PropDef[] = [
+		{ name: 'children', type: 'Snippet', description: 'Item content' },
+		{ name: 'icon', type: 'Snippet', description: 'Icon to display before content' },
+		{ name: 'variant', type: "'default' | 'danger'", default: "'default'", description: 'Visual variant' },
+		{ name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the item' },
+		{ name: 'onclick', type: '() => void', description: 'Click handler' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
+</script>
+
+<svelte:head>
+	<title>ContextMenu - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="ContextMenu" subtitle="Right-click contextual menu for actions" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+Right-click on the area below to trigger the context menu.
+
+```svelte preview title="Basic Context Menu"
+<ContextMenu>
+	{#snippet children()}
+		<Widget class="p-8 text-center cursor-context-menu">
+			<p class="text-text-secondary text-sm">Right-click here</p>
+		</Widget>
+	{/snippet}
+	{#snippet items()}
+		<ContextMenu.Item onclick={() => console.log('View')}>
+			{#snippet icon()}<Eye size={14} />{/snippet}
+			View
+		</ContextMenu.Item>
+		<ContextMenu.Item onclick={() => console.log('Edit')}>
+			{#snippet icon()}<Edit size={14} />{/snippet}
+			Edit
+		</ContextMenu.Item>
+		<ContextMenu.Item onclick={() => console.log('Copy')}>
+			{#snippet icon()}<Copy size={14} />{/snippet}
+			Copy
+		</ContextMenu.Item>
+	{/snippet}
+</ContextMenu>
+```
+
+## With Divider
+
+Use `ContextMenu.Divider` to separate groups of actions.
+
+```svelte preview title="With Divider"
+<ContextMenu>
+	{#snippet children()}
+		<Widget class="p-8 text-center cursor-context-menu">
+			<p class="text-text-secondary text-sm">Right-click for file actions</p>
+		</Widget>
+	{/snippet}
+	{#snippet items()}
+		<ContextMenu.Item onclick={() => console.log('Download')}>
+			{#snippet icon()}<Download size={14} />{/snippet}
+			Download
+		</ContextMenu.Item>
+		<ContextMenu.Item onclick={() => console.log('Share')}>
+			{#snippet icon()}<Share size={14} />{/snippet}
+			Share
+		</ContextMenu.Item>
+		<ContextMenu.Divider />
+		<ContextMenu.Item variant="danger" onclick={() => console.log('Delete')}>
+			{#snippet icon()}<Trash2 size={14} />{/snippet}
+			Delete
+		</ContextMenu.Item>
+	{/snippet}
+</ContextMenu>
+```
+
+## Disabled Items
+
+Individual items can be disabled while the menu remains active.
+
+```svelte preview title="Disabled Items"
+<ContextMenu>
+	{#snippet children()}
+		<Widget class="p-8 text-center cursor-context-menu">
+			<p class="text-text-secondary text-sm">Right-click to see disabled items</p>
+		</Widget>
+	{/snippet}
+	{#snippet items()}
+		<ContextMenu.Item onclick={() => console.log('Copy')}>
+			{#snippet icon()}<Copy size={14} />{/snippet}
+			Copy
+		</ContextMenu.Item>
+		<ContextMenu.Item disabled>
+			{#snippet icon()}<Edit size={14} />{/snippet}
+			Edit (disabled)
+		</ContextMenu.Item>
+		<ContextMenu.Divider />
+		<ContextMenu.Item variant="danger" disabled>
+			{#snippet icon()}<Trash2 size={14} />{/snippet}
+			Delete (disabled)
+		</ContextMenu.Item>
+	{/snippet}
+</ContextMenu>
+```
+
+## Props
+
+### ContextMenu.Root
+
+<PropsTable props={rootPropDefs} />
+
+### ContextMenu.Item
+
+<PropsTable props={itemPropDefs} />
+
+</div>

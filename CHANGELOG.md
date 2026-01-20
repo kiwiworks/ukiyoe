@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2] - 2026-01-20
+
+### Added
+- **ContextMenu component** - Right-click contextual menu using bits-ui:
+  - `ContextMenu.Root` - Wrapper with trigger area and menu content
+  - `ContextMenu.Item` - Menu item with variants (default/danger) and icon support
+  - `ContextMenu.Divider` - Separator between item groups
+  - Keyboard navigation, click-outside dismissal, portal rendering
+
+### Changed
+- **Default accent color** changed from Orange to Cyan (`#06b6d4`)
+
+### Removed
+- Dead `theme.ts` file (exported but never used)
+- "Rahapuu Orange" from accent color palette
+
+### Fixed
+- Invalid CSS variables across components:
+  - `bg-bg-danger`, `border-border-danger` → `bg-negative`, `border-negative`
+  - `text-text-brand` → `text-accent-brand`
+  - `text-text-danger` → `text-negative`
+- Semantic CSS variable misuse:
+  - `text-border-strong` → `text-text-muted` (Widget)
+  - `bg-text-muted` → `bg-neutral` or `bg-border-strong` (Badge, StatusBadge, Switch, ThinkingIndicator)
+
 ## [0.2.1] - 2026-01-20
 
 ### Added
@@ -224,6 +249,7 @@ First stable release! Ukiyoe is now production-ready with 70+ components.
 - Dark-first design with light mode support
 - Privacy masking context
 
+[0.2.2]: https://github.com/kiwiworks/ukiyoe/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/kiwiworks/ukiyoe/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.4...v0.2.0
 [0.1.4]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.3...v0.1.4

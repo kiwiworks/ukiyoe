@@ -215,7 +215,7 @@
 						variant="ghost"
 						size="xs"
 						onclick={() => removeArrayItem(index)}
-						class="text-text-danger hover:bg-bg-danger/10"
+						class="text-negative hover:bg-negative/10"
 					>
 						Remove
 					</Button>

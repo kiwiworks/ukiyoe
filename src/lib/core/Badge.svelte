@@ -30,13 +30,13 @@
 	};
 
 	const dotVariantClasses = {
-		default: 'bg-text-muted',
+		default: 'bg-neutral',
 		primary: 'bg-accent-brand',
 		success: 'bg-positive',
 		danger: 'bg-negative',
 		warning: 'bg-warning',
 		info: 'bg-info',
-		muted: 'bg-text-muted',
+		muted: 'bg-neutral',
 		brand: 'bg-accent-brand'
 	};
 
