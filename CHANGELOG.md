@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.3] - 2026-02-09
+
+### Added
+- **DescriptionList compound component** - Semantic `<dl>/<dt>/<dd>` for label-value pairs:
+  - `DescriptionList.Root` - CSS grid layout with 1/2/3 column support and gap variants (sm/md/lg)
+  - `DescriptionList.Item` - Label + value pair with optional monospace font
+  - Accepts rich content as children (Badge, StatusBadge, Link, etc.)
+- **AlertDialog component** - Confirmation and action dialogs built on bits-ui AlertDialog:
+  - Variants: default, info, warning, danger with matching icons and button colors
+  - Simple mode with title/description/onconfirm props
+  - Custom `content` snippet to override description with rich content
+  - Custom `actions` snippet for non-standard button layouts (receives close function)
+  - Async confirm support with `loading` prop and spinner
+
+### Changed
+- **Tabs extended** with backward-compatible additions:
+  - `variant` prop: `'pill'` (default, existing behavior) or `'underline'` (new)
+  - `icon` and `count` on TabItem for icons before labels and count badges
+  - `trigger` snippet for full custom tab rendering control
+
 ## [0.2.2] - 2026-01-20
 
 ### Added
@@ -249,6 +269,7 @@ First stable release! Ukiyoe is now production-ready with 70+ components.
 - Dark-first design with light mode support
 - Privacy masking context
 
+[0.2.3]: https://github.com/kiwiworks/ukiyoe/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/kiwiworks/ukiyoe/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/kiwiworks/ukiyoe/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.1.4...v0.2.0

@@ -1,0 +1,21 @@
+import type { InputSize, InputAlign, InputType } from '../Input.svelte';
+type $$ComponentProps = {
+    value?: string;
+    type?: InputType;
+    placeholder?: string;
+    size?: InputSize;
+    align?: InputAlign;
+    disabled?: boolean;
+    loading?: boolean;
+    readonly?: boolean;
+    required?: boolean;
+    error?: boolean;
+    prefix?: string;
+    suffix?: string;
+    ariaLabel?: string;
+    oninput?: (e: Event) => void;
+    onchange?: (e: Event) => void;
+};
+declare const InputTest: import("svelte").Component<$$ComponentProps, {}, "value">;
+type InputTest = ReturnType<typeof InputTest>;
+export default InputTest;

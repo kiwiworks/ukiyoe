@@ -150,6 +150,15 @@ export type {
 } from './core/form/index';
 export { getFormContext } from './core/form/index';
 export { default as RandomName, generateName } from './core/RandomName.svelte';
+// DescriptionList - Compound components
+export { DescriptionList } from './core/description-list/index';
+export type {
+	DescriptionListColumns,
+	DescriptionListGap,
+	DescriptionListRootProps,
+	DescriptionListItemProps
+} from './core/description-list/index';
+
 export { default as StatsGrid } from './core/StatsGrid.svelte';
 export type { StatsGridVariant, StatsGridSize, StatsGridColumns, StatItem, StatsGridProps } from './core/StatsGrid.svelte';
 export { default as ListItem } from './core/ListItem.svelte';
@@ -186,11 +195,13 @@ export type { DateValue } from '@internationalized/date';
 export { default as Tabs } from './core/Tabs.svelte';
 export { default as Accordion } from './core/Accordion.svelte';
 export { default as Stepper } from './core/Stepper.svelte';
-export type { TabItem, TabsSize, TabsProps } from './core/Tabs.svelte';
+export type { TabItem, TabsSize, TabsVariant, TabsProps } from './core/Tabs.svelte';
 export type { AccordionItem, AccordionProps } from './core/Accordion.svelte';
 export type { Step, StepState, StepperSize, StepperOrientation, StepperProps } from './core/Stepper.svelte';
 
 // Overlays
+export { default as AlertDialog } from './core/AlertDialog.svelte';
+export type { AlertDialogVariant, AlertDialogProps } from './core/AlertDialog.svelte';
 export { default as Tooltip } from './core/Tooltip.svelte';
 export { default as Popover } from './core/Popover.svelte';
 export type { TooltipSide, TooltipProps } from './core/Tooltip.svelte';

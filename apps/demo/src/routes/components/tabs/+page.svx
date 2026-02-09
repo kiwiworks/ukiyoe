@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Tabs, Text, PageHeader } from 'ukiyoe';
+	import { Tabs, Text, Badge, PageHeader } from 'ukiyoe';
+	import { Settings, User, CreditCard, Bell, Sparkles, Bot, ListTodo } from '@lucide/svelte';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
@@ -7,9 +8,19 @@
 		{ name: 'value', type: 'string', default: "''", description: 'Currently selected tab value (bindable)' },
 		{ name: 'tabs', type: 'TabItem[] | string[]', default: '-', description: 'Array of tab items or simple string labels' },
 		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size variant of the tabs' },
+		{ name: 'variant', type: "'pill' | 'underline'", default: "'pill'", description: 'Visual style variant' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
 		{ name: 'onchange', type: '(value: string) => void', default: '-', description: 'Callback when tab selection changes' },
-		{ name: 'children', type: 'Snippet<[string]>', default: '-', description: 'Content snippet receiving the current tab value' }
+		{ name: 'children', type: 'Snippet<[string]>', default: '-', description: 'Content snippet receiving the current tab value' },
+		{ name: 'trigger', type: 'Snippet<[{ tab: TabItem; active: boolean }]>', default: '-', description: 'Custom trigger snippet for full control over tab rendering' }
+	];
+
+	const tabItemDefs: PropDef[] = [
+		{ name: 'value', type: 'string', description: 'Unique tab identifier' },
+		{ name: 'label', type: 'string', description: 'Display text' },
+		{ name: 'disabled', type: 'boolean', default: 'false', description: 'Disable this tab' },
+		{ name: 'icon', type: 'Component', default: '-', description: 'Icon component rendered before label' },
+		{ name: 'count', type: 'number', default: '-', description: 'Count displayed after label as (N)' }
 	];
 </script>
 
@@ -23,7 +34,7 @@
 
 ## Basic Usage
 
-```svelte preview title="Tabs"
+```svelte preview title="Pill Tabs (default)"
 <Tabs tabs={['Overview', 'Settings', 'Billing']}>
 	{#snippet children(value)}
 		{#if value === 'Overview'}
@@ -37,13 +48,65 @@
 </Tabs>
 ```
 
+## Underline Variant
+
+```svelte preview title="Underline Tabs"
+<Tabs variant="underline" tabs={['Overview', 'Settings', 'Billing']}>
+	{#snippet children(value)}
+		{#if value === 'Overview'}
+			<Text>Overview content goes here.</Text>
+		{:else if value === 'Settings'}
+			<Text>Settings content goes here.</Text>
+		{:else}
+			<Text>Billing content goes here.</Text>
+		{/if}
+	{/snippet}
+</Tabs>
+```
+
+## With Icons
+
+```svelte preview title="Icons"
+<Tabs
+	variant="underline"
+	tabs={[
+		{ value: 'profile', label: 'Profile', icon: User },
+		{ value: 'settings', label: 'Settings', icon: Settings },
+		{ value: 'billing', label: 'Billing', icon: CreditCard },
+		{ value: 'notifications', label: 'Notifications', icon: Bell }
+	]}
+/>
+```
+
+## With Counts
+
+```svelte preview title="Counts"
+<Tabs
+	variant="underline"
+	tabs={[
+		{ value: 'agents', label: 'Agents', icon: Sparkles, count: 5 },
+		{ value: 'sessions', label: 'Sessions', icon: Bot, count: 12 },
+		{ value: 'tasks', label: 'Tasks', icon: ListTodo, count: 0 }
+	]}
+/>
+```
+
 ## Sizes
 
 ```svelte preview title="Tab Sizes"
 <div class="space-y-4">
+	<Tabs size="xs" tabs={['Extra Small', 'Tabs']} />
 	<Tabs size="sm" tabs={['Small', 'Tabs']} />
 	<Tabs size="md" tabs={['Medium', 'Tabs']} />
 	<Tabs size="lg" tabs={['Large', 'Tabs']} />
+</div>
+```
+
+```svelte preview title="Underline Sizes"
+<div class="space-y-4">
+	<Tabs variant="underline" size="sm" tabs={['Small', 'Tabs']} />
+	<Tabs variant="underline" size="md" tabs={['Medium', 'Tabs']} />
+	<Tabs variant="underline" size="lg" tabs={['Large', 'Tabs']} />
 </div>
 ```
 
@@ -59,7 +122,28 @@
 />
 ```
 
+## Custom Trigger
+
+Use the `trigger` snippet for full control over tab rendering.
+
+```svelte preview title="Custom Trigger"
+<Tabs
+	variant="underline"
+	tabs={[
+		{ value: 'active', label: 'Active', count: 3 },
+		{ value: 'archived', label: 'Archived', count: 7 }
+	]}
+>
+	{#snippet trigger({ tab, active })}
+		<span class="flex items-center gap-1.5">
+			{tab.label}
+			<Badge text={String(tab.count ?? 0)} size="xs" variant={active ? 'primary' : 'muted'} />
+		</span>
+	{/snippet}
+</Tabs>
+```
+
 <PropsTable props={propDefs} />
+<PropsTable title="TabItem" props={tabItemDefs} />
 
 </div>
-

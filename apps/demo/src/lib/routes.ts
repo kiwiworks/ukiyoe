@@ -78,6 +78,7 @@ export const sections: NavSection[] = [
 			{ label: 'Numeric', href: '/components/numeric' },
 			{ label: 'Ip', href: '/components/ip' },
 			{ label: 'DataTable', href: '/components/data-table' },
+			{ label: 'DescriptionList', href: '/components/description-list' },
 			{ label: 'StatsGrid', href: '/components/stats-grid' },
 			{ label: 'MetricCard', href: '/components/metric-card' }
 		]
@@ -124,6 +125,7 @@ export const sections: NavSection[] = [
 		title: 'Overlays',
 		icon: Layers,
 		items: [
+			{ label: 'AlertDialog', href: '/components/alert-dialog' },
 			{ label: 'Modal', href: '/components/modal' },
 			{ label: 'ThemeLabModal', href: '/components/theme-lab-modal' },
 			{ label: 'SidePanel', href: '/components/side-panel' },

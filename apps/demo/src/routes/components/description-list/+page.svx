@@ -1,0 +1,123 @@
+<script lang="ts">
+	import { DescriptionList, Badge, StatusBadge, Link, PageHeader } from 'ukiyoe';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const rootPropDefs: PropDef[] = [
+		{ name: 'columns', type: '1 | 2 | 3', default: '1', description: 'Number of grid columns' },
+		{ name: 'gap', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Gap between items' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', description: 'DescriptionList.Item elements' }
+	];
+
+	const itemPropDefs: PropDef[] = [
+		{ name: 'label', type: 'string', description: 'Label text displayed as dt' },
+		{ name: 'mono', type: 'boolean', default: 'false', description: 'Apply monospace font to value' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', description: 'Value content rendered as dd' }
+	];
+</script>
+
+<svelte:head>
+	<title>DescriptionList - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="DescriptionList" subtitle="Semantic dl/dt/dd for label-value pairs" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Simple Fields"
+<DescriptionList>
+	<DescriptionList.Item label="Name">Acme Project</DescriptionList.Item>
+	<DescriptionList.Item label="Owner">Jane Doe</DescriptionList.Item>
+	<DescriptionList.Item label="Created">2025-01-15</DescriptionList.Item>
+</DescriptionList>
+```
+
+## Monospace Values
+
+```svelte preview title="Technical Fields"
+<DescriptionList>
+	<DescriptionList.Item label="ID" mono>a1b2c3d4-e5f6-7890</DescriptionList.Item>
+	<DescriptionList.Item label="URI" mono>/api/v1/artifacts/a1b2c3d4</DescriptionList.Item>
+	<DescriptionList.Item label="Version" mono>v2.4.1</DescriptionList.Item>
+</DescriptionList>
+```
+
+## Rich Content
+
+Items accept any content as children, not just text.
+
+```svelte preview title="With Components"
+<DescriptionList>
+	<DescriptionList.Item label="Status">
+		<StatusBadge variant="success" size="sm">Active</StatusBadge>
+	</DescriptionList.Item>
+	<DescriptionList.Item label="Kind">
+		<Badge text="code" variant="info" size="sm" />
+	</DescriptionList.Item>
+	<DescriptionList.Item label="Repository">
+		<Link href="https://github.com/example/repo" external>github.com/example/repo</Link>
+	</DescriptionList.Item>
+</DescriptionList>
+```
+
+## Multi-Column
+
+```svelte preview title="Two Columns"
+<DescriptionList columns={2}>
+	<DescriptionList.Item label="Name">Acme Project</DescriptionList.Item>
+	<DescriptionList.Item label="Owner">Jane Doe</DescriptionList.Item>
+	<DescriptionList.Item label="Created">2025-01-15</DescriptionList.Item>
+	<DescriptionList.Item label="Updated">2025-03-22</DescriptionList.Item>
+</DescriptionList>
+```
+
+```svelte preview title="Three Columns"
+<DescriptionList columns={3}>
+	<DescriptionList.Item label="CPU">42%</DescriptionList.Item>
+	<DescriptionList.Item label="Memory">1.2 GB</DescriptionList.Item>
+	<DescriptionList.Item label="Disk">84 GB</DescriptionList.Item>
+	<DescriptionList.Item label="Network">12 Mbps</DescriptionList.Item>
+	<DescriptionList.Item label="Uptime">14 days</DescriptionList.Item>
+	<DescriptionList.Item label="Requests">1.4M</DescriptionList.Item>
+</DescriptionList>
+```
+
+## Gap Variants
+
+```svelte preview title="Gaps"
+<div class="space-y-6">
+	<div>
+		<p class="text-xs text-text-muted mb-2">sm</p>
+		<DescriptionList gap="sm" columns={3}>
+			<DescriptionList.Item label="A">Alpha</DescriptionList.Item>
+			<DescriptionList.Item label="B">Bravo</DescriptionList.Item>
+			<DescriptionList.Item label="C">Charlie</DescriptionList.Item>
+		</DescriptionList>
+	</div>
+	<div>
+		<p class="text-xs text-text-muted mb-2">md (default)</p>
+		<DescriptionList gap="md" columns={3}>
+			<DescriptionList.Item label="A">Alpha</DescriptionList.Item>
+			<DescriptionList.Item label="B">Bravo</DescriptionList.Item>
+			<DescriptionList.Item label="C">Charlie</DescriptionList.Item>
+		</DescriptionList>
+	</div>
+	<div>
+		<p class="text-xs text-text-muted mb-2">lg</p>
+		<DescriptionList gap="lg" columns={3}>
+			<DescriptionList.Item label="A">Alpha</DescriptionList.Item>
+			<DescriptionList.Item label="B">Bravo</DescriptionList.Item>
+			<DescriptionList.Item label="C">Charlie</DescriptionList.Item>
+		</DescriptionList>
+	</div>
+</div>
+```
+
+<PropsTable title="DescriptionList Props" props={rootPropDefs} />
+<PropsTable title="DescriptionList.Item Props" props={itemPropDefs} />
+
+</div>

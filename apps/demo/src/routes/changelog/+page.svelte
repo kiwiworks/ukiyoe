@@ -27,9 +27,45 @@
 
 	const changelog: ChangelogEntry[] = [
 		{
+			version: '0.2.3',
+			date: '2026-02-09',
+			badge: { text: 'Latest', variant: 'success' },
+			description: 'DescriptionList, AlertDialog, and Tabs extensions for better ergonomics.',
+			changes: {
+				added: [
+					{
+						text: 'DescriptionList compound component - Semantic dl/dt/dd for label-value pairs',
+						subitems: [
+							'DescriptionList.Root - CSS grid layout with 1/2/3 column support and gap variants',
+							'DescriptionList.Item - Label + value pair with optional monospace font',
+							'Accepts rich content as children (Badge, StatusBadge, Link, etc.)'
+						]
+					},
+					{
+						text: 'AlertDialog component - Confirmation and action dialogs built on bits-ui',
+						subitems: [
+							'Variants: default, info, warning, danger with matching icons and button colors',
+							'Simple mode with title/description/onconfirm props',
+							'Custom content and actions snippets for rich dialogs',
+							'Async confirm support with loading prop and spinner'
+						]
+					}
+				],
+				changed: [
+					{
+						text: 'Tabs extended with backward-compatible additions',
+						subitems: [
+							"variant prop: 'pill' (default) or 'underline' (new)",
+							'icon and count on TabItem for icons and count badges',
+							'trigger snippet for full custom tab rendering control'
+						]
+					}
+				]
+			}
+		},
+		{
 			version: '0.2.2',
 			date: '2026-01-20',
-			badge: { text: 'Latest', variant: 'success' },
 			description: 'ContextMenu component and theme system cleanup with Cyan as default accent.',
 			changes: {
 				added: [
