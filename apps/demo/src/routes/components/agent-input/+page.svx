@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { AgentInput, PageHeader, Text, addToast } from 'ukiyoe';
-	import type { Attachment } from 'ukiyoe';
+	import { AgentInput } from 'ukiyoe/agentic';
+	import { PageHeader, Text, addToast } from 'ukiyoe/core';
+	import type { Attachment } from 'ukiyoe/agentic';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

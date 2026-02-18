@@ -1,6 +1,6 @@
 {
 	"name": "ukiyoe",
-	"version": "0.2.3",
+	"version": "0.3.0",
 	"description": "Svelte 5 component library with dark-first design",
 	"type": "module",
 	"svelte": "./dist/index.js",
@@ -11,6 +11,36 @@
 			"types": "./dist/index.d.ts",
 			"svelte": "./dist/index.js",
 			"default": "./dist/index.js"
+		},
+		"./core": {
+			"types": "./dist/core/index.d.ts",
+			"svelte": "./dist/core/index.js",
+			"default": "./dist/core/index.js"
+		},
+		"./layout": {
+			"types": "./dist/layout/index.d.ts",
+			"svelte": "./dist/layout/index.js",
+			"default": "./dist/layout/index.js"
+		},
+		"./viz": {
+			"types": "./dist/viz/index.d.ts",
+			"svelte": "./dist/viz/index.js",
+			"default": "./dist/viz/index.js"
+		},
+		"./effects": {
+			"types": "./dist/effects/index.d.ts",
+			"svelte": "./dist/effects/index.js",
+			"default": "./dist/effects/index.js"
+		},
+		"./agentic": {
+			"types": "./dist/agentic/index.d.ts",
+			"svelte": "./dist/agentic/index.js",
+			"default": "./dist/agentic/index.js"
+		},
+		"./openapi": {
+			"types": "./dist/openapi/index.d.ts",
+			"svelte": "./dist/openapi/index.js",
+			"default": "./dist/openapi/index.js"
 		},
 		"./styles.css": "./dist/styles.css",
 		"./tailwind.preset": "./tailwind.preset.ts"

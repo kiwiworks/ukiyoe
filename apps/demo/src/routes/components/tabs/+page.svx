@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Tabs, Text, Badge, PageHeader } from 'ukiyoe';
+	import { Tabs, Text, Badge, PageHeader } from 'ukiyoe/core';
 	import { Settings, User, CreditCard, Bell, Sparkles, Bot, ListTodo } from '@lucide/svelte';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { PageHeader, Text, Badge, Heading, Divider } from 'ukiyoe';
+	import { PageHeader, Text, Badge, Heading, Divider } from 'ukiyoe/core';
 
 	type ChangeType = 'added' | 'changed' | 'fixed' | 'deprecated' | 'removed' | 'security';
 
@@ -27,9 +27,48 @@
 
 	const changelog: ChangelogEntry[] = [
 		{
+			version: '0.3.0',
+			date: '2026-02-18',
+			badge: { text: 'Latest', variant: 'success' },
+			description: 'Subpath exports, OpenAPI improvements, shiki optimization, and production build improvements.',
+			changes: {
+				added: [
+					{
+						text: 'Subpath exports for granular imports',
+						subitems: [
+							'ukiyoe/core - Core components, stores, utilities, ThemeProvider',
+							'ukiyoe/layout - Header, Sidebar, Panel, StatusBar, PageContainer, Stack, Grid',
+							'ukiyoe/viz - Sparkline, EquityChart, BacktestChart, Gauge, ProgressRing',
+							'ukiyoe/effects - DelaunayBackground, GridPulseBackground, and other WebGL effects',
+							'ukiyoe/agentic - Message, StreamingText, AgentInput, MessageList, Markdown',
+							'ukiyoe/openapi - OpenApiViewer, EndpointList, SchemaView, and API utilities',
+							'Main ukiyoe entry point re-exports everything for backwards compatibility'
+						]
+					},
+					{ text: 'Input date and datetime-local type support' }
+				],
+				changed: [
+					{ text: 'HighlightedCodeBlock uses cached createHighlighter — lazily loads only requested languages and themes' },
+					{
+						text: 'OpenAPI module overhaul',
+						subitems: [
+							'OpenApiViewer — responsive sidebar with hamburger toggle on mobile',
+							'EndpointList — search/filter input and collapsible accordion groups',
+							'EndpointTester — authentication support (Bearer, Basic, API Key), inline path params, auto-reset on endpoint switch',
+							'SchemaForm — filters readOnly properties, native date/datetime-local inputs',
+							'SchemaView — Lucide chevron icons, enum values as Badges'
+						]
+					}
+				],
+				fixed: [
+					{ text: 'Production build chunk fragmentation — manual chunk grouping reduces count from 407 to ~80' },
+					{ text: 'EndpointTester trailing slash normalization prevents double-slash in URLs' }
+				]
+			}
+		},
+		{
 			version: '0.2.3',
 			date: '2026-02-09',
-			badge: { text: 'Latest', variant: 'success' },
 			description: 'DescriptionList, AlertDialog, and Tabs extensions for better ergonomics.',
 			changes: {
 				added: [

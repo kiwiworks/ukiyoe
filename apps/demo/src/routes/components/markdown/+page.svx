@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Markdown, Message, PageHeader } from 'ukiyoe';
+	import { Markdown, Message } from 'ukiyoe/agentic';
+	import { PageHeader } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

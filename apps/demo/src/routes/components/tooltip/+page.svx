@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Tooltip, Button, PageHeader } from 'ukiyoe';
+	import { Tooltip, Button, PageHeader } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

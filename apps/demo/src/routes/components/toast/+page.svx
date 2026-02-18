@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Button, PageHeader, CodeBlock } from 'ukiyoe';
-	import { addToast } from 'ukiyoe';
+	import { Button, PageHeader, CodeBlock } from 'ukiyoe/core';
+	import { addToast } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
@@ -64,7 +64,7 @@ Add the `Toaster` component to your layout:
 
 ```svelte preview title="Setup"
 <CodeBlock code={`<script>
-  import { Toaster } from 'ukiyoe';
+  import { Toaster } from 'ukiyoe/core';
 </script>
 
 <Toaster position="bottom-right" />
@@ -76,7 +76,7 @@ Add the `Toaster` component to your layout:
 
 ```svelte preview title="Usage"
 <CodeBlock code={`<script>
-  import { addToast } from 'ukiyoe';
+  import { addToast } from 'ukiyoe/core';
 
   function showNotification() {
     addToast({

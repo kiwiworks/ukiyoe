@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { ProgressRing, Text, PageHeader } from 'ukiyoe';
+	import { ProgressRing } from 'ukiyoe/viz';
+	import { Text, PageHeader } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

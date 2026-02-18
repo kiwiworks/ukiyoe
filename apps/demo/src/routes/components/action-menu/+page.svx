@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ActionMenu, PageHeader, MenuItem, MenuDivider } from 'ukiyoe';
+	import { ActionMenu, PageHeader, MenuItem, MenuDivider } from 'ukiyoe/core';
 	import { MoreVertical, MoreHorizontal, Settings } from '@lucide/svelte';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';

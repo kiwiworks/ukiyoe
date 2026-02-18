@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { MessageList, Message, ThinkingIndicator, AgentInput, PageHeader, Text } from 'ukiyoe';
-	import type { MessageRole, MessageStatus, Attachment } from 'ukiyoe';
+	import { MessageList, Message, ThinkingIndicator, AgentInput } from 'ukiyoe/agentic';
+	import { PageHeader, Text } from 'ukiyoe/core';
+	import type { MessageRole, MessageStatus, Attachment } from 'ukiyoe/agentic';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

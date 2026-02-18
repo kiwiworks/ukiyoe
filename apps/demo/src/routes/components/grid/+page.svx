@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Grid, Widget, PageHeader } from 'ukiyoe';
+	import { Grid } from 'ukiyoe/layout';
+	import { Widget, PageHeader } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

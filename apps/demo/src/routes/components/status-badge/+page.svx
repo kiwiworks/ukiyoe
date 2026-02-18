@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { StatusBadge, PageHeader } from 'ukiyoe';
+	import { StatusBadge, PageHeader } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

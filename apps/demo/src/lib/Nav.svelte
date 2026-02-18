@@ -2,7 +2,8 @@
 	import { page } from '$app/stores';
 	import { base } from '$app/paths';
 	import { goto } from '$app/navigation';
-	import { ListItem, Sidebar, Heading, Text, Link, SmartSelect, type SmartSelectOption } from 'ukiyoe';
+	import { ListItem, Heading, Text, Link, SmartSelect, type SmartSelectOption } from 'ukiyoe/core';
+	import { Sidebar } from 'ukiyoe/layout';
 	import { Box as BoxIcon } from '@lucide/svelte';
 	import { sections } from './routes';
 

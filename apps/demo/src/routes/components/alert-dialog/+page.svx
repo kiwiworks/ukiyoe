@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { AlertDialog, Button, Input, Select, Stack, Text, PageHeader } from 'ukiyoe';
+	import { AlertDialog, Button, Input, Select, Text, PageHeader } from 'ukiyoe/core';
+	import { Stack } from 'ukiyoe/layout';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

@@ -1,15 +1,5 @@
 <script lang="ts">
-	import {
-		PageHeader,
-		Widget,
-		Button,
-		Select,
-		Text,
-		themeStore,
-		accentPalette,
-		uiScalePresets,
-		bgEffects
-	} from 'ukiyoe';
+	import { PageHeader, Widget, Button, Select, Text, themeStore, accentPalette, uiScalePresets, bgEffects } from 'ukiyoe/core';
 
 	const accentOptions = accentPalette.map((c) => ({ value: c.id, label: c.name }));
 	const scaleOptions = uiScalePresets.map((s) => ({ value: s.id, label: s.name }));

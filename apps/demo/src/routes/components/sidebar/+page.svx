@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Sidebar, PageHeader, Text } from 'ukiyoe';
+	import { Sidebar } from 'ukiyoe/layout';
+	import { PageHeader, Text } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

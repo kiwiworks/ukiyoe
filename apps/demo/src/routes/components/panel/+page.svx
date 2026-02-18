@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Panel, PageHeader, Text } from 'ukiyoe';
+	import { Panel } from 'ukiyoe/layout';
+	import { PageHeader, Text } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

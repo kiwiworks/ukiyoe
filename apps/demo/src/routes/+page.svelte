@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { Button, Badge, SectionCard, MetricCard, PageHeader, Heading, Text } from 'ukiyoe';
+	import { Button, Badge, SectionCard, MetricCard, PageHeader, Heading, Text } from 'ukiyoe/core';
 </script>
 
 <svelte:head>

@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { EndpointDetail, PageHeader } from 'ukiyoe';
+	import { EndpointDetail } from 'ukiyoe/openapi';
+	import { PageHeader } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

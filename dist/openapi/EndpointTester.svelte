@@ -48,8 +48,77 @@
 	let response = $state<ApiResponse | null>(null);
 	let loading = $state(false);
 
-	// Extract parameters by location
-	const parameters = $derived((operation.parameters ?? []) as ParameterObject[]);
+	// Auth state (persists across endpoint switches)
+	let authType = $state<'none' | 'bearer' | 'basic' | 'apiKey'>('none');
+	let authToken = $state('');
+	let apiKeyName = $state('');
+	let apiKeyLocation = $state<'header' | 'query'>('header');
+
+	// Extract security schemes from spec
+	const securitySchemes = $derived.by(() => {
+		const components = (spec as OpenAPIV3.Document).components;
+		if (!components?.securitySchemes) return [];
+		return Object.entries(components.securitySchemes)
+			.filter((entry): entry is [string, OpenAPIV3.SecuritySchemeObject] => !('$ref' in entry[1]))
+			.map(([name, scheme]) => ({ name, scheme }));
+	});
+
+	const authOptions = $derived.by(() => {
+		const options: { value: string; label: string }[] = [{ value: 'none', label: 'No Auth' }];
+		for (const { name, scheme } of securitySchemes) {
+			if (scheme.type === 'http' && scheme.scheme === 'bearer') {
+				options.push({ value: 'bearer', label: `${name} (Bearer)` });
+			} else if (scheme.type === 'http' && scheme.scheme === 'basic') {
+				options.push({ value: 'basic', label: `${name} (Basic)` });
+			} else if (scheme.type === 'apiKey') {
+				options.push({ value: 'apiKey', label: `${name} (API Key: ${scheme.in})` });
+			}
+		}
+		// Always offer a manual bearer option if not already present
+		if (!options.some((o) => o.value === 'bearer')) {
+			options.push({ value: 'bearer', label: 'Bearer Token' });
+		}
+		return options;
+	});
+
+	// Auto-set apiKey name/location when selecting an apiKey scheme
+	function handleAuthTypeChange(value: string) {
+		authType = value as typeof authType;
+		if (value === 'apiKey') {
+			const apiKeyScheme = securitySchemes.find(
+				({ scheme }) => scheme.type === 'apiKey'
+			);
+			if (apiKeyScheme && apiKeyScheme.scheme.type === 'apiKey') {
+				apiKeyName = apiKeyScheme.scheme.name ?? '';
+				apiKeyLocation = (apiKeyScheme.scheme.in as 'header' | 'query') ?? 'header';
+			}
+		}
+	}
+
+	// Track the last endpoint id to detect switches
+	let lastEndpointId = $state('');
+
+	// Reset form state when switching endpoints (auth state intentionally excluded)
+	$effect(() => {
+		if (endpoint.id !== lastEndpointId) {
+			lastEndpointId = endpoint.id;
+			parameterValues = {};
+			headerValues = {};
+			bodyValue = {};
+			bodyRaw = '';
+			useRawBody = false;
+			response = null;
+			loading = false;
+			selectedServerIndex = '0';
+			selectedContentType = 'application/json';
+			activeTab = 'headers';
+		}
+	});
+
+	// Extract parameters by location (filter out params without names)
+	const parameters = $derived(
+		((operation.parameters ?? []) as ParameterObject[]).filter((p): p is ParameterObject & { name: string } => !!p.name)
+	);
 	const pathParams = $derived(parameters.filter((p) => p.in === 'path'));
 	const queryParams = $derived(parameters.filter((p) => p.in === 'query'));
 	const headerParams = $derived(parameters.filter((p) => p.in === 'header'));
@@ -91,11 +160,16 @@
 			serverUrl = origin + '/' + serverUrl;
 		}
 
-		// Replace path parameters
+		// Strip trailing slashes to prevent double-slash when path starts with /
+		const normalizedServer = serverUrl.replace(/\/+$/, '');
+
+		// Replace path parameters — keep placeholder visible when value is empty
 		let path = endpoint.path;
 		for (const param of pathParams) {
-			const value = parameterValues[param.name] ?? '';
-			path = path.replace(`{${param.name}}`, encodeURIComponent(value));
+			const value = parameterValues[param.name];
+			if (value) {
+				path = path.replace(`{${param.name}}`, encodeURIComponent(value));
+			}
 		}
 
 		// Build query string
@@ -107,8 +181,13 @@
 			}
 		}
 
+		// Inject API key as query param when configured
+		if (authType === 'apiKey' && apiKeyLocation === 'query' && authToken) {
+			queryParts.push(`${encodeURIComponent(apiKeyName)}=${encodeURIComponent(authToken)}`);
+		}
+
 		const queryString = queryParts.length > 0 ? `?${queryParts.join('&')}` : '';
-		return serverUrl + path + queryString;
+		return normalizedServer + path + queryString;
 	}
 
 	// Build headers
@@ -118,6 +197,15 @@
 		// Add content type for requests with body
 		if (hasRequestBody && (endpoint.method === 'post' || endpoint.method === 'put' || endpoint.method === 'patch')) {
 			headers['Content-Type'] = selectedContentType;
+		}
+
+		// Inject auth header
+		if (authType === 'bearer' && authToken) {
+			headers['Authorization'] = `Bearer ${authToken}`;
+		} else if (authType === 'basic' && authToken) {
+			headers['Authorization'] = `Basic ${authToken}`;
+		} else if (authType === 'apiKey' && apiKeyLocation === 'header' && authToken) {
+			headers[apiKeyName] = authToken;
 		}
 
 		// Add custom header parameters
@@ -131,6 +219,22 @@
 		return headers;
 	}
 
+	// Strip empty optional string values from request objects
+	function stripEmptyOptionals(obj: unknown, schema: SchemaObject | null | undefined): unknown {
+		if (!schema || typeof obj !== 'object' || obj === null || Array.isArray(obj)) return obj;
+		const requiredSet = new Set(schema.required ?? []);
+		const properties = schema.properties ?? {};
+		const result: Record<string, unknown> = {};
+		for (const [key, val] of Object.entries(obj as Record<string, unknown>)) {
+			if (val === '' && !requiredSet.has(key)) continue;
+			const propSchema = properties[key] as SchemaObject | undefined;
+			result[key] = typeof val === 'object' && val !== null
+				? stripEmptyOptionals(val, propSchema)
+				: val;
+		}
+		return result;
+	}
+
 	// Build request body
 	function buildBody(): string | undefined {
 		if (!hasRequestBody) return undefined;
@@ -141,7 +245,8 @@
 		}
 
 		if (selectedContentType === 'application/json') {
-			return JSON.stringify(bodyValue);
+			const cleaned = stripEmptyOptionals(bodyValue, bodySchema);
+			return JSON.stringify(cleaned);
 		}
 
 		if (selectedContentType === 'application/x-www-form-urlencoded') {
@@ -259,10 +364,63 @@
 		</div>
 	</div>
 
+	<!-- Path Parameters (inline, always visible) -->
+	{#if pathParams.length > 0}
+		<div class="p-sm bg-bg-secondary rounded-md border border-border-subtle space-y-sm">
+			<Text size="xs" variant="muted" class="uppercase tracking-wider">Path Parameters</Text>
+			<div class="grid gap-sm" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+				{#each pathParams as param (param.name)}
+					{@const schema = getParamSchema(param)}
+					<div class="space-y-xs">
+						<div class="flex items-center gap-xs">
+							<Text size="sm" class="font-medium">{param.name}</Text>
+							{#if param.required}
+								<Badge variant="danger" size="xs" text="required" />
+							{/if}
+						</div>
+						{#if param.description}
+							<Text variant="muted" size="xs">{param.description}</Text>
+						{/if}
+						<Input
+							size="sm"
+							placeholder={schema?.example !== undefined ? `e.g. ${schema.example}` : param.name}
+							value={parameterValues[param.name] ?? ''}
+							oninput={(e) => (parameterValues[param.name] = e.currentTarget.value)}
+						/>
+					</div>
+				{/each}
+			</div>
+		</div>
+	{/if}
+
+	<!-- Auth Section -->
+	{#if authOptions.length > 1}
+		<div class="flex items-center gap-sm">
+			<Text size="sm" class="font-medium shrink-0">Auth</Text>
+			<Select
+				options={authOptions}
+				value={authType}
+				onchange={handleAuthTypeChange}
+				size="sm"
+				class="max-w-48"
+			/>
+			{#if authType !== 'none'}
+				<Input
+					size="sm"
+					type="password"
+					placeholder={authType === 'basic' ? 'base64 encoded credentials' : authType === 'apiKey' ? `${apiKeyName} value` : 'Token'}
+					value={authToken}
+					oninput={(e) => (authToken = e.currentTarget.value)}
+					class="flex-1"
+				/>
+			{/if}
+		</div>
+	{/if}
+
 	<!-- Parameters & Body Tabs -->
 	<Tabs
 		tabs={[
-			{ value: 'parameters', label: `Parameters (${parameters.length})` },
+			...(queryParams.length > 0 ? [{ value: 'parameters', label: `Query (${queryParams.length})` }] : []),
 			...(showBodyEditor ? [{ value: 'body', label: 'Body' }] : []),
 			{ value: 'headers', label: `Headers (${headerParams.length})` }
 		]}
@@ -270,72 +428,37 @@
 	>
 		{#snippet children(tabValue)}
 			{#if tabValue === 'parameters'}
-				<div class="space-y-md">
-					{#if pathParams.length > 0}
-						<div class="space-y-sm">
-							<Text size="sm" variant="muted" class="uppercase tracking-wider">Path Parameters</Text>
-							{#each pathParams as param (param.name)}
-								{@const schema = getParamSchema(param)}
-								<div class="space-y-xs">
-									<div class="flex items-center gap-sm">
-										<Text size="sm" class="font-medium">{param.name}</Text>
-										{#if param.required}
-											<Badge variant="danger" size="xs" text="required" />
-										{/if}
-									</div>
-									{#if param.description}
-										<Text variant="muted" size="xs">{param.description}</Text>
-									{/if}
-									<Input
-										size="sm"
-										placeholder={schema?.example !== undefined ? `e.g. ${schema.example}` : param.name}
-										value={parameterValues[param.name] ?? ''}
-										oninput={(e) => (parameterValues[param.name] = e.currentTarget.value)}
-									/>
-								</div>
-							{/each}
+				<div class="space-y-sm">
+					{#each queryParams as param (param.name)}
+						{@const schema = getParamSchema(param)}
+						<div class="space-y-xs">
+							<div class="flex items-center gap-sm">
+								<Text size="sm" class="font-medium">{param.name}</Text>
+								{#if param.required}
+									<Badge variant="danger" size="xs" text="required" />
+								{/if}
+							</div>
+							{#if param.description}
+								<Text variant="muted" size="xs">{param.description}</Text>
+							{/if}
+							{#if schema?.enum}
+								<Select
+									size="sm"
+									options={schema.enum.map((v: unknown) => ({ value: String(v), label: String(v) }))}
+									value={parameterValues[param.name] ?? ''}
+									onchange={(v) => (parameterValues[param.name] = v)}
+									placeholder="Select..."
+								/>
+							{:else}
+								<Input
+									size="sm"
+									placeholder={schema?.example !== undefined ? `e.g. ${schema.example}` : param.name}
+									value={parameterValues[param.name] ?? ''}
+									oninput={(e) => (parameterValues[param.name] = e.currentTarget.value)}
+								/>
+							{/if}
 						</div>
-					{/if}
-
-					{#if queryParams.length > 0}
-						<div class="space-y-sm">
-							<Text size="sm" variant="muted" class="uppercase tracking-wider">Query Parameters</Text>
-							{#each queryParams as param (param.name)}
-								{@const schema = getParamSchema(param)}
-								<div class="space-y-xs">
-									<div class="flex items-center gap-sm">
-										<Text size="sm" class="font-medium">{param.name}</Text>
-										{#if param.required}
-											<Badge variant="danger" size="xs" text="required" />
-										{/if}
-									</div>
-									{#if param.description}
-										<Text variant="muted" size="xs">{param.description}</Text>
-									{/if}
-									{#if schema?.enum}
-										<Select
-											size="sm"
-											options={schema.enum.map((v) => ({ value: String(v), label: String(v) }))}
-											value={parameterValues[param.name] ?? ''}
-											onchange={(v) => (parameterValues[param.name] = v)}
-											placeholder="Select..."
-										/>
-									{:else}
-										<Input
-											size="sm"
-											placeholder={schema?.example !== undefined ? `e.g. ${schema.example}` : param.name}
-											value={parameterValues[param.name] ?? ''}
-											oninput={(e) => (parameterValues[param.name] = e.currentTarget.value)}
-										/>
-									{/if}
-								</div>
-							{/each}
-						</div>
-					{/if}
-
-					{#if parameters.length === 0}
-						<Text variant="muted" size="sm">No parameters for this endpoint</Text>
-					{/if}
+					{/each}
 				</div>
 			{:else if tabValue === 'body' && showBodyEditor}
 				<div class="space-y-md">
@@ -371,7 +494,7 @@
 						/>
 					{:else if bodySchema}
 						<SchemaForm
-							schema={bodySchema}
+							schema={bodySchema as OpenAPIV3.SchemaObject}
 							value={bodyValue}
 							onchange={(v) => (bodyValue = v)}
 						/>
@@ -438,7 +561,7 @@
 	</div>
 
 	<!-- CORS Warning -->
-	<Alert variant="warning" class="text-xs">
+	<Alert variant="warning" dismissible class="text-xs">
 		Requests are made from your browser. CORS restrictions may block requests to APIs that don't allow cross-origin requests.
 	</Alert>
 

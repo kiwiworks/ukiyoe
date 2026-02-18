@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-02-18
+
+### Added
+- **Subpath exports** for granular imports — consumers can now import from `ukiyoe/core`, `ukiyoe/layout`, `ukiyoe/viz`, `ukiyoe/effects`, `ukiyoe/agentic`, `ukiyoe/openapi` instead of the full barrel
+  - New barrel files for each module (`core/index.ts`, `layout/index.ts`, `viz/index.ts`, `effects/index.ts`)
+  - Main `ukiyoe` entry point re-exports everything for backwards compatibility
+- **Input** `date` and `datetime-local` type support
+
+### Changed
+- **HighlightedCodeBlock shiki optimization** — replaced `codeToHtml` shorthand with a cached `createHighlighter` instance that lazily loads only requested languages and themes
+- **OpenApiViewer** — responsive sidebar with hamburger toggle on mobile, backdrop overlay
+- **EndpointList** — search/filter input and collapsible accordion groups replacing flat list
+- **EndpointTester** — authentication support (Bearer, Basic, API Key), path parameters promoted to inline fields above tabs, query params tab only shown when relevant, auto-reset form state on endpoint switch, strips empty optional fields from JSON body
+- **SchemaForm** — filters out `readOnly` properties, uses native `date`/`datetime-local` inputs
+- **SchemaView** — Lucide chevron icons replace Unicode triangles, enum values rendered as Badges
+
+### Fixed
+- Demo production build chunk fragmentation — added manual chunk grouping for heavy dependencies (codemirror, shiki, bits-ui, openapi, marked), reducing chunk count from 407 to ~80
+- **ParametersTable** — removed unused `SchemaView` import
+- **EndpointTester** — trailing slash normalization on server URLs prevents double-slash in paths
+
 ## [0.2.3] - 2026-02-09
 
 ### Added
@@ -269,6 +290,7 @@ First stable release! Ukiyoe is now production-ready with 70+ components.
 - Dark-first design with light mode support
 - Privacy masking context
 
+[0.3.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.2.3...v0.3.0
 [0.2.3]: https://github.com/kiwiworks/ukiyoe/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/kiwiworks/ukiyoe/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/kiwiworks/ukiyoe/compare/v0.2.0...v0.2.1

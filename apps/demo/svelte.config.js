@@ -96,6 +96,14 @@ const config = {
 			precompress: false,
 			strict: false
 		}),
+		alias: {
+			'ukiyoe/core': '../../src/lib/core/index.ts',
+			'ukiyoe/layout': '../../src/lib/layout/index.ts',
+			'ukiyoe/viz': '../../src/lib/viz/index.ts',
+			'ukiyoe/effects': '../../src/lib/effects/index.ts',
+			'ukiyoe/agentic': '../../src/lib/agentic/index.ts',
+			'ukiyoe/openapi': '../../src/lib/openapi/index.ts'
+		},
 		paths: {
 			base
 		},

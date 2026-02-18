@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { IsometricGridBackground, PageHeader, Text, CodeBlock } from 'ukiyoe';
+	import { IsometricGridBackground } from 'ukiyoe/effects';
+	import { PageHeader, Text, CodeBlock } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
@@ -33,7 +34,7 @@
 
 ```svelte preview title="Usage"
 <CodeBlock code={`<script>
-  import { IsometricGridBackground } from 'ukiyoe';
+  import { IsometricGridBackground } from 'ukiyoe/effects';
 </script>
 
 <div class="relative">

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { SocialButton, PageHeader, Badge } from 'ukiyoe';
+	import { SocialButton, PageHeader, Badge } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

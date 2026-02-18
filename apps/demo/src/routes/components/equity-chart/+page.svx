@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { EquityChart, PageHeader, Text } from 'ukiyoe';
+	import { EquityChart } from 'ukiyoe/viz';
+	import { PageHeader, Text } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 	import { browser } from '$app/environment';

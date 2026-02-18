@@ -1,23 +1,7 @@
-import {
-	Home,
-	Download,
-	History,
-	MousePointer2,
-	FormInput,
-	LayoutGrid,
-	Type,
-	Box,
-	Navigation,
-	Layers,
-	MessageSquare,
-	Wrench,
-	Bot,
-	BarChart3,
-	Sparkles,
-	FileCode
+import { Home, Download, History, MousePointer2, FormInput, LayoutGrid, Type, Box, Navigation, Layers, MessageSquare, Wrench, Bot, BarChart3, Sparkles, FileCode
 } from '@lucide/svelte';
 import type { Component } from 'svelte';
-import type { CommandItem } from 'ukiyoe';
+import type { CommandItem } from 'ukiyoe/core';
 
 export interface NavItem {
 	label: string;

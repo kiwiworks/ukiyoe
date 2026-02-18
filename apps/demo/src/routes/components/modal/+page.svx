@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Modal, Button, Text, Divider, PageHeader } from 'ukiyoe';
+	import { Modal, Button, Text, Divider, PageHeader } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

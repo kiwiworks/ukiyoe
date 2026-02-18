@@ -15,7 +15,6 @@
 <script lang="ts">
 	import { cn } from '../utils/cn.js';
 	import { DataTable, Badge, Text } from '../index.js';
-	import SchemaView from './SchemaView.svelte';
 
 	let { parameters, class: className = '' }: ParametersTableProps = $props();
 

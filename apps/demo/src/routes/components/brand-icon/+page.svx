@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { BrandIcon, PageHeader, Slider } from 'ukiyoe';
+	import { BrandIcon, PageHeader, Slider } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

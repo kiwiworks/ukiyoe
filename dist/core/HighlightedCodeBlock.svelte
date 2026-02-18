@@ -42,15 +42,36 @@
 	const highlightSet = $derived(new Set(highlightLines));
 	const maxLineNumberWidth = $derived(String(lines.length).length);
 
+	let highlighterCache: Awaited<ReturnType<typeof import('shiki')['createHighlighter']>> | null =
+		null;
+	const loadedLangs = new Set<string>();
+	const loadedThemes = new Set<string>();
+
 	async function loadAndHighlight(codeToHighlight: string, lang: string, themeId: string) {
 		try {
 			error = null;
-			const { codeToHtml } = await import('shiki');
-			const html = await codeToHtml(codeToHighlight, {
-				lang: lang,
+			const { createHighlighter } = await import('shiki');
+			if (!highlighterCache) {
+				highlighterCache = await createHighlighter({
+					themes: [themeId as 'github-dark'],
+					langs: [lang as 'text']
+				});
+				loadedLangs.add(lang);
+				loadedThemes.add(themeId);
+			} else {
+				if (!loadedThemes.has(themeId)) {
+					await highlighterCache.loadTheme(themeId as 'github-dark');
+					loadedThemes.add(themeId);
+				}
+				if (!loadedLangs.has(lang)) {
+					await highlighterCache.loadLanguage(lang as 'text');
+					loadedLangs.add(lang);
+				}
+			}
+			highlightedHtml = highlighterCache.codeToHtml(codeToHighlight, {
+				lang,
 				theme: themeId
 			});
-			highlightedHtml = html;
 		} catch (e) {
 			error = e instanceof Error ? e.message : 'Failed to highlight';
 			highlightedHtml = null;

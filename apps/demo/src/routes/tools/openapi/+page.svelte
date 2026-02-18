@@ -1,17 +1,8 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import type { OpenAPI } from '@scalar/openapi-types';
-	import {
-		OpenApiViewer,
-		PageHeader,
-		Badge,
-		Button,
-		CodeEditor,
-		Alert,
-		Text,
-		Tabs,
-		Input
-	} from 'ukiyoe';
+	import { OpenApiViewer } from 'ukiyoe/openapi';
+	import { PageHeader, Badge, Button, CodeEditor, Alert, Text, Tabs, Input } from 'ukiyoe/core';
 
 	// Petstore sample spec URL
 	const PETSTORE_URL = 'https://petstore3.swagger.io/api/v3/openapi.json';

@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { StreamingText, PageHeader, Button } from 'ukiyoe';
+	import { StreamingText } from 'ukiyoe/agentic';
+	import { PageHeader, Button } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

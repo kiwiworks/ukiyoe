@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Link, Text, PageHeader } from 'ukiyoe';
+	import { Link, Text, PageHeader } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

@@ -21,6 +21,7 @@
 <script lang="ts">
 	import { cn } from '../utils/cn.js';
 	import { Badge, Text, CodeBlock, Markdown, Button } from '../index.js';
+	import { ChevronDown, ChevronRight } from '@lucide/svelte';
 	import SchemaView from './SchemaView.svelte';
 
 	let {
@@ -143,7 +144,11 @@
 						onclick={() => (expandOverride = !isExpanded)}
 						class="!p-0 !min-w-0 text-text-muted hover:text-text-secondary"
 					>
-						{isExpanded ? '▼' : '▶'}
+						{#if isExpanded}
+							<ChevronDown size={14} />
+						{:else}
+							<ChevronRight size={14} />
+						{/if}
 					</Button>
 				{/if}
 			</div>
@@ -157,10 +162,11 @@
 
 			<!-- Constraints -->
 			{#if schemaObj.enum}
-				<div class="pl-md">
-					<Text variant="muted" size="xs">
-						Enum: {schemaObj.enum.map((v: unknown) => JSON.stringify(v)).join(', ')}
-					</Text>
+				<div class="pl-md flex items-center gap-xs flex-wrap">
+					<Text variant="muted" size="xs">Enum:</Text>
+					{#each schemaObj.enum as val}
+						<Badge variant="muted" size="xs" text={JSON.stringify(val)} />
+					{/each}
 				</div>
 			{/if}
 

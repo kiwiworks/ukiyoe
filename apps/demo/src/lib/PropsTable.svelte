@@ -13,7 +13,7 @@
 </script>
 
 <script lang="ts">
-	import { Heading } from 'ukiyoe';
+	import { Heading } from 'ukiyoe/core';
 
 	let { props, title = 'Props' }: PropsTableProps = $props();
 </script>

@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { StatusBar, PageHeader, Text, Badge } from 'ukiyoe';
+	import { StatusBar } from 'ukiyoe/layout';
+	import { PageHeader, Text, Badge } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

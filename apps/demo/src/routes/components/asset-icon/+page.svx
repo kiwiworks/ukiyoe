@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { AssetIcon, PageHeader } from 'ukiyoe';
+	import { AssetIcon, PageHeader } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

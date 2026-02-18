@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { ThinkingIndicator, PageHeader, Button } from 'ukiyoe';
-	import type { ThinkingStatus } from 'ukiyoe';
+	import { ThinkingIndicator } from 'ukiyoe/agentic';
+	import { PageHeader, Button } from 'ukiyoe/core';
+	import type { ThinkingStatus } from 'ukiyoe/agentic';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

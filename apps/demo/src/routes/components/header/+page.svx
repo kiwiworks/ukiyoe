@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Header, PageHeader, Text, Button, Badge } from 'ukiyoe';
+	import { Header } from 'ukiyoe/layout';
+	import { PageHeader, Text, Button, Badge } from 'ukiyoe/core';
 	import { Hexagon, Settings, Bell } from '@lucide/svelte';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';

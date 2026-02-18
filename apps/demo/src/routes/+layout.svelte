@@ -2,7 +2,8 @@
 	import '../app.css';
 	import { goto } from '$app/navigation';
 	import { base, assets } from '$app/paths';
-	import { Badge, BrandIcon, Header, ThemeProvider, ThemeToggle, CommandPalette, ThemeLabModal, Kbd, Toaster, Meta, type CommandItem } from 'ukiyoe';
+	import { Badge, BrandIcon, ThemeProvider, ThemeToggle, CommandPalette, ThemeLabModal, Kbd, Toaster, Meta, type CommandItem } from 'ukiyoe/core';
+	import { Header } from 'ukiyoe/layout';
 	import { Settings } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
 	import Nav from '$lib/Nav.svelte';

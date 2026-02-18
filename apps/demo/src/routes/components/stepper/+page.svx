@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Stepper, PageHeader } from 'ukiyoe';
+	import { Stepper, PageHeader } from 'ukiyoe/core';
 	import { FolderOpen, Search, FlaskConical, CheckCircle, User, CreditCard, Package } from '@lucide/svelte';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';

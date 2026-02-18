@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { PageHeader, Alert, SocialButton, SectionCard, MetricCard, Stepper, Text, CodeBlock, Heading } from 'ukiyoe';
+	import { PageHeader, Alert, SocialButton, SectionCard, MetricCard, Stepper, Text, CodeBlock, Heading } from 'ukiyoe/core';
 
 	const steps = [
 		{ id: 'install', label: 'Install', description: 'Add package' },
@@ -83,7 +83,7 @@ export default defineConfig({
 			<SectionCard title="5. Start Building">
 				<Text variant="muted" class="mb-md">Import and use components:</Text>
 				<CodeBlock code={`<script>
-  import { Button, Input, Badge } from 'ukiyoe';
+  import { Button, Input, Badge } from 'ukiyoe/core';
 </script>
 
 <Button variant="primary">Click me</Button>

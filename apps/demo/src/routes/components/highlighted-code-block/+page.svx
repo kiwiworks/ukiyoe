@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { HighlightedCodeBlock, PageHeader, Text, Alert } from 'ukiyoe';
+	import { HighlightedCodeBlock, PageHeader, Text, Alert } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

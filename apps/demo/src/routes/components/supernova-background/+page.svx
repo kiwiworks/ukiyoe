@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { SupernovaBackground, PageHeader, Text, CodeBlock } from 'ukiyoe';
+	import { SupernovaBackground } from 'ukiyoe/effects';
+	import { PageHeader, Text, CodeBlock } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
@@ -32,7 +33,7 @@
 
 ```svelte preview title="Usage"
 <CodeBlock code={`<script>
-  import { SupernovaBackground } from 'ukiyoe';
+  import { SupernovaBackground } from 'ukiyoe/effects';
 </script>
 
 <div class="relative">

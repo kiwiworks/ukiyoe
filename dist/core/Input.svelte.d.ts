@@ -1,6 +1,6 @@
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg';
 export type InputAlign = 'left' | 'center' | 'right';
-export type InputType = 'text' | 'number' | 'email' | 'password' | 'search' | 'tel' | 'url';
+export type InputType = 'text' | 'number' | 'email' | 'password' | 'search' | 'tel' | 'url' | 'date' | 'datetime-local';
 export interface InputProps {
     type?: InputType;
     value?: string;

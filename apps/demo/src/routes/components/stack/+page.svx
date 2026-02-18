@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Stack, Button, Badge, PageHeader } from 'ukiyoe';
+	import { Stack } from 'ukiyoe/layout';
+	import { Button, Badge, PageHeader } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

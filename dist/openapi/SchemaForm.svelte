@@ -57,7 +57,12 @@
 
 	// Object properties
 	const properties = $derived(schema.properties ?? {});
-	const propertyNames = $derived(Object.keys(properties));
+	const propertyNames = $derived(
+		Object.keys(properties).filter((name) => {
+			const prop = properties[name] as SchemaObject | undefined;
+			return !prop?.readOnly;
+		})
+	);
 	const requiredProps = $derived(new Set(schema.required ?? []));
 
 	// Array items schema
@@ -156,7 +161,8 @@
 		if (isEmail) return 'email';
 		if (isUri) return 'url';
 		if (isNumber) return 'number';
-		// Note: date/datetime-local not in InputType, default to text
+		if (isDate) return 'date';
+		if (isDateTime) return 'datetime-local';
 		return 'text';
 	}
 

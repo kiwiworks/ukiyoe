@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { SidePanel, Button, Text, PageHeader, Badge } from 'ukiyoe';
+	import { SidePanel, Button, Text, PageHeader, Badge } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 

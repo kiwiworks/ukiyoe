@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { BacktestChart, PageHeader, Text, CodeBlock, Select, Numeric, Badge } from 'ukiyoe';
+	import { BacktestChart } from 'ukiyoe/viz';
+	import { PageHeader, Text, CodeBlock, Select, Numeric, Badge } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 	import { browser } from '$app/environment';
@@ -8,9 +9,7 @@
 	type StrategyKey = 'momentum' | 'meanReversion' | 'breakout';
 
 	const strategies: Record<StrategyKey, { name: string; description: string }> = {
-		momentum: { name: 'Momentum Strategy', description: 'Follows strong price trends' },
-		meanReversion: { name: 'Mean Reversion', description: 'Trades price reversals to mean' },
-		breakout: { name: 'Breakout Strategy', description: 'Trades support/resistance breaks' }
+		momentum: { name: 'Momentum Strategy', description: 'Follows strong price trends' }, meanReversion: { name: 'Mean Reversion', description: 'Trades price reversals to mean' }, breakout: { name: 'Breakout Strategy', description: 'Trades support/resistance breaks' }
 	};
 
 	// Generate realistic OHLC-like price data
@@ -46,13 +45,7 @@
 		if (strategy === 'momentum') {
 			// Momentum: Longer holds, follows trends
 			const tradeConfigs = [
-				{ entryDay: 3, holdDays: 8, side: 'BUY', winRate: 0.55 },
-				{ entryDay: 14, holdDays: 5, side: 'SELL', winRate: 0.6 },
-				{ entryDay: 22, holdDays: 12, side: 'BUY', winRate: 0.52 },
-				{ entryDay: 38, holdDays: 6, side: 'SELL', winRate: 0.58 },
-				{ entryDay: 48, holdDays: 10, side: 'BUY', winRate: 0.54 },
-				{ entryDay: 62, holdDays: 7, side: 'BUY', winRate: 0.56 },
-				{ entryDay: 75, holdDays: 9, side: 'SELL', winRate: 0.53 }
+				{ entryDay: 3, holdDays: 8, side: 'BUY', winRate: 0.55 }, { entryDay: 14, holdDays: 5, side: 'SELL', winRate: 0.6 }, { entryDay: 22, holdDays: 12, side: 'BUY', winRate: 0.52 }, { entryDay: 38, holdDays: 6, side: 'SELL', winRate: 0.58 }, { entryDay: 48, holdDays: 10, side: 'BUY', winRate: 0.54 }, { entryDay: 62, holdDays: 7, side: 'BUY', winRate: 0.56 }, { entryDay: 75, holdDays: 9, side: 'SELL', winRate: 0.53 }
 			];
 
 			tradeConfigs.forEach((config, i) => {
@@ -71,30 +64,13 @@
 				equity += pnl;
 
 				trades.push({
-					entryTime: startDate + config.entryDay * dayInSeconds,
-					exitTime: startDate + (config.entryDay + config.holdDays) * dayInSeconds,
-					side: config.side,
-					entryPrice: Math.round(entryPrice * 100) / 100,
-					exitPrice: Math.round(exitPrice * 100) / 100,
-					pnl: Math.round(pnl * 100) / 100,
-					pnlPct: Math.round(pnlPct * 10000) / 10000
+					entryTime: startDate + config.entryDay * dayInSeconds, exitTime: startDate + (config.entryDay + config.holdDays) * dayInSeconds, side: config.side, entryPrice: Math.round(entryPrice * 100) / 100, exitPrice: Math.round(exitPrice * 100) / 100, pnl: Math.round(pnl * 100) / 100, pnlPct: Math.round(pnlPct * 10000) / 10000
 				});
 			});
 		} else if (strategy === 'meanReversion') {
 			// Mean reversion: Shorter holds, counter-trend
 			const tradeConfigs = [
-				{ entryDay: 2, holdDays: 2, side: 'SELL' },
-				{ entryDay: 7, holdDays: 3, side: 'BUY' },
-				{ entryDay: 13, holdDays: 2, side: 'SELL' },
-				{ entryDay: 18, holdDays: 4, side: 'BUY' },
-				{ entryDay: 25, holdDays: 2, side: 'SELL' },
-				{ entryDay: 32, holdDays: 3, side: 'BUY' },
-				{ entryDay: 40, holdDays: 2, side: 'SELL' },
-				{ entryDay: 47, holdDays: 3, side: 'BUY' },
-				{ entryDay: 55, holdDays: 2, side: 'SELL' },
-				{ entryDay: 63, holdDays: 4, side: 'BUY' },
-				{ entryDay: 72, holdDays: 2, side: 'SELL' },
-				{ entryDay: 80, holdDays: 3, side: 'BUY' }
+				{ entryDay: 2, holdDays: 2, side: 'SELL' }, { entryDay: 7, holdDays: 3, side: 'BUY' }, { entryDay: 13, holdDays: 2, side: 'SELL' }, { entryDay: 18, holdDays: 4, side: 'BUY' }, { entryDay: 25, holdDays: 2, side: 'SELL' }, { entryDay: 32, holdDays: 3, side: 'BUY' }, { entryDay: 40, holdDays: 2, side: 'SELL' }, { entryDay: 47, holdDays: 3, side: 'BUY' }, { entryDay: 55, holdDays: 2, side: 'SELL' }, { entryDay: 63, holdDays: 4, side: 'BUY' }, { entryDay: 72, holdDays: 2, side: 'SELL' }, { entryDay: 80, holdDays: 3, side: 'BUY' }
 			];
 
 			tradeConfigs.forEach((config) => {
@@ -113,24 +89,13 @@
 				equity += pnl;
 
 				trades.push({
-					entryTime: startDate + config.entryDay * dayInSeconds,
-					exitTime: startDate + (config.entryDay + config.holdDays) * dayInSeconds,
-					side: config.side,
-					entryPrice: Math.round(entryPrice * 100) / 100,
-					exitPrice: Math.round(exitPrice * 100) / 100,
-					pnl: Math.round(pnl * 100) / 100,
-					pnlPct: Math.round(pnlPct * 10000) / 10000
+					entryTime: startDate + config.entryDay * dayInSeconds, exitTime: startDate + (config.entryDay + config.holdDays) * dayInSeconds, side: config.side, entryPrice: Math.round(entryPrice * 100) / 100, exitPrice: Math.round(exitPrice * 100) / 100, pnl: Math.round(pnl * 100) / 100, pnlPct: Math.round(pnlPct * 10000) / 10000
 				});
 			});
 		} else {
 			// Breakout: Medium holds, directional
 			const tradeConfigs = [
-				{ entryDay: 5, holdDays: 6, side: 'BUY' },
-				{ entryDay: 15, holdDays: 4, side: 'BUY' },
-				{ entryDay: 28, holdDays: 8, side: 'SELL' },
-				{ entryDay: 42, holdDays: 5, side: 'BUY' },
-				{ entryDay: 55, holdDays: 7, side: 'SELL' },
-				{ entryDay: 70, holdDays: 6, side: 'BUY' }
+				{ entryDay: 5, holdDays: 6, side: 'BUY' }, { entryDay: 15, holdDays: 4, side: 'BUY' }, { entryDay: 28, holdDays: 8, side: 'SELL' }, { entryDay: 42, holdDays: 5, side: 'BUY' }, { entryDay: 55, holdDays: 7, side: 'SELL' }, { entryDay: 70, holdDays: 6, side: 'BUY' }
 			];
 
 			tradeConfigs.forEach((config) => {
@@ -149,13 +114,7 @@
 				equity += pnl;
 
 				trades.push({
-					entryTime: startDate + config.entryDay * dayInSeconds,
-					exitTime: startDate + (config.entryDay + config.holdDays) * dayInSeconds,
-					side: config.side,
-					entryPrice: Math.round(entryPrice * 100) / 100,
-					exitPrice: Math.round(exitPrice * 100) / 100,
-					pnl: Math.round(pnl * 100) / 100,
-					pnlPct: Math.round(pnlPct * 10000) / 10000
+					entryTime: startDate + config.entryDay * dayInSeconds, exitTime: startDate + (config.entryDay + config.holdDays) * dayInSeconds, side: config.side, entryPrice: Math.round(entryPrice * 100) / 100, exitPrice: Math.round(exitPrice * 100) / 100, pnl: Math.round(pnl * 100) / 100, pnlPct: Math.round(pnlPct * 10000) / 10000
 				});
 			});
 		}
@@ -176,16 +135,7 @@
 		const maxDrawdown = calculateMaxDrawdown(trades, initialCapital);
 
 		return {
-			totalTrades: trades.length,
-			winRate,
-			totalPnl,
-			totalReturn,
-			profitFactor,
-			maxDrawdown,
-			avgWin,
-			avgLoss,
-			wins: wins.length,
-			losses: losses.length
+			totalTrades: trades.length, winRate, totalPnl, totalReturn, profitFactor, maxDrawdown, avgWin, avgLoss, wins: wins.length, losses: losses.length
 		};
 	}
 
@@ -215,9 +165,7 @@
 	const breakoutData = generateTrades('breakout', startDate, initialCapital);
 
 	const strategyData: Record<StrategyKey, { trades: typeof momentumData.trades; finalEquity: number }> = {
-		momentum: momentumData,
-		meanReversion: meanReversionData,
-		breakout: breakoutData
+		momentum: momentumData, meanReversion: meanReversionData, breakout: breakoutData
 	};
 
 	const currentTrades = $derived(strategyData[selectedStrategy].trades);
@@ -225,16 +173,11 @@
 	const stats = $derived(calculateStats(currentTrades, initialCapital, currentFinalEquity));
 
 	const strategyOptions = [
-		{ value: 'momentum', label: 'Momentum Strategy' },
-		{ value: 'meanReversion', label: 'Mean Reversion' },
-		{ value: 'breakout', label: 'Breakout Strategy' }
+		{ value: 'momentum', label: 'Momentum Strategy' }, { value: 'meanReversion', label: 'Mean Reversion' }, { value: 'breakout', label: 'Breakout Strategy' }
 	];
 
 	const propDefs: PropDef[] = [
-		{ name: 'trades', type: 'Trade[]', description: 'Array of trade objects with entry/exit data' },
-		{ name: 'equityCurve', type: 'EquityPoint[]', default: '[]', description: 'Optional equity curve data points' },
-		{ name: 'height', type: 'number', default: '280', description: 'Chart height in pixels' },
-		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+		{ name: 'trades', type: 'Trade[]', description: 'Array of trade objects with entry/exit data' }, { name: 'equityCurve', type: 'EquityPoint[]', default: '[]', description: 'Optional equity curve data points' }, { name: 'height', type: 'number', default: '280', description: 'Chart height in pixels' }, { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
 	];
 </script>
 
@@ -315,7 +258,7 @@
 
 ```svelte preview title="Basic Example"
 <CodeBlock code={`<script>
-  import { BacktestChart } from 'ukiyoe';
+  import { BacktestChart } from 'ukiyoe/viz';
 
   const trades = [
     {
