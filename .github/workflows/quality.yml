@@ -20,11 +20,11 @@ jobs:
       - name: Install deps
         run: bun install
 
-      - name: Type + Svelte checks (warnings fail)
-        run: bun run check
-
       - name: Package build + declaration integrity
         run: bun run build:strict
+
+      - name: Type + Svelte checks (warnings fail)
+        run: bun run check
 
       - name: Tests
         run: bun run test:run
