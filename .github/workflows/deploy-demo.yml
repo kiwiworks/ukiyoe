@@ -34,7 +34,7 @@ jobs:
         run: bun run build
 
       - name: Install dependencies (demo)
-        run: rm -f bun.lock && bun install
+        run: bun install
         working-directory: apps/demo
 
       - name: Build demo
