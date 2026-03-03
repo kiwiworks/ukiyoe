@@ -27,9 +27,48 @@
 
 	const changelog: ChangelogEntry[] = [
 		{
+			version: '0.4.0',
+			date: '2026-03-03',
+			badge: { text: 'Latest', variant: 'success' },
+			description: 'Compact tool calls, tool call grouping, sub-agent task display, and dynamic version badges.',
+			changes: {
+				added: [
+					{
+						text: 'ToolCallDisplay v2 — compact one-liner collapsed state',
+						subitems: [
+							'Status icon, tool name, summary text, and right-aligned duration',
+							'Expandable detail for arguments/result/id',
+							'Self-contained expand/collapse (no Disclosure dependency)'
+						]
+					},
+					{
+						text: 'ToolCallGroup component — group multiple tool calls',
+						subitems: [
+							'Chevron toggle with status indicator',
+							'Count/progress hint (e.g. 2/3 complete)',
+							'Aggregate duration and bordered children container'
+						]
+					},
+					{
+						text: 'AgentTask component — sub-agent/delegated task display',
+						subitems: [
+							'Bot icon distinguishes agents from tools',
+							'Recursive nesting for sub-agents',
+							'Status-colored borders (running/success/error)',
+							'Progress tracking, elapsed time, trailing snippet slot'
+						]
+					},
+					{ text: 'formatElapsed utility — formats milliseconds as human-readable elapsed time (500ms, 1.2s, 1m 3s)' }
+				],
+				changed: [
+					{ text: 'ToolCallDisplay dropped Disclosure dependency, added status/summary/duration props' },
+					{ text: 'Demo version badge now reads library version from package.json at build time' }
+				]
+			}
+		},
+		{
 			version: '0.3.0',
 			date: '2026-02-18',
-			badge: { text: 'Latest', variant: 'success' },
 			description: 'Subpath exports, OpenAPI improvements, shiki optimization, and production build improvements.',
 			changes: {
 				added: [

@@ -51,7 +51,7 @@
 				<Kbd keys="⌘K" size="xs" />
 			</button>
 			<ThemeToggle size="sm" />
-			<Badge size="xs" variant="brand" text="v0.2" />
+			<Badge size="xs" variant="brand" text="v{__LIB_VERSION__}" />
 		</Header>
 
 		<div class="flex flex-1 overflow-hidden">

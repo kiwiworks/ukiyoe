@@ -1,10 +1,13 @@
 <script lang="ts" module>
 	export type StreamingSpeed = 'instant' | 'fast' | 'natural';
+	export type StreamingMode = 'append' | 'replace';
 
 	export interface StreamingTextProps {
 		/** Text to display */
 		text: string;
-		/** Animation speed */
+		/** Content arrival mode. 'append' animates new chars (autoregressive). 'replace' shows full content immediately on change (diffusion). */
+		mode?: StreamingMode;
+		/** Animation speed (only used in 'append' mode) */
 		speed?: StreamingSpeed;
 		/** Show blinking cursor */
 		cursor?: boolean;
@@ -20,6 +23,7 @@
 
 	let {
 		text,
+		mode = 'append',
 		speed = 'natural',
 		cursor = true,
 		onComplete,
@@ -35,17 +39,35 @@
 	let displayedText = $state('');
 	let isComplete = $state(false);
 	let currentIndex = $state(0);
+	let previousText = $state('');
 
-	// Reset when text changes
+	// Reset / sync when text changes
 	$effect(() => {
-		text; // track dependency
-		displayedText = '';
-		currentIndex = 0;
-		isComplete = false;
+		if (mode === 'replace') {
+			// Immediate full display — no animation
+			displayedText = text;
+			currentIndex = text.length;
+			isComplete = true;
+			onComplete?.();
+		} else {
+			// Append mode: if text starts with previous, only animate the new portion
+			if (text.startsWith(previousText) && previousText.length > 0) {
+				// Text grew — continue from where we were
+				currentIndex = previousText.length;
+				displayedText = previousText;
+			} else {
+				// Text changed entirely — reset
+				displayedText = '';
+				currentIndex = 0;
+			}
+			isComplete = false;
+		}
+		previousText = text;
 	});
 
-	// Streaming animation
+	// Streaming animation (append mode only)
 	$effect(() => {
+		if (mode === 'replace') return;
 		if (currentIndex >= text.length) {
 			if (!isComplete) {
 				isComplete = true;

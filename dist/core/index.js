@@ -1,6 +1,7 @@
 // Utilities
 export { cn } from '../utils/cn';
 export { renderMandelbrot } from '../utils/mandelbrot';
+export { formatNumber, formatPercent, formatCompact, formatDuration, formatBytes, formatCurrency, formatBps, formatRatio, formatTokenRate, formatElapsed } from '../utils/format';
 // Theme store
 export { themeStore, accentPalette, uiScalePresets, bgEffects, bgQualityPresets } from '../stores/theme.svelte';
 // Privacy store
@@ -43,6 +44,7 @@ export { default as AssetIcon } from './AssetIcon.svelte';
 export { default as ActionMenu } from './ActionMenu.svelte';
 // ContextMenu - Compound components
 export { ContextMenu } from './context-menu/index';
+export { default as CopyButton } from './CopyButton.svelte';
 export { default as BrandIcon } from './BrandIcon.svelte';
 export { default as Meta } from './Meta.svelte';
 // Form - Compound components

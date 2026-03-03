@@ -1,0 +1,103 @@
+<script lang="ts">
+	import { AgentTask, ToolCallDisplay, ToolCallGroup, UsageDisplay } from 'ukiyoe/agentic';
+	import { PageHeader } from 'ukiyoe/core';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'name', type: 'string', default: '-', description: 'Agent/task name (required)' },
+		{ name: 'description', type: 'string', default: '-', description: 'Description of what the agent is doing' },
+		{ name: 'status', type: "'pending' | 'running' | 'success' | 'error'", default: "'pending'", description: 'Visual status indicator' },
+		{ name: 'progress', type: '{ current: number; total: number; label?: string }', default: '-', description: 'Progress tracking' },
+		{ name: 'elapsed', type: 'number', default: '-', description: 'Elapsed time in seconds' },
+		{ name: 'expanded', type: 'boolean', default: 'true', description: 'Expand state (bindable)' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Nested tool calls, groups, or sub-agents' },
+		{ name: 'trailing', type: 'Snippet', default: '-', description: 'Trailing content (e.g. UsageDisplay)' }
+	];
+</script>
+
+<svelte:head>
+	<title>AgentTask - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="AgentTask" subtitle="Sub-agent and delegated task display with recursive nesting" />
+
+<div class="space-y-xl mt-lg">
+
+## Simple Agent with Tools
+
+<div class="max-w-2xl p-md bg-bg-secondary rounded-md">
+	<AgentTask name="file-editor" description="Editing configuration files" status="running" elapsed={5}>
+		<ToolCallDisplay name="read_file" summary="Read tsconfig.json" status="success" duration={200} />
+		<ToolCallDisplay name="write_file" summary="Writing tsconfig.json..." status="running" />
+	</AgentTask>
+</div>
+
+## With Progress Tracking
+
+<div class="max-w-2xl p-md bg-bg-secondary rounded-md">
+	<AgentTask
+		name="test-runner"
+		description="Running test suites"
+		status="running"
+		elapsed={23}
+		progress={{ current: 3, total: 8 }}
+	>
+		<ToolCallDisplay name="run_tests" summary="unit/auth.test.ts (12 passed)" status="success" duration={1200} />
+		<ToolCallDisplay name="run_tests" summary="unit/utils.test.ts (8 passed)" status="success" duration={800} />
+		<ToolCallDisplay name="run_tests" summary="integration/api.test.ts (5 passed)" status="success" duration={3400} />
+		<ToolCallDisplay name="run_tests" summary="Running e2e/login.test.ts..." status="running" />
+	</AgentTask>
+</div>
+
+## Nested Agents (Recursive)
+
+<div class="max-w-2xl p-md bg-bg-secondary rounded-md">
+	<AgentTask name="code-review" description="Reviewing authentication module" status="running" elapsed={12} progress={{ current: 2, total: 5 }}>
+		<ToolCallGroup status="success" count={2} completed={2} duration={1800}>
+			<ToolCallDisplay name="read_file" summary="Read src/auth/login.ts" status="success" duration={300} />
+			<ToolCallDisplay name="read_file" summary="Read src/auth/middleware.ts" status="success" duration={500} />
+		</ToolCallGroup>
+		<ToolCallDisplay name="grep_search" summary='Searching for "jwt.verify"' status="running" />
+		<AgentTask name="security-scanner" status="running" elapsed={3}>
+			<ToolCallDisplay name="scan_deps" summary="Scanning package.json" status="running" />
+		</AgentTask>
+	</AgentTask>
+</div>
+
+## Completed Agent with Trailing
+
+<div class="max-w-2xl p-md bg-bg-secondary rounded-md">
+	<AgentTask name="code-review" description="Review complete" status="success" elapsed={45}>
+		{#snippet trailing()}
+			<UsageDisplay
+				stats={[
+					{ label: 'Input', value: '12.4K tokens' },
+					{ label: 'Output', value: '3.2K tokens' },
+					{ label: 'Cost', value: '$0.08' }
+				]}
+				size="sm"
+			/>
+		{/snippet}
+		<ToolCallGroup status="success" count={4} completed={4} duration={5200} expanded={false}>
+			<ToolCallDisplay name="read_file" summary="Read src/auth/login.ts" status="success" duration={300} />
+			<ToolCallDisplay name="read_file" summary="Read src/auth/middleware.ts" status="success" duration={500} />
+			<ToolCallDisplay name="grep_search" summary='Search for "jwt.verify"' status="success" duration={1200} />
+			<ToolCallDisplay name="write_file" summary="Write src/auth/login.ts" status="success" duration={3200} />
+		</ToolCallGroup>
+	</AgentTask>
+</div>
+
+## Status Variants
+
+<div class="max-w-2xl space-y-md">
+	<AgentTask name="pending-agent" status="pending" />
+	<AgentTask name="running-agent" description="Processing..." status="running" elapsed={3} />
+	<AgentTask name="success-agent" description="All tasks complete" status="success" elapsed={15} />
+	<AgentTask name="error-agent" description="Failed to connect to database" status="error" elapsed={8} />
+</div>
+
+<PropsTable props={propDefs} />
+
+</div>

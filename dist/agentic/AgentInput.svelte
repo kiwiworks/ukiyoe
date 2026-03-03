@@ -29,6 +29,8 @@
 		onRemoveAttachment?: (id: string) => void;
 		/** Called when stop is clicked during loading */
 		onCancel?: () => void;
+		/** Called before onSubmit with the raw trimmed value. Return true to intercept (prevents onSubmit, clears input). */
+		onIntercept?: (value: string) => boolean | void;
 		/** Additional CSS classes */
 		class?: string;
 	}
@@ -49,6 +51,7 @@
 		onAttach,
 		onRemoveAttachment,
 		onCancel,
+		onIntercept,
 		class: className = ''
 	}: AgentInputProps = $props();
 
@@ -80,7 +83,18 @@
 
 	function handleSubmit() {
 		if (!canSubmit) return;
-		onSubmit?.(value.trim(), attachments);
+		const trimmed = value.trim();
+
+		if (onIntercept) {
+			const handled = onIntercept(trimmed);
+			if (handled) {
+				value = '';
+				if (textareaRef) textareaRef.style.height = 'auto';
+				return;
+			}
+		}
+
+		onSubmit?.(trimmed, attachments);
 		value = '';
 		if (textareaRef) {
 			textareaRef.style.height = 'auto';

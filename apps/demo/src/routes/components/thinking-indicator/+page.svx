@@ -5,9 +5,10 @@
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
-	const statuses: ThinkingStatus[] = ['thinking', 'searching', 'reading', 'executing', 'writing'];
+	const statuses: ThinkingStatus[] = ['thinking', 'searching', 'reading', 'executing', 'writing', 'complete'];
 	let index = $state(0);
 	let elapsed = $state(0);
+	let progressStep = $state(1);
 
 	$effect(() => {
 		const interval = setInterval(() => { elapsed++; }, 1000);
@@ -15,9 +16,10 @@
 	});
 
 	const propDefs: PropDef[] = [
-		{ name: 'status', type: "'thinking' | 'searching' | 'executing' | 'writing' | 'reading'", default: '-', description: 'Current activity status (required)' },
+		{ name: 'status', type: "'thinking' | 'searching' | 'executing' | 'writing' | 'reading' | 'complete'", default: '-', description: 'Current activity status (required)' },
 		{ name: 'label', type: 'string', default: '-', description: 'Custom label to display (overrides default status label)' },
 		{ name: 'elapsed', type: 'number', default: '-', description: 'Elapsed time in seconds' },
+		{ name: 'progress', type: '{ current: number; total: number; label?: string }', default: '-', description: 'Progress tracking' },
 		{ name: 'collapsible', type: 'boolean', default: 'false', description: 'Allow collapsing to show expanded content' },
 		{ name: 'children', type: 'Snippet', default: '-', description: 'Expanded thinking content' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
@@ -40,6 +42,7 @@
 <ThinkingIndicator status="reading" />
 <ThinkingIndicator status="executing" />
 <ThinkingIndicator status="writing" />
+<ThinkingIndicator status="complete" />
 ```
 
 ## Custom Labels
@@ -48,6 +51,7 @@
 <ThinkingIndicator status="thinking" label="Analyzing your request..." />
 <ThinkingIndicator status="searching" label="Searching codebase..." />
 <ThinkingIndicator status="executing" label="Running npm install..." />
+<ThinkingIndicator status="complete" label="All done!" />
 ```
 
 ## With Elapsed Time
@@ -60,6 +64,19 @@
 </div>
 <div class="p-md bg-bg-secondary rounded-md">
 	<ThinkingIndicator status={statuses[index]} {elapsed} />
+</div>
+
+## Progress Tracking
+
+<div class="flex gap-md mb-md">
+	<Button size="sm" onclick={() => (progressStep = Math.min(progressStep + 1, 20))}>
+		Step {progressStep}/20
+	</Button>
+	<Button size="sm" variant="ghost" onclick={() => (progressStep = 1)}>Reset</Button>
+</div>
+<div class="p-md bg-bg-secondary rounded-md space-y-md">
+	<ThinkingIndicator status="executing" progress={{ current: progressStep, total: 20 }} />
+	<ThinkingIndicator status="searching" progress={{ current: 3, total: 10, label: "Scanning 3/10 repos" }} />
 </div>
 
 ## Collapsible Content

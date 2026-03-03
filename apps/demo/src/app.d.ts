@@ -2,6 +2,8 @@
 // for information about these interfaces
 
 declare global {
+	const __LIB_VERSION__: string;
+
 	namespace App {
 		// interface Error {}
 		// interface Locals {}

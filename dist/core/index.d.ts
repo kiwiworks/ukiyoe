@@ -1,5 +1,7 @@
 export { cn } from '../utils/cn';
 export { renderMandelbrot } from '../utils/mandelbrot';
+export { formatNumber, formatPercent, formatCompact, formatDuration, formatBytes, formatCurrency, formatBps, formatRatio, formatTokenRate, formatElapsed } from '../utils/format';
+export type { FormatOptions, FormatPercentOptions } from '../utils/format';
 export { themeStore, accentPalette, uiScalePresets, bgEffects, bgQualityPresets } from '../stores/theme.svelte';
 export type { AccentColor, ThemeMode, ThemeColors, UiScalePreset, BgEffectType, BgEffect, BgQualityLevel, BgQualityPreset } from '../stores/theme.svelte';
 export { getPrivacyContext, setPrivacyContext, PRIVACY_MASK, PRIVACY_MASK_SHORT } from '../stores/privacy.svelte';
@@ -57,6 +59,8 @@ export { default as ActionMenu } from './ActionMenu.svelte';
 export type { ActionMenuProps } from './ActionMenu.svelte';
 export { ContextMenu } from './context-menu/index';
 export type { ContextMenuRootProps, ContextMenuItemVariant, ContextMenuItemProps, ContextMenuDividerProps } from './context-menu/index';
+export { default as CopyButton } from './CopyButton.svelte';
+export type { CopyButtonSize, CopyButtonVariant, CopyButtonProps } from './CopyButton.svelte';
 export { default as BrandIcon } from './BrandIcon.svelte';
 export type { BrandIconSize, BrandIconAnimation, BrandIconProps } from './BrandIcon.svelte';
 export { default as Meta } from './Meta.svelte';

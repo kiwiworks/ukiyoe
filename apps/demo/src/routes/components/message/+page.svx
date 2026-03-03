@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Message } from 'ukiyoe/agentic';
-	import { PageHeader } from 'ukiyoe/core';
+	import { PageHeader, addToast } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
@@ -9,9 +9,14 @@
 		{ name: 'status', type: "'idle' | 'streaming' | 'complete' | 'error'", default: "'idle'", description: 'Current message state' },
 		{ name: 'timestamp', type: 'Date', default: '-', description: 'Timestamp for the message' },
 		{ name: 'error', type: 'string', default: '-', description: 'Error message when status is error' },
+		{ name: 'thinkContent', type: 'string', default: '-', description: 'Collapsed reasoning trace (shown between header and content)' },
+		{ name: 'onRetry', type: '() => void', default: '-', description: 'Renders retry button, called on click' },
+		{ name: 'onCopy', type: '() => void', default: '-', description: 'Renders copy button, called on click' },
+		{ name: 'onDelete', type: '() => void', default: '-', description: 'Renders delete button, called on click' },
+		{ name: 'metadata', type: 'Record<string, unknown>', default: '-', description: 'Pass-through metadata (not rendered)' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
 		{ name: 'children', type: 'Snippet', default: '-', description: 'Message content' },
-		{ name: 'actions', type: 'Snippet', default: '-', description: 'Actions slot (copy, regenerate, etc.)' }
+		{ name: 'actions', type: 'Snippet', default: '-', description: 'Custom actions slot (appended after built-in actions)' }
 	];
 </script>
 
@@ -64,6 +69,32 @@
 	Error content (hidden)
 </Message>
 ```
+
+## Reasoning Trace
+
+<div class="space-y-md max-w-2xl">
+	<Message
+		role="assistant"
+		status="complete"
+		thinkContent="The user is asking about component libraries. Let me think about the best way to explain this. I should cover Svelte 5 runes, snippets, and the dark-first design approach."
+	>
+		Here's a detailed explanation of how ukiyoe works...
+	</Message>
+</div>
+
+## Action Buttons
+
+<div class="space-y-md max-w-2xl">
+	<Message
+		role="assistant"
+		status="complete"
+		onRetry={() => addToast({ description: 'Retry clicked', variant: 'info' })}
+		onCopy={() => addToast({ description: 'Copied!', variant: 'success' })}
+		onDelete={() => addToast({ description: 'Delete clicked', variant: 'danger' })}
+	>
+		This message has built-in retry, copy, and delete actions. They appear when the message is not streaming.
+	</Message>
+</div>
 
 <PropsTable props={propDefs} />
 

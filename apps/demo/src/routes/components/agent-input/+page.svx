@@ -8,6 +8,7 @@
 	let basicValue = $state('');
 	let attachValue = $state('');
 	let loadingValue = $state('');
+	let interceptValue = $state('');
 	let attachments: Attachment[] = $state([]);
 	let isLoading = $state(false);
 
@@ -29,6 +30,17 @@
 		setTimeout(() => { isLoading = false; }, 3000);
 	}
 
+	function handleIntercept(value: string): boolean | void {
+		if (value.startsWith('/')) {
+			addToast({ description: `Slash command intercepted: "${value}"`, variant: 'info' });
+			return true;
+		}
+		if (value.startsWith('@')) {
+			addToast({ description: `Mention intercepted: "${value}"`, variant: 'info' });
+			return true;
+		}
+	}
+
 	const propDefs: PropDef[] = [
 		{ name: 'value', type: 'string', default: "''", description: 'Current input value (bindable)' },
 		{ name: 'placeholder', type: 'string', default: "'Send a message...'", description: 'Placeholder text' },
@@ -40,6 +52,7 @@
 		{ name: 'onAttach', type: '(files: File[]) => void', description: 'Handler when files are attached' },
 		{ name: 'onRemoveAttachment', type: '(id: string) => void', description: 'Handler when attachment is removed' },
 		{ name: 'onCancel', type: '() => void', description: 'Handler when stop is clicked during loading' },
+		{ name: 'onIntercept', type: '(value: string) => boolean | void', default: '-', description: 'Called before onSubmit. Return true to intercept (clears input, prevents onSubmit).' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
 	];
 </script>
@@ -87,6 +100,18 @@
 		placeholder="Type a message..."
 		onSubmit={simulateLoading}
 		onCancel={() => (isLoading = false)}
+	/>
+</div>
+
+## Input Interceptor
+
+<Text size="sm" variant="muted" class="mb-sm">Try typing /help or @admin then submit. Slash commands and mentions are intercepted, regular messages pass through.</Text>
+<div class="max-w-2xl">
+	<AgentInput
+		bind:value={interceptValue}
+		placeholder="Try /help or @admin..."
+		onSubmit={handleSubmit}
+		onIntercept={handleIntercept}
 	/>
 </div>
 

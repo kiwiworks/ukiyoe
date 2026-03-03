@@ -8,6 +8,39 @@
 	let text = $state('');
 	let key = $state(0);
 
+	// Append mode demo: simulate token-by-token arrival
+	const tokens = ['Hello, ', 'I am ', 'an AI ', 'assistant. ', 'How can ', 'I help ', 'you today?'];
+	let appendText = $state('');
+	let tokenIndex = $state(0);
+
+	function startAppend() {
+		appendText = '';
+		tokenIndex = 0;
+		const interval = setInterval(() => {
+			if (tokenIndex < tokens.length) {
+				appendText += tokens[tokenIndex];
+				tokenIndex++;
+			} else {
+				clearInterval(interval);
+			}
+		}, 300);
+	}
+
+	// Replace mode demo
+	const replacePhrases = [
+		'Generating response...',
+		'The answer to your question is 42.',
+		'Actually, let me reconsider. The answer is more nuanced.',
+		'After careful analysis, the answer depends on context.'
+	];
+	let replaceIndex = $state(0);
+	let replaceText = $state(replacePhrases[0]);
+
+	function cycleReplace() {
+		replaceIndex = (replaceIndex + 1) % replacePhrases.length;
+		replaceText = replacePhrases[replaceIndex];
+	}
+
 	function start() {
 		text = '';
 		setTimeout(() => { key++; text = sampleText; }, 50);
@@ -15,7 +48,8 @@
 
 	const propDefs: PropDef[] = [
 		{ name: 'text', type: 'string', description: 'Text to display' },
-		{ name: 'speed', type: "'instant' | 'fast' | 'natural'", default: "'natural'", description: 'Animation speed' },
+		{ name: 'mode', type: "'append' | 'replace'", default: "'append'", description: "Content arrival mode. 'append' animates new chars. 'replace' swaps immediately." },
+		{ name: 'speed', type: "'instant' | 'fast' | 'natural'", default: "'natural'", description: 'Animation speed (append mode only)' },
 		{ name: 'cursor', type: 'boolean', default: 'true', description: 'Show blinking cursor' },
 		{ name: 'onComplete', type: '() => void', default: '-', description: 'Callback when streaming completes' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
@@ -60,6 +94,29 @@
 ```svelte preview title="Instant"
 <StreamingText text="Instant display, no animation." speed="instant" />
 ```
+
+## Append Mode (Incremental Tokens)
+
+<div class="flex gap-md mb-md">
+	<Button size="sm" onclick={startAppend}>Start Token Stream</Button>
+	<Button size="sm" variant="ghost" onclick={() => (appendText = '')}>Reset</Button>
+</div>
+<div class="p-md bg-bg-secondary rounded-md min-h-[60px]">
+	{#if appendText}
+		<StreamingText text={appendText} mode="append" speed="fast" />
+	{:else}
+		<span class="text-text-muted">Click to simulate token-by-token streaming</span>
+	{/if}
+</div>
+
+## Replace Mode (Diffusion)
+
+<div class="flex gap-md mb-md">
+	<Button size="sm" onclick={cycleReplace}>Next Revision</Button>
+</div>
+<div class="p-md bg-bg-secondary rounded-md min-h-[60px]">
+	<StreamingText text={replaceText} mode="replace" />
+</div>
 
 ## Without Cursor
 

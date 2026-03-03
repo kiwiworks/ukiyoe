@@ -14,7 +14,7 @@
     "@lucide/svelte": "^0.556.0",
     "bits-ui": "^2.15.2",
     "hast-util-to-html": "^9.0.5",
-    "ukiyoe": "file:../..",
+    "ukiyoe": "link:../..",
     "unist-util-visit": "^5.0.0",
     "zod": "^3.24.0"
   },

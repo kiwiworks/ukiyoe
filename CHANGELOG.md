@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-03-03
+
+### Added
+- **ToolCallDisplay v2** — compact one-liner collapsed state with status icon, tool name, summary text, and right-aligned duration; expandable detail for arguments/result/id
+- **ToolCallGroup component** — groups multiple tool calls with chevron toggle, status indicator, count/progress hint, aggregate duration, and bordered children container
+- **AgentTask component** — sub-agent/delegated task display with Bot icon, recursive nesting, status-colored borders, progress tracking, elapsed time, and trailing snippet slot
+- **`formatElapsed` utility** — formats milliseconds as human-readable elapsed time (500ms, 1.2s, 1m 3s)
+
+### Changed
+- **ToolCallDisplay** — dropped Disclosure dependency, now self-contained expand/collapse with new `status`, `summary`, and `duration` props
+- **Demo version badge** — layout and home page now read library version from `package.json` at build time instead of hardcoded magic numbers
+
 ## [0.3.0] - 2026-02-18
 
 ### Added
@@ -290,6 +302,7 @@ First stable release! Ukiyoe is now production-ready with 70+ components.
 - Dark-first design with light mode support
 - Privacy masking context
 
+[0.4.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.2.3...v0.3.0
 [0.2.3]: https://github.com/kiwiworks/ukiyoe/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/kiwiworks/ukiyoe/compare/v0.2.1...v0.2.2

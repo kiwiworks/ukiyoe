@@ -1,0 +1,59 @@
+<script lang="ts">
+	import { UsageDisplay } from 'ukiyoe/agentic';
+	import { PageHeader } from 'ukiyoe/core';
+	import type { StatItem } from 'ukiyoe/agentic';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const tokenItems: StatItem[] = [
+		{ label: 'Input', value: '1,234' },
+		{ label: 'Output', value: '567' },
+		{ label: 'Rate', value: '42.1 tok/s', variant: 'positive' },
+		{ label: 'Finish', value: 'stop' }
+	];
+
+	const costItems: StatItem[] = [
+		{ label: 'Tokens', value: '1,801' },
+		{ label: 'Cost', value: '$0.0027', variant: 'warning' },
+		{ label: 'Latency', value: '1.2s' }
+	];
+
+	const propDefs: PropDef[] = [
+		{ name: 'items', type: 'StatItem[]', default: '-', description: 'Stat items to display (required)' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md'", default: "'sm'", description: 'Size preset' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
+</script>
+
+<svelte:head>
+	<title>UsageDisplay - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="UsageDisplay" subtitle="Inline stat bar for token usage and metrics" />
+
+<div class="space-y-xl mt-lg">
+
+## Token Usage
+
+<div class="p-md bg-bg-secondary rounded-md">
+	<UsageDisplay items={tokenItems} />
+</div>
+
+## Cost Summary
+
+<div class="p-md bg-bg-secondary rounded-md">
+	<UsageDisplay items={costItems} size="md" />
+</div>
+
+## Sizes
+
+<div class="space-y-md p-md bg-bg-secondary rounded-md">
+	<UsageDisplay items={tokenItems} size="xs" />
+	<UsageDisplay items={tokenItems} size="sm" />
+	<UsageDisplay items={tokenItems} size="md" />
+</div>
+
+<PropsTable props={propDefs} />
+
+</div>
+

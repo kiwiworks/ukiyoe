@@ -1,5 +1,17 @@
 <script lang="ts" module>
-	export type ThinkingStatus = 'thinking' | 'searching' | 'executing' | 'writing' | 'reading';
+	export type ThinkingStatus =
+		| 'thinking'
+		| 'searching'
+		| 'executing'
+		| 'writing'
+		| 'reading'
+		| 'complete';
+
+	export interface ThinkingProgress {
+		current: number;
+		total: number;
+		label?: string;
+	}
 
 	export interface ThinkingIndicatorProps {
 		/** Current activity status */
@@ -8,6 +20,8 @@
 		label?: string;
 		/** Elapsed time in seconds */
 		elapsed?: number;
+		/** Progress tracking */
+		progress?: ThinkingProgress;
 		/** Allow collapsing to show expanded content */
 		collapsible?: boolean;
 		/** Expanded thinking content */
@@ -18,19 +32,37 @@
 </script>
 
 <script lang="ts">
-	import { Brain, Search, Play, PenLine, FileText, ChevronDown } from '@lucide/svelte';
+	import {
+		Brain,
+		Search,
+		Play,
+		PenLine,
+		FileText,
+		ChevronDown,
+		CheckCircle
+	} from '@lucide/svelte';
 	import { cn } from '../utils/cn';
 
 	let {
 		status,
 		label,
 		elapsed,
+		progress,
 		collapsible = false,
 		children,
 		class: className = ''
 	}: ThinkingIndicatorProps = $props();
 
 	let expanded = $state(false);
+	let previousStatus: ThinkingStatus | undefined = $state();
+
+	// Auto-collapse when transitioning to complete
+	$effect(() => {
+		if (status === 'complete' && previousStatus !== 'complete' && previousStatus !== undefined) {
+			expanded = false;
+		}
+		previousStatus = status;
+	});
 
 	const statusConfig: Record<
 		ThinkingStatus,
@@ -40,11 +72,19 @@
 		searching: { icon: Search, defaultLabel: 'Searching', color: 'text-cyan-400' },
 		executing: { icon: Play, defaultLabel: 'Executing', color: 'text-amber-400' },
 		writing: { icon: PenLine, defaultLabel: 'Writing', color: 'text-emerald-400' },
-		reading: { icon: FileText, defaultLabel: 'Reading', color: 'text-blue-400' }
+		reading: { icon: FileText, defaultLabel: 'Reading', color: 'text-blue-400' },
+		complete: { icon: CheckCircle, defaultLabel: 'Complete', color: 'text-positive' }
 	};
 
 	const config = $derived(statusConfig[status]);
 	const displayLabel = $derived(label || config.defaultLabel);
+	const isComplete = $derived(status === 'complete');
+
+	const progressText = $derived.by(() => {
+		if (!progress) return null;
+		if (progress.label) return progress.label;
+		return `Step ${progress.current}/${progress.total}`;
+	});
 
 	const formattedElapsed = $derived(() => {
 		if (elapsed === undefined) return null;
@@ -64,11 +104,15 @@
 	>
 		<!-- Animated icon -->
 		<span class="relative flex items-center justify-center w-5 h-5">
-			<span
-				class="absolute inset-0 rounded-full {config.color} opacity-20 animate-ping"
-				style="animation-duration: 1.5s;"
-			></span>
-			{#if status === 'thinking'}
+			{#if !isComplete}
+				<span
+					class="absolute inset-0 rounded-full {config.color} opacity-20 animate-ping"
+					style="animation-duration: 1.5s;"
+				></span>
+			{/if}
+			{#if status === 'complete'}
+				<CheckCircle size={16} class={config.color} />
+			{:else if status === 'thinking'}
 				<Brain size={16} class="{config.color} animate-pulse" />
 			{:else if status === 'searching'}
 				<Search size={16} class="{config.color} animate-pulse" />
@@ -84,15 +128,22 @@
 		<!-- Label -->
 		<span class="font-medium {config.color}">{displayLabel}</span>
 
-		<!-- Dots animation -->
-		<span class="flex gap-0.5">
-			{#each [0, 1, 2] as i}
-				<span
-					class="w-1 h-1 rounded-full bg-neutral animate-bounce"
-					style="animation-delay: {i * 150}ms; animation-duration: 0.8s;"
-				></span>
-			{/each}
-		</span>
+		<!-- Progress -->
+		{#if progressText}
+			<span class="text-xs text-text-muted">{progressText}</span>
+		{/if}
+
+		<!-- Dots animation (hidden when complete) -->
+		{#if !isComplete}
+			<span class="flex gap-0.5">
+				{#each [0, 1, 2] as i}
+					<span
+						class="w-1 h-1 rounded-full bg-neutral animate-bounce"
+						style="animation-delay: {i * 150}ms; animation-duration: 0.8s;"
+					></span>
+				{/each}
+			</span>
+		{/if}
 
 		<!-- Elapsed time -->
 		{#if formattedElapsed()}

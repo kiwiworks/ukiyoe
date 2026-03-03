@@ -5,10 +5,43 @@ export { default as Message } from './Message.svelte';
 export type { MessageRole, MessageStatus, MessageProps } from './Message.svelte';
 
 export { default as StreamingText } from './StreamingText.svelte';
-export type { StreamingSpeed, StreamingTextProps } from './StreamingText.svelte';
+export type { StreamingSpeed, StreamingMode, StreamingTextProps } from './StreamingText.svelte';
 
 export { default as ThinkingIndicator } from './ThinkingIndicator.svelte';
-export type { ThinkingStatus, ThinkingIndicatorProps } from './ThinkingIndicator.svelte';
+export type {
+	ThinkingStatus,
+	ThinkingProgress,
+	ThinkingIndicatorProps
+} from './ThinkingIndicator.svelte';
+
+export { default as ToolCallDisplay } from './ToolCallDisplay.svelte';
+export type { ToolCallStatus, ToolCallDisplayProps } from './ToolCallDisplay.svelte';
+
+export { default as ToolCallGroup } from './ToolCallGroup.svelte';
+export type { ToolCallGroupStatus, ToolCallGroupProps } from './ToolCallGroup.svelte';
+
+export { default as AgentTask } from './AgentTask.svelte';
+export type { AgentTaskStatus, AgentTaskProgress, AgentTaskProps } from './AgentTask.svelte';
+
+// Disclosure - Compound components
+export { Disclosure } from './disclosure/index';
+export type {
+	DisclosureContext,
+	DisclosureRootProps,
+	DisclosureHeaderProps,
+	DisclosureContentProps,
+	DisclosureSectionProps
+} from './disclosure/index';
+export { getDisclosureContext } from './disclosure/index';
+
+export { default as ReasoningTrace } from './ReasoningTrace.svelte';
+export type { ReasoningTraceProps } from './ReasoningTrace.svelte';
+
+export { default as UsageDisplay } from './UsageDisplay.svelte';
+export type { UsageDisplaySize, UsageDisplayProps } from './UsageDisplay.svelte';
+
+// Re-export StatItem from core for convenience
+export type { StatItem } from '../core/StatsGrid.svelte';
 
 export { default as AgentInput } from './AgentInput.svelte';
 export type {

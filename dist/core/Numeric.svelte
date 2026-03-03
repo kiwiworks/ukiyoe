@@ -112,6 +112,16 @@
 	import { getFormattingContext } from '../stores/formatting.svelte';
 	import { getAssetContext } from '../stores/assets.svelte';
 	import { cn } from '../utils/cn';
+	import {
+		formatNumber,
+		formatPercent,
+		formatCompact,
+		formatDuration,
+		formatBytes,
+		formatCurrency,
+		formatBps,
+		formatRatio
+	} from '../utils/format';
 
 	let {
 		value,
@@ -189,39 +199,6 @@
 		return variant;
 	});
 
-	// Create cached formatters using effective values
-	const formatters = $derived.by(() => {
-		const loc = effectiveLocale;
-		const cur = effectiveCurrency;
-		const dec = effectiveDecimals;
-
-		return {
-			number: new Intl.NumberFormat(loc, {
-				minimumFractionDigits: dec ?? 2,
-				maximumFractionDigits: dec ?? 2
-			}),
-			integer: new Intl.NumberFormat(loc, {
-				minimumFractionDigits: 0,
-				maximumFractionDigits: 0
-			}),
-			currency: new Intl.NumberFormat(loc, {
-				style: 'currency',
-				currency: cur,
-				minimumFractionDigits: dec ?? 2,
-				maximumFractionDigits: dec ?? 2
-			}),
-			quantity: new Intl.NumberFormat(loc, {
-				minimumFractionDigits: 0,
-				maximumFractionDigits: dec ?? 8
-			}),
-			compact: new Intl.NumberFormat(loc, {
-				notation: 'compact',
-				minimumFractionDigits: dec ?? 1,
-				maximumFractionDigits: dec ?? 1
-			})
-		};
-	});
-
 	// Format the value based on format type
 	const formattedValue = $derived.by(() => {
 		if (!isValid) return placeholder;
@@ -230,77 +207,61 @@
 		const sign = numValue >= 0 ? '+' : '-';
 		const fmt = effectiveFormat;
 		const dec = effectiveDecimals;
+		const loc = effectiveLocale;
 		const shouldShowSign = showSign ?? ['percent', 'pnl'].includes(fmt);
 
 		switch (fmt) {
 			case 'number':
-				return formatters.number.format(numValue);
+				return formatNumber(numValue, { locale: loc, decimals: dec ?? 2 });
 
 			case 'integer':
-				return formatters.integer.format(Math.round(numValue));
+				return formatNumber(Math.round(numValue), { locale: loc, decimals: 0 });
 
-			case 'percent': {
-				const formatted = absValue.toFixed(dec ?? 2);
-				return `${shouldShowSign ? sign : numValue < 0 ? '-' : ''}${formatted}%`;
-			}
+			case 'percent':
+				return formatPercent(numValue, { decimals: dec ?? 2, showSign: shouldShowSign });
 
-			case 'percentPlain': {
-				return `${numValue.toFixed(dec ?? 2)}%`;
-			}
+			case 'percentPlain':
+				return formatPercent(numValue, { decimals: dec ?? 2, showSign: false });
 
 			case 'currency':
-				return formatters.currency.format(numValue);
+				return formatCurrency(numValue, effectiveCurrency, { locale: loc, decimals: dec ?? 2 });
 
 			case 'pnl': {
-				const formatted = formatters.number.format(absValue);
+				const formatted = formatNumber(absValue, { locale: loc, decimals: dec ?? 2 });
 				// Use asset prefix if available (e.g., '€'), otherwise '$'
 				const currencySymbol = assetFormat?.prefix ?? '$';
 				return `${sign}${currencySymbol}${formatted}`;
 			}
 
 			case 'price': {
+				// Price has Numeric-specific auto-precision tiers
 				if (absValue === 0) return '0.00';
 				if (absValue < 0.0001) return numValue.toPrecision(dec ?? 4);
 				if (absValue < 1) return numValue.toFixed(dec ?? 6);
 				if (absValue < 1000) return numValue.toFixed(dec ?? 4);
-				return formatters.number.format(numValue);
+				return formatNumber(numValue, { locale: loc, decimals: dec ?? 2 });
 			}
 
 			case 'quantity':
-				return formatters.quantity.format(numValue);
+				return formatNumber(numValue, { locale: loc, decimals: dec ?? 8 });
 
-			case 'compact': {
-				if (absValue >= 1e9) return `${(numValue / 1e9).toFixed(dec ?? 2)}B`;
-				if (absValue >= 1e6) return `${(numValue / 1e6).toFixed(dec ?? 2)}M`;
-				if (absValue >= 1e3) return `${(numValue / 1e3).toFixed(dec ?? 1)}K`;
-				return numValue.toFixed(dec ?? 0);
-			}
+			case 'compact':
+				return formatCompact(numValue, { decimals: dec });
 
-			case 'duration': {
-				// Input assumed in microseconds
-				const us = absValue;
-				if (us < 1000) return `${us.toFixed(dec ?? 0)}µs`;
-				if (us < 1000000) return `${(us / 1000).toFixed(dec ?? 1)}ms`;
-				return `${(us / 1000000).toFixed(dec ?? 2)}s`;
-			}
+			case 'duration':
+				return formatDuration(absValue, { decimals: dec });
 
-			case 'bytes': {
-				const bytes = absValue;
-				if (bytes < 1024) return `${bytes.toFixed(dec ?? 0)}B`;
-				if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(dec ?? 1)}KB`;
-				if (bytes < 1024 * 1024 * 1024)
-					return `${(bytes / (1024 * 1024)).toFixed(dec ?? 2)}MB`;
-				return `${(bytes / (1024 * 1024 * 1024)).toFixed(dec ?? 2)}GB`;
-			}
+			case 'bytes':
+				return formatBytes(absValue, { decimals: dec });
 
 			case 'bps':
-				return `${numValue.toFixed(dec ?? 1)}bp`;
+				return formatBps(numValue, { decimals: dec ?? 1 });
 
 			case 'ratio':
-				return `${numValue.toFixed(dec ?? 2)}x`;
+				return formatRatio(numValue, { decimals: dec ?? 2 });
 
 			default:
-				return formatters.number.format(numValue);
+				return formatNumber(numValue, { locale: loc, decimals: dec ?? 2 });
 		}
 	});
 

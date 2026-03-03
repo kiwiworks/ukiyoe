@@ -1,9 +1,15 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
+import { readFileSync } from 'fs';
 import path from 'path';
 
+const libPkg = JSON.parse(readFileSync(path.resolve(__dirname, '../../package.json'), 'utf-8'));
+
 export default defineConfig({
+	define: {
+		__LIB_VERSION__: JSON.stringify(libPkg.version)
+	},
 	plugins: [tailwindcss(), sveltekit()],
 	resolve: {
 		alias: {

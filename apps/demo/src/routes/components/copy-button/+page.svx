@@ -1,0 +1,56 @@
+<script lang="ts">
+	import { CopyButton } from 'ukiyoe/core';
+	import { PageHeader } from 'ukiyoe/core';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'text', type: 'string', default: '-', description: 'Text to copy to clipboard (required)' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'sm'", description: 'Button size' },
+		{ name: 'variant', type: "'default' | 'ghost'", default: "'default'", description: 'Visual variant' },
+		{ name: 'feedbackDuration', type: 'number', default: '2000', description: 'Duration of success feedback in ms' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
+</script>
+
+<svelte:head>
+	<title>CopyButton - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="CopyButton" subtitle="One-click copy to clipboard with visual feedback" />
+
+<div class="space-y-xl mt-lg">
+
+## Variants
+
+```svelte preview title="Default & Ghost"
+<div class="flex items-center gap-4">
+	<CopyButton text="Hello, world!" variant="default" />
+	<CopyButton text="Hello, world!" variant="ghost" />
+</div>
+```
+
+## Sizes
+
+```svelte preview title="All Sizes"
+<div class="flex items-center gap-4">
+	<CopyButton text="xs" size="xs" />
+	<CopyButton text="sm" size="sm" />
+	<CopyButton text="md" size="md" />
+	<CopyButton text="lg" size="lg" />
+</div>
+```
+
+## Inline Usage
+
+```svelte preview title="Inline with text"
+<div class="flex items-center gap-2 font-mono text-sm bg-bg-secondary px-3 py-2 rounded-md">
+	<span class="text-text-primary">npm install ukiyoe</span>
+	<CopyButton text="npm install ukiyoe" size="xs" variant="ghost" />
+</div>
+```
+
+<PropsTable props={propDefs} />
+
+</div>
+

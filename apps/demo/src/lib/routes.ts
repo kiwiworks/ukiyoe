@@ -33,7 +33,8 @@ export const sections: NavSection[] = [
 			{ label: 'ButtonGroup', href: '/components/button-group' },
 			{ label: 'SocialButton', href: '/components/social-button' },
 			{ label: 'ActionMenu', href: '/components/action-menu' },
-			{ label: 'ContextMenu', href: '/components/context-menu' }
+			{ label: 'ContextMenu', href: '/components/context-menu' },
+			{ label: 'CopyButton', href: '/components/copy-button' }
 		]
 	},
 	{
@@ -153,7 +154,13 @@ export const sections: NavSection[] = [
 			{ label: 'StreamingText', href: '/components/streaming-text' },
 			{ label: 'ThinkingIndicator', href: '/components/thinking-indicator' },
 			{ label: 'AgentInput', href: '/components/agent-input' },
-			{ label: 'MessageList', href: '/components/message-list' }
+			{ label: 'MessageList', href: '/components/message-list' },
+			{ label: 'ToolCallDisplay', href: '/components/tool-call-display' },
+			{ label: 'ToolCallGroup', href: '/components/tool-call-group' },
+			{ label: 'AgentTask', href: '/components/agent-task' },
+			{ label: 'UsageDisplay', href: '/components/usage-display' },
+			{ label: 'Disclosure', href: '/components/disclosure' },
+			{ label: 'ReasoningTrace', href: '/components/reasoning-trace' }
 		]
 	},
 	{

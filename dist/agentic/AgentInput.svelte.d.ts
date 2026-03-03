@@ -26,6 +26,8 @@ export interface AgentInputProps {
     onRemoveAttachment?: (id: string) => void;
     /** Called when stop is clicked during loading */
     onCancel?: () => void;
+    /** Called before onSubmit with the raw trimmed value. Return true to intercept (prevents onSubmit, clears input). */
+    onIntercept?: (value: string) => boolean | void;
     /** Additional CSS classes */
     class?: string;
 }

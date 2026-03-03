@@ -9,6 +9,16 @@ export interface MessageProps {
     timestamp?: Date;
     /** Error message when status is error */
     error?: string;
+    /** Collapsed reasoning trace content */
+    thinkContent?: string;
+    /** Called when retry is clicked */
+    onRetry?: () => void;
+    /** Called when copy is clicked */
+    onCopy?: () => void;
+    /** Called when delete is clicked */
+    onDelete?: () => void;
+    /** Pass-through metadata (not rendered) */
+    metadata?: Record<string, unknown>;
     /** Additional CSS classes */
     class?: string;
     /** Message content */

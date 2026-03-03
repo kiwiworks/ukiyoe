@@ -1,0 +1,86 @@
+<script lang="ts">
+	import { ToolCallDisplay } from 'ukiyoe/agentic';
+	import type { ToolCallStatus } from 'ukiyoe/agentic';
+	import { PageHeader, Button } from 'ukiyoe/core';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const statuses: ToolCallStatus[] = ['pending', 'running', 'success', 'error'];
+	let statusIndex = $state(0);
+
+	const sampleArgs = { query: "SELECT * FROM users WHERE active = true", limit: 10 };
+	const sampleResult = { rows: [{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }], count: 2 };
+
+	const propDefs: PropDef[] = [
+		{ name: 'name', type: 'string', default: '-', description: 'Tool function name (required)' },
+		{ name: 'status', type: "'pending' | 'running' | 'success' | 'error'", default: "'pending'", description: 'Visual status indicator' },
+		{ name: 'summary', type: 'string', default: '-', description: 'Compact one-liner description' },
+		{ name: 'duration', type: 'number', default: '-', description: 'Duration in milliseconds' },
+		{ name: 'id', type: 'string', default: '-', description: 'Call identifier (expanded detail)' },
+		{ name: 'arguments', type: 'unknown', default: '-', description: 'Tool call arguments (expanded detail)' },
+		{ name: 'result', type: 'unknown', default: '-', description: 'Tool call result (expanded detail)' },
+		{ name: 'expanded', type: 'boolean', default: 'false', description: 'Expand state (bindable)' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
+</script>
+
+<svelte:head>
+	<title>ToolCallDisplay - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="ToolCallDisplay" subtitle="Compact, expandable display for tool calls in agent conversations" />
+
+<div class="space-y-xl mt-lg">
+
+## Compact One-Liners
+
+```svelte preview title="Compact tool calls"
+<ToolCallDisplay name="read_file" summary="Read src/lib/index.ts" status="success" duration={320} />
+<ToolCallDisplay name="grep_search" summary='Search for "export"' status="success" duration={1200} />
+<ToolCallDisplay name="write_file" summary="Writing changes..." status="running" />
+<ToolCallDisplay name="run_tests" status="pending" />
+```
+
+## Status Variants
+
+<div class="flex gap-md mb-md">
+	<Button size="sm" onclick={() => (statusIndex = (statusIndex + 1) % statuses.length)}>
+		Cycle ({statuses[statusIndex]})
+	</Button>
+</div>
+<div class="p-md bg-bg-secondary rounded-md max-w-2xl">
+	<ToolCallDisplay
+		name="execute_sql"
+		summary="Running SELECT query..."
+		status={statuses[statusIndex]}
+		duration={450}
+		arguments={sampleArgs}
+		result={sampleResult}
+	/>
+</div>
+
+## Expanded Detail
+
+<div class="max-w-2xl">
+	<ToolCallDisplay
+		name="execute_sql"
+		summary="Run SQL query"
+		status="success"
+		duration={450}
+		id="call_xyz789"
+		arguments={sampleArgs}
+		result={sampleResult}
+		expanded={true}
+	/>
+</div>
+
+## Minimal (Name Only)
+
+```svelte preview title="No summary or duration"
+<ToolCallDisplay name="web_search" status="success" />
+<ToolCallDisplay name="analyze_code" status="error" />
+```
+
+<PropsTable props={propDefs} />
+
+</div>

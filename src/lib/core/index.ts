@@ -1,6 +1,19 @@
 // Utilities
 export { cn } from '../utils/cn';
 export { renderMandelbrot } from '../utils/mandelbrot';
+export {
+	formatNumber,
+	formatPercent,
+	formatCompact,
+	formatDuration,
+	formatBytes,
+	formatCurrency,
+	formatBps,
+	formatRatio,
+	formatTokenRate,
+	formatElapsed
+} from '../utils/format';
+export type { FormatOptions, FormatPercentOptions } from '../utils/format';
 
 // Theme store
 export {
@@ -134,6 +147,8 @@ export type {
 	ContextMenuDividerProps
 } from './context-menu/index';
 
+export { default as CopyButton } from './CopyButton.svelte';
+export type { CopyButtonSize, CopyButtonVariant, CopyButtonProps } from './CopyButton.svelte';
 export { default as BrandIcon } from './BrandIcon.svelte';
 export type { BrandIconSize, BrandIconAnimation, BrandIconProps } from './BrandIcon.svelte';
 export { default as Meta } from './Meta.svelte';

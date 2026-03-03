@@ -1,0 +1,115 @@
+<script lang="ts">
+	import { Disclosure } from 'ukiyoe/agentic';
+	import { PageHeader, Badge, CodeBlock } from 'ukiyoe/core';
+	import { Wrench, Settings, Database } from '@lucide/svelte';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const rootProps: PropDef[] = [
+		{ name: 'expanded', type: 'boolean', default: 'false', description: 'Whether the disclosure is expanded (bindable)' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Content (Header, Content, etc.)' }
+	];
+
+	const headerProps: PropDef[] = [
+		{ name: 'title', type: 'string', default: '-', description: 'Header title text (required)' },
+		{ name: 'mono', type: 'boolean', default: 'false', description: 'Use monospace font for title' },
+		{ name: 'icon', type: 'Snippet', default: '-', description: 'Icon snippet rendered before the title' },
+		{ name: 'trailing', type: 'Snippet', default: '-', description: 'Trailing snippet rendered after the title' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
+
+	const contentProps: PropDef[] = [
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Content' }
+	];
+
+	const sectionProps: PropDef[] = [
+		{ name: 'label', type: 'string', default: '-', description: 'Section label (required)' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Content' }
+	];
+</script>
+
+<svelte:head>
+	<title>Disclosure - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Disclosure" subtitle="Compound collapsible component for expandable content sections" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic
+
+<div class="max-w-lg">
+	<Disclosure.Root>
+		{#snippet children()}
+			<Disclosure.Header title="Click to expand" />
+			<Disclosure.Content>
+				<p class="text-sm text-text-secondary">This content is revealed when the disclosure is expanded.</p>
+			</Disclosure.Content>
+		{/snippet}
+	</Disclosure.Root>
+</div>
+
+## With Icon and Trailing
+
+<div class="max-w-lg">
+	<Disclosure.Root>
+		{#snippet children()}
+			<Disclosure.Header title="run_query" mono>
+				{#snippet icon()}
+					<Wrench size={14} class="text-text-muted shrink-0" />
+				{/snippet}
+				{#snippet trailing()}
+					<Badge variant="muted" size="xs" text="call_abc123" />
+				{/snippet}
+			</Disclosure.Header>
+			<Disclosure.Content>
+				<p class="text-sm text-text-secondary">Content with icon and trailing badge.</p>
+			</Disclosure.Content>
+		{/snippet}
+	</Disclosure.Root>
+</div>
+
+## With Sections
+
+<div class="max-w-lg">
+	<Disclosure.Root expanded={true}>
+		{#snippet children()}
+			<Disclosure.Header title="Configuration">
+				{#snippet icon()}
+					<Settings size={14} class="text-text-muted shrink-0" />
+				{/snippet}
+			</Disclosure.Header>
+			<Disclosure.Content>
+				<Disclosure.Section label="Input">
+					<CodeBlock code={JSON.stringify({ host: "localhost", port: 5432 }, null, 2)} language="json" showLineNumbers={false} />
+				</Disclosure.Section>
+				<Disclosure.Section label="Output">
+					<CodeBlock code={JSON.stringify({ status: "ok", rows: 42 }, null, 2)} language="json" showLineNumbers={false} />
+				</Disclosure.Section>
+			</Disclosure.Content>
+		{/snippet}
+	</Disclosure.Root>
+</div>
+
+## Props
+
+### Disclosure.Root
+
+<PropsTable props={rootProps} />
+
+### Disclosure.Header
+
+<PropsTable props={headerProps} />
+
+### Disclosure.Content
+
+<PropsTable props={contentProps} />
+
+### Disclosure.Section
+
+<PropsTable props={sectionProps} />
+
+</div>

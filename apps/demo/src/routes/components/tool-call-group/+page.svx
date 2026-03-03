@@ -1,0 +1,70 @@
+<script lang="ts">
+	import { ToolCallDisplay, ToolCallGroup } from 'ukiyoe/agentic';
+	import { PageHeader } from 'ukiyoe/core';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'label', type: 'string', default: '-', description: 'Group label (auto-derived from count if absent)' },
+		{ name: 'status', type: "'pending' | 'running' | 'success' | 'error' | 'partial'", default: "'pending'", description: 'Visual status indicator' },
+		{ name: 'count', type: 'number', default: '-', description: 'Total number of calls in group' },
+		{ name: 'completed', type: 'number', default: '-', description: 'Number of completed calls (for progress hint)' },
+		{ name: 'duration', type: 'number', default: '-', description: 'Aggregate duration in milliseconds' },
+		{ name: 'expanded', type: 'boolean', default: 'true', description: 'Expand state (bindable)' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Tool call children (required)' }
+	];
+</script>
+
+<svelte:head>
+	<title>ToolCallGroup - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="ToolCallGroup" subtitle="Group multiple tool calls with status and progress tracking" />
+
+<div class="space-y-xl mt-lg">
+
+## Completed Group
+
+<div class="max-w-2xl p-md bg-bg-secondary rounded-md">
+	<ToolCallGroup status="success" count={3} completed={3} duration={2000}>
+		<ToolCallDisplay name="read_file" summary="Read src/lib/index.ts" status="success" duration={320} />
+		<ToolCallDisplay name="read_file" summary="Read src/lib/utils/cn.ts" status="success" duration={280} />
+		<ToolCallDisplay name="grep_search" summary='Search for "export"' status="success" duration={1400} />
+	</ToolCallGroup>
+</div>
+
+## In-Progress Group
+
+<div class="max-w-2xl p-md bg-bg-secondary rounded-md">
+	<ToolCallGroup status="partial" count={3} completed={2} duration={4500}>
+		<ToolCallDisplay name="read_file" summary="Read src/auth/login.ts" status="success" duration={300} />
+		<ToolCallDisplay name="read_file" summary="Read src/auth/middleware.ts" status="success" duration={500} />
+		<ToolCallDisplay name="write_file" summary="Writing changes..." status="running" />
+	</ToolCallGroup>
+</div>
+
+## Collapsed Group
+
+<div class="max-w-2xl p-md bg-bg-secondary rounded-md">
+	<ToolCallGroup status="success" count={5} completed={5} duration={3200} expanded={false}>
+		<ToolCallDisplay name="read_file" summary="Read package.json" status="success" duration={200} />
+		<ToolCallDisplay name="read_file" summary="Read tsconfig.json" status="success" duration={180} />
+		<ToolCallDisplay name="read_file" summary="Read src/index.ts" status="success" duration={300} />
+		<ToolCallDisplay name="grep_search" summary='Search for "main"' status="success" duration={1200} />
+		<ToolCallDisplay name="write_file" summary="Write dist/index.js" status="success" duration={1320} />
+	</ToolCallGroup>
+</div>
+
+## Custom Label
+
+```svelte preview title="With custom label"
+<ToolCallGroup label="File reads" status="success" count={2} completed={2} duration={600}>
+	<ToolCallDisplay name="read_file" summary="Read README.md" status="success" duration={250} />
+	<ToolCallDisplay name="read_file" summary="Read LICENSE" status="success" duration={350} />
+</ToolCallGroup>
+```
+
+<PropsTable props={propDefs} />
+
+</div>

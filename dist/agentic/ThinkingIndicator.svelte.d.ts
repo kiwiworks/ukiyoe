@@ -1,4 +1,9 @@
-export type ThinkingStatus = 'thinking' | 'searching' | 'executing' | 'writing' | 'reading';
+export type ThinkingStatus = 'thinking' | 'searching' | 'executing' | 'writing' | 'reading' | 'complete';
+export interface ThinkingProgress {
+    current: number;
+    total: number;
+    label?: string;
+}
 export interface ThinkingIndicatorProps {
     /** Current activity status */
     status: ThinkingStatus;
@@ -6,6 +11,8 @@ export interface ThinkingIndicatorProps {
     label?: string;
     /** Elapsed time in seconds */
     elapsed?: number;
+    /** Progress tracking */
+    progress?: ThinkingProgress;
     /** Allow collapsing to show expanded content */
     collapsible?: boolean;
     /** Expanded thinking content */

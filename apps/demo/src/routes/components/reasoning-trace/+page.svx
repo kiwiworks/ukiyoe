@@ -1,0 +1,49 @@
+<script lang="ts">
+	import { ReasoningTrace } from 'ukiyoe/agentic';
+	import { PageHeader } from 'ukiyoe/core';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	const propDefs: PropDef[] = [
+		{ name: 'content', type: 'string', default: '-', description: 'Reasoning content text (required)' },
+		{ name: 'expanded', type: 'boolean', default: 'false', description: 'Whether the trace is expanded (bindable)' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
+	];
+
+	const sampleReasoning = `The user is asking about component libraries. Let me think about the best way to explain this.
+
+I should cover:
+1. Svelte 5 runes and the new reactivity model
+2. Snippets replacing slots for composition
+3. The dark-first design approach with CSS variables
+
+Let me structure the response to be clear and informative.`;
+</script>
+
+<svelte:head>
+	<title>ReasoningTrace - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="ReasoningTrace" subtitle="Collapsible reasoning trace for AI model thinking content" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic
+
+<div class="max-w-2xl">
+	<ReasoningTrace content="The user wants a simple example. I'll provide one." />
+</div>
+
+## Expanded
+
+<div class="max-w-2xl">
+	<ReasoningTrace content={sampleReasoning} expanded={true} />
+</div>
+
+## In Context
+
+Used inside a `Message` component via the `thinkContent` prop, the reasoning trace appears between the header and the message body.
+
+<PropsTable props={propDefs} />
+
+</div>

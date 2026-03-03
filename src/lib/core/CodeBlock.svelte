@@ -19,7 +19,8 @@
 
 <script lang="ts">
 	import { cn } from '../utils/cn';
-	import { Copy, Check, FileCode } from '@lucide/svelte';
+	import { FileCode } from '@lucide/svelte';
+	import CopyButton from './CopyButton.svelte';
 
 	let {
 		code,
@@ -31,19 +32,9 @@
 		class: className = ''
 	}: CodeBlockProps = $props();
 
-	let copied = $state(false);
-
 	const lines = $derived(code.split('\n'));
 	const highlightSet = $derived(new Set(highlightLines));
 	const maxLineNumberWidth = $derived(String(lines.length).length);
-
-	async function copyCode() {
-		await navigator.clipboard.writeText(code);
-		copied = true;
-		setTimeout(() => {
-			copied = false;
-		}, 2000);
-	}
 
 	function isLineHighlighted(lineNumber: number): boolean {
 		return highlightSet.has(lineNumber);
@@ -83,34 +74,14 @@
 							{language}
 						</span>
 					{/if}
-					<button
-						type="button"
-						onclick={copyCode}
-						class="p-1.5 rounded text-text-muted hover:text-text-secondary hover:bg-bg-hover transition-colors"
-						title="Copy code"
-					>
-						{#if copied}
-							<Check size={14} class="text-positive" />
-						{:else}
-							<Copy size={14} />
-						{/if}
-					</button>
+					<CopyButton text={code} size="sm" variant="ghost" />
 				</div>
 			</div>
 		{:else}
 			<!-- Copy button only when no header -->
-			<button
-				type="button"
-				onclick={copyCode}
-				class="absolute top-2 right-2 p-1.5 rounded text-text-muted hover:text-text-secondary hover:bg-bg-hover transition-colors z-10"
-				title="Copy code"
-			>
-				{#if copied}
-					<Check size={14} class="text-positive" />
-				{:else}
-					<Copy size={14} />
-				{/if}
-			</button>
+			<div class="absolute top-2 right-2 z-10">
+				<CopyButton text={code} size="sm" variant="ghost" />
+			</div>
 		{/if}
 
 		<!-- Code content -->
