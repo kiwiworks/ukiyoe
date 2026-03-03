@@ -6,6 +6,7 @@
 	const propDefs: PropDef[] = [
 		{ name: 'value', type: 'number | string | null | undefined', default: '-', description: 'The numeric value to display' },
 		{ name: 'format', type: 'NumericFormat', default: "'number'", description: 'Format type (number, integer, percent, percentPlain, currency, pnl, price, quantity, compact, duration, bytes, bps, ratio)' },
+		{ name: 'asset', type: 'string', default: '-', description: 'Asset symbol for asset-aware formatting (e.g., BTC, EUR, USDT)' },
 		{ name: 'decimals', type: 'number', default: '-', description: 'Number of decimal places (overrides format default)' },
 		{ name: 'variant', type: 'NumericVariant', default: "'default'", description: 'Color variant (default, positive, negative, muted, accent)' },
 		{ name: 'colorBySign', type: 'boolean', default: 'false', description: 'Auto-color based on sign' },
@@ -75,4 +76,3 @@
 <PropsTable props={propDefs} />
 
 </div>
-

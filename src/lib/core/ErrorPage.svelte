@@ -103,7 +103,7 @@
 		{:else}
 			<div class="flex flex-wrap items-center justify-center gap-3">
 				{#if showRetry && onRetry}
-					<Button variant="outline" onclick={onRetry}>
+					<Button variant="outline" onClick={onRetry}>
 						<RefreshCw size={16} class="mr-1" />
 						Retry
 					</Button>
@@ -112,7 +112,7 @@
 					{#if backHref}
 						<Button variant="outline" href={backHref}>{backText}</Button>
 					{:else}
-						<Button variant="outline" onclick={handleBack}>{backText}</Button>
+						<Button variant="outline" onClick={handleBack}>{backText}</Button>
 					{/if}
 				{/if}
 				{#if showHome}

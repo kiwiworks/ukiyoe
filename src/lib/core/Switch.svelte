@@ -18,8 +18,10 @@
 		'aria-describedby'?: string;
 		/** Additional CSS classes */
 		class?: string;
-		/** Change event handler */
-		onchange?: (checked: boolean) => void;
+		/** Value change handler */
+		onValueChange?: (checked: boolean) => void;
+		/** Label content rendered beside the switch */
+		children?: import('svelte').Snippet;
 	}
 </script>
 
@@ -36,7 +38,8 @@
 		'aria-label': ariaLabel,
 		'aria-describedby': ariaDescribedby,
 		class: className = '',
-		onchange
+		onValueChange,
+		children
 	}: SwitchProps = $props();
 
 	const trackSizes: Record<SwitchSize, string> = {
@@ -55,10 +58,29 @@
 
 	function handleChange(newChecked: boolean) {
 		checked = newChecked;
-		onchange?.(newChecked);
+		onValueChange?.(newChecked);
 	}
 </script>
 
+{#if children}
+<label class={cn('flex items-center gap-sm', disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer')}>
+	<Switch.Root
+		{id}
+		{name}
+		{checked}
+		{disabled}
+		onCheckedChange={handleChange}
+		aria-label={ariaLabel}
+		aria-describedby={ariaDescribedby}
+		class={cn('inline-flex shrink-0 cursor-pointer items-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-accent-brand data-[state=checked]:border-accent-brand data-[state=unchecked]:bg-bg-tertiary data-[state=unchecked]:border-border-default touch-target', trackSizes[size], className)}
+	>
+		<Switch.Thumb
+			class="pointer-events-none block rounded-full shadow-sm ring-0 transition-transform data-[state=unchecked]:translate-x-0.5 data-[state=checked]:bg-white data-[state=unchecked]:bg-border-strong {thumbSizes[size]}"
+		/>
+	</Switch.Root>
+	<span class="text-sm text-text-primary select-none">{@render children()}</span>
+</label>
+{:else}
 <Switch.Root
 	{id}
 	{name}
@@ -67,9 +89,10 @@
 	onCheckedChange={handleChange}
 	aria-label={ariaLabel}
 	aria-describedby={ariaDescribedby}
-	class={cn('inline-flex shrink-0 cursor-pointer items-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-accent-brand data-[state=checked]:border-accent-brand data-[state=unchecked]:bg-bg-tertiary data-[state=unchecked]:border-border-default', trackSizes[size], className)}
+	class={cn('inline-flex shrink-0 cursor-pointer items-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-accent-brand data-[state=checked]:border-accent-brand data-[state=unchecked]:bg-bg-tertiary data-[state=unchecked]:border-border-default touch-target', trackSizes[size], className)}
 >
 	<Switch.Thumb
 		class="pointer-events-none block rounded-full shadow-sm ring-0 transition-transform data-[state=unchecked]:translate-x-0.5 data-[state=checked]:bg-white data-[state=unchecked]:bg-border-strong {thumbSizes[size]}"
 	/>
 </Switch.Root>
+{/if}

@@ -43,7 +43,7 @@
 	<div
 		class={cn(
 			'flex items-center justify-between px-sm py-xs border-b border-border-subtle',
-			collapsible && 'cursor-pointer hover:bg-bg-tertiary'
+			collapsible && 'cursor-pointer hover:bg-bg-tertiary touch-target'
 		)}
 		onclick={toggleCollapse}
 		role={collapsible ? 'button' : undefined}
@@ -58,7 +58,7 @@
 		}}
 	>
 		<div class="flex items-center gap-sm">
-			<span class="text-text-muted text-[10px] font-semibold uppercase tracking-wide">{title}</span>
+			<span class="text-text-muted text-[11px] font-semibold uppercase tracking-wide">{title}</span>
 			{#if collapsible}
 				<div class="text-text-muted">
 					{#if collapsed}

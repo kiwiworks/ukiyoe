@@ -47,7 +47,7 @@
 	{#each items as item}
 		<div class="flex flex-col items-center text-center">
 			<span class="mb-1 font-bold {sizeClasses[size]} {variantClasses[item.variant ?? 'default']}">{item.value}</span>
-			<span class="text-[9px] uppercase tracking-wide text-text-muted">{item.label}</span>
+			<span class="text-[11px] uppercase tracking-wide text-text-muted">{item.label}</span>
 		</div>
 	{/each}
 </div>

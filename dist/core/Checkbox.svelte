@@ -22,8 +22,10 @@
 		'aria-invalid'?: boolean;
 		/** Additional CSS classes */
 		class?: string;
-		/** Change event handler */
-		onchange?: (checked: boolean) => void;
+		/** Value change handler */
+		onValueChange?: (checked: boolean) => void;
+		/** Label content rendered beside the checkbox */
+		children?: import('svelte').Snippet;
 	}
 </script>
 
@@ -43,7 +45,8 @@
 		'aria-describedby': ariaDescribedby,
 		'aria-invalid': ariaInvalid,
 		class: className = '',
-		onchange
+		onValueChange,
+		children: label
 	}: CheckboxProps = $props();
 
 	const isDisabled = $derived(disabled || loading);
@@ -65,11 +68,38 @@
 	function handleChange(newChecked: boolean | 'indeterminate') {
 		if (typeof newChecked === 'boolean') {
 			checked = newChecked;
-			onchange?.(newChecked);
+			onValueChange?.(newChecked);
 		}
 	}
 </script>
 
+{#if label}
+<label class={cn('flex items-center gap-sm', isDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer')}>
+	<Checkbox.Root
+		{id}
+		{name}
+		{checked}
+		disabled={isDisabled}
+		onCheckedChange={handleChange}
+		aria-label={ariaLabel}
+		aria-describedby={ariaDescribedby}
+		aria-invalid={ariaInvalid}
+		aria-busy={loading}
+		class={cn('inline-flex items-center justify-center rounded border border-border-default bg-bg-secondary transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 focus-visible:border-accent-brand disabled:opacity-50 disabled:cursor-not-allowed data-[state=checked]:bg-accent-brand data-[state=checked]:border-accent-brand cursor-pointer touch-target', sizeClasses[size], className)}
+	>
+		{#snippet children({ checked: isChecked })}
+			<span class="text-white flex items-center justify-center">
+				{#if loading}
+					<Loader2 size={iconSizes[size]} class="animate-spin text-text-muted" />
+				{:else if isChecked}
+					<Check size={iconSizes[size]} />
+				{/if}
+			</span>
+		{/snippet}
+	</Checkbox.Root>
+	<span class="text-sm text-text-primary select-none">{@render label()}</span>
+</label>
+{:else}
 <Checkbox.Root
 	{id}
 	{name}
@@ -80,7 +110,7 @@
 	aria-describedby={ariaDescribedby}
 	aria-invalid={ariaInvalid}
 	aria-busy={loading}
-	class={cn('inline-flex items-center justify-center rounded border border-border-default bg-bg-secondary transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 focus-visible:border-accent-brand disabled:opacity-50 disabled:cursor-not-allowed data-[state=checked]:bg-accent-brand data-[state=checked]:border-accent-brand cursor-pointer', sizeClasses[size], className)}
+	class={cn('inline-flex items-center justify-center rounded border border-border-default bg-bg-secondary transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 focus-visible:border-accent-brand disabled:opacity-50 disabled:cursor-not-allowed data-[state=checked]:bg-accent-brand data-[state=checked]:border-accent-brand cursor-pointer touch-target', sizeClasses[size], className)}
 >
 	{#snippet children({ checked: isChecked })}
 		<span class="text-white flex items-center justify-center">
@@ -92,3 +122,4 @@
 		</span>
 	{/snippet}
 </Checkbox.Root>
+{/if}

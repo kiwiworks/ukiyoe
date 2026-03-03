@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { SchemaView } from 'ukiyoe/openapi';
-	import { PageHeader } from 'ukiyoe/core';
-	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import { PageHeader, Heading, Text } from 'ukiyoe/core';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	const propDefs: PropDef[] = [
@@ -92,47 +91,45 @@
 <PageHeader title="SchemaView" subtitle="Display OpenAPI schema definitions with expand/collapse support" />
 
 <div class="space-y-xl mt-lg">
+	<section class="space-y-md">
+		<Heading level={2}>Basic Usage</Heading>
+		<Text variant="secondary">Display simple schema types with descriptions.</Text>
+		<div class="rounded-lg border border-border-subtle bg-bg-secondary p-lg">
+			<SchemaView schema={simpleSchema as never} propertyName="userId" />
+		</div>
+	</section>
 
-## Basic Usage
+	<section class="space-y-md">
+		<Heading level={2}>Object Schema</Heading>
+		<Text variant="secondary">Display object schemas with properties, showing required fields and types.</Text>
+		<div class="rounded-lg border border-border-subtle bg-bg-secondary p-lg">
+			<SchemaView schema={objectSchema as never} />
+		</div>
+	</section>
 
-Display simple schema types with descriptions.
+	<section class="space-y-md">
+		<Heading level={2}>Array Schema</Heading>
+		<Text variant="secondary">Display array schemas with item type information.</Text>
+		<div class="rounded-lg border border-border-subtle bg-bg-secondary p-lg">
+			<SchemaView schema={arraySchema as never} propertyName="tags" />
+		</div>
+	</section>
 
-<ComponentPreview title="Simple String Schema">
-	<SchemaView schema={simpleSchema} propertyName="userId" />
-</ComponentPreview>
+	<section class="space-y-md">
+		<Heading level={2}>Nested Objects</Heading>
+		<Text variant="secondary">Deeply nested schemas with expand/collapse controls.</Text>
+		<div class="rounded-lg border border-border-subtle bg-bg-secondary p-lg">
+			<SchemaView schema={nestedSchema as never} />
+		</div>
+	</section>
 
-## Object Schema
+	<section class="space-y-md">
+		<Heading level={2}>Constraints</Heading>
+		<Text variant="secondary">Display validation constraints like min/max, patterns, and length limits.</Text>
+		<div class="rounded-lg border border-border-subtle bg-bg-secondary p-lg">
+			<SchemaView schema={constrainedSchema as never} />
+		</div>
+	</section>
 
-Display object schemas with properties, showing required fields and types.
-
-<ComponentPreview title="User Object Schema">
-	<SchemaView schema={objectSchema} />
-</ComponentPreview>
-
-## Array Schema
-
-Display array schemas with item type information.
-
-<ComponentPreview title="Tags Array Schema">
-	<SchemaView schema={arraySchema} propertyName="tags" />
-</ComponentPreview>
-
-## Nested Objects
-
-Deeply nested schemas with expand/collapse controls.
-
-<ComponentPreview title="Nested Pet Schema">
-	<SchemaView schema={nestedSchema} />
-</ComponentPreview>
-
-## Constraints
-
-Display validation constraints like min/max, patterns, and length limits.
-
-<ComponentPreview title="Schema with Constraints">
-	<SchemaView schema={constrainedSchema} />
-</ComponentPreview>
-
-<PropsTable props={propDefs} />
-
+	<PropsTable props={propDefs} />
 </div>

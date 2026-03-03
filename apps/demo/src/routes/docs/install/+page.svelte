@@ -9,7 +9,7 @@
 		{ id: 'use', label: 'Build', description: 'Use components' }
 	];
 
-	let currentStep = $state(0);
+	let currentStep = $state(steps[0]?.id ?? 'install');
 </script>
 
 <svelte:head>
@@ -44,7 +44,7 @@
 	<section>
 		<Heading level={2} id="setup-guide" anchor>Setup Guide</Heading>
 		<div class="mt-md mb-lg">
-			<Stepper {steps} {currentStep} orientation="horizontal" size="sm" onStepClick={(i) => currentStep = i} />
+			<Stepper {steps} {currentStep} orientation="horizontal" size="sm" onStepClick={(stepId) => currentStep = stepId} />
 		</div>
 
 		<div class="flex flex-col gap-md">
@@ -84,7 +84,7 @@ export default defineConfig({
 				<Text variant="muted" class="mb-md">Import and use components:</Text>
 				<CodeBlock code={`<script>
   import { Button, Input, Badge } from 'ukiyoe/core';
-</script>
+<\/script>
 
 <Button variant="primary">Click me</Button>
 <Input placeholder="Enter text..." />

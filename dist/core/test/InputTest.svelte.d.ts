@@ -13,8 +13,7 @@ type $$ComponentProps = {
     prefix?: string;
     suffix?: string;
     ariaLabel?: string;
-    oninput?: (e: Event) => void;
-    onchange?: (e: Event) => void;
+    onValueChange?: (value: string) => void;
 };
 declare const InputTest: import("svelte").Component<$$ComponentProps, {}, "value">;
 type InputTest = ReturnType<typeof InputTest>;

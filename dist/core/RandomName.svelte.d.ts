@@ -16,7 +16,7 @@ interface Props {
     /** Current name value */
     value: string;
     /** Callback when name changes */
-    onchange?: (name: string) => void;
+    onValueChange?: (name: string) => void;
     /** Placeholder for manual input */
     placeholder?: string;
     /** Configuration for name generation */

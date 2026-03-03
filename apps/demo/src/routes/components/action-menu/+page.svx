@@ -26,9 +26,9 @@
 ```svelte preview title="Action Menu"
 <ActionMenu label="Actions">
 	{#snippet icon()}<MoreVertical size={14} />{/snippet}
-	<MenuItem onclick={() => console.log('Edit')}>Edit</MenuItem>
-	<MenuItem onclick={() => console.log('Duplicate')}>Duplicate</MenuItem>
-	<MenuItem onclick={() => console.log('Archive')}>Archive</MenuItem>
+	<MenuItem onClick={() => console.log('Edit')}>Edit</MenuItem>
+	<MenuItem onClick={() => console.log('Duplicate')}>Duplicate</MenuItem>
+	<MenuItem onClick={() => console.log('Archive')}>Archive</MenuItem>
 </ActionMenu>
 ```
 
@@ -37,10 +37,10 @@
 ```svelte preview title="With Divider"
 <ActionMenu label="Options">
 	{#snippet icon()}<MoreHorizontal size={14} />{/snippet}
-	<MenuItem onclick={() => console.log('View')}>View Details</MenuItem>
-	<MenuItem onclick={() => console.log('Edit')}>Edit</MenuItem>
+	<MenuItem onClick={() => console.log('View')}>View Details</MenuItem>
+	<MenuItem onClick={() => console.log('Edit')}>Edit</MenuItem>
 	<MenuDivider />
-	<MenuItem variant="danger" onclick={() => console.log('Delete')}>Delete</MenuItem>
+	<MenuItem variant="danger" onClick={() => console.log('Delete')}>Delete</MenuItem>
 </ActionMenu>
 ```
 

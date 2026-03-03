@@ -49,6 +49,11 @@ const mdsvexOptions = {
 			// Check if this is a preview block
 			if (meta?.includes('preview')) {
 				const escapedCode = escapeTemplateLiteral(code);
+				// Prevent preview snippets from terminating parser blocks when they include
+				// literal script/style tags inside template strings.
+				const renderCode = code
+					.replace(/<\/script>/gi, '<\\/script>')
+					.replace(/<\/style>/gi, '<\\/style>');
 
 				// Extract title from meta
 				const titleMatch = meta.match(/title="([^"]+)"/);
@@ -56,7 +61,7 @@ const mdsvexOptions = {
 
 				// Return ComponentPreview with highlighted HTML as prop
 				return `<ComponentPreview code={\`${escapedCode}\`} lang="${language}"${titleProp} highlightedHtml={\`${escapedHtml}\`}>
-${code}
+${renderCode}
 </ComponentPreview>`;
 			}
 

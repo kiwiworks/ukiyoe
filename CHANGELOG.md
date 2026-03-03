@@ -5,6 +5,41 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2026-03-04
+
+### Added
+- **Example pages** — four full-page application examples (API Explorer, Chat Interface, Dashboard, Settings) with source code viewer toggle
+- **ExampleViewer component** — collapsible source code panel with syntax highlighting for example pages
+- **Viewport store** — reactive `viewportStore` with `width`, `height`, `isMobile` for responsive logic in components
+- **Scroll lock utility** — body scroll prevention for mobile drawers and modals
+- **Sparkline `responsive` prop** — when `true`, SVG stretches to fill container width (`width="100%"` + `preserveAspectRatio="none"`) while keeping viewBox coordinate space unchanged
+- **Checkbox `children` snippet** — renders a label beside the checkbox with proper `<label>` wrapping and cursor/opacity states
+- **Switch `children` snippet** — renders a label beside the switch with proper `<label>` wrapping and cursor/opacity states
+
+### Changed
+- **Demo nav rewrite** — replaced heavy ListItem-based navigation with compact tree nav: collapsible section headers with chevron, plain text links, collapsed icon rail mode, auto-collapse at <1280px viewport width
+- **Demo nav sections sorted** — all component items within each section now sorted alphabetically
+- **Dashboard example** — 3-tier responsive breakpoints (mobile 2-col, tablet 3-col, desktop 4-col) with responsive sparkline widgets
+- **Zod peer dependency** — upgraded from `^3.0.0` to `^4.0.0` (Zod 4 ships a v3 compat layer; `safeParse`, `schema.shape`, `ZodObject`, `ZodRawShape` all work unchanged)
+- **Core callback API** — normalized callback prop casing across core components:
+  - `Modal`: `onclose` -> `onClose`
+  - `SidePanel`: `onclose` -> `onClose`
+  - `ThemeLabModal`: `onclose` -> `onClose`
+  - `Toast`: `onclose` -> `onClose`
+  - `AlertDialog`: `onconfirm`/`oncancel` -> `onConfirm`/`onCancel`
+  - `RefreshControl`: `onrefresh`/`onintervalchange` -> `onRefresh`/`onIntervalChange`
+- **Form.Auto** — number fields now emit `null` when cleared (empty string) instead of coercing to `0`
+- **DataTable.Root** — context setup now preserves the row generic type without casting to `Record<string, unknown>`
+- **ThemeProvider** — CSS variable application now uses stable diffing without clearing all vars on each reactive pass
+
+### Removed
+- **Legacy lowercase callback props** — removed `onclose`, `onconfirm`, `oncancel`, `onrefresh`, `onintervalchange`
+
+### Fixed
+- **ThemeProvider SSR crash** — fixed server-side rendering error when `document` is unavailable
+- **Chat example scroll** — fixed auto-scroll behavior in message list
+- **Demo component docs** — updated callback props to match the breaking callback API (`onValueChange`, `onBlur`, `onClose`, `onCancel`, `onConfirm`, `onRefresh`, `onIntervalChange`)
+
 ## [0.4.1] - 2026-03-03
 
 ### Fixed
@@ -307,6 +342,8 @@ First stable release! Ukiyoe is now production-ready with 70+ components.
 - Dark-first design with light mode support
 - Privacy masking context
 
+[Unreleased]: https://github.com/kiwiworks/ukiyoe/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.4.1...v0.5.0
 [0.4.1]: https://github.com/kiwiworks/ukiyoe/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.2.3...v0.3.0

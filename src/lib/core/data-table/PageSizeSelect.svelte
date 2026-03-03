@@ -40,7 +40,7 @@
 		{options}
 		size="sm"
 		disabled={ctx.isLoading}
-		onchange={handleChange}
+		onValueChange={handleChange}
 		class="w-20"
 	/>
 </div>

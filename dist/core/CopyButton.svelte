@@ -55,7 +55,7 @@
 <Button
 	variant={buttonVariant[variant]}
 	{size}
-	onclick={handleCopy}
+	onClick={handleCopy}
 	aria-label={copied ? 'Copied' : 'Copy to clipboard'}
 	class={cn(copied && 'text-positive', className)}
 >

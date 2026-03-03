@@ -7,7 +7,7 @@
 	let modalOpen = $state(false);
 
 	const propDefs: PropDef[] = [
-		{ name: 'open', type: 'boolean', default: 'false', description: 'Whether the modal is open (bindable)' }, { name: 'onclose', type: '() => void', default: '-', description: 'Callback when modal is closed' }
+		{ name: 'open', type: 'boolean', default: 'false', description: 'Whether the modal is open (bindable)' }, { name: 'onClose', type: '() => void', default: '-', description: 'Callback when modal is closed' }
 	];
 </script>
 
@@ -36,7 +36,7 @@ The ThemeLabModal provides a comprehensive interface for customizing the applica
 ## Basic Usage
 
 ```svelte preview title="Open Theme Lab Modal"
-<Button size="sm" onclick={() => (modalOpen = true)}>
+<Button size="sm" onClick={() => (modalOpen = true)}>
 	<Settings2 size={16} class="mr-xs" />
 	Open Theme Lab
 </Button>
@@ -57,11 +57,11 @@ You can control the modal programmatically through the `open` prop:
 	function handleClose() {
 		console.log('Theme Lab closed');
 	}
-</script>
+<\/script>
 
-<Button onclick={() => (open = true)}>Configure Theme</Button>
+<Button onClick={() => (open = true)}>Configure Theme</Button>
 
-<ThemeLabModal bind:open onclose={handleClose} />
+<ThemeLabModal bind:open onClose={handleClose} />
 ```
 
 ## Features

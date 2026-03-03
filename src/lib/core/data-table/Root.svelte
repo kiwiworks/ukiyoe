@@ -1,6 +1,6 @@
 <script lang="ts" module>
 	import type { Snippet } from 'svelte';
-	import type { Column, ServerPaginationState, SortDirection } from './types';
+	import type { Column, ServerPaginationState, SortDirection, RowKey, RowPathKey } from './types';
 
 	export interface DataTableRootProps<T = Record<string, unknown>> {
 		/** Array of data rows */
@@ -8,11 +8,11 @@
 		/** Column definitions */
 		columns: Column<T>[];
 		/** Unique key field for each row */
-		keyField: string;
+		keyField: RowKey<T>;
 		/** Enable sorting */
 		sortable?: boolean;
 		/** Default sort column key */
-		defaultSortKey?: string;
+		defaultSortKey?: RowPathKey<T> | '';
 		/** Default sort direction */
 		defaultSortDir?: SortDirection;
 		/** Page size options for pagination */
@@ -20,7 +20,7 @@
 		/** Default page size */
 		defaultPageSize?: number;
 		/** Keys to search (defaults to all column keys) */
-		searchKeys?: string[];
+		searchKeys?: RowPathKey<T>[];
 		/** Server-side pagination state */
 		serverPagination?: ServerPaginationState;
 		/** Server next page handler */
@@ -30,9 +30,11 @@
 		/** Server page size change handler */
 		onPageSizeChange?: (size: number) => void;
 		/** Server search handler */
-		onSearch?: (term: string) => void;
+		onSearch?: (term: string, page: number, pageSize: number) => void;
 		/** Server search term (controlled) */
 		serverSearchTerm?: string;
+		/** Debounce delay for server search (ms) */
+		serverSearchDebounceMs?: number;
 		/** Row click handler */
 		onRowClick?: (row: T) => void;
 		/** Custom cell renderer */
@@ -60,7 +62,7 @@
 	}
 </script>
 
-<script lang="ts" generics="T extends Record<string, unknown>">
+<script lang="ts" generics="T extends object">
 	import { setDataTableContext } from './context.svelte';
 	import type { DataTableContext } from './types';
 
@@ -80,6 +82,7 @@
 		onPageSizeChange,
 		onSearch,
 		serverSearchTerm = '',
+		serverSearchDebounceMs = 250,
 		onRowClick,
 		cell,
 		row,
@@ -95,7 +98,7 @@
 	}: DataTableRootProps<T> = $props();
 
 	// Internal state - initialized with literals, synced via effects
-	let sortKey = $state('');
+	let sortKey = $state<RowPathKey<T> | ''>('');
 	let sortDir = $state<SortDirection>('asc');
 	let searchQuery = $state('');
 	let currentPage = $state(0);
@@ -237,13 +240,13 @@
 	const isLoading = $derived(serverPagination?.isLoading ?? false);
 
 	// Actions
-	function toggleSort(key: string) {
+	function toggleSort(key: RowPathKey<T>) {
 		if (!sortable) return;
 		if (sortKey === key) {
 			sortDir = sortDir === 'asc' ? 'desc' : 'asc';
 		} else {
 			sortKey = key;
-			sortDir = 'desc';
+			sortDir = defaultSortDir;
 		}
 	}
 
@@ -297,6 +300,7 @@
 		get onServerPageSizeChange() { return onPageSizeChange; },
 		get onServerSearch() { return onSearch; },
 		get serverSearchTerm() { return serverSearchTerm; },
+		get serverSearchDebounceMs() { return serverSearchDebounceMs; },
 		get filteredData() { return filteredData; },
 		get sortedData() { return sortedData; },
 		get paginatedData() { return paginatedData; },
@@ -319,7 +323,7 @@
 		get emptyMessage() { return emptyMessage; }
 	};
 
-	setDataTableContext(ctx as DataTableContext<Record<string, unknown>>);
+	setDataTableContext(ctx);
 </script>
 
 <div class="flex flex-col bg-bg-secondary border border-border-subtle rounded-md overflow-hidden {className}">

@@ -32,7 +32,7 @@
 <button
 	type="button"
 	class={cn(
-		'flex items-center gap-2 w-full px-3 py-2 text-sm bg-bg-secondary hover:bg-bg-hover transition-colors cursor-pointer',
+		'flex items-center gap-2 w-full px-3 py-2 text-sm bg-bg-secondary hover:bg-bg-hover transition-colors cursor-pointer touch-target',
 		className
 	)}
 	onclick={() => ctx.toggle()}

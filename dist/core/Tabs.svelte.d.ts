@@ -17,7 +17,7 @@ export interface TabsProps {
     /** Visual variant */
     variant?: TabsVariant;
     class?: string;
-    onchange?: (value: string) => void;
+    onValueChange?: (value: string) => void;
     children?: Snippet<[string]>;
     /** Custom trigger snippet for full control over tab rendering */
     trigger?: Snippet<[{

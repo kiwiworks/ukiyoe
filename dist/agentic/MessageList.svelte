@@ -110,7 +110,7 @@
 {#if isUserScrolling}
 	<button
 		type="button"
-		class="absolute bottom-20 right-4 p-2 bg-bg-secondary border border-border-default rounded-full shadow-lg hover:bg-bg-hover transition-colors"
+		class="absolute bottom-24 md:bottom-20 right-4 p-2 bg-bg-secondary border border-border-default rounded-full shadow-lg hover:bg-bg-hover transition-colors touch-target"
 		onclick={() => scrollToBottom()}
 		aria-label="Scroll to bottom"
 	>

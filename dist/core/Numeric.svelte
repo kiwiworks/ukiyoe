@@ -288,8 +288,8 @@
 
 	// Size classes
 	const sizeClasses: Record<NumericSize, string> = {
-		xs: 'text-[10px]',
-		sm: 'text-[11px]',
+		xs: 'text-[11px]',
+		sm: 'text-xs',
 		md: 'text-[13px]',
 		lg: 'text-base'
 	};

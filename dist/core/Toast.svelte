@@ -11,7 +11,7 @@
 
 	export interface ToastProps {
 		toast: ToastData;
-		onclose?: (id: string) => void;
+		onClose?: (id: string) => void;
 	}
 
 	// Toast store for managing toasts
@@ -44,7 +44,7 @@
 <script lang="ts">
 	import { X, CheckCircle, AlertTriangle, AlertCircle, Info } from '@lucide/svelte';
 
-	let { toast, onclose }: ToastProps = $props();
+	let { toast, onClose }: ToastProps = $props();
 
 	const variantClasses: Record<ToastVariant, string> = {
 		default: 'border-border-default',
@@ -73,7 +73,7 @@
 	const Icon = $derived(variantIcons[toast.variant ?? 'default']);
 
 	function handleClose() {
-		onclose?.(toast.id);
+		onClose?.(toast.id);
 	}
 </script>
 
@@ -92,7 +92,7 @@
 		<button
 			type="button"
 			onclick={handleClose}
-			class="shrink-0 p-1 rounded text-text-muted hover:text-text-primary transition-colors"
+			class="shrink-0 p-1 rounded text-text-muted hover:text-text-primary transition-colors touch-target"
 		>
 			<X size={16} />
 		</button>

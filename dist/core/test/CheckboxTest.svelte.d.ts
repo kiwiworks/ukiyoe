@@ -5,7 +5,7 @@ type $$ComponentProps = {
     loading?: boolean;
     size?: CheckboxSize;
     ariaLabel?: string;
-    onchange?: (checked: boolean) => void;
+    onValueChange?: (checked: boolean) => void;
 };
 declare const CheckboxTest: import("svelte").Component<$$ComponentProps, {}, "checked">;
 type CheckboxTest = ReturnType<typeof CheckboxTest>;

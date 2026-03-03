@@ -10,8 +10,10 @@
 		height?: string;
 		/** Whether to show the close button */
 		showClose?: boolean;
+		/** Go full-screen on mobile viewports (< md) */
+		fullscreenMobile?: boolean;
 		/** Callback when modal is closed */
-		onclose?: () => void;
+		onClose?: () => void;
 		/** Children content */
 		children?: import('svelte').Snippet;
 	}
@@ -20,6 +22,7 @@
 <script lang="ts">
 	import { X } from '@lucide/svelte';
 	import { fade, scale } from 'svelte/transition';
+	import { acquireBodyScrollLock } from '../utils/scroll-lock';
 
 	let {
 		open = $bindable(false),
@@ -27,12 +30,14 @@
 		width = 'var(--modal-width, auto)',
 		height = 'var(--modal-height, auto)',
 		showClose = true,
-		onclose,
+		fullscreenMobile = false,
+		onClose,
 		children
 	}: ModalProps = $props();
 
 	let dialogRef: HTMLDivElement | undefined = $state();
 	let previouslyFocused: HTMLElement | null = null;
+	let releaseScrollLock: (() => void) | null = null;
 
 	const FOCUSABLE_SELECTOR = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
@@ -62,7 +67,7 @@
 
 	function handleClose() {
 		open = false;
-		onclose?.();
+		onClose?.();
 	}
 
 	function handleKeydown(e: KeyboardEvent) {
@@ -82,8 +87,7 @@
 		if (open) {
 			// Store currently focused element before modal opens
 			previouslyFocused = document.activeElement as HTMLElement;
-			// Prevent body scroll when modal is open
-			document.body.style.overflow = 'hidden';
+			releaseScrollLock ??= acquireBodyScrollLock();
 			// Focus first focusable element after render
 			requestAnimationFrame(() => {
 				const focusable = getFocusableElements();
@@ -94,14 +98,19 @@
 				}
 			});
 		} else {
-			// Restore body scroll
-			document.body.style.overflow = '';
+			releaseScrollLock?.();
+			releaseScrollLock = null;
 			// Restore focus when modal closes
 			if (previouslyFocused) {
 				previouslyFocused.focus();
 				previouslyFocused = null;
 			}
 		}
+
+		return () => {
+			releaseScrollLock?.();
+			releaseScrollLock = null;
+		};
 	});
 </script>
 
@@ -121,7 +130,7 @@
 		tabindex="-1"
 	>
 		<div
-			class="flex flex-col max-w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)] bg-bg-secondary border border-border-default rounded-lg shadow-2xl overflow-hidden"
+			class={`flex flex-col bg-bg-secondary border border-border-default shadow-2xl overflow-hidden ${fullscreenMobile ? 'max-md:w-screen max-md:h-[100dvh] max-md:max-w-none max-md:max-h-none max-md:rounded-none max-md:pt-[var(--safe-area-top)] max-md:pb-[var(--safe-area-bottom)] md:max-w-[calc(100vw-2rem)] md:max-h-[calc(100dvh-2rem)] md:rounded-lg' : 'max-w-[calc(100vw-2rem)] max-h-[calc(100dvh-2rem)] rounded-lg'}`}
 			style:width
 			style:height
 			transition:scale={{ duration: 150, start: 0.95 }}
@@ -133,7 +142,7 @@
 					{/if}
 					{#if showClose}
 						<button
-							class="flex items-center justify-center p-1 text-text-muted bg-transparent border-none rounded-sm cursor-pointer transition-all hover:text-text-primary hover:bg-bg-hover"
+							class="flex items-center justify-center p-1 text-text-muted bg-transparent border-none rounded-sm cursor-pointer transition-all hover:text-text-primary hover:bg-bg-hover touch-target"
 							onclick={handleClose}
 							aria-label="Close modal"
 						>

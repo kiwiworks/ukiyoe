@@ -25,7 +25,7 @@ export interface ButtonProps {
     /** Inline styles */
     style?: string;
     /** Click handler */
-    onclick?: (event: MouseEvent) => void;
+    onClick?: (event: MouseEvent) => void;
     /** Button content */
     children: import('svelte').Snippet;
 }

@@ -1,11 +1,10 @@
 <script lang="ts" module>
-	import type { ComponentType, SvelteComponent } from 'svelte';
+	import type { ComponentType } from 'svelte';
 
 	export interface BreadcrumbItem {
 		label: string;
 		href?: string;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		icon?: ComponentType<SvelteComponent<any>>;
+		icon?: ComponentType;
 	}
 
 	export interface BreadcrumbProps {
@@ -21,7 +20,7 @@
 </script>
 
 <nav class="font-mono" aria-label="Breadcrumb">
-	<ol class="m-0 flex list-none items-center gap-1 p-0">
+	<ol class="m-0 flex list-none items-center gap-1 p-0 overflow-x-auto scrollbar-none">
 		{#if showHome}
 			<li class="flex items-center gap-1">
 				<a

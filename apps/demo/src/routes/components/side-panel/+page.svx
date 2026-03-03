@@ -17,7 +17,7 @@
 		{ name: 'position', type: "'left' | 'right'", default: "'right'", description: 'Position of the panel (left or right side)' },
 		{ name: 'showOverlay', type: 'boolean', default: 'true', description: 'Whether to show backdrop overlay' },
 		{ name: 'closeOnOverlayClick', type: 'boolean', default: 'true', description: 'Close panel when clicking overlay' },
-		{ name: 'onclose', type: '() => void', default: '-', description: 'Callback when panel is closed' },
+		{ name: 'onClose', type: '() => void', default: '-', description: 'Callback when panel is closed' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
 		{ name: 'header', type: 'Snippet', default: '-', description: 'Header slot content (e.g., search input)' },
 		{ name: 'children', type: 'Snippet', default: '-', description: 'Main scrollable content' },
@@ -49,7 +49,7 @@ The SidePanel component includes:
 The default panel slides in from the right side with a backdrop overlay.
 
 ```svelte preview title="Right Panel"
-<Button size="sm" onclick={() => (rightPanel = true)}>Open Right Panel</Button>
+<Button size="sm" onClick={() => (rightPanel = true)}>Open Right Panel</Button>
 
 <SidePanel bind:open={rightPanel} title="Panel Title">
 	<Text variant="secondary">
@@ -64,7 +64,7 @@ The default panel slides in from the right side with a backdrop overlay.
 Use `position="left"` for navigation-style panels.
 
 ```svelte preview title="Left Panel"
-<Button size="sm" onclick={() => (leftPanel = true)}>Open Left Panel</Button>
+<Button size="sm" onClick={() => (leftPanel = true)}>Open Left Panel</Button>
 
 <SidePanel bind:open={leftPanel} title="Navigation" position="left">
 	<Text variant="secondary">
@@ -78,7 +78,7 @@ Use `position="left"` for navigation-style panels.
 Set `showOverlay={false}` to display the panel without a backdrop. This allows interaction with the page content while the panel is open.
 
 ```svelte preview title="No Overlay"
-<Button size="sm" onclick={() => (noOverlayPanel = true)}>Open Without Overlay</Button>
+<Button size="sm" onClick={() => (noOverlayPanel = true)}>Open Without Overlay</Button>
 
 <SidePanel bind:open={noOverlayPanel} title="No Overlay" showOverlay={false}>
 	<Text variant="secondary">
@@ -93,7 +93,7 @@ Set `showOverlay={false}` to display the panel without a backdrop. This allows i
 Adjust the panel width with the `width` prop (in pixels).
 
 ```svelte preview title="Custom Width (480px)"
-<Button size="sm" onclick={() => (customWidthPanel = true)}>Open Wide Panel</Button>
+<Button size="sm" onClick={() => (customWidthPanel = true)}>Open Wide Panel</Button>
 
 <SidePanel bind:open={customWidthPanel} title="Wide Panel" width={480}>
 	<Text variant="secondary">
@@ -105,18 +105,18 @@ Adjust the panel width with the `width` prop (in pixels).
 
 ## Close Callback
 
-Use the `onclose` callback to react when the panel is closed (via any method).
+Use the `onClose` callback to react when the panel is closed (via any method).
 
 ```svelte preview title="With Callback"
 <div class="flex items-center gap-3">
-	<Button size="sm" onclick={() => (callbackPanel = true)}>Open Panel</Button>
+	<Button size="sm" onClick={() => (callbackPanel = true)}>Open Panel</Button>
 	<Badge variant="default">Closed {closeCount} times</Badge>
 </div>
 
 <SidePanel
 	bind:open={callbackPanel}
 	title="Callback Demo"
-	onclose={() => closeCount++}
+	onClose={() => closeCount++}
 >
 	<Text variant="secondary">
 		Close this panel using any method (X button, Escape key, or overlay click)

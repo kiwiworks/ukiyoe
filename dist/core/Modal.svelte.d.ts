@@ -9,8 +9,10 @@ export interface ModalProps {
     height?: string;
     /** Whether to show the close button */
     showClose?: boolean;
+    /** Go full-screen on mobile viewports (< md) */
+    fullscreenMobile?: boolean;
     /** Callback when modal is closed */
-    onclose?: () => void;
+    onClose?: () => void;
     /** Children content */
     children?: import('svelte').Snippet;
 }

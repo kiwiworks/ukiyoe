@@ -33,7 +33,7 @@
 ```svelte preview title="Usage"
 <CodeBlock code={`<script>
   import { NebulaOverlay } from 'ukiyoe/effects';
-</script>
+<\/script>
 
 <!-- Uses theme store setting by default -->
 <div class="relative">

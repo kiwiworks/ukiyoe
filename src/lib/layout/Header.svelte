@@ -18,12 +18,19 @@
 		icon?: Snippet;
 		/** Actions slot (right side) */
 		children?: Snippet;
+		/** Content rendered in mobile hamburger menu */
+		mobileMenu?: Snippet;
+		/** Show the mobile hamburger button (alternative to passing mobileMenu snippet) */
+		showMobileMenu?: boolean;
+		/** Called when hamburger menu is toggled */
+		onMenuToggle?: () => void;
 		/** Additional CSS classes */
 		class?: string;
 	}
 </script>
 
 <script lang="ts">
+	import { Menu } from '@lucide/svelte';
 	import { cn } from '../utils/cn';
 
 	let {
@@ -34,8 +41,13 @@
 		showIndicator = true,
 		icon,
 		children,
+		mobileMenu,
+		showMobileMenu = false,
+		onMenuToggle,
 		class: className
 	}: HeaderProps = $props();
+
+	const hasMobileMenu = $derived(showMobileMenu || !!mobileMenu);
 
 	const sizeClasses: Record<HeaderSize, string> = {
 		sm: 'h-8 px-2',
@@ -56,8 +68,8 @@
 	};
 
 	const subtitleClasses: Record<HeaderSize, string> = {
-		sm: 'text-[9px]',
-		md: 'text-[10px]',
+		sm: 'text-[11px]',
+		md: 'text-xs',
 		lg: 'text-xs'
 	};
 
@@ -72,28 +84,41 @@
 	class={cn(
 		'flex items-center justify-between bg-bg-primary border-b border-border-subtle font-mono',
 		fixed && 'fixed top-0 left-0 right-0 z-[var(--z-sticky)]',
+		fixed && 'pt-[var(--safe-area-top)]',
 		sizeClasses[size],
 		className
 	)}
 >
-	<div class="flex items-center {gapClasses[size]}">
+	<div class="flex items-center min-w-0 shrink-0 {gapClasses[size]}">
+		<!-- Hamburger menu button (mobile only, when mobileMenu is provided) -->
+		{#if hasMobileMenu}
+			<button
+				type="button"
+				class="md:hidden p-1.5 text-text-muted hover:text-text-primary hover:bg-bg-hover rounded-md transition-colors touch-target"
+				onclick={() => onMenuToggle?.()}
+				aria-label="Toggle menu"
+			>
+				<Menu size={18} />
+			</button>
+		{/if}
+
 		{#if icon}
-			<div class="flex items-center justify-center text-text-primary">
+			<div class="flex items-center justify-center text-text-primary shrink-0">
 				{@render icon()}
 			</div>
 		{/if}
-		<div class="flex items-center gap-2">
+		<div class="flex items-center gap-2 shrink-0">
 			{#if showIndicator}
 				<div class="rounded-full bg-accent-brand {indicatorClasses[size]}"></div>
 			{/if}
 			<span class="font-bold text-text-primary uppercase tracking-wide {titleClasses[size]}">{title}</span>
 		</div>
 		{#if subtitle}
-			<span class="text-text-muted uppercase tracking-wide {subtitleClasses[size]}">{subtitle}</span>
+			<span class="text-text-muted uppercase tracking-wide whitespace-nowrap {subtitleClasses[size]}">{subtitle}</span>
 		{/if}
 	</div>
 	{#if children}
-		<div class="flex items-center gap-2">
+		<div class="flex items-center gap-2 shrink-0 {hasMobileMenu ? 'max-md:hidden' : ''}">
 			{@render children()}
 		</div>
 	{/if}

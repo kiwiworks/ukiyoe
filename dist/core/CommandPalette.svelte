@@ -56,6 +56,7 @@
 <script lang="ts">
 	import { Search, Command } from '@lucide/svelte';
 	import { cn } from '../utils/cn';
+	import { acquireBodyScrollLock } from '../utils/scroll-lock';
 
 	let {
 		open = $bindable(false),
@@ -72,6 +73,7 @@
 	let selectedIndex = $state(0);
 	let inputRef: HTMLInputElement | undefined = $state();
 	let listRef: HTMLDivElement | undefined = $state();
+	let releaseScrollLock: (() => void) | null = null;
 
 	const isMac = typeof navigator !== 'undefined' && navigator.platform.toUpperCase().indexOf('MAC') >= 0;
 
@@ -182,11 +184,17 @@
 
 	$effect(() => {
 		if (open) {
-			document.body.style.overflow = 'hidden';
+			releaseScrollLock ??= acquireBodyScrollLock();
 			requestAnimationFrame(() => inputRef?.focus());
 		} else {
-			document.body.style.overflow = '';
+			releaseScrollLock?.();
+			releaseScrollLock = null;
 		}
+
+		return () => {
+			releaseScrollLock?.();
+			releaseScrollLock = null;
+		};
 	});
 
 	function getItemIndex(item: CommandItem): number {
@@ -199,7 +207,7 @@
 {#if open}
 	<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 	<div
-		class="fixed inset-0 flex items-start justify-center pt-[15vh] bg-black/50 backdrop-blur-sm"
+		class="fixed inset-0 flex items-start justify-center pt-[5vh] md:pt-[15vh] bg-black/50 backdrop-blur-sm"
 		style="z-index: 9999;"
 		onclick={handleBackdropClick}
 		onkeydown={handleKeydown}
@@ -225,7 +233,7 @@
 					{placeholder}
 					class="flex-1 bg-transparent border-none text-sm text-text-primary placeholder:text-text-muted focus:outline-none"
 				/>
-				<kbd class="hidden sm:flex px-1.5 py-0.5 text-[10px] font-mono text-text-muted bg-bg-tertiary rounded border border-border-subtle">
+				<kbd class="hidden sm:flex px-1.5 py-0.5 text-[11px] font-mono text-text-muted bg-bg-tertiary rounded border border-border-subtle">
 					esc
 				</kbd>
 			</div>
@@ -239,7 +247,7 @@
 				{:else}
 					{#each filteredGroups as group}
 						{#if group.label}
-							<div class="px-sm py-xs text-[10px] font-medium uppercase tracking-wider text-text-muted">
+							<div class="px-sm py-xs text-[11px] font-medium uppercase tracking-wider text-text-muted">
 								{group.label}
 							</div>
 						{/if}
@@ -249,7 +257,7 @@
 							<button
 								type="button"
 								class={cn(
-									'flex items-center gap-sm w-full px-sm py-sm rounded text-left transition-colors',
+									'flex items-center gap-sm w-full px-sm py-sm rounded text-left transition-colors touch-target',
 									isSelected ? 'bg-bg-hover' : 'bg-transparent',
 									item.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-bg-hover'
 								)}
@@ -271,7 +279,7 @@
 									{/if}
 								</div>
 								{#if item.shortcut}
-									<kbd class="hidden sm:block px-1.5 py-0.5 text-[10px] font-mono text-text-muted bg-bg-tertiary rounded border border-border-subtle">
+									<kbd class="hidden sm:block px-1.5 py-0.5 text-[11px] font-mono text-text-muted bg-bg-tertiary rounded border border-border-subtle">
 										{item.shortcut}
 									</kbd>
 								{/if}
@@ -281,8 +289,8 @@
 				{/if}
 			</div>
 
-			<!-- Footer -->
-			<div class="flex items-center justify-between px-md py-xs border-t border-border-subtle text-[10px] text-text-muted">
+			<!-- Footer (hidden on mobile — keyboard hints not useful on touch) -->
+			<div class="hidden md:flex items-center justify-between px-md py-xs border-t border-border-subtle text-[11px] text-text-muted">
 				<div class="flex items-center gap-md">
 					<span class="flex items-center gap-1">
 						<kbd class="px-1 py-0.5 bg-bg-tertiary rounded border border-border-subtle">↑</kbd>

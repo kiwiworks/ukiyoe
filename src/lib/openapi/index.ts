@@ -17,6 +17,13 @@ export { default as SchemaView } from './SchemaView.svelte';
 export { default as EndpointTester } from './EndpointTester.svelte';
 export { default as SchemaForm } from './SchemaForm.svelte';
 export { default as ResponseViewer } from './ResponseViewer.svelte';
+export type { EndpointListProps } from './EndpointList.svelte';
+export type { EndpointDetailProps } from './EndpointDetail.svelte';
+export type { ParametersTableProps } from './ParametersTable.svelte';
+export type { SchemaViewProps } from './SchemaView.svelte';
+export type { EndpointTesterProps } from './EndpointTester.svelte';
+export type { SchemaFormProps } from './SchemaForm.svelte';
+export type { ResponseViewerProps } from './ResponseViewer.svelte';
 
 // Types
 export type {

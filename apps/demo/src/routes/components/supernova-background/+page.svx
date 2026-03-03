@@ -34,7 +34,7 @@
 ```svelte preview title="Usage"
 <CodeBlock code={`<script>
   import { SupernovaBackground } from 'ukiyoe/effects';
-</script>
+<\/script>
 
 <div class="relative">
   <SupernovaBackground />

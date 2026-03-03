@@ -9,7 +9,7 @@
 		/** Current value */
 		value: unknown;
 		/** Callback when value changes */
-		onchange: (value: unknown) => void;
+		onValueChange: (value: unknown) => void;
 		/** Property name (for nested rendering) */
 		propertyName?: string;
 		/** Whether this field is required */
@@ -30,7 +30,7 @@
 	let {
 		schema,
 		value = $bindable(),
-		onchange,
+		onValueChange,
 		propertyName,
 		required = false,
 		depth = 0,
@@ -81,56 +81,53 @@
 		if (value === undefined || value === null) {
 			if (isObject) {
 				value = {};
-				onchange({});
+				onValueChange({});
 			} else if (isArray) {
 				value = [];
-				onchange([]);
+				onValueChange([]);
 			} else if (isBoolean) {
 				value = schema.default ?? false;
-				onchange(value);
+				onValueChange(value);
 			} else if (isNumber) {
 				value = schema.default ?? '';
-				onchange(value);
+				onValueChange(value);
 			} else if (isEnum) {
 				value = schema.default ?? '';
-				onchange(value);
+				onValueChange(value);
 			} else {
 				value = schema.default ?? '';
-				onchange(value);
+				onValueChange(value);
 			}
 		}
 	});
 
 	// Handlers
-	function handleStringChange(e: Event) {
-		const target = e.target as HTMLInputElement | HTMLTextAreaElement;
-		const newValue = target.value;
+	function handleStringChange(newValue: string) {
 		value = newValue;
-		onchange(newValue);
+		onValueChange(newValue);
 	}
 
-	function handleNumberChange(e: Event) {
-		const target = e.target as HTMLInputElement;
-		const newValue = target.value === '' ? '' : Number(target.value);
-		value = newValue;
-		onchange(newValue);
+	function handleNumberChange(newValue: string) {
+		const normalizedValue = newValue === '' ? '' : Number(newValue);
+		value = normalizedValue;
+		onValueChange(normalizedValue);
 	}
 
 	function handleBooleanChange(checked: boolean) {
 		value = checked;
-		onchange(checked);
+		onValueChange(checked);
 	}
 
 	function handleEnumChange(selected: string) {
 		value = selected;
-		onchange(selected);
+		onValueChange(selected);
 	}
 
 	function handlePropertyChange(propName: string, propValue: unknown) {
 		const obj = (value as Record<string, unknown>) ?? {};
 		const newObj = { ...obj, [propName]: propValue };
 		value = newObj;
-		onchange(newObj);
+		onValueChange(newObj);
 	}
 
 	function handleArrayItemChange(index: number, itemValue: unknown) {
@@ -138,21 +135,21 @@
 		const newArr = [...arr];
 		newArr[index] = itemValue;
 		value = newArr;
-		onchange(newArr);
+		onValueChange(newArr);
 	}
 
 	function addArrayItem() {
 		const arr = (value as unknown[]) ?? [];
 		const newArr = [...arr, undefined];
 		value = newArr;
-		onchange(newArr);
+		onValueChange(newArr);
 	}
 
 	function removeArrayItem(index: number) {
 		const arr = (value as unknown[]) ?? [];
 		const newArr = arr.filter((_, i) => i !== index);
 		value = newArr;
-		onchange(newArr);
+		onValueChange(newArr);
 	}
 
 	// Get input type for HTML input
@@ -196,7 +193,7 @@
 				<SchemaForm
 					schema={propSchema}
 					value={propValue}
-					onchange={(v: unknown) => handlePropertyChange(propName, v)}
+					onValueChange={(v: unknown) => handlePropertyChange(propName, v)}
 					propertyName={propName}
 					required={requiredProps.has(propName)}
 					depth={depth + 1}
@@ -212,7 +209,7 @@
 						<SchemaForm
 							schema={itemsSchema}
 							value={item}
-							onchange={(v: unknown) => handleArrayItemChange(index, v)}
+							onValueChange={(v: unknown) => handleArrayItemChange(index, v)}
 							propertyName={`[${index}]`}
 							depth={depth + 1}
 						/>
@@ -220,7 +217,7 @@
 					<Button
 						variant="ghost"
 						size="xs"
-						onclick={() => removeArrayItem(index)}
+						onClick={() => removeArrayItem(index)}
 						class="text-negative hover:bg-negative/10"
 					>
 						Remove
@@ -230,7 +227,7 @@
 			<Button
 				variant="outline"
 				size="xs"
-				onclick={addArrayItem}
+				onClick={addArrayItem}
 			>
 				+ Add item
 			</Button>
@@ -240,18 +237,18 @@
 		<Select
 			options={enumOptions}
 			value={String(value ?? '')}
-			onchange={handleEnumChange}
+			onValueChange={handleEnumChange}
 			placeholder="Select a value..."
 			size="sm"
 		/>
 	{:else if isBoolean}
 		<!-- Boolean: switch -->
-		<Switch checked={Boolean(value)} onchange={handleBooleanChange} size="sm" />
+		<Switch checked={Boolean(value)} onValueChange={handleBooleanChange} size="sm" />
 	{:else if isTextarea}
 		<!-- Long string: textarea -->
 		<Textarea
 			value={String(value ?? '')}
-			oninput={handleStringChange}
+			onValueChange={handleStringChange}
 			placeholder={placeholder}
 			rows={4}
 			size="sm"
@@ -261,7 +258,7 @@
 		<Input
 			type={getInputType()}
 			value={typeof value === 'object' && value !== null ? JSON.stringify(value) : String(value ?? '')}
-			oninput={isNumber ? handleNumberChange : handleStringChange}
+			onValueChange={isNumber ? handleNumberChange : handleStringChange}
 			placeholder={placeholder}
 			size="sm"
 		/>

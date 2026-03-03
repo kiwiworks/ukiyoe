@@ -19,17 +19,20 @@
 		'top-left': 'top-4 left-4',
 		'top-center': 'top-4 left-1/2 -translate-x-1/2',
 		'top-right': 'top-4 right-4',
-		'bottom-left': 'bottom-4 left-4',
-		'bottom-center': 'bottom-4 left-1/2 -translate-x-1/2',
-		'bottom-right': 'bottom-4 right-4'
+		'bottom-left': 'left-4',
+		'bottom-center': 'left-1/2 -translate-x-1/2',
+		'bottom-right': 'right-4'
 	};
+
+	const isBottom = $derived(position.startsWith('bottom'));
+	const bottomOffset = 'calc(1rem + var(--safe-area-bottom))';
 </script>
 
 <div
 	class={cn('fixed z-toast flex flex-col gap-2 pointer-events-none', positionClasses[position], className)}
-	style="width: 24rem;"
+	style="width: min(24rem, calc(100vw - 2rem)); {isBottom ? `bottom: ${bottomOffset};` : ''}"
 >
 	{#each toasts as toast (toast.id)}
-		<Toast {toast} onclose={removeToast} />
+		<Toast {toast} onClose={removeToast} />
 	{/each}
 </div>

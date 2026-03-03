@@ -45,7 +45,7 @@ Collapsed state shows a single-line summary with status icon, tool name, descrip
 Each status has a distinct icon and color: pending (muted circle), running (spinning loader), success (green check), error (red x).
 
 <div class="flex gap-md mb-md">
-	<Button size="sm" onclick={() => (statusIndex = (statusIndex + 1) % statuses.length)}>
+	<Button size="sm" onClick={() => (statusIndex = (statusIndex + 1) % statuses.length)}>
 		Cycle ({statuses[statusIndex]})
 	</Button>
 </div>

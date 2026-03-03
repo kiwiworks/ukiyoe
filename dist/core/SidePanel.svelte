@@ -15,7 +15,7 @@
 		/** Close when clicking overlay */
 		closeOnOverlayClick?: boolean;
 		/** Callback when panel is closed */
-		onclose?: () => void;
+		onClose?: () => void;
 		/** Additional CSS classes */
 		class?: string;
 		/** Header slot content (e.g., search input) */
@@ -31,6 +31,7 @@
 	import { X } from '@lucide/svelte';
 	import { cn } from '../utils/cn';
 	import { fade, fly } from 'svelte/transition';
+	import { acquireBodyScrollLock } from '../utils/scroll-lock';
 
 	let {
 		title,
@@ -39,16 +40,17 @@
 		position = 'right',
 		showOverlay = true,
 		closeOnOverlayClick = true,
-		onclose,
+		onClose,
 		class: className = '',
 		header,
 		children,
 		footer
 	}: SidePanelProps = $props();
+	let releaseScrollLock: (() => void) | null = null;
 
 	function closePanel() {
 		open = false;
-		onclose?.();
+		onClose?.();
 	}
 
 	function handleOverlayClick() {
@@ -65,10 +67,16 @@
 
 	$effect(() => {
 		if (open) {
-			document.body.style.overflow = 'hidden';
+			releaseScrollLock ??= acquireBodyScrollLock();
 		} else {
-			document.body.style.overflow = '';
+			releaseScrollLock?.();
+			releaseScrollLock = null;
 		}
+
+		return () => {
+			releaseScrollLock?.();
+			releaseScrollLock = null;
+		};
 	});
 
 	const flyX = $derived(position === 'left' ? -width : width);
@@ -94,7 +102,7 @@
 			position === 'left' ? 'left-0 border-r border-border-subtle' : 'right-0 border-l border-border-subtle',
 			className
 		)}
-		style:width="{width}px"
+		style:width="min({width}px, calc(100vw - 2rem))"
 		transition:fly={{ x: flyX, duration: 300, opacity: 1 }}
 		aria-label={title}
 		role="dialog"
@@ -114,7 +122,7 @@
 				</div>
 			{/if}
 			<button
-				class="flex items-center justify-center p-1.5 bg-transparent border-none text-text-muted cursor-pointer rounded-sm transition-all duration-150 ease-out shrink-0 hover:text-text-primary hover:bg-bg-hover"
+				class="flex items-center justify-center p-1.5 bg-transparent border-none text-text-muted cursor-pointer rounded-sm transition-all duration-150 ease-out shrink-0 hover:text-text-primary hover:bg-bg-hover touch-target"
 				onclick={closePanel}
 				aria-label="Close panel"
 			>
@@ -127,7 +135,7 @@
 		</div>
 
 		{#if footer}
-			<footer class="p-4 border-t border-border-subtle bg-bg-primary shrink-0">
+			<footer class="p-4 border-t border-border-subtle bg-bg-primary shrink-0" style:padding-bottom="calc(1rem + var(--safe-area-bottom))">
 				{@render footer()}
 			</footer>
 		{/if}

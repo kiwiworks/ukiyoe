@@ -26,10 +26,10 @@
 	};
 
 	const sizeClasses: Record<StatusBadgeSize, string> = {
-		xs: 'text-[9px]',
-		sm: 'text-[10px]',
-		md: 'text-[11px]',
-		lg: 'text-xs'
+		xs: 'text-[11px]',
+		sm: 'text-[11px]',
+		md: 'text-xs',
+		lg: 'text-sm'
 	};
 
 	const pulseColors: Record<StatusBadgeVariant, string> = {

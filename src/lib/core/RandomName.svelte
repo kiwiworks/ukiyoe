@@ -57,7 +57,7 @@
 		/** Current name value */
 		value: string;
 		/** Callback when name changes */
-		onchange?: (name: string) => void;
+		onValueChange?: (name: string) => void;
 		/** Placeholder for manual input */
 		placeholder?: string;
 		/** Configuration for name generation */
@@ -70,7 +70,7 @@
 
 	let {
 		value = $bindable(),
-		onchange,
+		onValueChange,
 		placeholder = 'Enter name...',
 		config = {},
 		disabled = false,
@@ -97,7 +97,7 @@
 		if (disabled) return;
 		const newName = generateName(config);
 		value = newName;
-		onchange?.(newName);
+		onValueChange?.(newName);
 	}
 
 	async function startEdit() {
@@ -111,7 +111,7 @@
 	function confirmEdit() {
 		if (editValue.trim()) {
 			value = editValue.trim();
-			onchange?.(value);
+			onValueChange?.(value);
 		}
 		isEditing = false;
 	}
@@ -147,7 +147,7 @@
 		<div class="flex items-center gap-1">
 			<button
 				type="button"
-				class="flex items-center justify-center p-1 rounded-[var(--radius-sm)] text-[var(--text-muted)] cursor-pointer transition-all duration-150 hover:text-[var(--color-positive)] hover:bg-[var(--bg-tertiary)]"
+				class="flex items-center justify-center p-1 rounded-[var(--radius-sm)] text-[var(--text-muted)] cursor-pointer transition-all duration-150 hover:text-[var(--color-positive)] hover:bg-[var(--bg-tertiary)] touch-target"
 				onclick={confirmEdit}
 				title="Confirm"
 			>
@@ -155,7 +155,7 @@
 			</button>
 			<button
 				type="button"
-				class="flex items-center justify-center p-1 rounded-[var(--radius-sm)] text-[var(--text-muted)] cursor-pointer transition-all duration-150 hover:text-[var(--color-negative)] hover:bg-[var(--bg-tertiary)]"
+				class="flex items-center justify-center p-1 rounded-[var(--radius-sm)] text-[var(--text-muted)] cursor-pointer transition-all duration-150 hover:text-[var(--color-negative)] hover:bg-[var(--bg-tertiary)] touch-target"
 				onclick={cancelEdit}
 				title="Cancel"
 			>
@@ -173,7 +173,7 @@
 		<div class="flex items-center gap-1">
 			<button
 				type="button"
-				class="flex items-center justify-center p-1 rounded-[var(--radius-sm)] text-[var(--text-muted)] cursor-pointer transition-all duration-150 hover:text-[var(--accent-brand)] hover:bg-[var(--bg-tertiary)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:text-[var(--text-muted)] disabled:hover:bg-transparent"
+				class="flex items-center justify-center p-1 rounded-[var(--radius-sm)] text-[var(--text-muted)] cursor-pointer transition-all duration-150 hover:text-[var(--accent-brand)] hover:bg-[var(--bg-tertiary)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:text-[var(--text-muted)] disabled:hover:bg-transparent touch-target"
 				onclick={handleGenerate}
 				{disabled}
 				title="Generate random name"
@@ -182,7 +182,7 @@
 			</button>
 			<button
 				type="button"
-				class="flex items-center justify-center p-1 rounded-[var(--radius-sm)] text-[var(--text-muted)] cursor-pointer transition-all duration-150 hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:text-[var(--text-muted)] disabled:hover:bg-transparent"
+				class="flex items-center justify-center p-1 rounded-[var(--radius-sm)] text-[var(--text-muted)] cursor-pointer transition-all duration-150 hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:text-[var(--text-muted)] disabled:hover:bg-transparent touch-target"
 				onclick={startEdit}
 				{disabled}
 				title="Edit name"

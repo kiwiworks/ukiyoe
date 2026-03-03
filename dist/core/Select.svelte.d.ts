@@ -33,8 +33,8 @@ export interface SelectProps {
     clearable?: boolean;
     /** Additional CSS classes */
     class?: string;
-    /** Change event handler */
-    onchange?: (value: string) => void;
+    /** Value change handler */
+    onValueChange?: (value: string) => void;
 }
 import { Select } from 'bits-ui';
 declare const Select: import("svelte").Component<SelectProps, {}, "value">;

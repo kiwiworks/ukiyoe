@@ -66,7 +66,7 @@
 					{#if backHref}
 						<Button variant="outline" href={backHref}>{backText}</Button>
 					{:else}
-						<Button variant="outline" onclick={handleBack}>{backText}</Button>
+						<Button variant="outline" onClick={handleBack}>{backText}</Button>
 					{/if}
 				{/if}
 				{#if showHome}

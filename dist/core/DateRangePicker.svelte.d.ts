@@ -34,8 +34,8 @@ export interface DateRangePickerProps {
     'aria-label'?: string;
     /** Additional CSS classes */
     class?: string;
-    /** Change event handler */
-    onchange?: (value: DateRange | undefined) => void;
+    /** Value change handler */
+    onValueChange?: (value: DateRange | undefined) => void;
 }
 declare const DateRangePicker: import("svelte").Component<DateRangePickerProps, {}, "value">;
 type DateRangePicker = ReturnType<typeof DateRangePicker>;

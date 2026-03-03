@@ -1,6 +1,6 @@
 <script lang="ts" module>
 	import type { Snippet } from 'svelte';
-	import type { Column, ServerPaginationState, SortDirection } from './types';
+	import type { Column, ServerPaginationState, SortDirection, RowKey, RowPathKey } from './types';
 
 	export interface DataTableProps<T = Record<string, unknown>> {
 		/** Array of data rows */
@@ -8,11 +8,11 @@
 		/** Column definitions */
 		columns: Column<T>[];
 		/** Unique key field for each row */
-		keyField: string;
+		keyField: RowKey<T>;
 		/** Enable sorting */
 		sortable?: boolean;
 		/** Default sort column key */
-		defaultSortKey?: string;
+		defaultSortKey?: RowPathKey<T> | '';
 		/** Default sort direction */
 		defaultSortDir?: SortDirection;
 		/** Enable client-side pagination */
@@ -26,7 +26,7 @@
 		/** Search placeholder */
 		searchPlaceholder?: string;
 		/** Keys to search */
-		searchKeys?: string[];
+		searchKeys?: RowPathKey<T>[];
 		/** Server-side pagination state */
 		serverPagination?: ServerPaginationState;
 		/** Server next page handler */
@@ -36,9 +36,11 @@
 		/** Server page size change handler */
 		onPageSizeChange?: (size: number) => void;
 		/** Server search handler */
-		onSearch?: (term: string) => void;
+		onSearch?: (term: string, page: number, pageSize: number) => void;
 		/** Server search term */
 		serverSearchTerm?: string;
+		/** Debounce delay for server search (ms) */
+		serverSearchDebounceMs?: number;
 		/** Compact row height */
 		compact?: boolean;
 		/** Sticky header */
@@ -64,7 +66,7 @@
 	}
 </script>
 
-<script lang="ts" generics="T extends Record<string, unknown>">
+<script lang="ts" generics="T extends object">
 	import Root from './Root.svelte';
 	import Toolbar from './Toolbar.svelte';
 	import Search from './Search.svelte';
@@ -93,6 +95,7 @@
 		onPageSizeChange,
 		onSearch,
 		serverSearchTerm = '',
+		serverSearchDebounceMs = 250,
 		compact = false,
 		stickyHeader = true,
 		striped = false,
@@ -126,6 +129,7 @@
 	{onPageSizeChange}
 	{onSearch}
 	{serverSearchTerm}
+	{serverSearchDebounceMs}
 	{onRowClick}
 	{cell}
 	{row}

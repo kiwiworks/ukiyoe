@@ -27,7 +27,7 @@
 		/** Inline styles */
 		style?: string;
 		/** Click handler */
-		onclick?: (event: MouseEvent) => void;
+		onClick?: (event: MouseEvent) => void;
 		/** Button content */
 		children: import('svelte').Snippet;
 	}
@@ -48,12 +48,12 @@
 		'aria-label': ariaLabel,
 		class: className = '',
 		style,
-		onclick,
+		onClick,
 		children
 	}: ButtonProps = $props();
 
 	const baseClasses =
-		'inline-flex items-center gap-1 font-mono font-bold uppercase tracking-wide transition-all duration-100 disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-accent-brand focus-visible:outline-offset-2';
+		'inline-flex items-center gap-1 font-mono font-bold uppercase tracking-wide transition-all duration-100 disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-accent-brand focus-visible:outline-offset-2 touch-target';
 
 	const sizeClasses: Record<ButtonSize, string> = {
 		xs: 'px-2 py-1 text-xs rounded-sm',
@@ -100,6 +100,7 @@
 		class:pointer-events-none={disabled || loading}
 		aria-label={ariaLabel}
 		aria-disabled={disabled || loading}
+		onclick={onClick}
 		{style}
 	>
 		{#if loading}
@@ -115,7 +116,7 @@
 		aria-label={ariaLabel}
 		aria-busy={loading}
 		aria-pressed={active}
-		{onclick}
+		onclick={onClick}
 		{style}
 	>
 		{#if loading}

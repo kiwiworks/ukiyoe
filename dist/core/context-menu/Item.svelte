@@ -7,7 +7,7 @@
 		/** Disable interactions */
 		disabled?: boolean;
 		/** Click handler */
-		onclick?: () => void;
+		onClick?: () => void;
 		/** Icon snippet */
 		icon?: import('svelte').Snippet;
 		/** Item content */
@@ -24,7 +24,7 @@
 	let {
 		variant = 'default',
 		disabled = false,
-		onclick,
+		onClick,
 		icon,
 		children,
 		class: className = ''
@@ -38,7 +38,7 @@
 
 <ContextMenu.Item
 	{disabled}
-	onSelect={onclick}
+	onSelect={onClick}
 	class={cn(
 		'flex items-center gap-2 w-full px-3 py-2 text-xs rounded-sm cursor-pointer select-none outline-none transition-colors data-[highlighted]:bg-bg-hover data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed',
 		variantClasses[variant],

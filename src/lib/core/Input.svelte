@@ -22,10 +22,9 @@
 		'aria-label'?: string;
 		'aria-describedby'?: string;
 		class?: string;
-		oninput?: (event: Event & { currentTarget: HTMLInputElement }) => void;
-		onchange?: (event: Event & { currentTarget: HTMLInputElement }) => void;
-		onfocus?: (event: FocusEvent & { currentTarget: HTMLInputElement }) => void;
-		onblur?: (event: FocusEvent & { currentTarget: HTMLInputElement }) => void;
+		onValueChange?: (value: string) => void;
+		onFocus?: (event: FocusEvent & { currentTarget: HTMLInputElement }) => void;
+		onBlur?: (event: FocusEvent & { currentTarget: HTMLInputElement }) => void;
 	}
 </script>
 
@@ -51,10 +50,9 @@
 		'aria-label': ariaLabel,
 		'aria-describedby': ariaDescribedby,
 		class: className = '',
-		oninput,
-		onchange,
-		onfocus,
-		onblur
+		onValueChange,
+		onFocus,
+		onBlur
 	}: InputProps = $props();
 
 	const iconSizes: Record<InputSize, number> = {
@@ -78,6 +76,10 @@
 		center: 'text-center',
 		right: 'text-right'
 	};
+
+	function handleInput(event: Event & { currentTarget: HTMLInputElement }) {
+		onValueChange?.(event.currentTarget.value);
+	}
 </script>
 
 <div class={cn('relative w-full', className)}>
@@ -95,11 +97,10 @@
 		aria-invalid={error}
 		aria-required={required}
 		aria-busy={loading}
-		class="w-full bg-bg-secondary border rounded-md font-mono text-text-primary placeholder:text-text-muted focus-visible:outline-none focus-visible:ring-2 disabled:opacity-50 disabled:cursor-not-allowed read-only:bg-bg-tertiary read-only:cursor-default {error ? 'border-negative focus-visible:border-negative focus-visible:ring-negative/20' : 'border-border-default focus-visible:border-accent-brand focus-visible:ring-accent-brand/20'} {sizeClasses[size]} {alignClasses[align]} {prefix ? 'pl-12' : ''} {suffix || loading ? 'pr-12' : ''}"
-		{oninput}
-		{onchange}
-		{onfocus}
-		{onblur}
+		class="w-full bg-bg-secondary border rounded-md font-mono text-text-primary placeholder:text-text-muted focus-visible:outline-none focus-visible:ring-2 disabled:opacity-50 disabled:cursor-not-allowed read-only:bg-bg-tertiary read-only:cursor-default touch-target {error ? 'border-negative focus-visible:border-negative focus-visible:ring-negative/20' : 'border-border-default focus-visible:border-accent-brand focus-visible:ring-accent-brand/20'} {sizeClasses[size]} {alignClasses[align]} {prefix ? 'pl-12' : ''} {suffix || loading ? 'pr-12' : ''}"
+		oninput={handleInput}
+		onfocus={onFocus}
+		onblur={onBlur}
 	/>
 	{#if prefix}
 		<span class="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-sm pointer-events-none">{prefix}</span>

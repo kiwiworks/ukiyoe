@@ -6,9 +6,9 @@
 	import { untrack } from 'svelte';
 	import { cn } from '../../utils/cn';
 	import { getFormContext } from './context.svelte';
-	import type { FormFieldProps, FieldRenderProps, FieldValue } from './types';
+	import type { FormFieldProps as FormFieldPropsType, FieldRenderProps, FieldValue } from './types';
 
-	let { name, label, hint, required = false, class: className = '', children }: FormFieldProps =
+	let { name, label, hint, required = false, class: className = '', children }: FormFieldPropsType =
 		$props();
 
 	const ctx = getFormContext();
@@ -41,10 +41,10 @@
 		errorMessage: showError ? errorMessage : null,
 		'aria-describedby': hasDescription ? descriptionId : undefined,
 		'aria-invalid': !!showError,
-		onchange: (newValue: FieldValue) => {
+		onValueChange: (newValue: FieldValue) => {
 			ctx.setValue(name, newValue);
 		},
-		onblur: () => {
+		onBlur: () => {
 			ctx.setTouched(name);
 		}
 	});

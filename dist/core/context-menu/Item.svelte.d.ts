@@ -5,7 +5,7 @@ export interface ContextMenuItemProps {
     /** Disable interactions */
     disabled?: boolean;
     /** Click handler */
-    onclick?: () => void;
+    onClick?: () => void;
     /** Icon snippet */
     icon?: import('svelte').Snippet;
     /** Item content */

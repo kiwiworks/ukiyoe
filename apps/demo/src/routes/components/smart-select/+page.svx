@@ -16,7 +16,7 @@
 		{ name: 'id', type: 'string', default: '-', description: 'HTML id attribute' },
 		{ name: 'aria-label', type: 'string', default: '-', description: 'Accessible label' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
-		{ name: 'onchange', type: '(value: string) => void', default: '-', description: 'Change event handler for option selection' },
+		{ name: 'onValueChange', type: '(value: string) => void', default: '-', description: 'Change event handler for option selection' },
 		{ name: 'filter', type: '(option: SmartSelectOption, query: string) => boolean', default: '-', description: 'Custom filter function' },
 		{ name: 'highlightMatch', type: 'boolean', default: 'false', description: 'Highlight matching text in results' },
 		{ name: 'highlightClass', type: 'string', default: "'bg-accent-brand/20 text-accent-brand'", description: 'Custom class for highlighted text' }

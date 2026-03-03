@@ -10,7 +10,7 @@
 		icon?: Component;
 		class?: string;
 		children: Snippet;
-		ondismiss?: () => void;
+		onDismiss?: () => void;
 	}
 </script>
 
@@ -25,7 +25,7 @@
 		icon,
 		class: className = '',
 		children,
-		ondismiss
+		onDismiss
 	}: AlertProps = $props();
 
 	let visible = $state(true);
@@ -50,7 +50,7 @@
 
 	function handleDismiss() {
 		visible = false;
-		ondismiss?.();
+		onDismiss?.();
 	}
 </script>
 
@@ -72,7 +72,7 @@
 			<button
 				type="button"
 				onclick={handleDismiss}
-				class="shrink-0 p-1 rounded opacity-70 hover:opacity-100 transition-opacity"
+				class="shrink-0 p-1 rounded opacity-70 hover:opacity-100 transition-opacity touch-target"
 			>
 				<X size={16} />
 			</button>

@@ -10,7 +10,7 @@ export function setDataTableContext<T>(ctx: DataTableContext<T>): void {
 export function getDataTableContext<T = Record<string, unknown>>(): DataTableContext<T> {
 	const ctx = getContext<DataTableContext<T>>(DATA_TABLE_CONTEXT_KEY);
 	if (!ctx) {
-		throw new Error('DataTable context not found. Make sure to use DataTable components inside DataTable.Root');
+		throw new Error('DataTable context not found. Make sure to use DataTable parts inside DataTable.Root');
 	}
 	return ctx;
 }

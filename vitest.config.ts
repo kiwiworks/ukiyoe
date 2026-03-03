@@ -8,9 +8,11 @@ export default defineConfig({
 		environment: 'happy-dom',
 		globals: true,
 		setupFiles: ['src/lib/test/setup.ts'],
-		deps: {
-			// Process svelte files in these packages
-			inline: [/bits-ui/, /@lucide\/svelte/]
+		server: {
+			deps: {
+				// Process svelte files in these packages
+				inline: [/bits-ui/, /@lucide\/svelte/]
+			}
 		}
 	},
 	resolve: {

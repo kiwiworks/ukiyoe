@@ -16,7 +16,7 @@
 		{ name: 'icon', type: 'Snippet', description: 'Icon to display before content' },
 		{ name: 'variant', type: "'default' | 'danger'", default: "'default'", description: 'Visual variant' },
 		{ name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the item' },
-		{ name: 'onclick', type: '() => void', description: 'Click handler' },
+		{ name: 'onClick', type: '() => void', description: 'Click handler' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
 	];
 </script>
@@ -41,15 +41,15 @@ Right-click on the area below to trigger the context menu.
 		</Widget>
 	{/snippet}
 	{#snippet items()}
-		<ContextMenu.Item onclick={() => console.log('View')}>
+		<ContextMenu.Item onClick={() => console.log('View')}>
 			{#snippet icon()}<Eye size={14} />{/snippet}
 			View
 		</ContextMenu.Item>
-		<ContextMenu.Item onclick={() => console.log('Edit')}>
+		<ContextMenu.Item onClick={() => console.log('Edit')}>
 			{#snippet icon()}<Edit size={14} />{/snippet}
 			Edit
 		</ContextMenu.Item>
-		<ContextMenu.Item onclick={() => console.log('Copy')}>
+		<ContextMenu.Item onClick={() => console.log('Copy')}>
 			{#snippet icon()}<Copy size={14} />{/snippet}
 			Copy
 		</ContextMenu.Item>
@@ -69,16 +69,16 @@ Use `ContextMenu.Divider` to separate groups of actions.
 		</Widget>
 	{/snippet}
 	{#snippet items()}
-		<ContextMenu.Item onclick={() => console.log('Download')}>
+		<ContextMenu.Item onClick={() => console.log('Download')}>
 			{#snippet icon()}<Download size={14} />{/snippet}
 			Download
 		</ContextMenu.Item>
-		<ContextMenu.Item onclick={() => console.log('Share')}>
+		<ContextMenu.Item onClick={() => console.log('Share')}>
 			{#snippet icon()}<Share size={14} />{/snippet}
 			Share
 		</ContextMenu.Item>
 		<ContextMenu.Divider />
-		<ContextMenu.Item variant="danger" onclick={() => console.log('Delete')}>
+		<ContextMenu.Item variant="danger" onClick={() => console.log('Delete')}>
 			{#snippet icon()}<Trash2 size={14} />{/snippet}
 			Delete
 		</ContextMenu.Item>
@@ -98,7 +98,7 @@ Individual items can be disabled while the menu remains active.
 		</Widget>
 	{/snippet}
 	{#snippet items()}
-		<ContextMenu.Item onclick={() => console.log('Copy')}>
+		<ContextMenu.Item onClick={() => console.log('Copy')}>
 			{#snippet icon()}<Copy size={14} />{/snippet}
 			Copy
 		</ContextMenu.Item>

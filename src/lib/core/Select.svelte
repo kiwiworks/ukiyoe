@@ -36,8 +36,8 @@
 		clearable?: boolean;
 		/** Additional CSS classes */
 		class?: string;
-		/** Change event handler */
-		onchange?: (value: string) => void;
+		/** Value change handler */
+		onValueChange?: (value: string) => void;
 	}
 </script>
 
@@ -61,7 +61,7 @@
 		'aria-invalid': ariaInvalid,
 		clearable = false,
 		class: className = '',
-		onchange
+		onValueChange
 	}: SelectProps = $props();
 
 	const isDisabled = $derived(disabled || loading);
@@ -69,7 +69,7 @@
 	function handleClear(e: MouseEvent) {
 		e.stopPropagation();
 		value = '';
-		onchange?.('');
+		onValueChange?.('');
 	}
 
 	const items = $derived(
@@ -96,7 +96,7 @@
 
 	function handleValueChange(newValue: string) {
 		value = newValue;
-		onchange?.(newValue);
+		onValueChange?.(newValue);
 	}
 
 	let viewportEl: HTMLElement | null = $state(null);
@@ -126,7 +126,7 @@
 			aria-describedby={ariaDescribedby}
 			aria-invalid={ariaInvalid}
 			aria-busy={loading}
-			class="relative w-full appearance-none bg-bg-secondary border border-border-default rounded-md font-mono text-text-primary cursor-pointer transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:border-accent-brand focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:opacity-50 disabled:cursor-not-allowed text-left {sizeClasses[size]} {rightPadding}"
+			class="relative w-full appearance-none bg-bg-secondary border border-border-default rounded-md font-mono text-text-primary cursor-pointer transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:border-accent-brand focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:opacity-50 disabled:cursor-not-allowed text-left touch-target {sizeClasses[size]} {rightPadding}"
 		>
 		<span class={value ? '' : 'text-text-muted'}>{selectedLabel}</span>
 		<span class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
@@ -139,7 +139,7 @@
 					<button
 						type="button"
 						onclick={handleClear}
-						class="p-0.5 rounded-sm text-text-muted hover:text-text-primary hover:bg-bg-hover transition-colors"
+						class="p-0.5 rounded-sm text-text-muted hover:text-text-primary hover:bg-bg-hover transition-colors touch-target"
 						aria-label="Clear selection"
 					>
 						<X size={iconSizes[size] - 2} />

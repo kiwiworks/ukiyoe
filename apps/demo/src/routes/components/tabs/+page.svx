@@ -10,7 +10,7 @@
 		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size variant of the tabs' },
 		{ name: 'variant', type: "'pill' | 'underline'", default: "'pill'", description: 'Visual style variant' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
-		{ name: 'onchange', type: '(value: string) => void', default: '-', description: 'Callback when tab selection changes' },
+		{ name: 'onValueChange', type: '(value: string) => void', default: '-', description: 'Callback when tab selection changes' },
 		{ name: 'children', type: 'Snippet<[string]>', default: '-', description: 'Content snippet receiving the current tab value' },
 		{ name: 'trigger', type: 'Snippet<[{ tab: TabItem; active: boolean }]>', default: '-', description: 'Custom trigger snippet for full control over tab rendering' }
 	];

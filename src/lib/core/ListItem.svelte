@@ -37,7 +37,7 @@
 	const computedClasses = $derived(
 		cn(
 			'flex items-center justify-between p-md rounded-sm transition-colors duration-100 text-xs font-mono text-text-primary bg-bg-primary',
-			interactive && 'cursor-pointer hover:bg-bg-hover',
+			interactive && 'cursor-pointer hover:bg-bg-hover touch-target',
 			selected && 'bg-bg-secondary',
 			interactive && 'focus-visible:outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--accent-brand)]',
 			variantBorder[variant],

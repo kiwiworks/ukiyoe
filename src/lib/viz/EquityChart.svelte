@@ -296,7 +296,7 @@
 				<text
 					x={padding.left + 4}
 					y={padding.top + mainChartHeight + 20}
-					class="text-[9px] font-mono"
+					class="text-[11px] font-mono"
 					fill="var(--text-muted)"
 				>
 					Drawdown {formatPercent(-maxDrawdown())}
@@ -379,7 +379,7 @@
 			<text
 				x={padding.left + chartWidth + 4}
 				y={tick.y + 3}
-				class="text-[10px] font-mono"
+				class="text-[11px] font-mono"
 				fill="var(--text-muted)"
 			>
 				{formatValue(tick.value)}
@@ -391,7 +391,7 @@
 			<text
 				x={tick.x}
 				y={height - 4}
-				class="text-[10px] font-mono"
+				class="text-[11px] font-mono"
 				fill="var(--text-muted)"
 				text-anchor={i === 0 ? 'start' : i === xTicks().length - 1 ? 'end' : 'middle'}
 			>

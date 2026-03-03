@@ -75,7 +75,7 @@
 			placeholder="Search endpoints..."
 			size="sm"
 			value={searchQuery}
-			oninput={(e) => (searchQuery = e.currentTarget.value)}
+			onValueChange={(value) => (searchQuery = value)}
 			suffix="/"
 		/>
 	</div>
@@ -96,7 +96,7 @@
 							<button
 								type="button"
 								class={cn(
-									'w-full flex items-center gap-sm px-sm py-xs rounded-md text-left transition-colors',
+									'w-full flex items-center gap-sm px-sm py-xs rounded-md text-left transition-colors touch-target',
 									'hover:bg-bg-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand',
 									isSelected && 'bg-bg-active border-l-2 border-accent-brand'
 								)}

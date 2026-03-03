@@ -72,7 +72,7 @@
 	});
 
 	const sizeClasses: Record<AssetIconSize, string> = {
-		xs: 'w-3 h-3 text-[10px]',
+		xs: 'w-3 h-3 text-[11px]',
 		sm: 'w-4 h-4 text-xs',
 		md: 'w-5 h-5 text-sm',
 		lg: 'w-6 h-6 text-base'

@@ -13,6 +13,9 @@
 		{ name: 'showIndicator', type: 'boolean', default: 'true', description: 'Show the brand indicator dot' },
 		{ name: 'icon', type: 'Snippet', default: '-', description: 'Custom icon/logo slot' },
 		{ name: 'children', type: 'Snippet', default: '-', description: 'Actions slot (right side)' },
+		{ name: 'mobileMenu', type: 'Snippet', default: '-', description: 'Content rendered in mobile hamburger menu' },
+		{ name: 'showMobileMenu', type: 'boolean', default: 'false', description: 'Show mobile hamburger button' },
+		{ name: 'onMenuToggle', type: '() => void', default: '-', description: 'Called when hamburger menu is toggled' },
 		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' }
 	];
 </script>
@@ -90,4 +93,3 @@ Set `fixed={false}` for inline or embedded headers.
 <PropsTable props={propDefs} />
 
 </div>
-

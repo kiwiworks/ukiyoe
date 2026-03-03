@@ -42,7 +42,7 @@
 			{side}
 			{sideOffset}
 			{align}
-			class={cn('z-popover w-72 rounded-lg bg-bg-elevated p-4 shadow-lg border border-border-default animate-in fade-in-0 zoom-in-95', className)}
+			class={cn('z-popover w-72 max-w-[calc(100vw-2rem)] rounded-lg bg-bg-elevated p-4 shadow-lg border border-border-default animate-in fade-in-0 zoom-in-95', className)}
 		>
 			{@render children()}
 		</Popover.Content>

@@ -40,7 +40,7 @@ export interface FieldSchema {
 	placeholder?: string;
 	/** Options for select, radio fields */
 	options?: FieldOption[] | string[];
-	/** Default value */
+	/** Default value (applied by Form.Auto when no initial value exists) */
 	defaultValue?: FieldValue;
 	/** Minimum value for number/slider */
 	min?: number;
@@ -71,9 +71,9 @@ export interface FieldRenderProps {
 	/** Whether the field value is invalid */
 	'aria-invalid': boolean;
 	/** Handler to update the field value */
-	onchange: (value: FieldValue) => void;
+	onValueChange: (value: FieldValue) => void;
 	/** Handler for blur events */
-	onblur: () => void;
+	onBlur: () => void;
 }
 
 /** Form validation function signature */
@@ -133,7 +133,7 @@ export interface FormRootProps<T = Record<string, FieldValue>> {
 	/** Zod schema for validation */
 	schema?: z.ZodObject<z.ZodRawShape>;
 	/** Submit handler */
-	onsubmit?: (values: T) => void | Promise<void>;
+	onSubmit?: (values: T) => void | Promise<void>;
 	/** Validate on blur (default: true) */
 	validateOnBlur?: boolean;
 	/** Validate on change (default: false) */

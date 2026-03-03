@@ -22,8 +22,8 @@
 		lastUpdated?: Date | null;
 		interval?: number | null;
 		intervals?: RefreshInterval[];
-		onrefresh: () => void;
-		onintervalchange?: (interval: number | null) => void;
+		onRefresh: () => void;
+		onIntervalChange?: (interval: number | null) => void;
 	}
 
 	let {
@@ -31,8 +31,8 @@
 		lastUpdated = null,
 		interval = null,
 		intervals = DEFAULT_INTERVALS,
-		onrefresh,
-		onintervalchange
+		onRefresh,
+		onIntervalChange
 	}: Props = $props();
 
 	let dropdownOpen = $state(false);
@@ -54,7 +54,7 @@
 
 	function selectInterval(value: number | null) {
 		dropdownOpen = false;
-		onintervalchange?.(value);
+		onIntervalChange?.(value);
 	}
 
 	function handleClickOutside(e: MouseEvent) {
@@ -77,18 +77,18 @@
 	{/if}
 
 	<button
-		class="flex items-center justify-center size-7 p-0 bg-bg-tertiary border border-border-subtle rounded-sm text-text-secondary cursor-pointer transition-all duration-150 enabled:hover:bg-bg-hover enabled:hover:text-text-primary enabled:hover:border-border-default disabled:opacity-50 disabled:cursor-not-allowed"
-		onclick={onrefresh}
+		class="flex items-center justify-center size-7 p-0 bg-bg-tertiary border border-border-subtle rounded-sm text-text-secondary cursor-pointer transition-all duration-150 enabled:hover:bg-bg-hover enabled:hover:text-text-primary enabled:hover:border-border-default disabled:opacity-50 disabled:cursor-not-allowed touch-target"
+		onclick={onRefresh}
 		disabled={loading}
 		title="Refresh now"
 	>
 		<RefreshCw size={14} class={loading ? 'animate-spin' : ''} />
 	</button>
 
-	{#if onintervalchange}
+	{#if onIntervalChange}
 		<div class="relative">
 			<button
-				class="flex items-center gap-1 px-2 py-1.5 bg-bg-tertiary border border-border-subtle rounded-sm text-text-secondary text-[11px] font-medium cursor-pointer transition-all duration-150 hover:bg-bg-hover hover:text-text-primary hover:border-border-default"
+				class="flex items-center gap-1 px-2 py-1.5 bg-bg-tertiary border border-border-subtle rounded-sm text-text-secondary text-[11px] font-medium cursor-pointer transition-all duration-150 hover:bg-bg-hover hover:text-text-primary hover:border-border-default touch-target"
 				onclick={() => (dropdownOpen = !dropdownOpen)}
 				aria-expanded={dropdownOpen}
 			>
@@ -102,7 +102,7 @@
 				<div class="absolute top-[calc(100%+4px)] right-0 min-w-20 p-1 bg-bg-secondary border border-border-default rounded-md shadow-lg z-50">
 					{#each intervals as opt}
 						<button
-							class="flex items-center justify-between w-full px-2 py-1.5 bg-transparent border-none rounded-sm text-[11px] text-left cursor-pointer transition-all duration-100 {opt.value === interval ? 'text-accent-brand' : 'text-text-secondary'} hover:bg-bg-hover hover:text-text-primary"
+							class="flex items-center justify-between w-full px-2 py-1.5 bg-transparent border-none rounded-sm text-[11px] text-left cursor-pointer transition-all duration-100 {opt.value === interval ? 'text-accent-brand' : 'text-text-secondary'} hover:bg-bg-hover hover:text-text-primary touch-target"
 							onclick={() => selectInterval(opt.value)}
 						>
 							<span>{opt.label}</span>

@@ -16,7 +16,7 @@
 		{ name: 'aria-label', type: 'string', default: '-', description: 'Accessible label for screen readers' },
 		{ name: 'aria-describedby', type: 'string', default: '-', description: 'ID of element describing this slider' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
-		{ name: 'onchange', type: '(value: number[]) => void', default: '-', description: 'Change event handler' }
+		{ name: 'onValueChange', type: '(value: number[]) => void', default: '-', description: 'Change event handler' }
 	];
 </script>
 

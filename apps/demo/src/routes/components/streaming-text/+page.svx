@@ -67,9 +67,9 @@
 ## Interactive Demo
 
 <div class="flex gap-md mb-md">
-	<Button size="sm" onclick={start}>Start Streaming</Button>
-	<Button size="sm" variant="outline" onclick={() => (text = sampleText)}>Instant</Button>
-	<Button size="sm" variant="ghost" onclick={() => (text = '')}>Reset</Button>
+	<Button size="sm" onClick={start}>Start Streaming</Button>
+	<Button size="sm" variant="outline" onClick={() => (text = sampleText)}>Instant</Button>
+	<Button size="sm" variant="ghost" onClick={() => (text = '')}>Reset</Button>
 </div>
 <div class="p-md bg-bg-secondary rounded-md min-h-[60px]">
 	{#if text}
@@ -98,8 +98,8 @@
 ## Append Mode (Incremental Tokens)
 
 <div class="flex gap-md mb-md">
-	<Button size="sm" onclick={startAppend}>Start Token Stream</Button>
-	<Button size="sm" variant="ghost" onclick={() => (appendText = '')}>Reset</Button>
+	<Button size="sm" onClick={startAppend}>Start Token Stream</Button>
+	<Button size="sm" variant="ghost" onClick={() => (appendText = '')}>Reset</Button>
 </div>
 <div class="p-md bg-bg-secondary rounded-md min-h-[60px]">
 	{#if appendText}
@@ -112,7 +112,7 @@
 ## Replace Mode (Diffusion)
 
 <div class="flex gap-md mb-md">
-	<Button size="sm" onclick={cycleReplace}>Next Revision</Button>
+	<Button size="sm" onClick={cycleReplace}>Next Revision</Button>
 </div>
 <div class="p-md bg-bg-secondary rounded-md min-h-[60px]">
 	<StreamingText text={replaceText} mode="replace" />

@@ -3,7 +3,7 @@
 </script>
 
 <script lang="ts">
-	import type { OpenApiViewerProps, Endpoint } from './types.js';
+	import type { OpenApiViewerProps as OpenApiViewerPropsType, Endpoint } from './types.js';
 	import { extractEndpoints, groupEndpointsByTag, getApiInfo } from './utils.js';
 	import { cn } from '../utils/cn.js';
 	import EndpointList from './EndpointList.svelte';
@@ -11,7 +11,7 @@
 	import { Heading, Badge, Text, Markdown, Button } from '../index.js';
 	import { Menu, X } from '@lucide/svelte';
 
-	let { spec, baseUrl, class: className = '' }: OpenApiViewerProps = $props();
+	let { spec, baseUrl, class: className = '' }: OpenApiViewerPropsType = $props();
 
 	const endpoints = $derived(extractEndpoints(spec));
 	const groups = $derived(groupEndpointsByTag(endpoints, spec));
@@ -33,7 +33,7 @@
 			<Button
 				variant="ghost"
 				size="sm"
-				onclick={() => (sidebarOpen = !sidebarOpen)}
+				onClick={() => (sidebarOpen = !sidebarOpen)}
 				class="md:hidden"
 				aria-label="Toggle sidebar"
 			>

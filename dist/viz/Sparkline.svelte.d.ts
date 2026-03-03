@@ -2,7 +2,7 @@ export type SparklineColor = 'positive' | 'negative' | 'neutral' | 'auto';
 export interface SparklineProps {
     /** Array of numeric data points */
     data: number[];
-    /** Width in pixels */
+    /** Width in pixels (used as viewBox width when responsive) */
     width?: number;
     /** Height in pixels */
     height?: number;
@@ -12,6 +12,8 @@ export interface SparklineProps {
     fill?: boolean;
     /** Show data point dots */
     showDots?: boolean;
+    /** When true, SVG stretches to fill container width */
+    responsive?: boolean;
     /** Accessible label for the chart (describes the data) */
     ariaLabel?: string;
     /** Additional CSS classes */

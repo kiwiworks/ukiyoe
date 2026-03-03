@@ -36,7 +36,7 @@
 		<Select
 			value={selectedAccent}
 			options={accentOptions}
-			onchange={handleAccentChange}
+			onValueChange={handleAccentChange}
 			size="sm"
 		/>
 		<div class="flex gap-sm mt-md">
@@ -46,7 +46,7 @@
 					variant={themeStore.accent.id === color.id ? 'primary' : 'ghost'}
 					class="!p-0 !w-6 !h-6 !rounded-full !min-w-0"
 					style="background-color: {color.hex}; border: 2px solid {themeStore.accent.id === color.id ? 'var(--text-primary)' : 'transparent'}"
-					onclick={() => {
+					onClick={() => {
 						selectedAccent = color.id;
 						themeStore.setAccent(color);
 					}}
@@ -58,7 +58,7 @@
 	</Widget>
 
 	<Widget title="UI Scale">
-		<Select value={selectedScale} options={scaleOptions} onchange={handleScaleChange} size="sm" />
+		<Select value={selectedScale} options={scaleOptions} onValueChange={handleScaleChange} size="sm" />
 		<Text size="xs" variant="muted" class="mt-sm">
 			Current scale: {themeStore.uiScale.name}
 		</Text>
@@ -68,7 +68,7 @@
 		<Select
 			value={selectedEffect}
 			options={effectOptions}
-			onchange={handleEffectChange}
+			onValueChange={handleEffectChange}
 			size="sm"
 		/>
 		<Text size="xs" variant="muted" class="mt-sm">

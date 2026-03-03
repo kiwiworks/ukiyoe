@@ -1,5 +1,5 @@
 export type { FormAutoProps } from './types';
-import type { FormAutoProps } from './types';
-declare const Auto: import("svelte").Component<FormAutoProps, {}, "">;
+import type { FormAutoProps as FormAutoPropsType } from './types';
+declare const Auto: import("svelte").Component<FormAutoPropsType, {}, "">;
 type Auto = ReturnType<typeof Auto>;
 export default Auto;

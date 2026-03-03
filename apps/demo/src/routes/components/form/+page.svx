@@ -26,7 +26,7 @@
 		{ name: 'initialValues', type: 'Partial<T>', default: '{}', description: 'Initial form values' },
 		{ name: 'validate', type: '(values: T) => Record<string, string>', default: '-', description: 'Custom validation function' },
 		{ name: 'schema', type: 'z.ZodObject', default: '-', description: 'Zod schema for validation' },
-		{ name: 'onsubmit', type: '(values: T) => void | Promise<void>', default: '-', description: 'Form submit handler' },
+		{ name: 'onSubmit', type: '(values: T) => void | Promise<void>', default: '-', description: 'Form submit handler' },
 		{ name: 'validateOnBlur', type: 'boolean', default: 'true', description: 'Validate fields on blur' },
 		{ name: 'validateOnChange', type: 'boolean', default: 'false', description: 'Validate fields on change' },
 		{ name: 'showErrorsOnTouched', type: 'boolean', default: 'true', description: 'Only show errors after field is touched' },
@@ -93,7 +93,7 @@ Use `Form.Root` with `Form.Field` to create controlled forms with automatic stat
 ```svelte preview title="Basic Form"
 <Form.Root
 	initialValues={{ username: '', email: '' }}
-	onsubmit={(values) => alert(JSON.stringify(values))}
+	onSubmit={(values) => alert(JSON.stringify(values))}
 	class="w-80 flex flex-col gap-4"
 >
 	<Form.Field name="username" label="Username" required>
@@ -104,8 +104,8 @@ Use `Form.Root` with `Form.Field` to create controlled forms with automatic stat
 				placeholder="Enter username"
 				error={field.error}
 				aria-describedby={field['aria-describedby']}
-				onchange={(e) => field.onchange(e.currentTarget.value)}
-				onblur={field.onblur}
+				onValueChange={(value) => field.onValueChange(value)}
+				onBlur={field.onBlur}
 			/>
 		{/snippet}
 	</Form.Field>
@@ -118,8 +118,8 @@ Use `Form.Root` with `Form.Field` to create controlled forms with automatic stat
 				placeholder="you@example.com"
 				error={field.error}
 				aria-describedby={field['aria-describedby']}
-				onchange={(e) => field.onchange(e.currentTarget.value)}
-				onblur={field.onblur}
+				onValueChange={(value) => field.onValueChange(value)}
+				onBlur={field.onBlur}
 			/>
 		{/snippet}
 	</Form.Field>
@@ -135,7 +135,7 @@ Pass a Zod schema for automatic validation. Errors display after the field is to
 <Form.Root
 	schema={userSchema}
 	initialValues={{ name: '', email: '', password: '' }}
-	onsubmit={(values) => alert('Form submitted!')}
+	onSubmit={(values) => alert('Form submitted!')}
 	class="w-80 flex flex-col gap-4"
 >
 	<Form.Field name="name" label="Name" required>
@@ -146,8 +146,8 @@ Pass a Zod schema for automatic validation. Errors display after the field is to
 				placeholder="Your name"
 				error={field.error}
 				aria-describedby={field['aria-describedby']}
-				onchange={(e) => field.onchange(e.currentTarget.value)}
-				onblur={field.onblur}
+				onValueChange={(value) => field.onValueChange(value)}
+				onBlur={field.onBlur}
 			/>
 		{/snippet}
 	</Form.Field>
@@ -160,8 +160,8 @@ Pass a Zod schema for automatic validation. Errors display after the field is to
 				placeholder="you@example.com"
 				error={field.error}
 				aria-describedby={field['aria-describedby']}
-				onchange={(e) => field.onchange(e.currentTarget.value)}
-				onblur={field.onblur}
+				onValueChange={(value) => field.onValueChange(value)}
+				onBlur={field.onBlur}
 			/>
 		{/snippet}
 	</Form.Field>
@@ -174,8 +174,8 @@ Pass a Zod schema for automatic validation. Errors display after the field is to
 				placeholder="Enter password"
 				error={field.error}
 				aria-describedby={field['aria-describedby']}
-				onchange={(e) => field.onchange(e.currentTarget.value)}
-				onblur={field.onblur}
+				onValueChange={(value) => field.onValueChange(value)}
+				onBlur={field.onBlur}
 			/>
 		{/snippet}
 	</Form.Field>
@@ -190,7 +190,7 @@ Use `Form.Auto` to generate fields from a schema definition.
 ```svelte preview title="Auto-Generated Form (Stack)"
 <Form.Root
 	initialValues={{ fullName: '', email: '', role: '', bio: '', notifications: true, terms: false }}
-	onsubmit={(values) => alert(JSON.stringify(values))}
+	onSubmit={(values) => alert(JSON.stringify(values))}
 	class="w-80"
 >
 	<Form.Auto fields={autoFields} layout="stack" gap="md" />
@@ -207,7 +207,7 @@ Use `layout="grid"` with `columns` for multi-column forms.
 ```svelte preview title="Auto-Generated Form (Grid)"
 <Form.Root
 	initialValues={{ fullName: '', email: '', role: '', bio: '', notifications: true, terms: false }}
-	onsubmit={(values) => alert(JSON.stringify(values))}
+	onSubmit={(values) => alert(JSON.stringify(values))}
 	class="w-full max-w-2xl"
 >
 	<Form.Auto fields={autoFields} layout="grid" columns={2} gap="md" />
@@ -234,7 +234,7 @@ You can use a custom validation function instead of or alongside Zod.
 		}
 		return errors;
 	}}
-	onsubmit={(values) => alert(`Age: ${values.age}`)}
+	onSubmit={(values) => alert(`Age: ${values.age}`)}
 	class="w-80 flex flex-col gap-4"
 >
 	<Form.Field name="age" label="Age" required>
@@ -246,8 +246,8 @@ You can use a custom validation function instead of or alongside Zod.
 				placeholder="Enter your age"
 				error={field.error}
 				aria-describedby={field['aria-describedby']}
-				onchange={(e) => field.onchange(e.currentTarget.value)}
-				onblur={field.onblur}
+				onValueChange={(value) => field.onValueChange(value)}
+				onBlur={field.onBlur}
 			/>
 		{/snippet}
 	</Form.Field>
@@ -272,4 +272,3 @@ You can use a custom validation function instead of or alongside Zod.
 <PropsTable props={fieldSchemaPropDefs} />
 
 </div>
-

@@ -345,7 +345,7 @@
 			<Select
 				options={serverOptions}
 				value={selectedServerIndex}
-				onchange={(v) => (selectedServerIndex = v)}
+				onValueChange={(v) => (selectedServerIndex = v)}
 				size="sm"
 			/>
 		</div>
@@ -385,7 +385,7 @@
 							size="sm"
 							placeholder={schema?.example !== undefined ? `e.g. ${schema.example}` : param.name}
 							value={parameterValues[param.name] ?? ''}
-							oninput={(e) => (parameterValues[param.name] = e.currentTarget.value)}
+							onValueChange={(v) => (parameterValues[param.name] = v)}
 						/>
 					</div>
 				{/each}
@@ -400,7 +400,7 @@
 			<Select
 				options={authOptions}
 				value={authType}
-				onchange={handleAuthTypeChange}
+				onValueChange={handleAuthTypeChange}
 				size="sm"
 				class="max-w-48"
 			/>
@@ -410,7 +410,7 @@
 					type="password"
 					placeholder={authType === 'basic' ? 'base64 encoded credentials' : authType === 'apiKey' ? `${apiKeyName} value` : 'Token'}
 					value={authToken}
-					oninput={(e) => (authToken = e.currentTarget.value)}
+					onValueChange={(v) => (authToken = v)}
 					class="flex-1"
 				/>
 			{/if}
@@ -446,7 +446,7 @@
 									size="sm"
 									options={schema.enum.map((v: unknown) => ({ value: String(v), label: String(v) }))}
 									value={parameterValues[param.name] ?? ''}
-									onchange={(v) => (parameterValues[param.name] = v)}
+									onValueChange={(v) => (parameterValues[param.name] = v)}
 									placeholder="Select..."
 								/>
 							{:else}
@@ -454,7 +454,7 @@
 									size="sm"
 									placeholder={schema?.example !== undefined ? `e.g. ${schema.example}` : param.name}
 									value={parameterValues[param.name] ?? ''}
-									oninput={(e) => (parameterValues[param.name] = e.currentTarget.value)}
+									onValueChange={(v) => (parameterValues[param.name] = v)}
 								/>
 							{/if}
 						</div>
@@ -469,7 +469,7 @@
 								size="sm"
 								options={contentTypes.map((ct) => ({ value: ct, label: ct }))}
 								value={selectedContentType}
-								onchange={(v) => (selectedContentType = v)}
+								onValueChange={(v) => (selectedContentType = v)}
 							/>
 						</div>
 					{/if}
@@ -477,7 +477,7 @@
 					<label class="flex items-center gap-sm cursor-pointer">
 						<Switch
 							checked={useRawBody}
-							onchange={(checked) => (useRawBody = checked)}
+							onValueChange={(checked) => (useRawBody = checked)}
 							size="sm"
 						/>
 						<Text size="sm">Raw JSON</Text>
@@ -486,7 +486,7 @@
 					{#if useRawBody}
 						<Textarea
 							value={bodyRaw}
-							oninput={(e) => (bodyRaw = e.currentTarget.value)}
+							onValueChange={(v) => (bodyRaw = v)}
 							placeholder={'{"key": "value"}'}
 							rows={10}
 							size="sm"
@@ -496,12 +496,12 @@
 						<SchemaForm
 							schema={bodySchema as OpenAPIV3.SchemaObject}
 							value={bodyValue}
-							onchange={(v) => (bodyValue = v)}
+							onValueChange={(v) => (bodyValue = v)}
 						/>
 					{:else}
 						<Textarea
 							value={bodyRaw}
-							oninput={(e) => (bodyRaw = e.currentTarget.value)}
+							onValueChange={(v) => (bodyRaw = v)}
 							placeholder="Request body..."
 							rows={6}
 							size="sm"
@@ -526,7 +526,7 @@
 									size="sm"
 									placeholder={param.name}
 									value={headerValues[param.name] ?? ''}
-									oninput={(e) => (headerValues[param.name] = e.currentTarget.value)}
+									onValueChange={(v) => (headerValues[param.name] = v)}
 								/>
 							</div>
 						{/each}
@@ -550,11 +550,11 @@
 
 	<!-- Execute Button -->
 	<div class="flex items-center gap-md">
-		<Button onclick={executeRequest} disabled={loading} variant="primary" size="sm">
+		<Button onClick={executeRequest} disabled={loading} variant="primary" size="sm">
 			{loading ? 'Sending...' : 'Send Request'}
 		</Button>
 		{#if response}
-			<Button onclick={() => (response = null)} variant="ghost" size="sm">
+			<Button onClick={() => (response = null)} variant="ghost" size="sm">
 				Clear Response
 			</Button>
 		{/if}

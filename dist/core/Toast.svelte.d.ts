@@ -8,7 +8,7 @@ export interface ToastData {
 }
 export interface ToastProps {
     toast: ToastData;
-    onclose?: (id: string) => void;
+    onClose?: (id: string) => void;
 }
 export declare function addToast(toast: Omit<ToastData, 'id'>): `${string}-${string}-${string}-${string}-${string}`;
 export declare function removeToast(id: string): void;

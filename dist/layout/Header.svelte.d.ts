@@ -15,6 +15,12 @@ export interface HeaderProps {
     icon?: Snippet;
     /** Actions slot (right side) */
     children?: Snippet;
+    /** Content rendered in mobile hamburger menu */
+    mobileMenu?: Snippet;
+    /** Show the mobile hamburger button (alternative to passing mobileMenu snippet) */
+    showMobileMenu?: boolean;
+    /** Called when hamburger menu is toggled */
+    onMenuToggle?: () => void;
     /** Additional CSS classes */
     class?: string;
 }

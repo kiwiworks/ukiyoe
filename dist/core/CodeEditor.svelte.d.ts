@@ -24,7 +24,7 @@ export interface CodeEditorProps {
     /** Maximum height in pixels (undefined = no max) */
     maxHeight?: number;
     /** Callback when value changes */
-    onchange?: (value: string) => void;
+    onValueChange?: (value: string) => void;
     /** Additional CSS classes */
     class?: string;
 }

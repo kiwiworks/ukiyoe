@@ -6,19 +6,19 @@
 	import { untrack } from 'svelte';
 	import { cn } from '../../utils/cn';
 	import { setFormContext } from './context.svelte';
-	import type { FormRootProps, FieldValue, FormContext } from './types';
+	import type { FormRootProps as FormRootPropsType, FieldValue, FormContext } from './types';
 
 	let {
 		initialValues = {} as Record<string, FieldValue>,
 		validate: validateFn,
 		schema,
-		onsubmit,
+		onSubmit,
 		validateOnBlur = true,
 		validateOnChange = false,
 		showErrorsOnTouched = true,
 		class: className = '',
 		children
-	}: FormRootProps = $props();
+	}: FormRootPropsType = $props();
 
 	// Capture initial values at mount time (intentionally non-reactive)
 	const _initialValues = untrack(() => ({ ...initialValues })) as Record<string, FieldValue>;
@@ -181,10 +181,10 @@
 		}
 
 		// Submit
-		if (onsubmit) {
+		if (onSubmit) {
 			isSubmitting = true;
 			try {
-				await onsubmit(values);
+				await onSubmit(values);
 			} finally {
 				isSubmitting = false;
 			}

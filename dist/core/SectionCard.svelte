@@ -37,7 +37,7 @@
 >
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 	<header
-		class="flex items-center gap-2 p-3 text-[11px] font-semibold uppercase tracking-wide select-none {collapsible ? 'cursor-pointer' : ''}"
+		class="flex items-center gap-2 p-3 text-[11px] font-semibold uppercase tracking-wide select-none {collapsible ? 'cursor-pointer touch-target' : ''}"
 		onclick={collapsible ? toggle : undefined}
 		onkeydown={collapsible ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } } : undefined}
 		role={collapsible ? 'button' : undefined}

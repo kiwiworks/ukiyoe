@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { themeStore } from '../stores/theme.svelte';
+	import { viewportStore } from '../stores/viewport.svelte';
 
 	interface Props {
 		gridSize?: number;
@@ -14,10 +15,11 @@
 		opacity = 0.035
 	}: Props = $props();
 
-	let canvas: HTMLCanvasElement;
+	let canvas = $state<HTMLCanvasElement | undefined>(undefined);
 	let ctx: CanvasRenderingContext2D | null = null;
 	let animationId: number;
 	let mounted = false;
+	const shouldRender = $derived(!viewportStore.prefersReducedMotion && !viewportStore.isMobile);
 
 	interface PulseSource {
 		x: number;
@@ -73,7 +75,7 @@
 	}
 
 	function draw(time: number) {
-		if (!ctx || !mounted) return;
+		if (!ctx || !mounted || !canvas) return;
 
 		const dpr = window.devicePixelRatio || 1;
 		const width = canvas.width / dpr;
@@ -223,7 +225,10 @@
 	}
 
 	onMount(() => {
+		if (viewportStore.prefersReducedMotion || viewportStore.isMobile) return;
+
 		mounted = true;
+		if (!canvas) return;
 		ctx = canvas.getContext('2d');
 		handleResize();
 
@@ -242,4 +247,6 @@
 	});
 </script>
 
-<canvas bind:this={canvas} class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+{#if shouldRender}
+	<canvas bind:this={canvas} class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+{/if}

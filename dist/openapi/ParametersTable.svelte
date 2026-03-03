@@ -14,7 +14,8 @@
 
 <script lang="ts">
 	import { cn } from '../utils/cn.js';
-	import { DataTable, Badge, Text } from '../index.js';
+	import { DataTableAuto, Badge, Text } from '../index.js';
+	import type { Column } from '../core/data-table/types';
 
 	let { parameters, class: className = '' }: ParametersTableProps = $props();
 
@@ -45,7 +46,17 @@
 		}
 	}
 
-	const columns = [
+	type ParameterRow = {
+		name: string;
+		in: string;
+		type: string;
+		required: boolean;
+		description: string;
+		deprecated: boolean;
+		schema: ParameterObject['schema'];
+	};
+
+	const columns: Column<ParameterRow>[] = [
 		{ key: 'name', header: 'Name' },
 		{ key: 'in', header: 'In' },
 		{ key: 'type', header: 'Type' },
@@ -65,7 +76,7 @@
 </script>
 
 <div class={cn('', className)}>
-	<DataTable {columns} data={rows} keyField="name" compact>
+	<DataTableAuto {columns} data={rows} keyField="name" compact>
 		{#snippet cell({ column, row })}
 			{#if column.key === 'name'}
 				<code class={cn('font-mono text-sm', row.deprecated && 'line-through text-text-muted')}>
@@ -85,5 +96,5 @@
 				<Text variant="secondary" size="xs">{row.description}</Text>
 			{/if}
 		{/snippet}
-	</DataTable>
+	</DataTableAuto>
 </div>

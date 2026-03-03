@@ -6,6 +6,8 @@ export { formatNumber, formatPercent, formatCompact, formatDuration, formatBytes
 export { themeStore, accentPalette, uiScalePresets, bgEffects, bgQualityPresets } from '../stores/theme.svelte';
 // Privacy store
 export { getPrivacyContext, setPrivacyContext, PRIVACY_MASK, PRIVACY_MASK_SHORT } from '../stores/privacy.svelte';
+// Viewport store
+export { viewportStore } from '../stores/viewport.svelte';
 // Formatting store
 export { getFormattingContext, setFormattingContext } from '../stores/formatting.svelte';
 // Asset store
@@ -23,8 +25,8 @@ export { default as Input } from './Input.svelte';
 export { default as Textarea } from './Textarea.svelte';
 export { default as Select } from './Select.svelte';
 export { default as SmartSelect } from './SmartSelect.svelte';
-// DataTable - Compound components
-export { DataTable } from './data-table/index';
+// DataTable components
+export { DataTable, DataTableAuto, createColumn } from './data-table/index';
 export { getDataTableContext } from './data-table/index';
 export { default as Numeric } from './Numeric.svelte';
 export { default as Ip } from './Ip.svelte';

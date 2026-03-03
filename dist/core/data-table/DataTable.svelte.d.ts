@@ -1,16 +1,16 @@
 import type { Snippet } from 'svelte';
-import type { Column, ServerPaginationState, SortDirection } from './types';
+import type { Column, ServerPaginationState, SortDirection, RowKey, RowPathKey } from './types';
 export interface DataTableProps<T = Record<string, unknown>> {
     /** Array of data rows */
     data: T[];
     /** Column definitions */
     columns: Column<T>[];
     /** Unique key field for each row */
-    keyField: string;
+    keyField: RowKey<T>;
     /** Enable sorting */
     sortable?: boolean;
     /** Default sort column key */
-    defaultSortKey?: string;
+    defaultSortKey?: RowPathKey<T> | '';
     /** Default sort direction */
     defaultSortDir?: SortDirection;
     /** Enable client-side pagination */
@@ -24,7 +24,7 @@ export interface DataTableProps<T = Record<string, unknown>> {
     /** Search placeholder */
     searchPlaceholder?: string;
     /** Keys to search */
-    searchKeys?: string[];
+    searchKeys?: RowPathKey<T>[];
     /** Server-side pagination state */
     serverPagination?: ServerPaginationState;
     /** Server next page handler */
@@ -34,9 +34,11 @@ export interface DataTableProps<T = Record<string, unknown>> {
     /** Server page size change handler */
     onPageSizeChange?: (size: number) => void;
     /** Server search handler */
-    onSearch?: (term: string) => void;
+    onSearch?: (term: string, page: number, pageSize: number) => void;
     /** Server search term */
     serverSearchTerm?: string;
+    /** Debounce delay for server search (ms) */
+    serverSearchDebounceMs?: number;
     /** Compact row height */
     compact?: boolean;
     /** Sticky header */
@@ -69,14 +71,14 @@ export interface DataTableProps<T = Record<string, unknown>> {
     /** Additional CSS classes */
     class?: string;
 }
-declare function $$render<T extends Record<string, unknown>>(): {
+declare function $$render<T extends object>(): {
     props: DataTableProps<T>;
     exports: {};
     bindings: "";
     slots: {};
     events: {};
 };
-declare class __sveltets_Render<T extends Record<string, unknown>> {
+declare class __sveltets_Render<T extends object> {
     props(): ReturnType<typeof $$render<T>>['props'];
     events(): ReturnType<typeof $$render<T>>['events'];
     slots(): ReturnType<typeof $$render<T>>['slots'];
@@ -84,12 +86,12 @@ declare class __sveltets_Render<T extends Record<string, unknown>> {
     exports(): {};
 }
 interface $$IsomorphicComponent {
-    new <T extends Record<string, unknown>>(options: import('svelte').ComponentConstructorOptions<ReturnType<__sveltets_Render<T>['props']>>): import('svelte').SvelteComponent<ReturnType<__sveltets_Render<T>['props']>, ReturnType<__sveltets_Render<T>['events']>, ReturnType<__sveltets_Render<T>['slots']>> & {
+    new <T extends object>(options: import('svelte').ComponentConstructorOptions<ReturnType<__sveltets_Render<T>['props']>>): import('svelte').SvelteComponent<ReturnType<__sveltets_Render<T>['props']>, ReturnType<__sveltets_Render<T>['events']>, ReturnType<__sveltets_Render<T>['slots']>> & {
         $$bindings?: ReturnType<__sveltets_Render<T>['bindings']>;
     } & ReturnType<__sveltets_Render<T>['exports']>;
-    <T extends Record<string, unknown>>(internal: unknown, props: ReturnType<__sveltets_Render<T>['props']> & {}): ReturnType<__sveltets_Render<T>['exports']>;
+    <T extends object>(internal: unknown, props: ReturnType<__sveltets_Render<T>['props']> & {}): ReturnType<__sveltets_Render<T>['exports']>;
     z_$$bindings?: ReturnType<__sveltets_Render<any>['bindings']>;
 }
 declare const DataTable: $$IsomorphicComponent;
-type DataTable<T extends Record<string, unknown>> = InstanceType<typeof DataTable<T>>;
+type DataTable<T extends object> = InstanceType<typeof DataTable<T>>;
 export default DataTable;

@@ -102,7 +102,7 @@ Combine multiple features for comprehensive code display.
     size = 'md',
     disabled = false
   } = $props();
-</script>
+<\/script>
 
 <button class={cn('btn', variant, size)}>
   <slot />

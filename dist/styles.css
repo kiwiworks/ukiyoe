@@ -391,3 +391,48 @@ select option:hover {
 .space-y-xs > :not(:first-child) {
 	margin-top: var(--spacing-xs);
 }
+
+/* Safe area insets for notched devices and Tauri mobile */
+:root {
+	--safe-area-top: env(safe-area-inset-top, 0px);
+	--safe-area-right: env(safe-area-inset-right, 0px);
+	--safe-area-bottom: env(safe-area-inset-bottom, 0px);
+	--safe-area-left: env(safe-area-inset-left, 0px);
+}
+
+/* Touch target utility — 44px minimum on coarse pointers */
+@utility touch-target {
+	@media (pointer: coarse) {
+		min-height: 44px;
+		min-width: 44px;
+	}
+}
+
+/* Hidden scrollbar utility for horizontal scroll regions */
+@utility scrollbar-none {
+	scrollbar-width: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+/* Reduced motion — disable all custom animations */
+@media (prefers-reduced-motion: reduce) {
+	.animate-nebula-pulse,
+	.animate-nebula-pulse-delayed-1,
+	.animate-nebula-pulse-delayed-2,
+	.animate-stars-twinkle,
+	.animate-progress-indeterminate,
+	.animate-shimmer,
+	.animate-accordion-down,
+	.animate-accordion-up {
+		animation: none !important;
+	}
+
+	*,
+	*::before,
+	*::after {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+	}
+}

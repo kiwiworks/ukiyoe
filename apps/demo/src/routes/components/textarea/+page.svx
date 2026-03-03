@@ -18,10 +18,9 @@
 		{ name: 'aria-label', type: 'string', default: '-', description: 'Accessibility label' },
 		{ name: 'aria-describedby', type: 'string', default: '-', description: 'ID of element describing the textarea' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
-		{ name: 'oninput', type: '(event) => void', default: '-', description: 'Input event handler' },
-		{ name: 'onchange', type: '(event) => void', default: '-', description: 'Change event handler' },
-		{ name: 'onfocus', type: '(event) => void', default: '-', description: 'Focus event handler' },
-		{ name: 'onblur', type: '(event) => void', default: '-', description: 'Blur event handler' }
+		{ name: 'onValueChange', type: '(value: string) => void', default: '-', description: 'Callback when value changes' },
+		{ name: 'onFocus', type: '(event: FocusEvent & { currentTarget: HTMLTextAreaElement }) => void', default: '-', description: 'Focus event handler' },
+		{ name: 'onBlur', type: '(event: FocusEvent & { currentTarget: HTMLTextAreaElement }) => void', default: '-', description: 'Blur event handler' }
 	];
 </script>
 

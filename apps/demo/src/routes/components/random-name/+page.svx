@@ -9,7 +9,7 @@
 
 	const propDefs: PropDef[] = [
 		{ name: 'value', type: 'string', default: '-', description: 'Current name value (bindable)' },
-		{ name: 'onchange', type: '(name: string) => void', default: '-', description: 'Callback when name changes' },
+		{ name: 'onValueChange', type: '(name: string) => void', default: '-', description: 'Callback when name changes' },
 		{ name: 'placeholder', type: 'string', default: "'Enter name...'", description: 'Placeholder for manual input' },
 		{ name: 'config', type: 'RandomNameConfig', default: '{}', description: 'Configuration for name generation' },
 		{ name: 'disabled', type: 'boolean', default: 'false', description: 'Disable interaction' },

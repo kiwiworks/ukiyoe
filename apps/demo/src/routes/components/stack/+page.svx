@@ -10,7 +10,9 @@
 		{ name: 'align', type: "'start' | 'center' | 'end' | 'stretch' | 'baseline'", default: "'stretch'", description: 'Cross-axis alignment' },
 		{ name: 'justify', type: "'start' | 'center' | 'end' | 'between' | 'around' | 'evenly'", default: "'start'", description: 'Main-axis alignment' },
 		{ name: 'wrap', type: 'boolean', default: 'false', description: 'Wrap items' },
-		{ name: 'inline', type: 'boolean', default: 'false', description: 'Render as inline-flex' }
+		{ name: 'inline', type: 'boolean', default: 'false', description: 'Render as inline-flex' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Stack content' }
 	];
 </script>
 
@@ -104,4 +106,3 @@
 <PropsTable props={propDefs} />
 
 </div>
-

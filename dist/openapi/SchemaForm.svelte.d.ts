@@ -6,7 +6,7 @@ export interface SchemaFormProps {
     /** Current value */
     value: unknown;
     /** Callback when value changes */
-    onchange: (value: unknown) => void;
+    onValueChange: (value: unknown) => void;
     /** Property name (for nested rendering) */
     propertyName?: string;
     /** Whether this field is required */

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { themeStore, type BgQualityPreset } from '../stores/theme.svelte';
+	import { viewportStore } from '../stores/viewport.svelte';
 
 	interface Props {
 		/** Override quality settings (for preview in settings) */
@@ -14,11 +15,12 @@
 	// Use override if provided, otherwise use store
 	const quality = $derived(qualityOverride ?? themeStore.bgQuality);
 
-	let canvas: HTMLCanvasElement;
+	let canvas = $state<HTMLCanvasElement | undefined>(undefined);
 	let gl: WebGLRenderingContext | null = null;
 	let program: WebGLProgram | null = null;
 	let animationId: number;
 	let mounted = false;
+	const shouldRender = $derived(!viewportStore.prefersReducedMotion && !viewportStore.isMobile);
 	let startTime = 0;
 
 	// FPS tracking
@@ -361,7 +363,7 @@
 	}
 
 	function draw(timestamp: number) {
-		if (!gl || !program || !mounted) return;
+		if (!gl || !program || !mounted || !canvas) return;
 
 		// Frame limiting based on target FPS
 		const frameInterval = 1000 / quality.targetFps;
@@ -423,7 +425,10 @@
 	});
 
 	onMount(() => {
+		if (viewportStore.prefersReducedMotion || viewportStore.isMobile) return;
+
 		mounted = true;
+		if (!canvas) return;
 		handleResize();
 
 		if (initWebGL()) {
@@ -444,10 +449,12 @@
 	});
 </script>
 
-<canvas bind:this={canvas} class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+{#if shouldRender}
+	<canvas bind:this={canvas} class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+{/if}
 
 {#if showStats}
-	<div class="absolute bottom-2 right-2 flex gap-2 font-mono text-[10px] z-10">
+	<div class="absolute bottom-2 right-2 flex gap-2 font-mono text-[11px] z-10">
 		<span class="bg-bg-overlay text-positive px-1.5 py-0.5 rounded-sm">{fps} FPS</span>
 		<span class="bg-bg-overlay text-positive px-1.5 py-0.5 rounded-sm">{Math.round(quality.resolution * 100)}%</span>
 	</div>

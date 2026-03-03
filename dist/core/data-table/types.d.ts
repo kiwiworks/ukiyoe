@@ -1,12 +1,14 @@
 import type { Snippet } from 'svelte';
 /** Tailwind breakpoints for responsive column hiding */
 export type Breakpoint = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+export type RowKey<TRow> = Extract<keyof TRow, string>;
+export type RowPathKey<TRow> = RowKey<TRow> | `${RowKey<TRow>}.${string}`;
 /**
  * Column definition for DataTable component.
  */
 export interface Column<TRow = Record<string, unknown>> {
     /** Data key to access value from row */
-    key: string;
+    key: RowPathKey<TRow>;
     /** Column header label */
     header: string;
     /** Text alignment */
@@ -51,18 +53,18 @@ export type SortDirection = 'asc' | 'desc';
 export interface DataTableContext<T = Record<string, unknown>> {
     data: T[];
     columns: Column<T>[];
-    keyField: string;
+    keyField: RowKey<T>;
     compact: boolean;
     striped: boolean;
     hoverable: boolean;
     stickyHeader: boolean;
     sortable: boolean;
-    sortKey: string;
+    sortKey: RowPathKey<T> | '';
     sortDir: SortDirection;
-    toggleSort: (key: string) => void;
+    toggleSort: (key: RowPathKey<T>) => void;
     searchQuery: string;
     setSearchQuery: (query: string) => void;
-    searchKeys: string[];
+    searchKeys: RowPathKey<T>[];
     currentPage: number;
     pageSize: number;
     pageSizeOptions: number[];
@@ -74,8 +76,9 @@ export interface DataTableContext<T = Record<string, unknown>> {
     onServerNextPage: (() => void) | undefined;
     onServerPrevPage: (() => void) | undefined;
     onServerPageSizeChange: ((size: number) => void) | undefined;
-    onServerSearch: ((term: string) => void) | undefined;
+    onServerSearch: ((term: string, page: number, pageSize: number) => void) | undefined;
     serverSearchTerm: string;
+    serverSearchDebounceMs: number;
     filteredData: () => T[];
     sortedData: () => T[];
     paginatedData: () => T[];
@@ -106,3 +109,4 @@ export interface DataTableContext<T = Record<string, unknown>> {
     emptySnippet: Snippet | undefined;
     emptyMessage: string;
 }
+export declare function createColumn<TRow>(column: Column<TRow>): Column<TRow>;

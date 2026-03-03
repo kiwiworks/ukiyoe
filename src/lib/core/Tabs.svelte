@@ -21,7 +21,7 @@
 		/** Visual variant */
 		variant?: TabsVariant;
 		class?: string;
-		onchange?: (value: string) => void;
+		onValueChange?: (value: string) => void;
 		children?: Snippet<[string]>;
 		/** Custom trigger snippet for full control over tab rendering */
 		trigger?: Snippet<[{ tab: TabItem; active: boolean }]>;
@@ -38,7 +38,7 @@
 		size = 'md',
 		variant = 'pill',
 		class: className = '',
-		onchange,
+		onValueChange,
 		children,
 		trigger
 	}: TabsProps = $props();
@@ -55,7 +55,7 @@
 	});
 
 	const triggerSizes: Record<TabsSize, string> = {
-		xs: 'px-2 py-1 text-[10px]',
+		xs: 'px-2 py-1 text-[11px]',
 		sm: 'px-3 py-1.5 text-xs',
 		md: 'px-4 py-2 text-sm',
 		lg: 'px-5 py-2.5 text-base'
@@ -69,10 +69,10 @@
 	};
 
 	const pillListClasses =
-		'inline-flex items-center gap-1 rounded-lg bg-bg-tertiary p-1 shrink-0';
+		'inline-flex items-center gap-1 rounded-lg bg-bg-tertiary p-1 shrink-0 overflow-x-auto scrollbar-none snap-x snap-mandatory';
 
 	const underlineListClasses =
-		'inline-flex items-center gap-0 border-b border-border-default shrink-0';
+		'inline-flex items-center gap-0 border-b border-border-default shrink-0 overflow-x-auto scrollbar-none snap-x snap-mandatory';
 
 	const pillTriggerClasses =
 		'inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-bg-primary data-[state=active]:text-text-primary data-[state=active]:shadow-sm text-text-muted hover:text-text-primary';
@@ -82,7 +82,7 @@
 
 	function handleChange(newValue: string) {
 		value = newValue;
-		onchange?.(newValue);
+		onValueChange?.(newValue);
 	}
 </script>
 
@@ -94,7 +94,7 @@
 			<Tabs.Trigger
 				value={tab.value}
 				disabled={tab.disabled}
-				class="{variant === 'pill' ? pillTriggerClasses : underlineTriggerClasses} {triggerSizes[size]}"
+				class="{variant === 'pill' ? pillTriggerClasses : underlineTriggerClasses} {triggerSizes[size]} touch-target shrink-0 snap-start"
 			>
 				{#if trigger}
 					{@render trigger({ tab, active: value === tab.value })}

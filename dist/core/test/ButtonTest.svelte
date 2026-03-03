@@ -13,7 +13,7 @@
 		fullWidth = false,
 		href,
 		ariaLabel,
-		onclick
+		onClick
 	}: {
 		text?: string;
 		variant?: ButtonVariant;
@@ -25,10 +25,10 @@
 		fullWidth?: boolean;
 		href?: string;
 		ariaLabel?: string;
-		onclick?: (e: MouseEvent) => void;
+		onClick?: (e: MouseEvent) => void;
 	} = $props();
 </script>
 
-<Button {variant} {size} {type} {disabled} {loading} {active} {fullWidth} {href} aria-label={ariaLabel} {onclick}>
+<Button {variant} {size} {type} {disabled} {loading} {active} {fullWidth} {href} aria-label={ariaLabel} {onClick}>
 	{text}
 </Button>

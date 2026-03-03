@@ -13,8 +13,8 @@
 		{ name: 'cancelLabel', type: 'string', default: "'Cancel'", description: 'Label for the cancel button' },
 		{ name: 'loading', type: 'boolean', default: 'false', description: 'Show loading spinner on confirm button' },
 		{ name: 'icon', type: 'Component', default: '-', description: 'Custom icon (overrides variant default)' },
-		{ name: 'onconfirm', type: '() => void | Promise<void>', default: '-', description: 'Callback when confirm is clicked' },
-		{ name: 'oncancel', type: '() => void', default: '-', description: 'Callback when cancel or dismiss occurs' },
+		{ name: 'onConfirm', type: '() => void | Promise<void>', default: '-', description: 'Callback when confirm is clicked' },
+		{ name: 'onCancel', type: '() => void', default: '-', description: 'Callback when cancel or dismiss occurs' },
 		{ name: 'content', type: 'Snippet', default: '-', description: 'Custom content snippet (overrides description)' },
 		{ name: 'actions', type: 'Snippet<[() => void]>', default: '-', description: 'Custom actions snippet (overrides default buttons). Receives a close function.' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
@@ -49,7 +49,7 @@
 The most common use case: confirming a destructive action.
 
 ```svelte preview title="Delete Confirmation"
-<Button variant="danger" size="sm" onclick={() => (showDanger = true)}>
+<Button variant="danger" size="sm" onClick={() => (showDanger = true)}>
 	Delete Project
 </Button>
 
@@ -67,7 +67,7 @@ The most common use case: confirming a destructive action.
 For actions that require caution but aren't destructive.
 
 ```svelte preview title="Warning Dialog"
-<Button variant="warning" size="sm" onclick={() => (showWarning = true)}>
+<Button variant="warning" size="sm" onClick={() => (showWarning = true)}>
 	Reset Settings
 </Button>
 
@@ -85,7 +85,7 @@ For actions that require caution but aren't destructive.
 For informational confirmations.
 
 ```svelte preview title="Info Dialog"
-<Button variant="primary" size="sm" onclick={() => (showInfo = true)}>
+<Button variant="primary" size="sm" onClick={() => (showInfo = true)}>
 	Publish Changes
 </Button>
 
@@ -103,7 +103,7 @@ For informational confirmations.
 The `loading` prop disables the confirm button and shows a spinner. The dialog stays open until the async operation completes.
 
 ```svelte preview title="Async Confirm"
-<Button variant="danger" size="sm" onclick={() => (showLoading = true)}>
+<Button variant="danger" size="sm" onClick={() => (showLoading = true)}>
 	Delete with Loading
 </Button>
 
@@ -114,7 +114,7 @@ The `loading` prop disables the confirm button and shows a spinner. The dialog s
 	variant="danger"
 	confirmLabel="Delete Account"
 	loading={isDeleting}
-	onconfirm={handleAsyncDelete}
+	onConfirm={handleAsyncDelete}
 />
 ```
 
@@ -123,7 +123,7 @@ The `loading` prop disables the confirm button and shows a spinner. The dialog s
 Use the `content` snippet to replace the description with custom content.
 
 ```svelte preview title="Custom Content"
-<Button size="sm" onclick={() => (showCustomContent = true)}>
+<Button size="sm" onClick={() => (showCustomContent = true)}>
 	Transfer Ownership
 </Button>
 
@@ -153,7 +153,7 @@ Use the `content` snippet to replace the description with custom content.
 Use the `actions` snippet for non-standard button layouts. It receives a `close` function.
 
 ```svelte preview title="Custom Actions"
-<Button size="sm" onclick={() => (showCustomActions = true)}>
+<Button size="sm" onClick={() => (showCustomActions = true)}>
 	Archive
 </Button>
 
@@ -164,9 +164,9 @@ Use the `actions` snippet for non-standard button layouts. It receives a `close`
 	variant="warning"
 >
 	{#snippet actions(close)}
-		<Button variant="ghost" size="sm" onclick={close}>Cancel</Button>
-		<Button variant="outline" size="sm" onclick={close}>Archive Only</Button>
-		<Button variant="danger" size="sm" onclick={close}>Archive & Delete Data</Button>
+		<Button variant="ghost" size="sm" onClick={close}>Cancel</Button>
+		<Button variant="outline" size="sm" onClick={close}>Archive Only</Button>
+		<Button variant="danger" size="sm" onClick={close}>Archive & Delete Data</Button>
 	{/snippet}
 </AlertDialog>
 ```

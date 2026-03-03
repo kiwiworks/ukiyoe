@@ -16,8 +16,7 @@
 		prefix,
 		suffix,
 		ariaLabel,
-		oninput,
-		onchange
+		onValueChange
 	}: {
 		value?: string;
 		type?: InputType;
@@ -32,8 +31,7 @@
 		prefix?: string;
 		suffix?: string;
 		ariaLabel?: string;
-		oninput?: (e: Event) => void;
-		onchange?: (e: Event) => void;
+		onValueChange?: (value: string) => void;
 	} = $props();
 </script>
 
@@ -51,6 +49,5 @@
 	{prefix}
 	{suffix}
 	aria-label={ariaLabel}
-	{oninput}
-	{onchange}
+	{onValueChange}
 />

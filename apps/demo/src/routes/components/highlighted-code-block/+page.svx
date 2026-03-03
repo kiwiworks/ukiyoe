@@ -91,7 +91,7 @@ for i in range(10):
 	code={`<script lang="ts">
   let count = $state(0);
   const doubled = $derived(count * 2);
-</script>
+<\/script>
 
 <button onclick={() => count++}>
   Count: {count} (doubled: {doubled})

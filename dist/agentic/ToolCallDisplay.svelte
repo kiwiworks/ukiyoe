@@ -62,7 +62,7 @@
 	<!-- Compact header row -->
 	<button
 		type="button"
-		class="group flex items-center gap-2 w-full text-left py-1 px-1.5 rounded-md hover:bg-bg-hover transition-colors"
+		class="group flex items-center gap-2 w-full text-left py-1 px-1.5 rounded-md hover:bg-bg-hover transition-colors touch-target"
 		onclick={() => hasDetail && (expanded = !expanded)}
 		disabled={!hasDetail}
 	>
@@ -98,7 +98,7 @@
 		{#if hasDetail}
 			<ChevronRight
 				size={12}
-				class="text-text-muted opacity-0 group-hover:opacity-100 transition-all shrink-0"
+				class="text-text-muted opacity-0 group-hover:opacity-100 [@media(pointer:coarse)]:opacity-100 transition-all shrink-0"
 				style="transform: rotate({expanded ? 90 : 0}deg)"
 			/>
 		{/if}
@@ -106,7 +106,7 @@
 
 	<!-- Expanded detail -->
 	{#if expanded && hasDetail}
-		<div class="pl-7 space-y-2 py-2">
+		<div class="pl-5 md:pl-7 space-y-2 py-2">
 			{#if id}
 				<div>
 					<Badge variant="muted" size="xs" text={id} />

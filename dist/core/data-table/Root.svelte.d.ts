@@ -1,16 +1,16 @@
 import type { Snippet } from 'svelte';
-import type { Column, ServerPaginationState, SortDirection } from './types';
+import type { Column, ServerPaginationState, SortDirection, RowKey, RowPathKey } from './types';
 export interface DataTableRootProps<T = Record<string, unknown>> {
     /** Array of data rows */
     data: T[];
     /** Column definitions */
     columns: Column<T>[];
     /** Unique key field for each row */
-    keyField: string;
+    keyField: RowKey<T>;
     /** Enable sorting */
     sortable?: boolean;
     /** Default sort column key */
-    defaultSortKey?: string;
+    defaultSortKey?: RowPathKey<T> | '';
     /** Default sort direction */
     defaultSortDir?: SortDirection;
     /** Page size options for pagination */
@@ -18,7 +18,7 @@ export interface DataTableRootProps<T = Record<string, unknown>> {
     /** Default page size */
     defaultPageSize?: number;
     /** Keys to search (defaults to all column keys) */
-    searchKeys?: string[];
+    searchKeys?: RowPathKey<T>[];
     /** Server-side pagination state */
     serverPagination?: ServerPaginationState;
     /** Server next page handler */
@@ -28,9 +28,11 @@ export interface DataTableRootProps<T = Record<string, unknown>> {
     /** Server page size change handler */
     onPageSizeChange?: (size: number) => void;
     /** Server search handler */
-    onSearch?: (term: string) => void;
+    onSearch?: (term: string, page: number, pageSize: number) => void;
     /** Server search term (controlled) */
     serverSearchTerm?: string;
+    /** Debounce delay for server search (ms) */
+    serverSearchDebounceMs?: number;
     /** Row click handler */
     onRowClick?: (row: T) => void;
     /** Custom cell renderer */
@@ -65,14 +67,14 @@ export interface DataTableRootProps<T = Record<string, unknown>> {
     /** Children content */
     children: Snippet;
 }
-declare function $$render<T extends Record<string, unknown>>(): {
+declare function $$render<T extends object>(): {
     props: DataTableRootProps<T>;
     exports: {};
     bindings: "";
     slots: {};
     events: {};
 };
-declare class __sveltets_Render<T extends Record<string, unknown>> {
+declare class __sveltets_Render<T extends object> {
     props(): ReturnType<typeof $$render<T>>['props'];
     events(): ReturnType<typeof $$render<T>>['events'];
     slots(): ReturnType<typeof $$render<T>>['slots'];
@@ -80,12 +82,12 @@ declare class __sveltets_Render<T extends Record<string, unknown>> {
     exports(): {};
 }
 interface $$IsomorphicComponent {
-    new <T extends Record<string, unknown>>(options: import('svelte').ComponentConstructorOptions<ReturnType<__sveltets_Render<T>['props']>>): import('svelte').SvelteComponent<ReturnType<__sveltets_Render<T>['props']>, ReturnType<__sveltets_Render<T>['events']>, ReturnType<__sveltets_Render<T>['slots']>> & {
+    new <T extends object>(options: import('svelte').ComponentConstructorOptions<ReturnType<__sveltets_Render<T>['props']>>): import('svelte').SvelteComponent<ReturnType<__sveltets_Render<T>['props']>, ReturnType<__sveltets_Render<T>['events']>, ReturnType<__sveltets_Render<T>['slots']>> & {
         $$bindings?: ReturnType<__sveltets_Render<T>['bindings']>;
     } & ReturnType<__sveltets_Render<T>['exports']>;
-    <T extends Record<string, unknown>>(internal: unknown, props: ReturnType<__sveltets_Render<T>['props']> & {}): ReturnType<__sveltets_Render<T>['exports']>;
+    <T extends object>(internal: unknown, props: ReturnType<__sveltets_Render<T>['props']> & {}): ReturnType<__sveltets_Render<T>['exports']>;
     z_$$bindings?: ReturnType<__sveltets_Render<any>['bindings']>;
 }
 declare const Root: $$IsomorphicComponent;
-type Root<T extends Record<string, unknown>> = InstanceType<typeof Root<T>>;
+type Root<T extends object> = InstanceType<typeof Root<T>>;
 export default Root;

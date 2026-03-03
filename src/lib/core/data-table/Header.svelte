@@ -27,7 +27,7 @@
 	};
 
 	const getThClasses = (column: typeof ctx.columns[0], isSortable: boolean, isSorted: boolean) => {
-		const base = 'text-left text-text-muted font-medium uppercase text-[9px] tracking-wide border-b border-border-subtle whitespace-nowrap';
+		const base = 'text-left text-text-muted font-medium uppercase text-[11px] tracking-wide border-b border-border-subtle whitespace-nowrap';
 		const padding = ctx.compact ? 'px-3 py-1.5' : 'px-4 py-2.5';
 		const sortable = isSortable ? 'cursor-pointer select-none transition-colors duration-150 hover:text-text-primary' : '';
 		const sorted = isSorted ? 'text-accent-brand' : '';

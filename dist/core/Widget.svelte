@@ -34,9 +34,9 @@
 	{#if title}
 		<div class="flex items-center justify-between px-sm py-xs border-b border-border-subtle">
 			<div class="flex items-center gap-sm">
-				<span class="text-text-muted text-[10px] uppercase tracking-wide">{title}</span>
+				<span class="text-text-muted text-[11px] uppercase tracking-wide">{title}</span>
 				{#if subtitle}
-					<span class="text-text-muted text-[9px]">{subtitle}</span>
+					<span class="text-text-muted text-[11px]">{subtitle}</span>
 				{/if}
 			</div>
 			{#if headerActions}

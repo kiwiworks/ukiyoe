@@ -10,7 +10,7 @@
 		{ name: 'icon', type: 'Component', description: 'Custom icon component' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
 		{ name: 'children', type: 'Snippet', description: 'Alert content' },
-		{ name: 'ondismiss', type: '() => void', description: 'Handler for dismiss events' }
+		{ name: 'onDismiss', type: '() => void', description: 'Handler for dismiss events' }
 	];
 </script>
 
@@ -57,4 +57,3 @@
 <PropsTable props={propDefs} />
 
 </div>
-

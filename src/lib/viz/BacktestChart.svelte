@@ -294,7 +294,7 @@
 					<text
 						x={padding.left + chartWidth + 8}
 						y={scaleY(tick) + 3}
-						class="text-[9px] font-mono fill-text-muted"
+						class="text-[11px] font-mono fill-text-muted"
 					>
 						{formatPrice(tick)}
 					</text>
@@ -307,7 +307,7 @@
 					<text
 						x={scaleX(tick)}
 						y={height - 8}
-						class="text-[9px] font-mono fill-text-muted"
+						class="text-[11px] font-mono fill-text-muted"
 						text-anchor="middle"
 					>
 						{formatTime(tick)}
@@ -355,7 +355,7 @@
 		{/if}
 
 		<!-- Legend -->
-		<div class="flex gap-6 justify-center flex-wrap mt-3 text-[10px] text-text-muted">
+		<div class="flex gap-6 justify-center flex-wrap mt-3 text-[11px] text-text-muted">
 			<div class="flex items-center gap-1.5">
 				<svg width="12" height="12" class="shrink-0">
 					<polygon points="6,2 10,9 2,9" fill="var(--positive)" />

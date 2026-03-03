@@ -20,16 +20,11 @@ export interface InputProps {
     'aria-label'?: string;
     'aria-describedby'?: string;
     class?: string;
-    oninput?: (event: Event & {
+    onValueChange?: (value: string) => void;
+    onFocus?: (event: FocusEvent & {
         currentTarget: HTMLInputElement;
     }) => void;
-    onchange?: (event: Event & {
-        currentTarget: HTMLInputElement;
-    }) => void;
-    onfocus?: (event: FocusEvent & {
-        currentTarget: HTMLInputElement;
-    }) => void;
-    onblur?: (event: FocusEvent & {
+    onBlur?: (event: FocusEvent & {
         currentTarget: HTMLInputElement;
     }) => void;
 }

@@ -18,9 +18,9 @@ export interface AlertDialogProps {
     /** Custom icon component (overrides variant default) */
     icon?: Component;
     /** Callback when confirm is clicked */
-    onconfirm?: () => void | Promise<void>;
+    onConfirm?: () => void | Promise<void>;
     /** Callback when cancel is clicked or dialog is dismissed */
-    oncancel?: () => void;
+    onCancel?: () => void;
     /** Custom content snippet (overrides description) */
     content?: Snippet;
     /** Custom actions snippet (overrides default Cancel/Confirm buttons) */

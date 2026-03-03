@@ -141,7 +141,7 @@
 					<Button
 						variant="ghost"
 						size="xs"
-						onclick={() => (expandOverride = !isExpanded)}
+						onClick={() => (expandOverride = !isExpanded)}
 						class="!p-0 !min-w-0 text-text-muted hover:text-text-secondary"
 					>
 						{#if isExpanded}

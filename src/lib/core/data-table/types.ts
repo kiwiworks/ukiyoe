@@ -2,13 +2,15 @@ import type { Snippet } from 'svelte';
 
 /** Tailwind breakpoints for responsive column hiding */
 export type Breakpoint = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+export type RowKey<TRow> = Extract<keyof TRow, string>;
+export type RowPathKey<TRow> = RowKey<TRow> | `${RowKey<TRow>}.${string}`;
 
 /**
  * Column definition for DataTable component.
  */
 export interface Column<TRow = Record<string, unknown>> {
 	/** Data key to access value from row */
-	key: string;
+	key: RowPathKey<TRow>;
 	/** Column header label */
 	header: string;
 	/** Text alignment */
@@ -57,7 +59,7 @@ export interface DataTableContext<T = Record<string, unknown>> {
 	// Core data
 	data: T[];
 	columns: Column<T>[];
-	keyField: string;
+	keyField: RowKey<T>;
 
 	// Table styling
 	compact: boolean;
@@ -67,14 +69,14 @@ export interface DataTableContext<T = Record<string, unknown>> {
 
 	// Sorting state
 	sortable: boolean;
-	sortKey: string;
+	sortKey: RowPathKey<T> | '';
 	sortDir: SortDirection;
-	toggleSort: (key: string) => void;
+	toggleSort: (key: RowPathKey<T>) => void;
 
 	// Search state
 	searchQuery: string;
 	setSearchQuery: (query: string) => void;
-	searchKeys: string[];
+	searchKeys: RowPathKey<T>[];
 
 	// Pagination state
 	currentPage: number;
@@ -90,8 +92,9 @@ export interface DataTableContext<T = Record<string, unknown>> {
 	onServerNextPage: (() => void) | undefined;
 	onServerPrevPage: (() => void) | undefined;
 	onServerPageSizeChange: ((size: number) => void) | undefined;
-	onServerSearch: ((term: string) => void) | undefined;
+	onServerSearch: ((term: string, page: number, pageSize: number) => void) | undefined;
 	serverSearchTerm: string;
+	serverSearchDebounceMs: number;
 
 	// Computed
 	filteredData: () => T[];
@@ -120,4 +123,8 @@ export interface DataTableContext<T = Record<string, unknown>> {
 	headerSnippet: Snippet<[{ column: Column<T> }]> | undefined;
 	emptySnippet: Snippet | undefined;
 	emptyMessage: string;
+}
+
+export function createColumn<TRow>(column: Column<TRow>): Column<TRow> {
+	return column;
 }

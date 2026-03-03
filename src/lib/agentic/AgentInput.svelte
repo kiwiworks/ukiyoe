@@ -39,6 +39,7 @@
 <script lang="ts">
 	import { Send, Square, Paperclip, X, File as FileIcon, Image as ImageIcon, Link as LinkIcon } from '@lucide/svelte';
 	import { cn } from '../utils/cn';
+	import { viewportStore } from '../stores/viewport.svelte';
 
 	let {
 		value = $bindable(''),
@@ -71,7 +72,7 @@
 	function autoResize() {
 		if (!textareaRef) return;
 		textareaRef.style.height = 'auto';
-		textareaRef.style.height = `${Math.min(textareaRef.scrollHeight, 200)}px`;
+		textareaRef.style.height = `${textareaRef.scrollHeight}px`;
 	}
 
 	function handleKeydown(e: KeyboardEvent) {
@@ -133,7 +134,7 @@
 					{/if}
 					<button
 						type="button"
-						class="text-text-muted hover:text-negative transition-colors"
+						class="text-text-muted hover:text-negative transition-colors touch-target"
 						onclick={() => onRemoveAttachment?.(attachment.id)}
 						disabled={isDisabled}
 						aria-label="Remove attachment"
@@ -154,7 +155,7 @@
 		{#if onAttach}
 			<button
 				type="button"
-				class="p-2 text-text-muted hover:text-text-secondary hover:bg-bg-hover rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+				class="p-2 text-text-muted hover:text-text-secondary hover:bg-bg-hover rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed touch-target"
 				onclick={() => fileInputRef?.click()}
 				disabled={!canAttach}
 				aria-label="Attach file"
@@ -177,7 +178,7 @@
 			{placeholder}
 			disabled={isDisabled}
 			rows={1}
-			class="flex-1 bg-transparent border-none outline-none resize-none text-text-primary placeholder:text-text-muted font-mono text-sm min-h-[24px] max-h-[200px] py-1"
+			class="flex-1 bg-transparent border-none outline-none resize-none text-text-primary placeholder:text-text-muted font-mono text-sm min-h-[24px] max-h-[120px] md:max-h-[200px] py-1"
 			oninput={autoResize}
 			onkeydown={handleKeydown}
 			aria-label="Message input"
@@ -187,7 +188,7 @@
 		{#if loading}
 			<button
 				type="button"
-				class="p-2 bg-negative text-text-inverse rounded-md hover:bg-negative-hover transition-colors"
+				class="p-2 bg-negative text-text-inverse rounded-md hover:bg-negative-hover transition-colors touch-target"
 				onclick={() => onCancel?.()}
 				aria-label="Stop generation"
 			>
@@ -196,7 +197,7 @@
 		{:else}
 			<button
 				type="button"
-				class="p-2 rounded-md transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+				class="p-2 rounded-md transition-colors disabled:opacity-30 disabled:cursor-not-allowed touch-target"
 				class:bg-accent-brand={canSubmit}
 				class:text-text-inverse={canSubmit}
 				class:hover:bg-accent-brand-hover={canSubmit}
@@ -212,9 +213,13 @@
 
 	<!-- Hint -->
 	<div class="text-xs text-text-muted text-center">
-		<kbd class="px-1 py-0.5 bg-bg-tertiary rounded text-[10px]">⌘</kbd>
-		<span class="mx-0.5">+</span>
-		<kbd class="px-1 py-0.5 bg-bg-tertiary rounded text-[10px]">Enter</kbd>
-		<span class="ml-1">to send</span>
+		{#if viewportStore.isTouch}
+			<span>Tap send to submit</span>
+		{:else}
+			<kbd class="px-1 py-0.5 bg-bg-tertiary rounded text-[11px]">⌘</kbd>
+			<span class="mx-0.5">+</span>
+			<kbd class="px-1 py-0.5 bg-bg-tertiary rounded text-[11px]">Enter</kbd>
+			<span class="ml-1">to send</span>
+		{/if}
 	</div>
 </div>

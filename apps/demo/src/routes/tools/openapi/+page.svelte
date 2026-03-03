@@ -152,7 +152,7 @@
 					{:else}
 						<div class="flex flex-col items-center justify-center h-full gap-md">
 							<Text variant="muted">No specification loaded</Text>
-							<Button variant="primary" size="sm" onclick={loadPetstore}>
+							<Button variant="primary" size="sm" onClick={loadPetstore}>
 								Load Petstore Example
 							</Button>
 						</div>
@@ -174,12 +174,12 @@
 								<Button
 									variant="primary"
 									size="sm"
-									onclick={() => loadFromUrl(specUrl)}
+									onClick={() => loadFromUrl(specUrl)}
 									disabled={isLoading || !specUrl.trim()}
 								>
 									{isLoading ? 'Loading...' : 'Load'}
 								</Button>
-								<Button variant="ghost" size="sm" onclick={loadPetstore} disabled={isLoading}>
+								<Button variant="ghost" size="sm" onClick={loadPetstore} disabled={isLoading}>
 									Petstore
 								</Button>
 							</div>
@@ -196,7 +196,7 @@
 								<Button
 									variant="primary"
 									size="sm"
-									onclick={handleParseClick}
+									onClick={handleParseClick}
 									disabled={isLoading || !specInput.trim()}
 								>
 									{isLoading ? 'Parsing...' : 'Parse & View'}
@@ -205,7 +205,7 @@
 							<div class="flex-1 min-h-0">
 								<CodeEditor
 									value={specInput}
-									onchange={(v) => (specInput = v)}
+									onValueChange={(v) => (specInput = v)}
 									language="json"
 									placeholder="Paste your OpenAPI JSON or YAML here..."
 									class="h-full"

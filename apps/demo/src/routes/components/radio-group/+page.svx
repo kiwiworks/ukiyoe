@@ -18,7 +18,7 @@
 		{ name: 'aria-describedby', type: 'string', default: '-', description: 'ID of element describing this radio group' },
 		{ name: 'aria-invalid', type: 'boolean', default: '-', description: 'Indicates radio group has invalid value' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
-		{ name: 'onchange', type: '(value: string) => void', default: '-', description: 'Change event handler' }
+		{ name: 'onValueChange', type: '(value: string) => void', default: '-', description: 'Change event handler' }
 	];
 </script>
 

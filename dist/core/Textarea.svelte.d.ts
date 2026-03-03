@@ -15,16 +15,11 @@ export interface TextareaProps {
     'aria-label'?: string;
     'aria-describedby'?: string;
     class?: string;
-    oninput?: (event: Event & {
+    onValueChange?: (value: string) => void;
+    onFocus?: (event: FocusEvent & {
         currentTarget: HTMLTextAreaElement;
     }) => void;
-    onchange?: (event: Event & {
-        currentTarget: HTMLTextAreaElement;
-    }) => void;
-    onfocus?: (event: FocusEvent & {
-        currentTarget: HTMLTextAreaElement;
-    }) => void;
-    onblur?: (event: FocusEvent & {
+    onBlur?: (event: FocusEvent & {
         currentTarget: HTMLTextAreaElement;
     }) => void;
 }

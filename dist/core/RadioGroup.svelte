@@ -32,8 +32,8 @@
 		'aria-invalid'?: boolean;
 		/** Additional CSS classes */
 		class?: string;
-		/** Change event handler */
-		onchange?: (value: string) => void;
+		/** Value change handler */
+		onValueChange?: (value: string) => void;
 	}
 </script>
 
@@ -55,7 +55,7 @@
 		'aria-describedby': ariaDescribedby,
 		'aria-invalid': ariaInvalid,
 		class: className = '',
-		onchange
+		onValueChange
 	}: RadioGroupProps = $props();
 
 	const isDisabled = $derived(disabled || loading);
@@ -94,7 +94,14 @@
 
 	function handleChange(newValue: string) {
 		value = newValue;
-		onchange?.(newValue);
+		onValueChange?.(newValue);
+	}
+
+	function getItemId(itemValue: string): string {
+		const scope = name ?? ariaLabel ?? 'radio-group';
+		const safeScope = scope.toLowerCase().replace(/[^a-z0-9_-]+/g, '-');
+		const safeValue = itemValue.toLowerCase().replace(/[^a-z0-9_-]+/g, '-');
+		return `${safeScope}-${safeValue}`;
 	}
 </script>
 
@@ -110,26 +117,30 @@
 		aria-invalid={ariaInvalid}
 		aria-busy={loading}
 		class="flex {orientation === 'vertical' ? 'flex-col gap-2' : 'flex-row gap-4'}"
-	>
-		{#each items as item}
-			<div class="flex items-center gap-2">
-				<RadioGroup.Item
-					value={item.value}
-					disabled={item.disabled}
-					class="inline-flex items-center justify-center rounded-full border border-border-default bg-bg-secondary transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 focus-visible:border-accent-brand disabled:opacity-50 disabled:cursor-not-allowed data-[state=checked]:border-accent-brand {radioSizes[size]}"
-				>
-					{#snippet children({ checked })}
+		>
+			{#each items as item}
+				{@const itemId = getItemId(item.value)}
+				{@const labelId = `${itemId}-label`}
+				<label for={itemId} class="flex items-center gap-2 touch-target cursor-pointer">
+					<RadioGroup.Item
+						id={itemId}
+						value={item.value}
+						disabled={item.disabled}
+						aria-labelledby={labelId}
+						class="inline-flex items-center justify-center rounded-full border border-border-default bg-bg-secondary transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 focus-visible:border-accent-brand disabled:opacity-50 disabled:cursor-not-allowed data-[state=checked]:border-accent-brand {radioSizes[size]}"
+					>
+						{#snippet children({ checked })}
 						{#if checked}
 							<span class="rounded-full bg-accent-brand {indicatorSizes[size]}"></span>
-						{/if}
-					{/snippet}
-				</RadioGroup.Item>
-				<span class="text-text-primary {textSizes[size]} cursor-pointer {isDisabled ? 'opacity-50' : ''}">
-					{item.label}
-				</span>
-			</div>
-		{/each}
-	</RadioGroup.Root>
+							{/if}
+						{/snippet}
+					</RadioGroup.Item>
+					<span id={labelId} class="text-text-primary {textSizes[size]} {isDisabled ? 'opacity-50' : ''}">
+						{item.label}
+					</span>
+				</label>
+			{/each}
+		</RadioGroup.Root>
 	{#if loading}
 		<span class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-full pl-2 text-text-muted">
 			<Loader2 size={iconSizes[size]} class="animate-spin" />

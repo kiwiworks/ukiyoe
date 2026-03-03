@@ -39,7 +39,7 @@ Add the Meta component to your layout file for site-wide defaults:
 ```svelte
 <script>
   import { Meta } from 'ukiyoe/core';
-</script>
+<\/script>
 
 <Meta
   siteName="My App"

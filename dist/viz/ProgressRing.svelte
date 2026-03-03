@@ -79,6 +79,6 @@
 		{/if}
 	</svg>
 	{#if label}
-		<span class="text-text-muted text-[9px] uppercase tracking-wider">{label}</span>
+		<span class="text-text-muted text-[11px] uppercase tracking-wider">{label}</span>
 	{/if}
 </div>

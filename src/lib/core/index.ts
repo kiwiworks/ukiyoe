@@ -43,6 +43,9 @@ export {
 } from '../stores/privacy.svelte';
 export type { PrivacyContext } from '../stores/privacy.svelte';
 
+// Viewport store
+export { viewportStore } from '../stores/viewport.svelte';
+
 // Formatting store
 export {
 	getFormattingContext,
@@ -88,15 +91,22 @@ export { default as Textarea } from './Textarea.svelte';
 export { default as Select } from './Select.svelte';
 export { default as SmartSelect } from './SmartSelect.svelte';
 
-// DataTable - Compound components
-export { DataTable } from './data-table/index';
+// DataTable components
+export {
+	DataTable,
+	DataTableAuto,
+	createColumn
+} from './data-table/index';
 export type {
 	Breakpoint,
+	RowKey,
+	RowPathKey,
 	Column,
 	ServerPaginationState,
 	SortDirection,
 	DataTableContext,
 	DataTableProps,
+	DataTableAutoProps,
 	DataTableRootProps,
 	DataTableToolbarProps,
 	DataTableSearchProps,

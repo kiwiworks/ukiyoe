@@ -8,8 +8,8 @@ interface Props {
     lastUpdated?: Date | null;
     interval?: number | null;
     intervals?: RefreshInterval[];
-    onrefresh: () => void;
-    onintervalchange?: (interval: number | null) => void;
+    onRefresh: () => void;
+    onIntervalChange?: (interval: number | null) => void;
 }
 declare const RefreshControl: import("svelte").Component<Props, {}, "">;
 type RefreshControl = ReturnType<typeof RefreshControl>;

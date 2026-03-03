@@ -27,7 +27,7 @@ describe('Button', () => {
     });
     it('handles click events', async () => {
         const handleClick = vi.fn();
-        render(ButtonTest, { props: { text: 'Click', onclick: handleClick } });
+        render(ButtonTest, { props: { text: 'Click', onClick: handleClick } });
         await fireEvent.click(screen.getByRole('button'));
         expect(handleClick).toHaveBeenCalledTimes(1);
     });

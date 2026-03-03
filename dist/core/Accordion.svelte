@@ -41,7 +41,7 @@
 			<Accordion.Item value={item.value} class="py-0">
 				<Accordion.Header>
 					<Accordion.Trigger
-						class="flex w-full items-center justify-between py-3 text-sm font-medium text-text-primary transition-colors hover:text-text-secondary [&[data-state=open]>svg]:rotate-180"
+						class="flex w-full items-center justify-between py-3 text-sm font-medium text-text-primary transition-colors hover:text-text-secondary [&[data-state=open]>svg]:rotate-180 touch-target"
 					>
 						{item.title}
 						<ChevronDown size={16} class="shrink-0 text-text-muted transition-transform duration-200" />
@@ -72,7 +72,7 @@
 			<Accordion.Item value={item.value} class="py-0">
 				<Accordion.Header>
 					<Accordion.Trigger
-						class="flex w-full items-center justify-between py-3 text-sm font-medium text-text-primary transition-colors hover:text-text-secondary [&[data-state=open]>svg]:rotate-180"
+						class="flex w-full items-center justify-between py-3 text-sm font-medium text-text-primary transition-colors hover:text-text-secondary [&[data-state=open]>svg]:rotate-180 touch-target"
 					>
 						{item.title}
 						<ChevronDown size={16} class="shrink-0 text-text-muted transition-transform duration-200" />

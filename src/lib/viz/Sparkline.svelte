@@ -4,7 +4,7 @@
 	export interface SparklineProps {
 		/** Array of numeric data points */
 		data: number[];
-		/** Width in pixels */
+		/** Width in pixels (used as viewBox width when responsive) */
 		width?: number;
 		/** Height in pixels */
 		height?: number;
@@ -14,6 +14,8 @@
 		fill?: boolean;
 		/** Show data point dots */
 		showDots?: boolean;
+		/** When true, SVG stretches to fill container width */
+		responsive?: boolean;
 		/** Accessible label for the chart (describes the data) */
 		ariaLabel?: string;
 		/** Additional CSS classes */
@@ -31,6 +33,7 @@
 		color = 'auto',
 		fill = false,
 		showDots = false,
+		responsive = false,
 		ariaLabel,
 		class: className = ''
 	}: SparklineProps = $props();
@@ -98,10 +101,11 @@
 </script>
 
 <svg
-	{width}
+	width={responsive ? '100%' : width}
 	{height}
 	class={cn('block', className)}
 	viewBox="0 0 {width} {height}"
+	preserveAspectRatio={responsive ? 'none' : undefined}
 	role="img"
 	aria-label={computedAriaLabel}
 >

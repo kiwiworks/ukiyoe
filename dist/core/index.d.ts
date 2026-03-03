@@ -6,6 +6,7 @@ export { themeStore, accentPalette, uiScalePresets, bgEffects, bgQualityPresets 
 export type { AccentColor, ThemeMode, ThemeColors, UiScalePreset, BgEffectType, BgEffect, BgQualityLevel, BgQualityPreset } from '../stores/theme.svelte';
 export { getPrivacyContext, setPrivacyContext, PRIVACY_MASK, PRIVACY_MASK_SHORT } from '../stores/privacy.svelte';
 export type { PrivacyContext } from '../stores/privacy.svelte';
+export { viewportStore } from '../stores/viewport.svelte';
 export { getFormattingContext, setFormattingContext } from '../stores/formatting.svelte';
 export type { FormattingContext, FormattingContextOptions } from '../stores/formatting.svelte';
 export { getAssetContext, setAssetContext, getDefaultDecimals } from '../stores/assets.svelte';
@@ -26,8 +27,8 @@ export { default as Input } from './Input.svelte';
 export { default as Textarea } from './Textarea.svelte';
 export { default as Select } from './Select.svelte';
 export { default as SmartSelect } from './SmartSelect.svelte';
-export { DataTable } from './data-table/index';
-export type { Breakpoint, Column, ServerPaginationState, SortDirection, DataTableContext, DataTableProps, DataTableRootProps, DataTableToolbarProps, DataTableSearchProps, DataTablePageSizeSelectProps, DataTableTableProps, DataTableHeaderProps, DataTableBodyProps, DataTablePaginationProps, DataTableEmptyProps } from './data-table/index';
+export { DataTable, DataTableAuto, createColumn } from './data-table/index';
+export type { Breakpoint, RowKey, RowPathKey, Column, ServerPaginationState, SortDirection, DataTableContext, DataTableProps, DataTableAutoProps, DataTableRootProps, DataTableToolbarProps, DataTableSearchProps, DataTablePageSizeSelectProps, DataTableTableProps, DataTableHeaderProps, DataTableBodyProps, DataTablePaginationProps, DataTableEmptyProps } from './data-table/index';
 export { getDataTableContext } from './data-table/index';
 export { default as Numeric } from './Numeric.svelte';
 export { default as Ip } from './Ip.svelte';

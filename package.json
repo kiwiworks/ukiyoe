@@ -1,6 +1,6 @@
 {
 	"name": "ukiyoe",
-	"version": "0.4.1",
+	"version": "0.5.0",
 	"description": "Svelte 5 component library with dark-first design",
 	"type": "module",
 	"svelte": "./dist/index.js",
@@ -51,14 +51,16 @@
 	],
 	"scripts": {
 		"build": "svelte-kit sync && svelte-package",
-		"check": "svelte-check --tsconfig ./tsconfig.json",
+		"build:strict": "bun run build && bun run check:dts",
+		"check": "svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+		"check:dts": "node scripts/verify-package-types.mjs",
 		"test": "vitest",
 		"test:run": "vitest run",
 		"lint": "eslint . --fix",
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
-		"prepublishOnly": "bun run build && bun run check && bun run lint"
+		"prepublishOnly": "bun run build:strict && bun run check && bun run test:run && bun run lint"
 	},
 	"repository": {
 		"type": "git",
@@ -80,12 +82,12 @@
 	"homepage": "https://github.com/kiwiworks/ukiyoe#readme",
 	"peerDependencies": {
 		"@internationalized/date": "^3.0.0",
-		"@lucide/svelte": "^0.556.0",
+		"@lucide/svelte": "^0.576.0",
 		"bits-ui": "^2.0.0",
 		"shiki": "^3.0.0",
 		"svelte": "^5.0.0",
 		"tailwindcss": "^4.0.0",
-		"zod": "^3.0.0"
+		"zod": "^4.0.0"
 	},
 	"peerDependenciesMeta": {
 		"shiki": {
@@ -96,26 +98,26 @@
 		}
 	},
 	"devDependencies": {
-		"zod": "^3.24.0",
-		"shiki": "^3.3.0",
-		"@eslint/js": "^9.18.0",
-		"@sveltejs/kit": "^2.15.0",
+		"@eslint/js": "^9.39.0",
+		"@sveltejs/kit": "^2.53.0",
 		"@sveltejs/package": "^2.3.0",
-		"@sveltejs/vite-plugin-svelte": "^6.2.1",
+		"@sveltejs/vite-plugin-svelte": "^6.2.4",
 		"@testing-library/jest-dom": "^6.9.1",
 		"@testing-library/svelte": "^5.3.1",
-		"@typescript-eslint/eslint-plugin": "^8.21.0",
-		"@typescript-eslint/parser": "^8.21.0",
-		"eslint": "^9.18.0",
-		"eslint-plugin-svelte": "^3.0.2",
-		"happy-dom": "^20.1.0",
-		"prettier": "^3.4.2",
-		"prettier-plugin-svelte": "^3.3.3",
-		"svelte": "^5.0.0",
-		"svelte-check": "^4.1.4",
-		"typescript": "^5.7.3",
-		"vite": "^6.0.0",
-		"vitest": "^3.0.0"
+		"@typescript-eslint/eslint-plugin": "^8.56.0",
+		"@typescript-eslint/parser": "^8.56.0",
+		"eslint": "^9.39.0",
+		"eslint-plugin-svelte": "^3.15.0",
+		"happy-dom": "^20.8.0",
+		"prettier": "^3.8.0",
+		"prettier-plugin-svelte": "^3.5.0",
+		"shiki": "^3.23.0",
+		"svelte": "^5.53.0",
+		"svelte-check": "^4.4.0",
+		"typescript": "^5.9.0",
+		"vite": "^6.4.0",
+		"vitest": "^3.0.0",
+		"zod": "^4.0.0"
 	},
 	"dependencies": {
 		"@codemirror/autocomplete": "^6.20.0",

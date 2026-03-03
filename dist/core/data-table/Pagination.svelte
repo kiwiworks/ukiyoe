@@ -63,12 +63,12 @@
 						options={pageSizeOptions}
 						size="sm"
 						disabled={ctx.isLoading}
-						onchange={handlePageSizeChange}
+						onValueChange={handlePageSizeChange}
 						class="w-20"
 					/>
 				</div>
 			{/if}
-			<span class="text-[10px] text-text-muted">
+			<span class="text-[11px] text-text-muted">
 				{#if ctx.isLoading}
 					<Loader2 size={12} class="animate-spin" />
 				{:else if ctx.totalItems !== null}
@@ -80,13 +80,13 @@
 		</div>
 		<div class="flex items-center gap-2">
 			<button
-				class="flex items-center justify-center w-7 h-7 bg-bg-secondary border border-border-subtle rounded-sm text-text-primary cursor-pointer transition-all duration-150 enabled:hover:bg-bg-hover enabled:hover:border-border-strong disabled:opacity-40 disabled:cursor-not-allowed"
+				class="flex items-center justify-center w-7 h-7 bg-bg-secondary border border-border-subtle rounded-sm text-text-primary cursor-pointer transition-all duration-150 enabled:hover:bg-bg-hover enabled:hover:border-border-strong disabled:opacity-40 disabled:cursor-not-allowed touch-target"
 				disabled={!ctx.canGoPrev || ctx.isLoading}
 				onclick={handlePrev}
 			>
 				<ChevronLeft size={14} />
 			</button>
-			<span class="text-[10px] text-text-muted min-w-[60px] text-center">
+			<span class="text-[11px] text-text-muted min-w-[60px] text-center">
 				{#if ctx.totalPages !== null}
 					{ctx.displayPage} / {ctx.totalPages}
 				{:else}
@@ -94,7 +94,7 @@
 				{/if}
 			</span>
 			<button
-				class="flex items-center justify-center w-7 h-7 bg-bg-secondary border border-border-subtle rounded-sm text-text-primary cursor-pointer transition-all duration-150 enabled:hover:bg-bg-hover enabled:hover:border-border-strong disabled:opacity-40 disabled:cursor-not-allowed"
+				class="flex items-center justify-center w-7 h-7 bg-bg-secondary border border-border-subtle rounded-sm text-text-primary cursor-pointer transition-all duration-150 enabled:hover:bg-bg-hover enabled:hover:border-border-strong disabled:opacity-40 disabled:cursor-not-allowed touch-target"
 				disabled={!ctx.canGoNext || ctx.isLoading}
 				onclick={handleNext}
 			>

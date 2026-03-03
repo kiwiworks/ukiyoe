@@ -9,7 +9,9 @@
 		{ name: 'colsSm', type: "1-6 | 12 | 'auto'", description: 'Columns on small screens' },
 		{ name: 'colsMd', type: "1-6 | 12 | 'auto'", description: 'Columns on medium screens' },
 		{ name: 'colsLg', type: "1-6 | 12 | 'auto'", description: 'Columns on large screens' },
-		{ name: 'gap', type: "'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: 'Gap between items' }
+		{ name: 'gap', type: "'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: 'Gap between items' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Grid content' }
 	];
 </script>
 
@@ -91,4 +93,3 @@
 <PropsTable props={propDefs} />
 
 </div>
-

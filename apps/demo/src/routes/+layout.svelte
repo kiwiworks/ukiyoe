@@ -3,6 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { base, assets } from '$app/paths';
 	import { Badge, BrandIcon, ThemeProvider, ThemeToggle, CommandPalette, ThemeLabModal, Kbd, Toaster, Meta, type CommandItem } from 'ukiyoe/core';
+	import { viewportStore } from 'ukiyoe/core';
 	import { Header } from 'ukiyoe/layout';
 	import { Settings } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
@@ -16,6 +17,7 @@
 
 	let commandPaletteOpen = $state(false);
 	let themeLabOpen = $state(false);
+	let drawerOpen = $state(false);
 
 	const commandItems = getCommandItems();
 
@@ -39,7 +41,7 @@
 
 <ThemeProvider>
 	<div class="h-screen bg-bg-primary text-text-primary flex flex-col overflow-hidden">
-		<Header title="Ukiyoe UI" subtitle="Component Library" size="lg" fixed={false} showIndicator={false}>
+		<Header title="Ukiyoe UI" subtitle="Component Library" size="lg" fixed={false} showIndicator={false} showMobileMenu onMenuToggle={() => drawerOpen = !drawerOpen}>
 			{#snippet icon()}
 				<BrandIcon size="md" animation="wave" animationDuration={15} color="var(--accent-brand)" />
 			{/snippet}
@@ -55,8 +57,8 @@
 		</Header>
 
 		<div class="flex flex-1 overflow-hidden">
-			<Nav />
-			<main class="flex-1 overflow-y-auto overflow-x-hidden p-lg">
+			<Nav bind:drawerOpen />
+			<main class="flex-1 overflow-y-auto overflow-x-hidden p-md md:p-lg">
 				{@render children()}
 			</main>
 		</div>
@@ -72,6 +74,7 @@
 	<!-- Floating Settings Button -->
 	<button
 		class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-12 h-12 rounded-full bg-bg-elevated border border-border-default shadow-lg transition-all hover:bg-bg-hover hover:border-accent-brand hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-brand/50"
+		style:bottom="calc(1.5rem + var(--safe-area-bottom))"
 		onclick={() => themeLabOpen = true}
 		aria-label="Open theme settings"
 	>

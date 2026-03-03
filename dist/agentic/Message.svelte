@@ -99,12 +99,12 @@
 
 	<!-- Think content (between header and content) -->
 	{#if thinkContent}
-		<ReasoningTrace content={thinkContent} class="max-w-[85%]" />
+		<ReasoningTrace content={thinkContent} class="max-w-[95%] md:max-w-[85%]" />
 	{/if}
 
 	<!-- Content -->
 	<div
-		class="relative max-w-[85%] rounded-lg border px-4 py-3 {roleClasses[role]} {status === 'error' ? 'border-negative bg-negative/10' : ''}"
+		class="relative max-w-[95%] md:max-w-[85%] rounded-lg border px-4 py-3 {roleClasses[role]} {status === 'error' ? 'border-negative bg-negative/10' : ''}"
 	>
 		{#if status === 'error' && error}
 			<div class="flex items-start gap-2 text-negative">
@@ -128,17 +128,17 @@
 		<div class="flex items-center gap-1 mt-1">
 			<!-- Built-in action buttons -->
 			{#if onRetry}
-				<Button variant="ghost" size="xs" onclick={onRetry} aria-label="Retry">
+				<Button variant="ghost" size="xs" onClick={onRetry} aria-label="Retry">
 					<RefreshCw size={14} />
 				</Button>
 			{/if}
 			{#if onCopy}
-				<Button variant="ghost" size="xs" onclick={onCopy} aria-label="Copy">
+				<Button variant="ghost" size="xs" onClick={onCopy} aria-label="Copy">
 					<Copy size={14} />
 				</Button>
 			{/if}
 			{#if onDelete}
-				<Button variant="ghost" size="xs" onclick={onDelete} aria-label="Delete" class="hover:text-negative">
+				<Button variant="ghost" size="xs" onClick={onDelete} aria-label="Delete" class="hover:text-negative">
 					<Trash2 size={14} />
 				</Button>
 			{/if}

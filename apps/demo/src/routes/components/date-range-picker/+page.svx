@@ -17,7 +17,7 @@
     { name: 'id', type: 'string', default: '-', description: 'HTML id attribute' },
     { name: 'aria-label', type: 'string', default: '-', description: 'Accessible label' },
     { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
-    { name: 'onchange', type: '(value: DateRange | undefined) => void', default: '-', description: 'Change event handler' }
+    { name: 'onValueChange', type: '(value: DateRange | undefined) => void', default: '-', description: 'Change event handler' }
   ];
 
   let basicRange: DateRange | undefined = $state(undefined);

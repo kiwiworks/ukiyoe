@@ -73,10 +73,10 @@
 		hConnector: string;
 		connectorMargin: string;
 	}> = {
-		xs: { icon: 12, indicator: 'w-5 h-5', text: 'text-[10px]', descText: 'text-[9px]', gap: 'gap-1', hConnector: 'h-px w-4', connectorMargin: 'mt-2.5' },
-		sm: { icon: 14, indicator: 'w-6 h-6', text: 'text-xs', descText: 'text-[10px]', gap: 'gap-1.5', hConnector: 'h-px w-6', connectorMargin: 'mt-3' },
-		md: { icon: 16, indicator: 'w-8 h-8', text: 'text-sm', descText: 'text-[10px]', gap: 'gap-2', hConnector: 'h-px w-8', connectorMargin: 'mt-4' },
-		lg: { icon: 20, indicator: 'w-10 h-10', text: 'text-md', descText: 'text-xs', gap: 'gap-3', hConnector: 'h-0.5 w-12', connectorMargin: 'mt-5' }
+		xs: { icon: 12, indicator: 'w-5 h-5', text: 'text-[11px]', descText: 'text-[11px]', gap: 'gap-1', hConnector: 'h-px w-4', connectorMargin: 'mt-2.5' },
+		sm: { icon: 14, indicator: 'w-6 h-6', text: 'text-xs', descText: 'text-[11px]', gap: 'gap-1.5', hConnector: 'h-px w-6', connectorMargin: 'mt-3' },
+		md: { icon: 16, indicator: 'w-8 h-8', text: 'text-sm', descText: 'text-xs', gap: 'gap-2', hConnector: 'h-px w-8', connectorMargin: 'mt-4' },
+		lg: { icon: 20, indicator: 'w-10 h-10', text: 'text-md', descText: 'text-sm', gap: 'gap-3', hConnector: 'h-0.5 w-12', connectorMargin: 'mt-5' }
 	};
 
 	const stateClasses: Record<StepState, { indicator: string; text: string; connector: string }> = {
@@ -122,7 +122,7 @@
 			<div class="flex items-center">
 				<button
 					type="button"
-					class="flex flex-col items-center {config.gap} {isClickable ? 'cursor-pointer' : 'cursor-default'}"
+					class="flex flex-col items-center {config.gap} {isClickable ? 'cursor-pointer' : 'cursor-default'} touch-target"
 					onclick={() => handleClick(step, index)}
 					disabled={!isClickable}
 					aria-current={state === 'active' ? 'step' : undefined}
@@ -175,7 +175,7 @@
 					<!-- Step indicator -->
 					<button
 						type="button"
-						class="flex items-center justify-center rounded-full border-2 transition-all duration-200 {config.indicator} {stateClasses[state].indicator} {isClickable ? 'cursor-pointer' : 'cursor-default'}"
+						class="flex items-center justify-center rounded-full border-2 transition-all duration-200 {config.indicator} {stateClasses[state].indicator} {isClickable ? 'cursor-pointer' : 'cursor-default'} touch-target"
 						class:animate-pulse={state === 'active'}
 						onclick={() => handleClick(step, index)}
 						disabled={!isClickable}

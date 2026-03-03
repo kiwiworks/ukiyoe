@@ -10,7 +10,7 @@ type $$ComponentProps = {
     fullWidth?: boolean;
     href?: string;
     ariaLabel?: string;
-    onclick?: (e: MouseEvent) => void;
+    onClick?: (e: MouseEvent) => void;
 };
 declare const ButtonTest: import("svelte").Component<$$ComponentProps, {}, "">;
 type ButtonTest = ReturnType<typeof ButtonTest>;

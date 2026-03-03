@@ -15,7 +15,7 @@
 		{ name: 'aria-label', type: 'string', default: '-', description: 'Accessible label for icon-only buttons' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
 		{ name: 'style', type: 'string', default: '-', description: 'Inline styles' },
-		{ name: 'onclick', type: '(event: MouseEvent) => void', default: '-', description: 'Click handler' },
+		{ name: 'onClick', type: '(event: MouseEvent) => void', default: '-', description: 'Click handler' },
 		{ name: 'children', type: 'Snippet', default: '-', description: 'Content to render inside' }
 	];
 </script>
@@ -84,4 +84,3 @@ The `loading` prop displays an animated spinner and disables the button. Useful 
 <PropsTable props={propDefs} />
 
 </div>
-

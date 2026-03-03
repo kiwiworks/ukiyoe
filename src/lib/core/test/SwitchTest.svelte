@@ -7,14 +7,14 @@
 		disabled = false,
 		size = 'md' as SwitchSize,
 		ariaLabel,
-		onchange
+		onValueChange
 	}: {
 		checked?: boolean;
 		disabled?: boolean;
 		size?: SwitchSize;
 		ariaLabel?: string;
-		onchange?: (checked: boolean) => void;
+		onValueChange?: (checked: boolean) => void;
 	} = $props();
 </script>
 
-<Switch bind:checked {disabled} {size} aria-label={ariaLabel} {onchange} />
+<Switch bind:checked {disabled} {size} aria-label={ariaLabel} {onValueChange} />

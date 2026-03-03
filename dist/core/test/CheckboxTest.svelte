@@ -8,15 +8,15 @@
 		loading = false,
 		size = 'md' as CheckboxSize,
 		ariaLabel,
-		onchange
+		onValueChange
 	}: {
 		checked?: boolean;
 		disabled?: boolean;
 		loading?: boolean;
 		size?: CheckboxSize;
 		ariaLabel?: string;
-		onchange?: (checked: boolean) => void;
+		onValueChange?: (checked: boolean) => void;
 	} = $props();
 </script>
 
-<Checkbox bind:checked {disabled} {loading} {size} aria-label={ariaLabel} {onchange} />
+<Checkbox bind:checked {disabled} {loading} {size} aria-label={ariaLabel} {onValueChange} />

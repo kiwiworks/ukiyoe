@@ -1,26 +1,28 @@
 <script lang="ts">
-	import { EndpointDetail } from 'ukiyoe/openapi';
-	import { PageHeader } from 'ukiyoe/core';
-	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import { EndpointDetail, type Endpoint, type OpenAPI } from 'ukiyoe/openapi';
+	import { PageHeader, Heading, Text } from 'ukiyoe/core';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	const propDefs: PropDef[] = [
 		{ name: 'endpoint', type: 'Endpoint', description: 'The endpoint object to display' },
 		{ name: 'spec', type: 'OpenAPI.Document', description: 'The full OpenAPI spec (for schema lookups)' },
+		{ name: 'baseUrl', type: 'string', default: '-', description: 'Base URL for resolving relative server URLs' },
 		{ name: 'class', type: 'string', description: 'Additional CSS classes' }
 	];
 
 	// Minimal spec for demos
-	const minimalSpec = {
-		openapi: '3.0.0',
+	const minimalSpec: OpenAPI.Document = {
+		openapi: '3.2.0',
 		info: { title: 'Demo API', version: '1.0.0' },
 		paths: {}
 	};
 
 	// Sample endpoints
-	const getEndpoint = {
+	const getEndpoint: Endpoint = {
+		id: 'get-pet-by-id',
 		path: '/pets/{petId}',
 		method: 'get',
+		tags: ['pets'],
 		summary: 'Get a pet by ID',
 		description: 'Returns a single pet by its unique identifier.',
 		operationId: 'getPetById',
@@ -55,9 +57,11 @@
 		}
 	};
 
-	const postEndpoint = {
+	const postEndpoint: Endpoint = {
+		id: 'create-pet',
 		path: '/pets',
 		method: 'post',
+		tags: ['pets'],
 		summary: 'Create a new pet',
 		description: 'Add a new pet to the store inventory.',
 		operationId: 'createPet',
@@ -98,9 +102,11 @@
 		}
 	};
 
-	const deprecatedEndpoint = {
+	const deprecatedEndpoint: Endpoint = {
+		id: 'find-pets-by-status',
 		path: '/pets/findByStatus',
 		method: 'get',
+		tags: ['pets'],
 		summary: 'Find pets by status',
 		description: 'Returns pets filtered by status. Use /pets with query params instead.',
 		operationId: 'findPetsByStatus',
@@ -129,31 +135,29 @@
 <PageHeader title="EndpointDetail" subtitle="Display full details for an OpenAPI endpoint" />
 
 <div class="space-y-xl mt-lg">
+	<section class="space-y-md">
+		<Heading level={2}>GET Endpoint</Heading>
+		<Text variant="secondary">Display a GET endpoint with path parameters and responses.</Text>
+		<div class="rounded-lg border border-border-subtle bg-bg-secondary p-lg">
+			<EndpointDetail endpoint={getEndpoint} spec={minimalSpec} />
+		</div>
+	</section>
 
-## GET Endpoint
+	<section class="space-y-md">
+		<Heading level={2}>POST Endpoint</Heading>
+		<Text variant="secondary">Display a POST endpoint with request body schema.</Text>
+		<div class="rounded-lg border border-border-subtle bg-bg-secondary p-lg">
+			<EndpointDetail endpoint={postEndpoint} spec={minimalSpec} />
+		</div>
+	</section>
 
-Display a GET endpoint with path parameters and responses.
+	<section class="space-y-md">
+		<Heading level={2}>Deprecated Endpoint</Heading>
+		<Text variant="secondary">Deprecated endpoints show a warning badge and alert.</Text>
+		<div class="rounded-lg border border-border-subtle bg-bg-secondary p-lg">
+			<EndpointDetail endpoint={deprecatedEndpoint} spec={minimalSpec} />
+		</div>
+	</section>
 
-<ComponentPreview title="GET /pets/{'{petId}'}">
-	<EndpointDetail endpoint={getEndpoint} spec={minimalSpec} />
-</ComponentPreview>
-
-## POST Endpoint
-
-Display a POST endpoint with request body schema.
-
-<ComponentPreview title="POST /pets">
-	<EndpointDetail endpoint={postEndpoint} spec={minimalSpec} />
-</ComponentPreview>
-
-## Deprecated Endpoint
-
-Deprecated endpoints show a warning badge and alert.
-
-<ComponentPreview title="Deprecated Endpoint">
-	<EndpointDetail endpoint={deprecatedEndpoint} spec={minimalSpec} />
-</ComponentPreview>
-
-<PropsTable props={propDefs} />
-
+	<PropsTable props={propDefs} />
 </div>

@@ -25,7 +25,7 @@
 		/** Maximum height in pixels (undefined = no max) */
 		maxHeight?: number;
 		/** Callback when value changes */
-		onchange?: (value: string) => void;
+		onValueChange?: (value: string) => void;
 		/** Additional CSS classes */
 		class?: string;
 	}
@@ -48,7 +48,7 @@
 		tabSize = 2,
 		minHeight = 200,
 		maxHeight,
-		onchange,
+		onValueChange,
 		class: className = ''
 	}: CodeEditorProps = $props();
 
@@ -149,7 +149,7 @@
 			EditorView.updateListener.of((update) => {
 				if (update.docChanged && !isInternalUpdate) {
 					const newValue = update.state.doc.toString();
-					onchange?.(newValue);
+					onValueChange?.(newValue);
 				}
 			})
 		];
@@ -188,28 +188,35 @@
 
 	async function getLanguageExtension(lang: string) {
 		switch (lang) {
-			case 'json':
+			case 'json': {
 				const { json } = await import('@codemirror/lang-json');
 				return json();
+			}
 			case 'javascript':
-			case 'typescript':
+			case 'typescript': {
 				const { javascript } = await import('@codemirror/lang-javascript');
 				return javascript({ typescript: lang === 'typescript' });
-			case 'html':
+			}
+			case 'html': {
 				const { html } = await import('@codemirror/lang-html');
 				return html();
-			case 'css':
+			}
+			case 'css': {
 				const { css } = await import('@codemirror/lang-css');
 				return css();
-			case 'markdown':
+			}
+			case 'markdown': {
 				const { markdown } = await import('@codemirror/lang-markdown');
 				return markdown();
-			case 'xml':
+			}
+			case 'xml': {
 				const { xml } = await import('@codemirror/lang-xml');
 				return xml();
-			case 'yaml':
+			}
+			case 'yaml': {
 				const { yaml } = await import('@codemirror/lang-yaml');
 				return yaml();
+			}
 			default:
 				return null;
 		}

@@ -27,9 +27,55 @@
 
 	const changelog: ChangelogEntry[] = [
 		{
+			version: '0.5.0',
+			date: '2026-03-04',
+			badge: { text: 'Latest', variant: 'success' },
+			description: 'Full-page examples, tree nav, responsive dashboard, Checkbox/Switch labels, callback normalization, and ThemeProvider stability.',
+			changes: {
+				added: [
+					{
+						text: 'Four full-page application examples with source viewer',
+						subitems: [
+							'API Explorer — OpenAPI spec viewer',
+							'Chat Interface — conversational AI UI',
+							'Dashboard — stats, charts, and widgets',
+							'Settings — form-driven configuration'
+						]
+					},
+					{ text: 'Viewport store — reactive viewportStore with width, height, isMobile' },
+					{ text: 'Sparkline responsive prop — SVG stretches to fill container width' },
+					{ text: 'Checkbox children snippet — label with proper <label> wrapping' },
+					{ text: 'Switch children snippet — label with proper <label> wrapping' }
+				],
+				changed: [
+					{ text: 'Demo nav rewritten as compact tree nav with collapsible sections, icon rail collapsed mode, and auto-collapse at <1280px' },
+					{ text: 'Dashboard example uses 3-tier responsive breakpoints (2/3/4 columns)' },
+					{
+						text: 'Core callback props normalized to camelCase',
+						subitems: [
+							'Modal/SidePanel/ThemeLabModal/Toast: onclose -> onClose',
+							'AlertDialog: onconfirm/oncancel -> onConfirm/onCancel',
+							'RefreshControl: onrefresh/onintervalchange -> onRefresh/onIntervalChange'
+						]
+					},
+					{ text: 'Zod peer dependency upgraded from ^3.0.0 to ^4.0.0' },
+					{ text: 'Form.Auto number fields now emit null when input is cleared instead of coercing to 0' },
+					{ text: 'DataTable.Root preserves row generic type in context setup (cast removed)' },
+					{ text: 'ThemeProvider no longer clears all CSS vars on each reactive pass' }
+				],
+				fixed: [
+					{ text: 'ThemeProvider SSR crash when document is unavailable' },
+					{ text: 'Chat example auto-scroll behavior' },
+					{ text: 'Component docs updated to match callback API' }
+				],
+				removed: [
+					{ text: 'Legacy lowercase callback props removed: onclose, onconfirm, oncancel, onrefresh, onintervalchange' }
+				]
+			}
+		},
+		{
 			version: '0.4.1',
 			date: '2026-03-03',
-			badge: { text: 'Latest', variant: 'success' },
 			changes: {
 				fixed: [
 					{ text: 'Demo pages — ToolCallDisplay, ToolCallGroup, and AgentTask demos now consistently use ComponentPreview blocks with Show Code toggles' }

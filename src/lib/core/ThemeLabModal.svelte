@@ -3,13 +3,14 @@
 		/** Whether the modal is open (bindable) */
 		open?: boolean;
 		/** Callback when modal is closed */
-		onclose?: () => void;
+		onClose?: () => void;
 	}
 </script>
 
 <script lang="ts">
 	import { X, Sun, Moon, Check, Sparkles, Settings2 } from '@lucide/svelte';
 	import { fade, scale } from 'svelte/transition';
+	import { acquireBodyScrollLock } from '../utils/scroll-lock';
 	import {
 		themeStore,
 		accentPalette,
@@ -24,11 +25,12 @@
 
 	let {
 		open = $bindable(false),
-		onclose
+		onClose
 	}: ThemeLabModalProps = $props();
 
 	let dialogRef: HTMLDivElement | undefined = $state();
 	let previouslyFocused: HTMLElement | null = null;
+	let releaseScrollLock: (() => void) | null = null;
 
 	const FOCUSABLE_SELECTOR = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
@@ -58,7 +60,7 @@
 
 	function handleClose() {
 		open = false;
-		onclose?.();
+		onClose?.();
 	}
 
 	function handleKeydown(e: KeyboardEvent) {
@@ -101,7 +103,7 @@
 	$effect(() => {
 		if (open) {
 			previouslyFocused = document.activeElement as HTMLElement;
-			document.body.style.overflow = 'hidden';
+			releaseScrollLock ??= acquireBodyScrollLock();
 			requestAnimationFrame(() => {
 				const focusable = getFocusableElements();
 				if (focusable.length > 0) {
@@ -111,12 +113,18 @@
 				}
 			});
 		} else {
-			document.body.style.overflow = '';
+			releaseScrollLock?.();
+			releaseScrollLock = null;
 			if (previouslyFocused) {
 				previouslyFocused.focus();
 				previouslyFocused = null;
 			}
 		}
+
+		return () => {
+			releaseScrollLock?.();
+			releaseScrollLock = null;
+		};
 	});
 </script>
 
@@ -136,7 +144,7 @@
 		tabindex="-1"
 	>
 		<div
-			class="flex flex-col w-full min-w-[32rem] max-w-2xl max-h-[calc(100vh-2rem)] bg-bg-secondary border border-border-default rounded-lg shadow-2xl overflow-hidden mx-4"
+			class="flex flex-col w-full max-md:min-w-0 md:min-w-[32rem] max-w-2xl max-h-[calc(100dvh-2rem)] bg-bg-secondary border border-border-default rounded-lg shadow-2xl overflow-hidden mx-4"
 			transition:scale={{ duration: 150, start: 0.95 }}
 		>
 			<!-- Header -->
@@ -146,7 +154,7 @@
 					<h2 id="theme-lab-title" class="m-0 text-sm font-semibold text-text-primary">Theme Lab</h2>
 				</div>
 				<button
-					class="flex items-center justify-center p-1 text-text-muted bg-transparent border-none rounded-sm cursor-pointer transition-all hover:text-text-primary hover:bg-bg-hover"
+					class="flex items-center justify-center p-1 text-text-muted bg-transparent border-none rounded-sm cursor-pointer transition-all hover:text-text-primary hover:bg-bg-hover touch-target"
 					onclick={handleClose}
 					aria-label="Close modal"
 				>
@@ -161,14 +169,14 @@
 					<h3 class="text-xs font-medium text-text-secondary uppercase tracking-wide">Appearance</h3>
 					<div class="flex gap-2">
 						<button
-							class="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md border transition-all {themeStore.mode === 'dark' ? 'bg-bg-hover border-accent-brand text-text-primary' : 'bg-bg-tertiary border-border-default text-text-secondary hover:border-border-strong'}"
+							class="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md border transition-all touch-target {themeStore.mode === 'dark' ? 'bg-bg-hover border-accent-brand text-text-primary' : 'bg-bg-tertiary border-border-default text-text-secondary hover:border-border-strong'}"
 							onclick={() => themeStore.setMode('dark')}
 						>
 							<Moon size={16} />
 							<span class="text-sm">Dark</span>
 						</button>
 						<button
-							class="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md border transition-all {themeStore.mode === 'light' ? 'bg-bg-hover border-accent-brand text-text-primary' : 'bg-bg-tertiary border-border-default text-text-secondary hover:border-border-strong'}"
+							class="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md border transition-all touch-target {themeStore.mode === 'light' ? 'bg-bg-hover border-accent-brand text-text-primary' : 'bg-bg-tertiary border-border-default text-text-secondary hover:border-border-strong'}"
 							onclick={() => themeStore.setMode('light')}
 						>
 							<Sun size={16} />
@@ -183,7 +191,7 @@
 					<div class="grid grid-cols-8 gap-2">
 						{#each accentPalette as color}
 							<button
-								class="relative w-8 h-8 rounded-full border-2 transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-bg-secondary {themeStore.accent.id === color.id ? 'border-white ring-2 ring-offset-1 ring-offset-bg-secondary ring-white/30' : 'border-transparent'}"
+								class="relative w-8 h-8 rounded-full border-2 transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-bg-secondary touch-target {themeStore.accent.id === color.id ? 'border-white ring-2 ring-offset-1 ring-offset-bg-secondary ring-white/30' : 'border-transparent'}"
 								style="background-color: {color.hex}"
 								onclick={() => handleAccentSelect(color)}
 								title={color.name}
@@ -211,7 +219,7 @@
 						max={uiScalePresets.length - 1}
 						step={1}
 						size="sm"
-						onchange={handleScaleChange}
+						onValueChange={handleScaleChange}
 					/>
 					<div class="flex justify-between text-xs text-text-muted">
 						{#each uiScalePresets as preset}
@@ -226,7 +234,7 @@
 					<div class="grid grid-cols-2 gap-2">
 						{#each bgEffects as effect}
 							<button
-								class="flex items-center gap-2 px-3 py-2 rounded-md border text-left transition-all {themeStore.bgEffect.id === effect.id ? 'bg-bg-hover border-accent-brand' : 'bg-bg-tertiary border-border-default hover:border-border-strong'}"
+								class="flex items-center gap-2 px-3 py-2 rounded-md border text-left transition-all touch-target {themeStore.bgEffect.id === effect.id ? 'bg-bg-hover border-accent-brand' : 'bg-bg-tertiary border-border-default hover:border-border-strong'}"
 								onclick={() => handleBgEffectSelect(effect)}
 							>
 								<Sparkles size={14} class={themeStore.bgEffect.id === effect.id ? 'text-accent-brand' : 'text-text-muted'} />
@@ -253,7 +261,7 @@
 							<Switch
 								checked={themeStore.nebula}
 								size="sm"
-								onchange={handleNebulaToggle}
+								onValueChange={handleNebulaToggle}
 							/>
 						</div>
 						<div class="flex items-center justify-between">
@@ -264,7 +272,7 @@
 							<Switch
 								checked={themeStore.solidText}
 								size="sm"
-								onchange={handleSolidTextToggle}
+								onValueChange={handleSolidTextToggle}
 							/>
 						</div>
 					</div>
@@ -297,7 +305,7 @@
 
 			<!-- Footer -->
 			<footer class="flex items-center justify-end gap-2 px-4 py-3 border-t border-border-subtle shrink-0">
-				<Button size="sm" variant="ghost" onclick={handleClose}>Close</Button>
+				<Button size="sm" variant="ghost" onClick={handleClose}>Close</Button>
 			</footer>
 		</div>
 	</div>

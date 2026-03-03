@@ -18,7 +18,7 @@
 		{ name: 'aria-invalid', type: 'boolean', default: '-', description: 'Indicates select has invalid value' },
 		{ name: 'clearable', type: 'boolean', default: 'false', description: 'Show clear button when value is selected' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
-		{ name: 'onchange', type: '(value: string) => void', default: '-', description: 'Change event handler' }
+		{ name: 'onValueChange', type: '(value: string) => void', default: '-', description: 'Change event handler' }
 	];
 </script>
 

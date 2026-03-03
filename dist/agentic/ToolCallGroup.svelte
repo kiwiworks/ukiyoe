@@ -61,7 +61,7 @@
 	<!-- Group header -->
 	<button
 		type="button"
-		class="group flex items-center gap-2 w-full text-left py-1 px-1.5 rounded-md hover:bg-bg-hover transition-colors"
+		class="group flex items-center gap-2 w-full text-left py-1 px-1.5 rounded-md hover:bg-bg-hover transition-colors touch-target"
 		onclick={() => (expanded = !expanded)}
 	>
 		<!-- Chevron -->
@@ -104,7 +104,7 @@
 
 	<!-- Children -->
 	{#if expanded}
-		<div class="pl-6 border-l border-border-subtle ml-2 space-y-0.5 py-1">
+		<div class="pl-4 md:pl-6 border-l border-border-subtle ml-1 md:ml-2 space-y-0.5 py-1">
 			{@render children()}
 		</div>
 	{/if}

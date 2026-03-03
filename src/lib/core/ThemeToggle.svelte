@@ -18,17 +18,17 @@
 	const iconSize = $derived(size === 'xs' ? 12 : size === 'sm' ? 14 : size === 'lg' ? 20 : 16);
 
 	const sizeClasses: Record<ThemeToggleSize, string> = {
-		xs: 'py-0.5 px-1 text-[9px]',
-		sm: 'py-1 px-1.5 text-[10px]',
-		md: 'py-1.5 px-2 text-[11px]',
-		lg: 'py-2 px-2.5 text-xs'
+		xs: 'py-0.5 px-1 text-[11px]',
+		sm: 'py-1 px-1.5 text-[11px]',
+		md: 'py-1.5 px-2 text-xs',
+		lg: 'py-2 px-2.5 text-sm'
 	};
 </script>
 
 <button
 	type="button"
 	class={cn(
-		'inline-flex items-center justify-center gap-1.5 border rounded-sm bg-transparent cursor-pointer transition-all font-mono text-text-muted border-border-subtle hover:text-text-primary hover:border-border-default hover:bg-bg-hover focus-visible:outline-2 focus-visible:outline-accent-brand focus-visible:outline-offset-2',
+		'inline-flex items-center justify-center gap-1.5 border rounded-sm bg-transparent cursor-pointer transition-all font-mono text-text-muted border-border-subtle hover:text-text-primary hover:border-border-default hover:bg-bg-hover focus-visible:outline-2 focus-visible:outline-accent-brand focus-visible:outline-offset-2 touch-target',
 		sizeClasses[size],
 		className
 	)}

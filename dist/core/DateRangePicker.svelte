@@ -38,8 +38,8 @@
 		'aria-label'?: string;
 		/** Additional CSS classes */
 		class?: string;
-		/** Change event handler */
-		onchange?: (value: DateRange | undefined) => void;
+		/** Value change handler */
+		onValueChange?: (value: DateRange | undefined) => void;
 	}
 </script>
 
@@ -62,7 +62,7 @@
 		id,
 		'aria-label': ariaLabel,
 		class: className = '',
-		onchange
+		onValueChange
 	}: DateRangePickerProps = $props();
 
 	let open = $state(false);
@@ -93,7 +93,7 @@
 
 	function handleValueChange(newValue: DateRange | undefined) {
 		value = newValue;
-		onchange?.(newValue);
+		onValueChange?.(newValue);
 		if (newValue?.start && newValue?.end) {
 			open = false;
 		}
@@ -150,13 +150,13 @@
 					{#snippet children({ months, weekdays })}
 						<RangeCalendar.Header class="flex items-center justify-between pb-2">
 							<RangeCalendar.PrevButton
-								class="p-1 rounded hover:bg-bg-hover transition-colors text-text-secondary hover:text-text-primary disabled:opacity-30 disabled:cursor-not-allowed"
+								class="p-1 rounded hover:bg-bg-hover transition-colors text-text-secondary hover:text-text-primary disabled:opacity-30 disabled:cursor-not-allowed touch-target"
 							>
 								<ChevronLeft size={16} />
 							</RangeCalendar.PrevButton>
 							<RangeCalendar.Heading class="text-sm font-medium text-text-primary" />
 							<RangeCalendar.NextButton
-								class="p-1 rounded hover:bg-bg-hover transition-colors text-text-secondary hover:text-text-primary disabled:opacity-30 disabled:cursor-not-allowed"
+								class="p-1 rounded hover:bg-bg-hover transition-colors text-text-secondary hover:text-text-primary disabled:opacity-30 disabled:cursor-not-allowed touch-target"
 							>
 								<ChevronRight size={16} />
 							</RangeCalendar.NextButton>

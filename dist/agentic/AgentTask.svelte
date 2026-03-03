@@ -77,7 +77,7 @@
 	<!-- Header row -->
 	<button
 		type="button"
-		class="group flex items-center gap-2 w-full text-left py-1 px-1.5 rounded-md hover:bg-bg-hover transition-colors"
+		class="group flex items-center gap-2 w-full text-left py-1 px-1.5 rounded-md hover:bg-bg-hover transition-colors touch-target"
 		onclick={() => children && (expanded = !expanded)}
 		disabled={!children}
 	>
@@ -126,19 +126,19 @@
 
 	<!-- Description -->
 	{#if description}
-		<div class="pl-7 text-sm text-text-muted">{description}</div>
+		<div class="pl-5 md:pl-7 text-sm text-text-muted">{description}</div>
 	{/if}
 
 	<!-- Children (nested content) -->
 	{#if expanded && children}
-		<div class={cn('pl-6 border-l-2 ml-2 mt-1 space-y-0.5', borderColor)}>
+		<div class={cn('pl-4 md:pl-6 border-l-2 ml-1 md:ml-2 mt-1 space-y-0.5', borderColor)}>
 			{@render children()}
 		</div>
 	{/if}
 
 	<!-- Trailing content -->
 	{#if trailing}
-		<div class="pl-7 mt-1">
+		<div class="pl-5 md:pl-7 mt-1">
 			{@render trailing()}
 		</div>
 	{/if}

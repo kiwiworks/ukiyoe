@@ -52,7 +52,7 @@
 	};
 
 	const descClasses: Record<EmptyStateSize, string> = {
-		xs: 'text-[10px]',
+		xs: 'text-[11px]',
 		sm: 'text-xs',
 		md: 'text-sm',
 		lg: 'text-[15px]'

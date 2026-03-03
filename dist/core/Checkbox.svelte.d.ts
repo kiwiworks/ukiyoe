@@ -20,8 +20,10 @@ export interface CheckboxProps {
     'aria-invalid'?: boolean;
     /** Additional CSS classes */
     class?: string;
-    /** Change event handler */
-    onchange?: (checked: boolean) => void;
+    /** Value change handler */
+    onValueChange?: (checked: boolean) => void;
+    /** Label content rendered beside the checkbox */
+    children?: import('svelte').Snippet;
 }
 import { Checkbox } from 'bits-ui';
 declare const Checkbox: import("svelte").Component<CheckboxProps, {}, "checked">;

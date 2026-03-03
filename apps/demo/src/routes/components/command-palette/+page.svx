@@ -8,10 +8,11 @@
 		{ name: 'open', type: 'boolean', default: 'false', description: 'Whether the palette is open' },
 		{ name: 'items', type: 'CommandItem[]', default: '[]', description: 'List of command items' },
 		{ name: 'groups', type: 'CommandGroup[]', default: '[]', description: 'Pre-grouped items' },
-		{ name: 'placeholder', type: 'string', default: "'Type a command...'", description: 'Search input placeholder' },
+		{ name: 'placeholder', type: 'string', default: "'Type a command or search...'", description: 'Search input placeholder' },
 		{ name: 'emptyMessage', type: 'string', default: "'No results found.'", description: 'Message when no matches' },
 		{ name: 'onSelect', type: '(item) => void', description: 'Callback when item selected' },
-		{ name: 'onClose', type: '() => void', description: 'Callback when closed' }
+		{ name: 'onClose', type: '() => void', description: 'Callback when closed' },
+		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
 	];
 
 	const interfaceCode = `interface CommandItem {
@@ -72,7 +73,7 @@ Try pressing it now to see the palette integrated into this documentation site!
 ## Basic Usage
 
 ```svelte preview title="Simple Command Palette"
-<Button onclick={() => open1 = true}>Open Command Palette</Button>
+<Button onClick={() => open1 = true}>Open Command Palette</Button>
 {#if selectedItem}
 	<p class="mt-md text-sm text-text-muted">Selected: {selectedItem}</p>
 {/if}
@@ -86,7 +87,7 @@ Try pressing it now to see the palette integrated into this documentation site!
 ## Grouped Items
 
 ```svelte preview title="With Groups"
-<Button onclick={() => open2 = true}>Open Grouped Palette</Button>
+<Button onClick={() => open2 = true}>Open Grouped Palette</Button>
 <CommandPalette
 	bind:open={open2}
 	items={groupedItems}
@@ -97,7 +98,7 @@ Try pressing it now to see the palette integrated into this documentation site!
 ## With Keyboard Shortcuts
 
 ```svelte preview title="Showing Shortcuts"
-<Button onclick={() => open3 = true}>Open Palette with Shortcuts</Button>
+<Button onClick={() => open3 = true}>Open Palette with Shortcuts</Button>
 <CommandPalette
 	bind:open={open3}
 	items={shortcutItems}
@@ -112,4 +113,3 @@ Try pressing it now to see the palette integrated into this documentation site!
 <CodeBlock code={interfaceCode} language="typescript" />
 
 </div>
-

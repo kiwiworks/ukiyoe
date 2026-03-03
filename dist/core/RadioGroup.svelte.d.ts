@@ -29,8 +29,8 @@ export interface RadioGroupProps {
     'aria-invalid'?: boolean;
     /** Additional CSS classes */
     class?: string;
-    /** Change event handler */
-    onchange?: (value: string) => void;
+    /** Value change handler */
+    onValueChange?: (value: string) => void;
 }
 import { RadioGroup } from 'bits-ui';
 declare const RadioGroup: import("svelte").Component<RadioGroupProps, {}, "value">;

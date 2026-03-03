@@ -57,10 +57,10 @@
 ## With Elapsed Time
 
 <div class="flex gap-md mb-md">
-	<Button size="sm" onclick={() => (index = (index + 1) % statuses.length)}>
+	<Button size="sm" onClick={() => (index = (index + 1) % statuses.length)}>
 		Cycle ({statuses[index]})
 	</Button>
-	<Button size="sm" variant="ghost" onclick={() => (elapsed = 0)}>Reset Timer</Button>
+	<Button size="sm" variant="ghost" onClick={() => (elapsed = 0)}>Reset Timer</Button>
 </div>
 <div class="p-md bg-bg-secondary rounded-md">
 	<ThinkingIndicator status={statuses[index]} {elapsed} />
@@ -69,10 +69,10 @@
 ## Progress Tracking
 
 <div class="flex gap-md mb-md">
-	<Button size="sm" onclick={() => (progressStep = Math.min(progressStep + 1, 20))}>
+	<Button size="sm" onClick={() => (progressStep = Math.min(progressStep + 1, 20))}>
 		Step {progressStep}/20
 	</Button>
-	<Button size="sm" variant="ghost" onclick={() => (progressStep = 1)}>Reset</Button>
+	<Button size="sm" variant="ghost" onClick={() => (progressStep = 1)}>Reset</Button>
 </div>
 <div class="p-md bg-bg-secondary rounded-md space-y-md">
 	<ThinkingIndicator status="executing" progress={{ current: progressStep, total: 20 }} />

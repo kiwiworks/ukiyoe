@@ -13,7 +13,7 @@ export interface SidePanelProps {
     /** Close when clicking overlay */
     closeOnOverlayClick?: boolean;
     /** Callback when panel is closed */
-    onclose?: () => void;
+    onClose?: () => void;
     /** Additional CSS classes */
     class?: string;
     /** Header slot content (e.g., search input) */

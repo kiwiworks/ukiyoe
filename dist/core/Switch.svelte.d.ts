@@ -16,8 +16,10 @@ export interface SwitchProps {
     'aria-describedby'?: string;
     /** Additional CSS classes */
     class?: string;
-    /** Change event handler */
-    onchange?: (checked: boolean) => void;
+    /** Value change handler */
+    onValueChange?: (checked: boolean) => void;
+    /** Label content rendered beside the switch */
+    children?: import('svelte').Snippet;
 }
 import { Switch } from 'bits-ui';
 declare const Switch: import("svelte").Component<SwitchProps, {}, "checked">;

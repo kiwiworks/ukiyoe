@@ -144,7 +144,7 @@
 					<button
 						type="button"
 						onclick={copyCode}
-						class="p-1.5 rounded text-text-muted hover:text-text-secondary hover:bg-bg-hover transition-colors"
+						class="p-1.5 rounded text-text-muted hover:text-text-secondary hover:bg-bg-hover transition-colors touch-target"
 						title="Copy code"
 					>
 						{#if copied}

@@ -17,7 +17,7 @@
 	const ctx = getDataTableContext();
 
 	const tableClasses = $derived(
-		`w-full border-collapse font-mono ${ctx.compact ? 'text-[10px]' : 'text-[11px]'}`
+		`w-full border-collapse font-mono ${ctx.compact ? 'text-[11px]' : 'text-xs'}`
 	);
 </script>
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { DataTable, PageHeader } from 'ukiyoe/core';
+	import { DataTable, DataTableAuto, PageHeader } from 'ukiyoe/core';
 	import type { Column } from 'ukiyoe/core';
 	import ComponentPreview from '$lib/ComponentPreview.svelte';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
@@ -99,7 +99,7 @@
 Simple table with minimal props:
 
 ```svelte preview title="Basic Table"
-<DataTable data={basicData} columns={basicColumns} keyField="id" />
+<DataTableAuto data={basicData} columns={basicColumns} keyField="id" />
 ```
 
 ## With Features
@@ -107,7 +107,7 @@ Simple table with minimal props:
 Enable sorting, search, and pagination:
 
 ```svelte preview title="Full Featured"
-<DataTable
+<DataTableAuto
 	data={extendedData}
 	columns={extendedColumns}
 	keyField="id"
@@ -137,7 +137,7 @@ For advanced customization, use the compound component API:
 ## Aligned Columns
 
 ```svelte preview title="Right-Aligned Numbers"
-<DataTable data={numericData} columns={numericColumns} keyField="id" />
+<DataTableAuto data={numericData} columns={numericColumns} keyField="id" />
 ```
 
 ## Responsive Columns
@@ -145,7 +145,7 @@ For advanced customization, use the compound component API:
 Use `hideAt` on column definitions to hide columns below specific breakpoints. Resize your browser to see columns hide on smaller screens.
 
 ```svelte preview title="Responsive Column Hiding"
-<DataTable data={positionsData} columns={responsiveColumns} keyField="id" />
+<DataTableAuto data={positionsData} columns={responsiveColumns} keyField="id" />
 ```
 
 Column definition example:
@@ -162,4 +162,3 @@ Available breakpoints: `sm` (640px), `md` (768px), `lg` (1024px), `xl` (1280px),
 <PropsTable props={propDefs} />
 
 </div>
-

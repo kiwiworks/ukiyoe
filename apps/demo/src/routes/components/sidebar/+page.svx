@@ -7,6 +7,8 @@
 	const propDefs: PropDef[] = [
 		{ name: 'width', type: 'number', default: '256', description: 'Width of the sidebar in pixels when expanded' },
 		{ name: 'collapsed', type: 'boolean', default: 'false', description: 'Whether the sidebar is collapsed (bindable)' },
+		{ name: 'mode', type: "'sidebar' | 'drawer'", default: "'sidebar'", description: "Display mode: inline sidebar or fixed drawer overlay" },
+		{ name: 'drawerOpen', type: 'boolean', default: 'false', description: 'Whether the drawer is open in drawer mode (bindable)' },
 		{ name: 'onToggle', type: '() => void', default: '-', description: 'Callback when toggle button is clicked' },
 		{ name: 'children', type: 'Snippet', default: '-', description: 'Content to render inside the sidebar' },
 		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' }
@@ -44,4 +46,3 @@ Use with ListItem components for navigation links.
 <PropsTable props={propDefs} />
 
 </div>
-

@@ -1,9 +1,8 @@
-import { SvelteComponent } from "svelte";
 import type { ComponentType } from 'svelte';
 export interface BreadcrumbItem {
     label: string;
     href?: string;
-    icon?: ComponentType<SvelteComponent<any>>;
+    icon?: ComponentType;
 }
 export interface BreadcrumbProps {
     items: BreadcrumbItem[];

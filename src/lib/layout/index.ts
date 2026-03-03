@@ -1,7 +1,7 @@
 export { default as Header } from './Header.svelte';
 export type { HeaderProps, HeaderSize } from './Header.svelte';
 export { default as Sidebar } from './Sidebar.svelte';
-export type { SidebarProps } from './Sidebar.svelte';
+export type { SidebarMode, SidebarProps } from './Sidebar.svelte';
 export { default as Panel } from './Panel.svelte';
 export type { PanelProps } from './Panel.svelte';
 export { default as StatusBar } from './StatusBar.svelte';

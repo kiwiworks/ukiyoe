@@ -21,9 +21,9 @@
 		/** Custom icon component (overrides variant default) */
 		icon?: Component;
 		/** Callback when confirm is clicked */
-		onconfirm?: () => void | Promise<void>;
+		onConfirm?: () => void | Promise<void>;
 		/** Callback when cancel is clicked or dialog is dismissed */
-		oncancel?: () => void;
+		onCancel?: () => void;
 		/** Custom content snippet (overrides description) */
 		content?: Snippet;
 		/** Custom actions snippet (overrides default Cancel/Confirm buttons) */
@@ -48,8 +48,8 @@
 		cancelLabel = 'Cancel',
 		loading = false,
 		icon,
-		onconfirm,
-		oncancel,
+		onConfirm,
+		onCancel,
 		content,
 		actions,
 		class: className = ''
@@ -81,17 +81,17 @@
 	function handleOpenChange(newOpen: boolean) {
 		open = newOpen;
 		if (!newOpen) {
-			oncancel?.();
+			onCancel?.();
 		}
 	}
 
 	function handleClose() {
 		open = false;
-		oncancel?.();
+		onCancel?.();
 	}
 
 	async function handleConfirm() {
-		await onconfirm?.();
+		await onConfirm?.();
 		if (!loading) {
 			open = false;
 		}
@@ -106,7 +106,7 @@
 		<AlertDialog.Content
 			class={cn(
 				'fixed left-1/2 top-1/2 z-modal -translate-x-1/2 -translate-y-1/2',
-				'w-full max-w-md bg-bg-secondary border border-border-default rounded-lg shadow-2xl',
+				'w-full max-w-md max-md:max-w-[calc(100vw-2rem)] bg-bg-secondary border border-border-default rounded-lg shadow-2xl',
 				'data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
 				'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
 				className
@@ -148,7 +148,7 @@
 								size="sm"
 								variant={confirmVariants[variant]}
 								{loading}
-								onclick={handleConfirm}
+								onClick={handleConfirm}
 							>
 								{confirmLabel}
 							</Button>

@@ -18,8 +18,8 @@ export interface SliderProps {
     'aria-describedby'?: string;
     /** Additional CSS classes */
     class?: string;
-    /** Change event handler */
-    onchange?: (value: number[]) => void;
+    /** Value change handler */
+    onValueChange?: (value: number[]) => void;
 }
 import { Slider } from 'bits-ui';
 declare const Slider: import("svelte").Component<SliderProps, {}, "value">;

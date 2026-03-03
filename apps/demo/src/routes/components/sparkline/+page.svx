@@ -15,6 +15,8 @@
 		{ name: 'color', type: "'positive' | 'negative' | 'neutral' | 'auto'", default: "'auto'", description: 'Line color mode' },
 		{ name: 'fill', type: 'boolean', default: 'false', description: 'Show filled area under line' },
 		{ name: 'showDots', type: 'boolean', default: 'false', description: 'Show data point dots' },
+		{ name: 'responsive', type: 'boolean', default: 'false', description: 'Stretch SVG to fill container width' },
+		{ name: 'ariaLabel', type: 'string', default: '-', description: 'Accessible label for the chart' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
 	];
 </script>
@@ -65,4 +67,3 @@
 <PropsTable props={propDefs} />
 
 </div>
-

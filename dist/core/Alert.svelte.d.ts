@@ -7,7 +7,7 @@ export interface AlertProps {
     icon?: Component;
     class?: string;
     children: Snippet;
-    ondismiss?: () => void;
+    onDismiss?: () => void;
 }
 declare const Alert: Component<AlertProps, {}, "">;
 type Alert = ReturnType<typeof Alert>;

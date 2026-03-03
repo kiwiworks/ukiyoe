@@ -45,8 +45,8 @@
 		'aria-label'?: string;
 		/** Additional CSS classes */
 		class?: string;
-		/** Change event handler for option selection */
-		onchange?: (value: string) => void;
+		/** Value change handler for option selection */
+		onValueChange?: (value: string) => void;
 		/** Custom filter function */
 		filter?: (option: SmartSelectOption, query: string) => boolean;
 		/** Highlight matching text in results */
@@ -73,7 +73,7 @@
 		id,
 		'aria-label': ariaLabel,
 		class: className = '',
-		onchange,
+		onValueChange,
 		filter,
 		highlightMatch = false,
 		highlightClass = 'bg-accent-brand/20 text-accent-brand'
@@ -197,7 +197,7 @@
 
 		value = selectedValue;
 		searchValue = '';
-		onchange?.(selectedValue);
+		onValueChange?.(selectedValue);
 	}
 
 	let viewportEl: HTMLElement | null = $state(null);
@@ -238,7 +238,7 @@
 					handleInput(e);
 					if (!open) open = true;
 				}}
-				class="w-full appearance-none bg-bg-secondary border border-border-default rounded-md font-mono text-text-primary transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:border-accent-brand focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:opacity-50 disabled:cursor-not-allowed placeholder:text-text-muted {sizeClasses[size]}"
+				class="w-full appearance-none bg-bg-secondary border border-border-default rounded-md font-mono text-text-primary transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:border-accent-brand focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:opacity-50 disabled:cursor-not-allowed placeholder:text-text-muted touch-target {sizeClasses[size]}"
 			/>
 		</div>
 
@@ -320,7 +320,7 @@
 										value={option.value}
 										label={option.label}
 										disabled={option.disabled}
-										class="relative flex items-center gap-3 rounded-sm py-2 pl-8 pr-2 text-sm font-mono cursor-pointer select-none outline-none text-text-primary data-[highlighted]:bg-bg-hover data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+										class="relative flex items-center gap-3 rounded-sm py-2 pl-8 pr-2 text-sm font-mono cursor-pointer select-none outline-none text-text-primary data-[highlighted]:bg-bg-hover data-[disabled]:pointer-events-none data-[disabled]:opacity-50 touch-target"
 									>
 										{#snippet children({ selected })}
 											<span class="absolute left-2 flex h-4 w-4 items-center justify-center">

@@ -20,8 +20,8 @@
 		'aria-describedby'?: string;
 		/** Additional CSS classes */
 		class?: string;
-		/** Change event handler */
-		onchange?: (value: number[]) => void;
+		/** Value change handler */
+		onValueChange?: (value: number[]) => void;
 	}
 </script>
 
@@ -39,7 +39,7 @@
 		'aria-label': ariaLabel,
 		'aria-describedby': ariaDescribedby,
 		class: className = '',
-		onchange
+		onValueChange
 	}: SliderProps = $props();
 
 	const rootClasses: Record<SliderSize, string> = {
@@ -66,10 +66,10 @@
 	function handleChange(newValue: number[] | number) {
 		if (Array.isArray(newValue)) {
 			value = newValue;
-			onchange?.(newValue);
+			onValueChange?.(newValue);
 		} else {
 			value = [newValue];
-			onchange?.([newValue]);
+			onValueChange?.([newValue]);
 		}
 	}
 </script>
@@ -94,7 +94,7 @@
 			{#each value as _, i}
 				<Slider.Thumb
 					index={i}
-					class="block cursor-pointer rounded-full border-2 border-accent-brand bg-white shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:pointer-events-none disabled:opacity-50 {thumbClasses[size]}"
+					class="block cursor-pointer rounded-full border-2 border-accent-brand bg-white shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:pointer-events-none disabled:opacity-50 touch-target {thumbClasses[size]}"
 				/>
 			{/each}
 		</Slider.Root>
@@ -116,7 +116,7 @@
 			</span>
 			<Slider.Thumb
 				index={0}
-				class="block cursor-pointer rounded-full border-2 border-accent-brand bg-white shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:pointer-events-none disabled:opacity-50 {thumbClasses[size]}"
+				class="block cursor-pointer rounded-full border-2 border-accent-brand bg-white shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:pointer-events-none disabled:opacity-50 touch-target {thumbClasses[size]}"
 			/>
 		</Slider.Root>
 	{/if}

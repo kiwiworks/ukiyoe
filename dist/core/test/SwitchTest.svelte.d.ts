@@ -4,7 +4,7 @@ type $$ComponentProps = {
     disabled?: boolean;
     size?: SwitchSize;
     ariaLabel?: string;
-    onchange?: (checked: boolean) => void;
+    onValueChange?: (checked: boolean) => void;
 };
 declare const SwitchTest: import("svelte").Component<$$ComponentProps, {}, "checked">;
 type SwitchTest = ReturnType<typeof SwitchTest>;

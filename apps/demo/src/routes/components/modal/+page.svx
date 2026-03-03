@@ -13,7 +13,8 @@
 		{ name: 'width', type: 'string', default: "'var(--modal-width, auto)'", description: 'Width of the modal (CSS value)' },
 		{ name: 'height', type: 'string', default: "'var(--modal-height, auto)'", description: 'Height of the modal (CSS value)' },
 		{ name: 'showClose', type: 'boolean', default: 'true', description: 'Whether to show the close button' },
-		{ name: 'onclose', type: '() => void', default: '-', description: 'Callback when modal is closed' },
+		{ name: 'fullscreenMobile', type: 'boolean', default: 'false', description: 'Go full-screen on mobile viewports (< md)' },
+		{ name: 'onClose', type: '() => void', default: '-', description: 'Callback when modal is closed' },
 		{ name: 'children', type: 'Snippet', default: '-', description: 'Modal content' }
 	];
 </script>
@@ -29,7 +30,7 @@
 ## Basic Usage
 
 ```svelte preview title="Basic Modal"
-<Button size="sm" onclick={() => (basicModal = true)}>Open Modal</Button>
+<Button size="sm" onClick={() => (basicModal = true)}>Open Modal</Button>
 
 <Modal bind:open={basicModal} title="Basic Modal">
 	<Text variant="secondary">
@@ -41,7 +42,7 @@
 ## Confirmation Dialog
 
 ```svelte preview title="Confirmation Dialog"
-<Button size="sm" variant="danger" onclick={() => (confirmModal = true)}>Delete Item</Button>
+<Button size="sm" variant="danger" onClick={() => (confirmModal = true)}>Delete Item</Button>
 
 <Modal bind:open={confirmModal} title="Confirm Delete">
 	<Text variant="secondary" class="mb-md">
@@ -49,8 +50,8 @@
 	</Text>
 	<Divider spacing="md" />
 	<div class="flex justify-end gap-sm">
-		<Button size="sm" variant="ghost" onclick={() => (confirmModal = false)}>Cancel</Button>
-		<Button size="sm" variant="danger" onclick={() => (confirmModal = false)}>Delete</Button>
+		<Button size="sm" variant="ghost" onClick={() => (confirmModal = false)}>Cancel</Button>
+		<Button size="sm" variant="danger" onClick={() => (confirmModal = false)}>Delete</Button>
 	</div>
 </Modal>
 ```
@@ -58,7 +59,7 @@
 ## With Form Content
 
 ```svelte preview title="Modal with Form"
-<Button size="sm" onclick={() => (largeModal = true)}>Edit Profile</Button>
+<Button size="sm" onClick={() => (largeModal = true)}>Edit Profile</Button>
 
 <Modal bind:open={largeModal} title="Edit Profile">
 	<div class="space-y-md">
@@ -68,8 +69,8 @@
 	</div>
 	<Divider spacing="md" />
 	<div class="flex justify-end gap-sm">
-		<Button size="sm" variant="ghost" onclick={() => (largeModal = false)}>Cancel</Button>
-		<Button size="sm" variant="primary" onclick={() => (largeModal = false)}>Save Changes</Button>
+		<Button size="sm" variant="ghost" onClick={() => (largeModal = false)}>Cancel</Button>
+		<Button size="sm" variant="primary" onClick={() => (largeModal = false)}>Save Changes</Button>
 	</div>
 </Modal>
 ```
@@ -77,4 +78,3 @@
 <PropsTable props={propDefs} />
 
 </div>
-

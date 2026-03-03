@@ -12,9 +12,17 @@
 	import RadioGroup from '../RadioGroup.svelte';
 	import Slider from '../Slider.svelte';
 	import Field from './Field.svelte';
-	import type { FormAutoProps, FieldSchema, FieldRenderProps, FieldOption } from './types';
+	import { getFormContext } from './context.svelte';
+	import type {
+		FormAutoProps as FormAutoPropsType,
+		FieldSchema,
+		FieldRenderProps,
+		FieldOption
+	} from './types';
 
-	let { fields, layout = 'stack', columns = 1, gap = 'md' }: FormAutoProps = $props();
+	let { fields, layout = 'stack', columns = 1, gap = 'md' }: FormAutoPropsType = $props();
+	const ctx = getFormContext();
+	const initializedDefaults = new Set<string>();
 
 	const gapClasses: Record<string, string> = {
 		sm: 'gap-2',
@@ -37,15 +45,11 @@
 		}
 	};
 
-	// Normalize options to FieldOption[]
 	function normalizeOptions(options: FieldOption[] | string[] | undefined): FieldOption[] {
 		if (!options) return [];
-		return options.map((opt) =>
-			typeof opt === 'string' ? { value: opt, label: opt } : opt
-		);
+		return options.map((opt) => (typeof opt === 'string' ? { value: opt, label: opt } : opt));
 	}
 
-	// Get input type for text-based fields
 	function getInputType(fieldType: FieldSchema['type']): 'text' | 'email' | 'password' | 'number' {
 		switch (fieldType) {
 			case 'email':
@@ -58,6 +62,17 @@
 				return 'text';
 		}
 	}
+
+	$effect(() => {
+		for (const field of fields) {
+			if (initializedDefaults.has(field.name)) continue;
+			const currentValue = ctx.getValue(field.name);
+			if ((currentValue === null || currentValue === undefined) && field.defaultValue !== undefined) {
+				ctx.setValue(field.name, field.defaultValue);
+			}
+			initializedDefaults.add(field.name);
+		}
+	});
 </script>
 
 <div class={cn(layoutClasses[layout][columns], gapClasses[gap])}>
@@ -74,11 +89,21 @@
 						disabled={field.disabled}
 						error={props.error}
 						aria-describedby={props['aria-describedby']}
-						onchange={(e) => {
-							const val = field.type === 'number' ? Number(e.currentTarget.value) : e.currentTarget.value;
-							props.onchange(val);
+						onValueChange={(newValue) => {
+							if (field.type === 'number') {
+								const trimmed = newValue.trim();
+								if (trimmed.length === 0) {
+									props.onValueChange(null);
+									return;
+								}
+								const parsed = Number(trimmed);
+								props.onValueChange(Number.isNaN(parsed) ? null : parsed);
+								return;
+							}
+
+							props.onValueChange(newValue);
 						}}
-						onblur={props.onblur}
+						onBlur={props.onBlur}
 					/>
 				{:else if field.type === 'textarea'}
 					<Textarea
@@ -90,8 +115,8 @@
 						disabled={field.disabled}
 						error={props.error}
 						aria-describedby={props['aria-describedby']}
-						onchange={(e) => props.onchange(e.currentTarget.value)}
-						onblur={props.onblur}
+						onValueChange={(newValue) => props.onValueChange(newValue)}
+						onBlur={props.onBlur}
 					/>
 				{:else if field.type === 'select'}
 					<Select
@@ -103,7 +128,7 @@
 						disabled={field.disabled}
 						aria-describedby={props['aria-describedby']}
 						aria-invalid={props['aria-invalid']}
-						onchange={(val) => props.onchange(val)}
+						onValueChange={(val) => props.onValueChange(val)}
 					/>
 				{:else if field.type === 'checkbox'}
 					<Checkbox
@@ -113,7 +138,7 @@
 						disabled={field.disabled}
 						aria-describedby={props['aria-describedby']}
 						aria-invalid={props['aria-invalid']}
-						onchange={(checked) => props.onchange(checked)}
+						onValueChange={(checked) => props.onValueChange(checked)}
 					/>
 				{:else if field.type === 'switch'}
 					<Switch
@@ -122,7 +147,7 @@
 						checked={typeof props.value === 'boolean' ? props.value : false}
 						disabled={field.disabled}
 						aria-describedby={props['aria-describedby']}
-						onchange={(checked) => props.onchange(checked)}
+						onValueChange={(checked) => props.onValueChange(checked)}
 					/>
 				{:else if field.type === 'radio'}
 					<RadioGroup
@@ -132,7 +157,7 @@
 						disabled={field.disabled}
 						aria-describedby={props['aria-describedby']}
 						aria-invalid={props['aria-invalid']}
-						onchange={(val) => props.onchange(val)}
+						onValueChange={(val) => props.onValueChange(val)}
 					/>
 				{:else if field.type === 'slider'}
 					<Slider
@@ -142,7 +167,7 @@
 						step={field.step}
 						disabled={field.disabled}
 						aria-describedby={props['aria-describedby']}
-						onchange={(val) => props.onchange(val)}
+						onValueChange={(val) => props.onValueChange(val)}
 					/>
 				{/if}
 			{/snippet}

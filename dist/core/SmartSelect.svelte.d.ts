@@ -46,8 +46,8 @@ export interface SmartSelectProps {
     'aria-label'?: string;
     /** Additional CSS classes */
     class?: string;
-    /** Change event handler for option selection */
-    onchange?: (value: string) => void;
+    /** Value change handler for option selection */
+    onValueChange?: (value: string) => void;
     /** Custom filter function */
     filter?: (option: SmartSelectOption, query: string) => boolean;
     /** Highlight matching text in results */

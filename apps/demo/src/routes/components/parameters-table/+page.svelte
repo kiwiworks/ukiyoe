@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { ParametersTable } from 'ukiyoe/openapi';
-	import { PageHeader } from 'ukiyoe/core';
-	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import { PageHeader, Heading, Text } from 'ukiyoe/core';
 	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
 
 	const propDefs: PropDef[] = [
@@ -87,39 +86,37 @@
 <PageHeader title="ParametersTable" subtitle="Display OpenAPI endpoint parameters in a table format" />
 
 <div class="space-y-xl mt-lg">
+	<section class="space-y-md">
+		<Heading level={2}>Path Parameters</Heading>
+		<Text variant="secondary">Display required path parameters with location badges.</Text>
+		<div class="rounded-lg border border-border-subtle bg-bg-secondary p-lg">
+			<ParametersTable parameters={pathParameters as never} />
+		</div>
+	</section>
 
-## Path Parameters
+	<section class="space-y-md">
+		<Heading level={2}>Query Parameters</Heading>
+		<Text variant="secondary">Display optional and required query parameters.</Text>
+		<div class="rounded-lg border border-border-subtle bg-bg-secondary p-lg">
+			<ParametersTable parameters={queryParameters as never} />
+		</div>
+	</section>
 
-Display required path parameters with location badges.
+	<section class="space-y-md">
+		<Heading level={2}>Mixed Parameter Types</Heading>
+		<Text variant="secondary">Display parameters from different locations (path, query, header).</Text>
+		<div class="rounded-lg border border-border-subtle bg-bg-secondary p-lg">
+			<ParametersTable parameters={mixedParameters as never} />
+		</div>
+	</section>
 
-<ComponentPreview title="Path Parameter">
-	<ParametersTable parameters={pathParameters} />
-</ComponentPreview>
+	<section class="space-y-md">
+		<Heading level={2}>Deprecated Parameters</Heading>
+		<Text variant="secondary">Parameters marked as deprecated show with strikethrough styling.</Text>
+		<div class="rounded-lg border border-border-subtle bg-bg-secondary p-lg">
+			<ParametersTable parameters={deprecatedParameters as never} />
+		</div>
+	</section>
 
-## Query Parameters
-
-Display optional and required query parameters.
-
-<ComponentPreview title="Query Parameters">
-	<ParametersTable parameters={queryParameters} />
-</ComponentPreview>
-
-## Mixed Parameter Types
-
-Display parameters from different locations (path, query, header).
-
-<ComponentPreview title="Mixed Parameters">
-	<ParametersTable parameters={mixedParameters} />
-</ComponentPreview>
-
-## Deprecated Parameters
-
-Parameters marked as deprecated show with strikethrough styling.
-
-<ComponentPreview title="With Deprecated Parameter">
-	<ParametersTable parameters={deprecatedParameters} />
-</ComponentPreview>
-
-<PropsTable props={propDefs} />
-
+	<PropsTable props={propDefs} />
 </div>

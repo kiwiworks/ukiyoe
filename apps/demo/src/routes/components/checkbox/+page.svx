@@ -17,7 +17,7 @@
 		{ name: 'aria-describedby', type: 'string', default: '-', description: 'ID of describing element' },
 		{ name: 'aria-invalid', type: 'boolean', default: '-', description: 'Indicates invalid value' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
-		{ name: 'onchange', type: '(checked: boolean) => void', default: '-', description: 'Change event handler' }
+		{ name: 'onValueChange', type: '(checked: boolean) => void', default: '-', description: 'Change event handler' }
 	];
 </script>
 

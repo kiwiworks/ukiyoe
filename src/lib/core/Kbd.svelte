@@ -24,7 +24,7 @@
 	}: KbdProps = $props();
 
 	const sizeClasses: Record<KbdSize, string> = {
-		xs: 'text-[10px] px-1 py-0.5 min-w-[1.25rem] gap-0.5',
+		xs: 'text-[11px] px-1 py-0.5 min-w-[1.25rem] gap-0.5',
 		sm: 'text-xs px-1.5 py-0.5 min-w-[1.5rem] gap-1',
 		md: 'text-sm px-2 py-1 min-w-[1.75rem] gap-1'
 	};

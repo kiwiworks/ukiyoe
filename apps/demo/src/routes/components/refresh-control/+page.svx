@@ -8,8 +8,8 @@
 		{ name: 'lastUpdated', type: 'Date | null', default: 'null', description: 'Timestamp for "time ago" display' },
 		{ name: 'interval', type: 'number | null', default: 'null', description: 'Current auto-refresh interval in ms (null = off)' },
 		{ name: 'intervals', type: 'RefreshInterval[]', default: 'DEFAULT_INTERVALS', description: 'Available interval options' },
-		{ name: 'onrefresh', type: '() => void', default: '-', description: 'Callback when refresh button is clicked' },
-		{ name: 'onintervalchange', type: '(interval: number | null) => void', default: '-', description: 'Callback when interval selection changes' }
+		{ name: 'onRefresh', type: '() => void', default: '-', description: 'Callback when refresh button is clicked' },
+		{ name: 'onIntervalChange', type: '(interval: number | null) => void', default: '-', description: 'Callback when interval selection changes' }
 	];
 </script>
 
@@ -24,7 +24,7 @@
 ## Basic Usage
 
 ```svelte preview title="Refresh Control"
-<RefreshControl onrefresh={() => console.log('Refreshing...')} />
+<RefreshControl onRefresh={() => console.log('Refreshing...')} />
 ```
 
 ## With Label
@@ -32,7 +32,7 @@
 ```svelte preview title="With Context"
 <div class="flex items-center gap-md">
 	<Text size="sm" variant="muted">Last updated: just now</Text>
-	<RefreshControl onrefresh={() => console.log('Refreshing...')} />
+	<RefreshControl onRefresh={() => console.log('Refreshing...')} />
 </div>
 ```
 
