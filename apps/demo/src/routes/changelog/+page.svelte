@@ -27,9 +27,18 @@
 
 	const changelog: ChangelogEntry[] = [
 		{
-			version: '0.4.0',
+			version: '0.4.1',
 			date: '2026-03-03',
 			badge: { text: 'Latest', variant: 'success' },
+			changes: {
+				fixed: [
+					{ text: 'Demo pages — ToolCallDisplay, ToolCallGroup, and AgentTask demos now consistently use ComponentPreview blocks with Show Code toggles' }
+				]
+			}
+		},
+		{
+			version: '0.4.0',
+			date: '2026-03-03',
 			description: 'Compact tool calls, tool call grouping, sub-agent task display, and dynamic version badges.',
 			changes: {
 				added: [

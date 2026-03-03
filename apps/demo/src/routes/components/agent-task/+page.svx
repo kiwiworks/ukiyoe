@@ -27,48 +27,56 @@
 
 ## Simple Agent with Tools
 
-<div class="max-w-2xl p-md bg-bg-secondary rounded-md">
-	<AgentTask name="file-editor" description="Editing configuration files" status="running" elapsed={5}>
-		<ToolCallDisplay name="read_file" summary="Read tsconfig.json" status="success" duration={200} />
-		<ToolCallDisplay name="write_file" summary="Writing tsconfig.json..." status="running" />
-	</AgentTask>
-</div>
+A running agent with nested tool calls. The left border color reflects the status.
+
+```svelte preview title="Running agent"
+<AgentTask name="file-editor" description="Editing configuration files" status="running" elapsed={5}>
+	<ToolCallDisplay name="read_file" summary="Read tsconfig.json" status="success" duration={200} />
+	<ToolCallDisplay name="write_file" summary="Writing tsconfig.json..." status="running" />
+</AgentTask>
+```
 
 ## With Progress Tracking
 
-<div class="max-w-2xl p-md bg-bg-secondary rounded-md">
-	<AgentTask
-		name="test-runner"
-		description="Running test suites"
-		status="running"
-		elapsed={23}
-		progress={{ current: 3, total: 8 }}
-	>
-		<ToolCallDisplay name="run_tests" summary="unit/auth.test.ts (12 passed)" status="success" duration={1200} />
-		<ToolCallDisplay name="run_tests" summary="unit/utils.test.ts (8 passed)" status="success" duration={800} />
-		<ToolCallDisplay name="run_tests" summary="integration/api.test.ts (5 passed)" status="success" duration={3400} />
-		<ToolCallDisplay name="run_tests" summary="Running e2e/login.test.ts..." status="running" />
-	</AgentTask>
-</div>
+Show step-based progress alongside elapsed time.
+
+```svelte preview title="Progress tracking"
+<AgentTask
+	name="test-runner"
+	description="Running test suites"
+	status="running"
+	elapsed={23}
+	progress={{ current: 3, total: 8 }}
+>
+	<ToolCallDisplay name="run_tests" summary="unit/auth.test.ts (12 passed)" status="success" duration={1200} />
+	<ToolCallDisplay name="run_tests" summary="unit/utils.test.ts (8 passed)" status="success" duration={800} />
+	<ToolCallDisplay name="run_tests" summary="integration/api.test.ts (5 passed)" status="success" duration={3400} />
+	<ToolCallDisplay name="run_tests" summary="Running e2e/login.test.ts..." status="running" />
+</AgentTask>
+```
 
 ## Nested Agents (Recursive)
 
-<div class="max-w-2xl p-md bg-bg-secondary rounded-md">
-	<AgentTask name="code-review" description="Reviewing authentication module" status="running" elapsed={12} progress={{ current: 2, total: 5 }}>
-		<ToolCallGroup status="success" count={2} completed={2} duration={1800}>
-			<ToolCallDisplay name="read_file" summary="Read src/auth/login.ts" status="success" duration={300} />
-			<ToolCallDisplay name="read_file" summary="Read src/auth/middleware.ts" status="success" duration={500} />
-		</ToolCallGroup>
-		<ToolCallDisplay name="grep_search" summary='Searching for "jwt.verify"' status="running" />
-		<AgentTask name="security-scanner" status="running" elapsed={3}>
-			<ToolCallDisplay name="scan_deps" summary="Scanning package.json" status="running" />
-		</AgentTask>
+Agents can contain other agents for multi-level delegation. Each level gets its own status border.
+
+```svelte preview title="Recursive nesting"
+<AgentTask name="code-review" description="Reviewing authentication module" status="running" elapsed={12} progress={{ current: 2, total: 5 }}>
+	<ToolCallGroup status="success" count={2} completed={2} duration={1800}>
+		<ToolCallDisplay name="read_file" summary="Read src/auth/login.ts" status="success" duration={300} />
+		<ToolCallDisplay name="read_file" summary="Read src/auth/middleware.ts" status="success" duration={500} />
+	</ToolCallGroup>
+	<ToolCallDisplay name="grep_search" summary='Searching for "jwt.verify"' status="running" />
+	<AgentTask name="security-scanner" status="running" elapsed={3}>
+		<ToolCallDisplay name="scan_deps" summary="Scanning package.json" status="running" />
 	</AgentTask>
-</div>
+</AgentTask>
+```
 
-## Completed Agent with Trailing
+## Completed with Trailing Content
 
-<div class="max-w-2xl p-md bg-bg-secondary rounded-md">
+Use the `trailing` snippet to render content after the children, such as usage stats.
+
+<div class="max-w-2xl">
 	<AgentTask name="code-review" description="Review complete" status="success" elapsed={45}>
 		{#snippet trailing()}
 			<UsageDisplay
@@ -91,12 +99,12 @@
 
 ## Status Variants
 
-<div class="max-w-2xl space-y-md">
-	<AgentTask name="pending-agent" status="pending" />
-	<AgentTask name="running-agent" description="Processing..." status="running" elapsed={3} />
-	<AgentTask name="success-agent" description="All tasks complete" status="success" elapsed={15} />
-	<AgentTask name="error-agent" description="Failed to connect to database" status="error" elapsed={8} />
-</div>
+```svelte preview title="All statuses"
+<AgentTask name="pending-agent" status="pending" />
+<AgentTask name="running-agent" description="Processing..." status="running" elapsed={3} />
+<AgentTask name="success-agent" description="All tasks complete" status="success" elapsed={15} />
+<AgentTask name="error-agent" description="Failed to connect to database" status="error" elapsed={8} />
+```
 
 <PropsTable props={propDefs} />
 

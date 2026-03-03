@@ -8,17 +8,14 @@
 	const statuses: ToolCallStatus[] = ['pending', 'running', 'success', 'error'];
 	let statusIndex = $state(0);
 
-	const sampleArgs = { query: "SELECT * FROM users WHERE active = true", limit: 10 };
-	const sampleResult = { rows: [{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }], count: 2 };
-
 	const propDefs: PropDef[] = [
 		{ name: 'name', type: 'string', default: '-', description: 'Tool function name (required)' },
 		{ name: 'status', type: "'pending' | 'running' | 'success' | 'error'", default: "'pending'", description: 'Visual status indicator' },
 		{ name: 'summary', type: 'string', default: '-', description: 'Compact one-liner description' },
 		{ name: 'duration', type: 'number', default: '-', description: 'Duration in milliseconds' },
-		{ name: 'id', type: 'string', default: '-', description: 'Call identifier (expanded detail)' },
-		{ name: 'arguments', type: 'unknown', default: '-', description: 'Tool call arguments (expanded detail)' },
-		{ name: 'result', type: 'unknown', default: '-', description: 'Tool call result (expanded detail)' },
+		{ name: 'id', type: 'string', default: '-', description: 'Call identifier (shown in expanded detail)' },
+		{ name: 'arguments', type: 'unknown', default: '-', description: 'Tool call arguments (shown in expanded detail)' },
+		{ name: 'result', type: 'unknown', default: '-', description: 'Tool call result (shown in expanded detail)' },
 		{ name: 'expanded', type: 'boolean', default: 'false', description: 'Expand state (bindable)' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
 	];
@@ -34,6 +31,8 @@
 
 ## Compact One-Liners
 
+Collapsed state shows a single-line summary with status icon, tool name, description, and duration.
+
 ```svelte preview title="Compact tool calls"
 <ToolCallDisplay name="read_file" summary="Read src/lib/index.ts" status="success" duration={320} />
 <ToolCallDisplay name="grep_search" summary='Search for "export"' status="success" duration={1200} />
@@ -43,40 +42,44 @@
 
 ## Status Variants
 
+Each status has a distinct icon and color: pending (muted circle), running (spinning loader), success (green check), error (red x).
+
 <div class="flex gap-md mb-md">
 	<Button size="sm" onclick={() => (statusIndex = (statusIndex + 1) % statuses.length)}>
 		Cycle ({statuses[statusIndex]})
 	</Button>
 </div>
-<div class="p-md bg-bg-secondary rounded-md max-w-2xl">
+<div class="max-w-2xl">
 	<ToolCallDisplay
 		name="execute_sql"
 		summary="Running SELECT query..."
 		status={statuses[statusIndex]}
 		duration={450}
-		arguments={sampleArgs}
-		result={sampleResult}
 	/>
 </div>
 
 ## Expanded Detail
 
-<div class="max-w-2xl">
-	<ToolCallDisplay
-		name="execute_sql"
-		summary="Run SQL query"
-		status="success"
-		duration={450}
-		id="call_xyz789"
-		arguments={sampleArgs}
-		result={sampleResult}
-		expanded={true}
-	/>
-</div>
+Click the row to expand and reveal arguments, result, and call ID.
 
-## Minimal (Name Only)
+```svelte preview title="Expanded with args and result"
+<ToolCallDisplay
+	name="execute_sql"
+	summary="Run SQL query"
+	status="success"
+	duration={450}
+	id="call_xyz789"
+	arguments={{ query: "SELECT * FROM users WHERE active = true", limit: 10 }}
+	result={{ rows: [{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }], count: 2 }}
+	expanded={true}
+/>
+```
 
-```svelte preview title="No summary or duration"
+## Minimal
+
+When no summary or duration is provided, only the status icon and tool name are shown.
+
+```svelte preview title="Name only"
 <ToolCallDisplay name="web_search" status="success" />
 <ToolCallDisplay name="analyze_code" status="error" />
 ```
