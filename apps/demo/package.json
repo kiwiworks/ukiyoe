@@ -29,7 +29,7 @@
     "@types/mdast": "^4.0.4",
     "mdsvex": "^0.12.6",
     "shiki": "^3.23.0",
-    "svelte": "^5.53.0",
+    "svelte": "5.53.7",
     "svelte-check": "^4.4.0",
     "tailwindcss": "^4.2.0",
     "typescript": "^5.9.0",

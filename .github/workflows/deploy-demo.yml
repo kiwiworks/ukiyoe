@@ -37,6 +37,13 @@ jobs:
         run: bun install
         working-directory: apps/demo
 
+      - name: Debug versions
+        run: |
+          echo "Node: $(node --version)"
+          echo "Bun: $(bun --version)"
+          echo "Svelte: $(node -e "console.log(require('./node_modules/svelte/package.json').version)")"
+        working-directory: apps/demo
+
       - name: Build demo
         run: bun run build
         working-directory: apps/demo
