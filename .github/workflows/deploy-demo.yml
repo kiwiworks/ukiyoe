@@ -38,7 +38,7 @@ jobs:
         working-directory: apps/demo
 
       - name: Build demo
-        run: bun --bun run build
+        run: bun run build
         working-directory: apps/demo
         env:
           BASE_PATH: /ukiyoe
