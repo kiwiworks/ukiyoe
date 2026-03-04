@@ -31,14 +31,14 @@ jobs:
         run: bun install
 
       - name: Build library
-        run: bun run build
+        run: bun --bun run build
 
       - name: Install dependencies (demo)
         run: bun install
         working-directory: apps/demo
 
       - name: Build demo
-        run: bun run build
+        run: bun --bun run build
         working-directory: apps/demo
         env:
           BASE_PATH: /ukiyoe

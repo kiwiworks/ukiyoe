@@ -21,10 +21,10 @@ jobs:
         run: bun install
 
       - name: Package build + declaration integrity
-        run: bun run build:strict
+        run: bun --bun run build:strict
 
       - name: Type + Svelte checks (warnings fail)
-        run: bun run check
+        run: bun --bun run check
 
       - name: Tests
-        run: bun run test:run
+        run: bun --bun run test:run
