@@ -27,9 +27,53 @@
 
 	const changelog: ChangelogEntry[] = [
 		{
+			version: '0.6.0',
+			date: '2026-03-05',
+			badge: { text: 'Latest', variant: 'success' },
+			description: 'Mobile-first components: Chip, ChipGroup, BottomSheet, SelectableCard, and Input prefix/suffix Snippet support.',
+			changes: {
+				added: [
+					{
+						text: 'Chip component — interactive toggle chip (bits-ui Toggle)',
+						subitems: [
+							'Bindable active state with onToggle hook',
+							'Variant, icon, size, and dismissible support',
+							'Children snippet for custom content'
+						]
+					},
+					{
+						text: 'ChipGroup + ChipGroupItem — group selection (bits-ui ToggleGroup)',
+						subitems: [
+							'Single or multiple selection modes',
+							'Bindable value with onValueChange hook',
+							'Keyboard navigation with orientation and loop'
+						]
+					},
+					{
+						text: 'BottomSheet component — mobile action sheet (bits-ui Dialog)',
+						subitems: [
+							'Drag-to-dismiss with pointer capture',
+							'Configurable snap points with onSnap hook',
+							'Header and actions snippets, safe area padding'
+						]
+					},
+					{
+						text: 'SelectableCard component — pressable card with selection state',
+						subitems: [
+							'Bindable selected state with onSelect hook',
+							'Check indicator, ring highlight, ARIA role="option"'
+						]
+					}
+				],
+				changed: [
+					{ text: 'Input prefix/suffix now accept string | Snippet, enabling icon adornments' },
+					{ text: 'Input adornment padding is now size-aware instead of hardcoded pl-12/pr-12' }
+				]
+			}
+		},
+		{
 			version: '0.5.0',
 			date: '2026-03-04',
-			badge: { text: 'Latest', variant: 'success' },
 			description: 'Full-page examples, tree nav, responsive dashboard, Checkbox/Switch labels, callback normalization, and ThemeProvider stability.',
 			changes: {
 				added: [

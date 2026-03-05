@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2026-03-05
+
+### Added
+- **Chip component** — Interactive toggle chip built on bits-ui `Toggle` with `active` (bindable), `variant`, `icon`, `onToggle`/`onDismiss` hooks, and `children` snippet override
+- **ChipGroup component** — Container built on bits-ui `ToggleGroup` with `type="single"|"multiple"`, `value` (bindable), `onValueChange`, keyboard navigation with `orientation`/`loop`
+- **ChipGroupItem component** — Group-aware chip item using bits-ui `ToggleGroup.Item` with pressed state from parent group
+- **BottomSheet component** — Mobile action sheet built on bits-ui `Dialog` with drag-to-dismiss, configurable snap points, `onClose`/`onSnap` hooks, `header`/`actions` snippets, safe area padding
+- **SelectableCard component** — Pressable card with `selected` (bindable), check indicator, `onSelect` hook, `showCheck` toggle, proper ARIA `role="option"`
+
+### Changed
+- **Input `prefix`/`suffix`** — now accept `string | Snippet` (was `string` only), enabling icon adornments; padding is now size-aware instead of hardcoded `pl-12`/`pr-12`
+
 ## [0.5.0] - 2026-03-04
 
 ### Added
@@ -342,7 +354,8 @@ First stable release! Ukiyoe is now production-ready with 70+ components.
 - Dark-first design with light mode support
 - Privacy masking context
 
-[Unreleased]: https://github.com/kiwiworks/ukiyoe/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/kiwiworks/ukiyoe/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.4.1...v0.5.0
 [0.4.1]: https://github.com/kiwiworks/ukiyoe/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.3.0...v0.4.0

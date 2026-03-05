@@ -1,3 +1,4 @@
+import type { Snippet } from 'svelte';
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg';
 export type InputAlign = 'left' | 'center' | 'right';
 export type InputType = 'text' | 'number' | 'email' | 'password' | 'search' | 'tel' | 'url' | 'date' | 'datetime-local';
@@ -13,8 +14,10 @@ export interface InputProps {
     readonly?: boolean;
     required?: boolean;
     error?: boolean;
-    prefix?: string;
-    suffix?: string;
+    /** Left adornment — plain string or Snippet for icons/custom content */
+    prefix?: string | Snippet;
+    /** Right adornment — plain string or Snippet for icons/custom content (loading spinner takes priority) */
+    suffix?: string | Snippet;
     id?: string;
     name?: string;
     'aria-label'?: string;
