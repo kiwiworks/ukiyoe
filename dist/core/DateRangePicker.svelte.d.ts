@@ -32,6 +32,10 @@ export interface DateRangePickerProps {
     id?: string;
     /** Accessible label for screen readers */
     'aria-label'?: string;
+    /** ID of element describing this picker */
+    'aria-describedby'?: string;
+    /** Whether the field value is invalid */
+    'aria-invalid'?: boolean;
     /** Additional CSS classes */
     class?: string;
     /** Value change handler */

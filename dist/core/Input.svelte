@@ -5,6 +5,8 @@
 	export type InputAlign = 'left' | 'center' | 'right';
 	export type InputType = 'text' | 'number' | 'email' | 'password' | 'search' | 'tel' | 'url' | 'date' | 'datetime-local';
 
+	export type InputMode = 'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url';
+
 	export interface InputProps {
 		type?: InputType;
 		value?: string;
@@ -14,6 +16,8 @@
 		disabled?: boolean;
 		/** Show loading spinner and disable interactions */
 		loading?: boolean;
+		/** Show eye toggle for password fields (default: true when type is password) */
+		showPasswordToggle?: boolean;
 		readonly?: boolean;
 		required?: boolean;
 		error?: boolean;
@@ -23,6 +27,10 @@
 		suffix?: string | Snippet;
 		id?: string;
 		name?: string;
+		/** HTML autocomplete attribute for browser autofill */
+		autocomplete?: HTMLInputElement['autocomplete'];
+		/** Input mode hint for virtual keyboards */
+		inputmode?: InputMode;
 		'aria-label'?: string;
 		'aria-describedby'?: string;
 		class?: string;
@@ -33,7 +41,7 @@
 </script>
 
 <script lang="ts">
-	import { Loader2 } from '@lucide/svelte';
+	import { Loader2, Eye, EyeOff } from '@lucide/svelte';
 	import { cn } from '../utils/cn';
 
 	let {
@@ -44,6 +52,7 @@
 		align = 'left',
 		disabled = false,
 		loading = false,
+		showPasswordToggle,
 		readonly = false,
 		required = false,
 		error = false,
@@ -51,6 +60,8 @@
 		suffix,
 		id,
 		name,
+		autocomplete,
+		inputmode,
 		'aria-label': ariaLabel,
 		'aria-describedby': ariaDescribedby,
 		class: className = '',
@@ -58,6 +69,15 @@
 		onFocus,
 		onBlur
 	}: InputProps = $props();
+
+	let passwordRevealed = $state(false);
+	const currentType = $derived(type === 'password' && passwordRevealed ? 'text' : type);
+
+	const shouldShowPasswordToggle = $derived(type === 'password' && showPasswordToggle !== false && !loading && !suffix);
+
+	function togglePasswordVisibility() {
+		passwordRevealed = !passwordRevealed;
+	}
 
 	const iconSizes: Record<InputSize, number> = {
 		xs: 12,
@@ -68,7 +88,7 @@
 
 	const isDisabled = $derived(disabled || loading);
 	const hasPrefix = $derived(!!prefix);
-	const hasSuffix = $derived(!!suffix || loading);
+	const hasSuffix = $derived(!!suffix || loading || shouldShowPasswordToggle);
 	const isSnippet = (v: unknown): v is Snippet => typeof v === 'function';
 
 	const sizeClasses: Record<InputSize, string> = {
@@ -114,8 +134,10 @@
 	<input
 		{id}
 		{name}
-		{type}
+		type={currentType}
 		bind:value
+		{autocomplete}
+		{inputmode}
 		{placeholder}
 		disabled={isDisabled}
 		{required}
@@ -151,5 +173,19 @@
 				{suffix}
 			{/if}
 		</span>
+	{:else if shouldShowPasswordToggle}
+		<button
+			type="button"
+			tabindex={-1}
+			onclick={togglePasswordVisibility}
+			class="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-primary transition-colors cursor-pointer"
+			aria-label={passwordRevealed ? 'Hide password' : 'Show password'}
+		>
+			{#if passwordRevealed}
+				<EyeOff size={iconSizes[size]} />
+			{:else}
+				<Eye size={iconSizes[size]} />
+			{/if}
+		</button>
 	{/if}
 </div>

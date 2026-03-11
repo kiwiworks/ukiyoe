@@ -18,6 +18,8 @@
 		'aria-label'?: string;
 		/** ID of element describing this slider */
 		'aria-describedby'?: string;
+		/** Whether the field value is invalid */
+		'aria-invalid'?: boolean;
 		/** Additional CSS classes */
 		class?: string;
 		/** Value change handler */
@@ -38,6 +40,7 @@
 		size = 'md',
 		'aria-label': ariaLabel,
 		'aria-describedby': ariaDescribedby,
+		'aria-invalid': ariaInvalid,
 		class: className = '',
 		onValueChange
 	}: SliderProps = $props();
@@ -86,6 +89,7 @@
 			onValueChange={handleChange}
 			aria-label={ariaLabel}
 			aria-describedby={ariaDescribedby}
+			aria-invalid={ariaInvalid}
 			class="relative flex w-full touch-none select-none items-center {rootClasses[size]}"
 		>
 			<span class="relative w-full cursor-pointer overflow-hidden rounded-full bg-border-default {trackClasses[size]}">
@@ -109,6 +113,7 @@
 			onValueChange={handleChange}
 			aria-label={ariaLabel}
 			aria-describedby={ariaDescribedby}
+			aria-invalid={ariaInvalid}
 			class="relative flex w-full touch-none select-none items-center {rootClasses[size]}"
 		>
 			<span class="relative w-full cursor-pointer overflow-hidden rounded-full bg-border-default {trackClasses[size]}">

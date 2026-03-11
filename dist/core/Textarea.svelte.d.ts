@@ -12,6 +12,8 @@ export interface TextareaProps {
     error?: boolean;
     id?: string;
     name?: string;
+    /** HTML autocomplete attribute for browser autofill */
+    autocomplete?: HTMLTextAreaElement['autocomplete'];
     'aria-label'?: string;
     'aria-describedby'?: string;
     class?: string;

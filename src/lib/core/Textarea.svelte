@@ -14,6 +14,8 @@
 		error?: boolean;
 		id?: string;
 		name?: string;
+		/** HTML autocomplete attribute for browser autofill */
+		autocomplete?: HTMLTextAreaElement['autocomplete'];
 		'aria-label'?: string;
 		'aria-describedby'?: string;
 		class?: string;
@@ -39,6 +41,7 @@
 		error = false,
 		id,
 		name,
+		autocomplete,
 		'aria-label': ariaLabel,
 		'aria-describedby': ariaDescribedby,
 		class: className = '',
@@ -78,6 +81,7 @@
 		disabled={isDisabled}
 		{required}
 		readonly={readonly}
+		{autocomplete}
 		aria-label={ariaLabel}
 		aria-describedby={ariaDescribedby}
 		aria-invalid={error}

@@ -6,6 +6,8 @@
 		checked?: boolean;
 		/** Disable interactions */
 		disabled?: boolean;
+		/** Show loading state and disable interactions */
+		loading?: boolean;
 		/** Size preset */
 		size?: SwitchSize;
 		/** HTML id attribute for label association */
@@ -16,6 +18,8 @@
 		'aria-label'?: string;
 		/** ID of element describing this switch */
 		'aria-describedby'?: string;
+		/** Whether the field value is invalid */
+		'aria-invalid'?: boolean;
 		/** Additional CSS classes */
 		class?: string;
 		/** Value change handler */
@@ -32,15 +36,19 @@
 	let {
 		checked = $bindable(false),
 		disabled = false,
+		loading = false,
 		size = 'md',
 		id,
 		name,
 		'aria-label': ariaLabel,
 		'aria-describedby': ariaDescribedby,
+		'aria-invalid': ariaInvalid,
 		class: className = '',
 		onValueChange,
 		children
 	}: SwitchProps = $props();
+
+	const isDisabled = $derived(disabled || loading);
 
 	const trackSizes: Record<SwitchSize, string> = {
 		xs: 'h-3.5 w-6',
@@ -63,15 +71,17 @@
 </script>
 
 {#if children}
-<label class={cn('flex items-center gap-sm', disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer')}>
+<label class={cn('flex items-center gap-sm', isDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer')}>
 	<Switch.Root
 		{id}
 		{name}
 		{checked}
-		{disabled}
+		disabled={isDisabled}
 		onCheckedChange={handleChange}
 		aria-label={ariaLabel}
 		aria-describedby={ariaDescribedby}
+		aria-invalid={ariaInvalid}
+		aria-busy={loading}
 		class={cn('inline-flex shrink-0 cursor-pointer items-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-accent-brand data-[state=checked]:border-accent-brand data-[state=unchecked]:bg-bg-tertiary data-[state=unchecked]:border-border-default touch-target', trackSizes[size], className)}
 	>
 		<Switch.Thumb
@@ -85,10 +95,12 @@
 	{id}
 	{name}
 	{checked}
-	{disabled}
+	disabled={isDisabled}
 	onCheckedChange={handleChange}
 	aria-label={ariaLabel}
 	aria-describedby={ariaDescribedby}
+	aria-invalid={ariaInvalid}
+	aria-busy={loading}
 	class={cn('inline-flex shrink-0 cursor-pointer items-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-accent-brand data-[state=checked]:border-accent-brand data-[state=unchecked]:bg-bg-tertiary data-[state=unchecked]:border-border-default touch-target', trackSizes[size], className)}
 >
 	<Switch.Thumb

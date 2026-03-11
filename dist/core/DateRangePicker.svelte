@@ -36,6 +36,10 @@
 		id?: string;
 		/** Accessible label for screen readers */
 		'aria-label'?: string;
+		/** ID of element describing this picker */
+		'aria-describedby'?: string;
+		/** Whether the field value is invalid */
+		'aria-invalid'?: boolean;
 		/** Additional CSS classes */
 		class?: string;
 		/** Value change handler */
@@ -61,6 +65,8 @@
 		allowUnavailable = false,
 		id,
 		'aria-label': ariaLabel,
+		'aria-describedby': ariaDescribedby,
+		'aria-invalid': ariaInvalid,
 		class: className = '',
 		onValueChange
 	}: DateRangePickerProps = $props();
@@ -124,6 +130,8 @@
 			{id}
 			{disabled}
 			aria-label={ariaLabel}
+			aria-describedby={ariaDescribedby}
+			aria-invalid={ariaInvalid}
 			class="relative w-full appearance-none bg-bg-secondary border border-border-default rounded-md font-mono text-text-primary cursor-pointer transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:border-accent-brand focus-visible:ring-2 focus-visible:ring-accent-brand/20 disabled:opacity-50 disabled:cursor-not-allowed text-left flex items-center gap-2 {sizeClasses[size]}"
 		>
 			<Calendar size={iconSizes[size]} class="text-text-muted shrink-0" />

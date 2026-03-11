@@ -22,7 +22,7 @@ export interface SmartSelectAction {
     shortcut?: string;
     onSelect: () => void;
 }
-export type SmartSelectSize = 'sm' | 'md' | 'lg';
+export type SmartSelectSize = 'xs' | 'sm' | 'md' | 'lg';
 export interface SmartSelectProps {
     /** Selected value (bindable) */
     value?: string;
@@ -44,6 +44,10 @@ export interface SmartSelectProps {
     id?: string;
     /** Accessible label */
     'aria-label'?: string;
+    /** Whether the field value is invalid */
+    'aria-invalid'?: boolean;
+    /** ID of element describing this select */
+    'aria-describedby'?: string;
     /** Additional CSS classes */
     class?: string;
     /** Value change handler for option selection */

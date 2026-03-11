@@ -4,6 +4,8 @@ export interface SwitchProps {
     checked?: boolean;
     /** Disable interactions */
     disabled?: boolean;
+    /** Show loading state and disable interactions */
+    loading?: boolean;
     /** Size preset */
     size?: SwitchSize;
     /** HTML id attribute for label association */
@@ -14,6 +16,8 @@ export interface SwitchProps {
     'aria-label'?: string;
     /** ID of element describing this switch */
     'aria-describedby'?: string;
+    /** Whether the field value is invalid */
+    'aria-invalid'?: boolean;
     /** Additional CSS classes */
     class?: string;
     /** Value change handler */

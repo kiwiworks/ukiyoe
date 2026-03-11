@@ -20,7 +20,7 @@
 		onSelect: () => void;
 	}
 
-	export type SmartSelectSize = 'sm' | 'md' | 'lg';
+	export type SmartSelectSize = 'xs' | 'sm' | 'md' | 'lg';
 
 	export interface SmartSelectProps {
 		/** Selected value (bindable) */
@@ -43,6 +43,10 @@
 		id?: string;
 		/** Accessible label */
 		'aria-label'?: string;
+		/** Whether the field value is invalid */
+		'aria-invalid'?: boolean;
+		/** ID of element describing this select */
+		'aria-describedby'?: string;
 		/** Additional CSS classes */
 		class?: string;
 		/** Value change handler for option selection */
@@ -72,6 +76,8 @@
 		emptyMessage = 'No results found',
 		id,
 		'aria-label': ariaLabel,
+		'aria-invalid': ariaInvalid,
+		'aria-describedby': ariaDescribedby,
 		class: className = '',
 		onValueChange,
 		filter,
@@ -167,18 +173,21 @@
 	const selectedLabel = $derived(options.find((opt) => opt.value === value)?.label ?? '');
 
 	const sizeClasses: Record<SmartSelectSize, string> = {
+		xs: 'py-1 pl-7 pr-1.5 text-xs',
 		sm: 'py-1.5 pl-8 pr-3 text-sm',
 		md: 'py-2 pl-10 pr-3 text-sm',
 		lg: 'py-3 pl-12 pr-4 text-base'
 	};
 
 	const iconSizes: Record<SmartSelectSize, number> = {
+		xs: 12,
 		sm: 14,
 		md: 16,
 		lg: 18
 	};
 
 	const iconPositions: Record<SmartSelectSize, string> = {
+		xs: 'left-1.5',
 		sm: 'left-2',
 		md: 'left-3',
 		lg: 'left-4'
@@ -231,6 +240,8 @@
 			<Combobox.Input
 				{id}
 				aria-label={ariaLabel}
+				aria-invalid={ariaInvalid}
+				aria-describedby={ariaDescribedby}
 				{placeholder}
 				onclick={() => { open = true; }}
 				onfocus={() => { open = true; }}

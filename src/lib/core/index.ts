@@ -282,7 +282,7 @@ export type { MenuDividerProps } from './MenuDivider.svelte';
 
 // Core types
 export type { ButtonVariant, ButtonSize, ButtonType, ButtonProps } from './Button.svelte';
-export type { InputSize, InputAlign, InputType, InputProps } from './Input.svelte';
+export type { InputSize, InputAlign, InputType, InputMode, InputProps } from './Input.svelte';
 export type { TextareaSize, TextareaProps } from './Textarea.svelte';
 export type { SelectOption, SelectSize, SelectProps } from './Select.svelte';
 export type {

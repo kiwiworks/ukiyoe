@@ -38,6 +38,8 @@ export interface FieldSchema {
     rows?: number;
     /** Disable the field */
     disabled?: boolean;
+    /** HTML autocomplete attribute for text-based fields */
+    autocomplete?: HTMLInputElement['autocomplete'];
 }
 /** Props passed to Form.Field children snippet */
 export interface FieldRenderProps {

@@ -16,6 +16,8 @@ export interface SliderProps {
     'aria-label'?: string;
     /** ID of element describing this slider */
     'aria-describedby'?: string;
+    /** Whether the field value is invalid */
+    'aria-invalid'?: boolean;
     /** Additional CSS classes */
     class?: string;
     /** Value change handler */

@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.2] - 2026-03-11
+
+### Added
+- **Input** — built-in password visibility toggle with Eye/EyeOff icons; opt out with `showPasswordToggle={false}`
+- **Input** — `autocomplete` prop (typed as `HTMLInputElement['autocomplete']`) and `inputmode` prop for virtual keyboard hints
+- **Textarea** — `autocomplete` prop (typed as `HTMLTextAreaElement['autocomplete']`)
+- **Switch** — `loading` prop with spinner and disabled state, `aria-invalid` and `aria-busy` attributes
+- **Slider** — `aria-invalid` prop forwarded to underlying range input
+- **SmartSelect** — `xs` size variant, `aria-invalid` and `aria-describedby` props
+- **DateRangePicker** — `aria-invalid` and `aria-describedby` props forwarded to trigger
+- **Form.Auto** — `autocomplete` field schema prop wired to Input and Textarea renderers
+- **InputMode** type export from `ukiyoe/core`
+
+### Fixed
+- **Form.Root** — `validateOnBlur`, `validateOnChange`, and `showErrorsOnTouched` config props were captured once at mount via `untrack()` and never updated; replaced with reactive getters on the form context object
+
 ## [0.6.1] - 2026-03-11
 
 ### Fixed
@@ -365,7 +381,8 @@ First stable release! Ukiyoe is now production-ready with 70+ components.
 - Dark-first design with light mode support
 - Privacy masking context
 
-[Unreleased]: https://github.com/kiwiworks/ukiyoe/compare/v0.6.1...HEAD
+[Unreleased]: https://github.com/kiwiworks/ukiyoe/compare/v0.6.2...HEAD
+[0.6.2]: https://github.com/kiwiworks/ukiyoe/compare/v0.6.1...v0.6.2
 [0.6.1]: https://github.com/kiwiworks/ukiyoe/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.4.1...v0.5.0

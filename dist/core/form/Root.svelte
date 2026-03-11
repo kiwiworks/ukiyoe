@@ -22,9 +22,6 @@
 
 	// Capture initial values at mount time (intentionally non-reactive)
 	const _initialValues = untrack(() => ({ ...initialValues })) as Record<string, FieldValue>;
-	const _validateOnBlur = untrack(() => validateOnBlur);
-	const _validateOnChange = untrack(() => validateOnChange);
-	const _showErrorsOnTouched = untrack(() => showErrorsOnTouched);
 
 	// Form state
 	let values = $state<Record<string, FieldValue>>({ ..._initialValues });
@@ -106,7 +103,7 @@
 		},
 		setValue(name: string, value: FieldValue) {
 			values = { ...values, [name]: value };
-			if (_validateOnChange) {
+			if (validateOnChange) {
 				validateSingleField(name);
 			}
 		},
@@ -133,7 +130,7 @@
 		setTouched(name: string) {
 			if (!touched[name]) {
 				touched = { ...touched, [name]: true };
-				if (_validateOnBlur) {
+				if (validateOnBlur) {
 					validateSingleField(name);
 				}
 			}
@@ -157,9 +154,15 @@
 			touched = {};
 		},
 
-		validateOnBlur: _validateOnBlur,
-		validateOnChange: _validateOnChange,
-		showErrorsOnTouched: _showErrorsOnTouched
+		get validateOnBlur() {
+			return validateOnBlur;
+		},
+		get validateOnChange() {
+			return validateOnChange;
+		},
+		get showErrorsOnTouched() {
+			return showErrorsOnTouched;
+		}
 	};
 
 	setFormContext(ctx);

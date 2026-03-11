@@ -27,9 +27,35 @@
 
 	const changelog: ChangelogEntry[] = [
 		{
-			version: '0.6.1',
+			version: '0.6.2',
 			date: '2026-03-11',
 			badge: { text: 'Latest', variant: 'success' },
+			description: 'Form ecosystem audit: built-in password toggle, autocomplete/inputmode props, ARIA gaps closed, reactive validation config.',
+			changes: {
+				added: [
+					{
+						text: 'Input — built-in password visibility toggle (Eye/EyeOff)',
+						subitems: [
+							'Automatic for type="password", opt out with showPasswordToggle={false}',
+							'autocomplete prop (typed HTMLInputElement autocomplete) and inputmode for mobile keyboards'
+						]
+					},
+					{ text: 'Textarea — autocomplete prop (typed HTMLTextAreaElement autocomplete)' },
+					{ text: 'Switch — loading prop with spinner, aria-invalid and aria-busy attributes' },
+					{ text: 'Slider — aria-invalid prop forwarded to range input' },
+					{ text: 'SmartSelect — xs size variant, aria-invalid and aria-describedby props' },
+					{ text: 'DateRangePicker — aria-invalid and aria-describedby props on trigger' },
+					{ text: 'Form.Auto — autocomplete field schema prop wired to Input/Textarea renderers' },
+					{ text: 'InputMode type export from ukiyoe/core' }
+				],
+				fixed: [
+					{ text: 'Form.Root — validateOnBlur, validateOnChange, showErrorsOnTouched captured once at mount via untrack() and never updated; now reactive getters' }
+				]
+			}
+		},
+		{
+			version: '0.6.1',
+			date: '2026-03-11',
 			description: 'Svelte 5 directive fixes, SSR warning cleanup, and missing demo pages.',
 			changes: {
 				fixed: [

@@ -87,6 +87,7 @@
 						value={typeof props.value === 'string' || typeof props.value === 'number' ? String(props.value ?? '') : ''}
 						placeholder={field.placeholder}
 						disabled={field.disabled}
+						autocomplete={field.autocomplete}
 						error={props.error}
 						aria-describedby={props['aria-describedby']}
 						onValueChange={(newValue) => {
@@ -113,6 +114,7 @@
 						placeholder={field.placeholder}
 						rows={field.rows}
 						disabled={field.disabled}
+						autocomplete={field.autocomplete}
 						error={props.error}
 						aria-describedby={props['aria-describedby']}
 						onValueChange={(newValue) => props.onValueChange(newValue)}
@@ -147,6 +149,7 @@
 						checked={typeof props.value === 'boolean' ? props.value : false}
 						disabled={field.disabled}
 						aria-describedby={props['aria-describedby']}
+						aria-invalid={props['aria-invalid']}
 						onValueChange={(checked) => props.onValueChange(checked)}
 					/>
 				{:else if field.type === 'radio'}
@@ -167,6 +170,7 @@
 						step={field.step}
 						disabled={field.disabled}
 						aria-describedby={props['aria-describedby']}
+						aria-invalid={props['aria-invalid']}
 						onValueChange={(val) => props.onValueChange(val)}
 					/>
 				{/if}
