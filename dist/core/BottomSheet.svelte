@@ -54,10 +54,14 @@
 	let dragging = $state(false);
 	let dragStartY = $state(0);
 	let dragOffsetY = $state(0);
-	let currentSnapIndex = $state(snapPoints.length - 1);
+	let currentSnapIndex = $state(0);
 
 	const sortedSnaps = $derived([...snapPoints].sort((a, b) => a - b));
 	const currentSnapHeight = $derived(sortedSnaps[currentSnapIndex] ?? sortedSnaps[sortedSnaps.length - 1]);
+
+	$effect(() => {
+		currentSnapIndex = snapPoints.length - 1;
+	});
 	const dismissThreshold = 100;
 
 	function handleOpenChange(newOpen: boolean) {
@@ -142,8 +146,7 @@
 				'flex flex-col',
 				className
 			)}
-			style="height: {currentSnapHeight * 100}vh; max-height: 95vh; transform: translateY({dragOffsetY}px); transition: {dragging ? 'none' : 'height 0.3s ease, transform 0.3s ease'};"
-			style:padding-bottom="var(--safe-area-bottom, 0px)"
+			style="height: {currentSnapHeight * 100}vh; max-height: 95vh; transform: translateY({dragOffsetY}px); transition: {dragging ? 'none' : 'height 0.3s ease, transform 0.3s ease'}; padding-bottom: var(--safe-area-bottom, 0px);"
 			interactOutsideBehavior={dismissible ? 'close' : 'ignore'}
 			escapeKeydownBehavior={dismissible ? 'close' : 'ignore'}
 		>
