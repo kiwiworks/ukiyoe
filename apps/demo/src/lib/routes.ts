@@ -45,6 +45,8 @@ export const sections: NavSection[] = [
 			{ label: 'ActionMenu', href: '/components/action-menu' },
 			{ label: 'Button', href: '/components/button' },
 			{ label: 'ButtonGroup', href: '/components/button-group' },
+			{ label: 'Chip', href: '/components/chip' },
+			{ label: 'ChipGroup', href: '/components/chip-group' },
 			{ label: 'ContextMenu', href: '/components/context-menu' },
 			{ label: 'CopyButton', href: '/components/copy-button' },
 			{ label: 'SocialButton', href: '/components/social-button' }
@@ -124,6 +126,7 @@ export const sections: NavSection[] = [
 		icon: Layers,
 		items: [
 			{ label: 'AlertDialog', href: '/components/alert-dialog' },
+			{ label: 'BottomSheet', href: '/components/bottom-sheet' },
 			{ label: 'CommandPalette', href: '/components/command-palette', shortcut: '⌘K' },
 			{ label: 'Modal', href: '/components/modal' },
 			{ label: 'Popover', href: '/components/popover' },

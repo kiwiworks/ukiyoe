@@ -1,0 +1,81 @@
+<script lang="ts">
+	import { BottomSheet, Button, Text, Divider, PageHeader } from 'ukiyoe/core';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	let basicSheet = $state(false);
+	let snapSheet = $state(false);
+	let actionsSheet = $state(false);
+
+	const propDefs: PropDef[] = [
+		{ name: 'open', type: 'boolean', default: 'false', description: 'Whether the sheet is open (bindable)' },
+		{ name: 'title', type: 'string', default: '-', description: 'Sheet title (renders as Dialog.Title for accessibility)' },
+		{ name: 'description', type: 'string', default: '-', description: 'Sheet description' },
+		{ name: 'snapPoints', type: 'number[]', default: '[0.5]', description: 'Snap points as fractions of viewport height (0-1)' },
+		{ name: 'dismissible', type: 'boolean', default: 'true', description: 'Whether the sheet can be dismissed by swiping down or tapping the overlay' },
+		{ name: 'showDragHandle', type: 'boolean', default: 'true', description: 'Whether to show the drag handle' },
+		{ name: 'onClose', type: '() => void', default: '-', description: 'Called when the sheet closes' },
+		{ name: 'onSnap', type: '(snapIndex: number) => void', default: '-', description: 'Called when the sheet snaps to a point' },
+		{ name: 'header', type: 'Snippet', default: '-', description: 'Custom header snippet (replaces default title/description)' },
+		{ name: 'actions', type: 'Snippet', default: '-', description: 'Actions rendered in a sticky footer' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Sheet body content' },
+		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' },
+	];
+</script>
+
+<svelte:head>
+	<title>BottomSheet - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="BottomSheet" subtitle="Mobile-first action sheet with drag-to-dismiss and snap points" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Basic BottomSheet"
+<Button size="sm" onClick={() => (basicSheet = true)}>Open Sheet</Button>
+
+<BottomSheet bind:open={basicSheet} title="Basic Sheet" description="Swipe down or tap the overlay to dismiss.">
+	<div class="space-y-md">
+		<Text>This is a basic bottom sheet with default settings. It snaps to 50% of the viewport height.</Text>
+	</div>
+</BottomSheet>
+```
+
+## Snap Points
+
+Multiple snap points let the user drag between different heights.
+
+```svelte preview title="Multi-snap BottomSheet"
+<Button size="sm" onClick={() => (snapSheet = true)}>Open Multi-snap</Button>
+
+<BottomSheet bind:open={snapSheet} title="Snap Points" snapPoints={[0.3, 0.6, 0.9]}>
+	<div class="space-y-md">
+		<Text>This sheet has three snap points at 30%, 60%, and 90% of the viewport.</Text>
+		<Text variant="secondary">Try dragging the handle to snap between different heights.</Text>
+	</div>
+</BottomSheet>
+```
+
+## With Actions Footer
+
+```svelte preview title="BottomSheet with Actions"
+<Button size="sm" onClick={() => (actionsSheet = true)}>Open with Actions</Button>
+
+<BottomSheet bind:open={actionsSheet} title="Confirm Action">
+	<div class="space-y-md">
+		<Text>Are you sure you want to proceed? This will apply the changes.</Text>
+	</div>
+	{#snippet actions()}
+		<div class="flex gap-sm justify-end">
+			<Button size="sm" variant="ghost" onClick={() => (actionsSheet = false)}>Cancel</Button>
+			<Button size="sm" variant="primary" onClick={() => (actionsSheet = false)}>Confirm</Button>
+		</div>
+	{/snippet}
+</BottomSheet>
+```
+
+<PropsTable props={propDefs} />
+
+</div>

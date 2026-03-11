@@ -1,0 +1,92 @@
+<script lang="ts">
+	import { ChipGroup, ChipGroupItem, Text, PageHeader } from 'ukiyoe/core';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	let multiValue = $state<string[]>(['svelte']);
+	let singleValue = $state('light');
+
+	const groupPropDefs: PropDef[] = [
+		{ name: 'type', type: "'single' | 'multiple'", default: "'multiple'", description: 'Selection mode' },
+		{ name: 'value', type: 'string | string[]', default: "[] or ''", description: 'Currently selected value(s) (bindable)' },
+		{ name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the entire group is disabled' },
+		{ name: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Orientation for keyboard navigation' },
+		{ name: 'loop', type: 'boolean', default: 'true', description: 'Whether keyboard navigation wraps around' },
+		{ name: 'onValueChange', type: '(value: string | string[]) => void', default: '-', description: 'Called when the selection changes' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'ChipGroupItem children' },
+		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' },
+	];
+
+	const itemPropDefs: PropDef[] = [
+		{ name: 'value', type: 'string', default: '-', description: 'Unique value identifying this item' },
+		{ name: 'label', type: 'string', default: '-', description: 'Display label' },
+		{ name: 'variant', type: "'default' | 'primary' | 'success' | 'danger' | 'warning' | 'info'", default: "'default'", description: 'Visual variant' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Chip size' },
+		{ name: 'icon', type: 'Component', default: '-', description: 'Icon component rendered before the label' },
+		{ name: 'disabled', type: 'boolean', default: 'false', description: 'Whether this item is disabled' },
+		{ name: 'onDismiss', type: '() => void', default: '-', description: 'Called when dismiss is clicked. Presence enables the dismiss button.' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Custom content (overrides label + icon)' },
+		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' },
+	];
+</script>
+
+<svelte:head>
+	<title>ChipGroup - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="ChipGroup" subtitle="Grouped chip selection with single or multiple mode" />
+
+<div class="space-y-xl mt-lg">
+
+## Multiple Selection
+
+```svelte preview title="Multi-select ChipGroup"
+<ChipGroup type="multiple" bind:value={multiValue}>
+	<ChipGroupItem value="svelte" label="Svelte" variant="primary" />
+	<ChipGroupItem value="react" label="React" variant="info" />
+	<ChipGroupItem value="vue" label="Vue" variant="success" />
+	<ChipGroupItem value="angular" label="Angular" variant="danger" />
+</ChipGroup>
+<Text size="sm" variant="secondary" class="mt-sm">Selected: {JSON.stringify(multiValue)}</Text>
+```
+
+## Single Selection
+
+```svelte preview title="Single-select ChipGroup"
+<ChipGroup type="single" bind:value={singleValue}>
+	<ChipGroupItem value="light" label="Light" />
+	<ChipGroupItem value="dark" label="Dark" />
+	<ChipGroupItem value="system" label="System" />
+</ChipGroup>
+<Text size="sm" variant="secondary" class="mt-sm">Selected: {singleValue}</Text>
+```
+
+## With Dismiss
+
+```svelte preview title="Dismissable Items"
+<ChipGroup type="multiple">
+	<ChipGroupItem value="tag1" label="Tag One" variant="primary" onDismiss={() => {}} />
+	<ChipGroupItem value="tag2" label="Tag Two" variant="success" onDismiss={() => {}} />
+	<ChipGroupItem value="tag3" label="Tag Three" variant="warning" onDismiss={() => {}} />
+</ChipGroup>
+```
+
+## Disabled Group
+
+```svelte preview title="Disabled"
+<ChipGroup type="multiple" disabled>
+	<ChipGroupItem value="a" label="Alpha" />
+	<ChipGroupItem value="b" label="Beta" />
+	<ChipGroupItem value="c" label="Gamma" />
+</ChipGroup>
+```
+
+## ChipGroup Props
+
+<PropsTable props={groupPropDefs} />
+
+## ChipGroupItem Props
+
+<PropsTable props={itemPropDefs} />
+
+</div>

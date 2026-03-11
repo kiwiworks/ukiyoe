@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.1] - 2026-03-11
+
+### Fixed
+- **BottomSheet** — `style:padding-bottom` directive on `Dialog.Content` component caused `component_invalid_directive` in Svelte 5; merged into inline `style` string
+- **BottomSheet** — `snapPoints` prop captured once at init instead of reactively; replaced `$state` initializer with `$effect` sync
+- **Chip** — nested `<button>` inside `<button>` caused `node_invalid_placement_ssr` warning; dismiss element changed to `<span role="button">` with keyboard support
+- **ChipGroupItem** — same nested `<button>` SSR warning; same fix as Chip
+
+### Added
+- **Demo pages** — Chip, ChipGroup, and BottomSheet now have dedicated component demo pages with interactive examples and props tables
+
 ## [0.6.0] - 2026-03-05
 
 ### Added
@@ -354,7 +365,8 @@ First stable release! Ukiyoe is now production-ready with 70+ components.
 - Dark-first design with light mode support
 - Privacy masking context
 
-[Unreleased]: https://github.com/kiwiworks/ukiyoe/compare/v0.6.0...HEAD
+[Unreleased]: https://github.com/kiwiworks/ukiyoe/compare/v0.6.1...HEAD
+[0.6.1]: https://github.com/kiwiworks/ukiyoe/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.4.1...v0.5.0
 [0.4.1]: https://github.com/kiwiworks/ukiyoe/compare/v0.4.0...v0.4.1

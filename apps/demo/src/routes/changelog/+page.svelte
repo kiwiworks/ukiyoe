@@ -27,9 +27,24 @@
 
 	const changelog: ChangelogEntry[] = [
 		{
+			version: '0.6.1',
+			date: '2026-03-11',
+			badge: { text: 'Latest', variant: 'success' },
+			description: 'Svelte 5 directive fixes, SSR warning cleanup, and missing demo pages.',
+			changes: {
+				fixed: [
+					{ text: 'BottomSheet style: directive on Dialog.Content component (component_invalid_directive)' },
+					{ text: 'BottomSheet snapPoints prop not reactively tracked after init' },
+					{ text: 'Chip and ChipGroupItem nested <button> SSR warning (node_invalid_placement_ssr)' }
+				],
+				added: [
+					{ text: 'Demo pages for Chip, ChipGroup, and BottomSheet components' }
+				]
+			}
+		},
+		{
 			version: '0.6.0',
 			date: '2026-03-05',
-			badge: { text: 'Latest', variant: 'success' },
 			description: 'Mobile-first components: Chip, ChipGroup, BottomSheet, SelectableCard, and Input prefix/suffix Snippet support.',
 			changes: {
 				added: [

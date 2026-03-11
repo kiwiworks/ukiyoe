@@ -1,0 +1,97 @@
+<script lang="ts">
+	import { Chip, Text, PageHeader } from 'ukiyoe/core';
+	import { Hash, Star, Zap } from '@lucide/svelte';
+	import ComponentPreview from '$lib/ComponentPreview.svelte';
+	import PropsTable, { type PropDef } from '$lib/PropsTable.svelte';
+
+	let active1 = $state(false);
+	let active2 = $state(true);
+	let dismissed = $state(false);
+
+	const propDefs: PropDef[] = [
+		{ name: 'label', type: 'string', default: '-', description: 'Display label' },
+		{ name: 'active', type: 'boolean', default: 'false', description: 'Whether the chip is currently active/selected (bindable)' },
+		{ name: 'variant', type: "'default' | 'primary' | 'success' | 'danger' | 'warning' | 'info'", default: "'default'", description: 'Visual variant' },
+		{ name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Chip size' },
+		{ name: 'icon', type: 'Component', default: '-', description: 'Icon component rendered before the label' },
+		{ name: 'disabled', type: 'boolean', default: 'false', description: 'Whether the chip is disabled' },
+		{ name: 'onToggle', type: '(active: boolean) => void', default: '-', description: 'Called when the chip is toggled' },
+		{ name: 'onDismiss', type: '() => void', default: '-', description: 'Called when dismiss is clicked. Presence enables the dismiss button.' },
+		{ name: 'children', type: 'Snippet', default: '-', description: 'Custom content (overrides label + icon)' },
+		{ name: 'class', type: 'string', default: '-', description: 'Additional CSS classes' },
+	];
+</script>
+
+<svelte:head>
+	<title>Chip - Ukiyoe UI</title>
+</svelte:head>
+
+<PageHeader title="Chip" subtitle="Interactive toggle chip for selections and filters" />
+
+<div class="space-y-xl mt-lg">
+
+## Basic Usage
+
+```svelte preview title="Toggle Chip"
+<Chip label="Toggle me" bind:active={active1} />
+<Text size="sm" variant="secondary" class="mt-sm">Active: {active1}</Text>
+```
+
+## Variants
+
+```svelte preview title="Chip Variants"
+<div class="flex flex-wrap gap-2">
+	<Chip label="Default" active />
+	<Chip label="Primary" variant="primary" active />
+	<Chip label="Success" variant="success" active />
+	<Chip label="Danger" variant="danger" active />
+	<Chip label="Warning" variant="warning" active />
+	<Chip label="Info" variant="info" active />
+</div>
+```
+
+## Sizes
+
+```svelte preview title="Chip Sizes"
+<div class="flex flex-wrap items-center gap-2">
+	<Chip label="Extra Small" size="xs" active />
+	<Chip label="Small" size="sm" active />
+	<Chip label="Medium" size="md" active />
+	<Chip label="Large" size="lg" active />
+</div>
+```
+
+## With Icons
+
+```svelte preview title="Chips with Icons"
+<div class="flex flex-wrap gap-2">
+	<Chip label="Hash" icon={Hash} variant="primary" active />
+	<Chip label="Star" icon={Star} variant="warning" active />
+	<Chip label="Zap" icon={Zap} variant="danger" active />
+</div>
+```
+
+## Dismissable
+
+Passing `onDismiss` enables the dismiss button.
+
+```svelte preview title="Dismissable Chip"
+{#if !dismissed}
+	<Chip label="Dismiss me" variant="danger" bind:active={active2} onDismiss={() => (dismissed = true)} />
+{:else}
+	<Text size="sm" variant="secondary">Chip dismissed! </Text>
+{/if}
+```
+
+## Disabled
+
+```svelte preview title="Disabled Chip"
+<div class="flex flex-wrap gap-2">
+	<Chip label="Disabled" disabled />
+	<Chip label="Disabled Active" disabled active />
+</div>
+```
+
+<PropsTable props={propDefs} />
+
+</div>

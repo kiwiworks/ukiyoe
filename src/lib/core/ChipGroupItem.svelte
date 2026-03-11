@@ -104,15 +104,18 @@
 				{/if}
 			{/if}
 			{#if onDismiss}
-				<button
-					type="button"
-					class="inline-flex items-center justify-center rounded-sm -mr-0.5 opacity-60 hover:opacity-100 transition-opacity"
+				<!-- svelte-ignore a11y_no_static_element_interactions -->
+				<span
+					role="button"
+					tabindex="0"
+					class="inline-flex items-center justify-center rounded-sm -mr-0.5 opacity-60 hover:opacity-100 transition-opacity cursor-pointer"
 					onclick={handleDismiss}
+					onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleDismiss(e as unknown as MouseEvent); } }}
 					aria-label="Remove {label ?? 'chip'}"
-					{disabled}
+					aria-disabled={disabled || undefined}
 				>
 					<X size={iconSizes[size]} />
-				</button>
+				</span>
 			{/if}
 		</button>
 	{/snippet}
