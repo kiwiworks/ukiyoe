@@ -4,8 +4,8 @@ import Root from './Root.svelte';
 import Field from './Field.svelte';
 import Auto from './Auto.svelte';
 export { Root, Field, Auto };
-export declare const Form: import("svelte").Component<import("./types").FormRootProps<Record<string, import("./types").FieldValue>>, {}, ""> & {
-    Root: import("svelte").Component<import("./types").FormRootProps<Record<string, import("./types").FieldValue>>, {}, "">;
+export declare const Form: import("svelte").Component<import("./types").FormRootProps<Record<string, import("./types").FieldValue>>, {}, "context"> & {
+    Root: import("svelte").Component<import("./types").FormRootProps<Record<string, import("./types").FieldValue>>, {}, "context">;
     Field: import("svelte").Component<import("./types").FormFieldProps, {}, "">;
     Auto: import("svelte").Component<import("./types").FormAutoProps, {}, "">;
 };

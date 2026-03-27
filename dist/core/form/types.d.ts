@@ -121,6 +121,8 @@ export interface FormRootProps<T = Record<string, FieldValue>> {
     showErrorsOnTouched?: boolean;
     /** Additional CSS classes */
     class?: string;
+    /** Bindable form context — use `bind:context` to access isSubmitting, isValid, isDirty, etc. */
+    context?: FormContext<T>;
     /** Children snippet */
     children: Snippet;
 }

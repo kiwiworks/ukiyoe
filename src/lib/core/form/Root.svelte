@@ -4,6 +4,7 @@
 
 <script lang="ts">
 	import { untrack } from 'svelte';
+	import type { z } from 'zod';
 	import { cn } from '../../utils/cn';
 	import { setFormContext } from './context.svelte';
 	import type { FormRootProps as FormRootPropsType, FieldValue, FormContext } from './types';
@@ -17,11 +18,21 @@
 		validateOnChange = false,
 		showErrorsOnTouched = true,
 		class: className = '',
+		context = $bindable(),
 		children
 	}: FormRootPropsType = $props();
 
 	// Capture initial values at mount time (intentionally non-reactive)
-	const _initialValues = untrack(() => ({ ...initialValues })) as Record<string, FieldValue>;
+	// Seed all schema-declared fields with '' so Zod never sees undefined
+	const _initialValues = untrack(() => {
+		const base: Record<string, FieldValue> = {};
+		if (schema?.shape) {
+			for (const key of Object.keys(schema.shape)) {
+				base[key] = '';
+			}
+		}
+		return { ...base, ...initialValues };
+	}) as Record<string, FieldValue>;
 
 	// Form state
 	let values = $state<Record<string, FieldValue>>({ ..._initialValues });
@@ -75,7 +86,7 @@
 		if (schema) {
 			const fieldSchema = schema.shape[name];
 			if (fieldSchema) {
-				const result = fieldSchema.safeParse(values[name]);
+				const result = (fieldSchema as unknown as z.ZodType).safeParse(values[name]);
 				if (!result.success) {
 					newErrors[name] = result.error.issues[0]?.message ?? 'Invalid value';
 				}
@@ -166,6 +177,11 @@
 	};
 
 	setFormContext(ctx);
+
+	// Expose context to parent via bindable prop
+	$effect(() => {
+		context = ctx;
+	});
 
 	async function handleSubmit(event: SubmitEvent) {
 		event.preventDefault();
