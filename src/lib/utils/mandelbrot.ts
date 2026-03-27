@@ -29,11 +29,23 @@ const MAX_CACHE_SIZE = 100;
 export function uuidToJuliaParams(uuid: string): JuliaParams {
 	const hex = uuid.replace(/-/g, '');
 
-	// Parse UUID into normalized floats
-	const a = parseInt(hex.slice(0, 8), 16) / 0xffffffff;
-	const b = parseInt(hex.slice(8, 16), 16) / 0xffffffff;
-	const c = parseInt(hex.slice(16, 24), 16) / 0xffffffff;
-	const d = parseInt(hex.slice(24, 32), 16) / 0xffffffff;
+	// Parse UUID into normalized floats, fallback to hash for non-hex input
+	let a = parseInt(hex.slice(0, 8), 16) / 0xffffffff;
+	let b = parseInt(hex.slice(8, 16), 16) / 0xffffffff;
+	let c = parseInt(hex.slice(16, 24), 16) / 0xffffffff;
+	let d = parseInt(hex.slice(24, 32), 16) / 0xffffffff;
+
+	// If any value is NaN (non-hex input), derive from simple string hash
+	if (isNaN(a) || isNaN(b) || isNaN(c) || isNaN(d)) {
+		let h = 0;
+		for (let i = 0; i < uuid.length; i++) {
+			h = (Math.imul(31, h) + uuid.charCodeAt(i)) | 0;
+		}
+		a = Math.abs(h & 0xff) / 255;
+		b = Math.abs((h >>> 8) & 0xff) / 255;
+		c = Math.abs((h >>> 16) & 0xff) / 255;
+		d = Math.abs((h >>> 24) & 0xff) / 255;
+	}
 
 	// Interesting Julia set c values (on/near Mandelbrot boundary)
 	// These produce connected, visually interesting Julia sets
