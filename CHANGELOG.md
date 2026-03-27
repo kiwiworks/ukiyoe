@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.0] - 2026-03-27
+
+### Added
+- **Form.Root** — bindable `context` prop exposes `isSubmitting`, `isValid`, `isDirty`, `reset()`, `validate()` to parent via `bind:context` (D1.1, a2204ab)
+- **AlertDialog** — `interactOutsideBehavior` prop (`'close' | 'ignore'`) for strict modals that require explicit choice (D0.1, c6cfb58)
+
+### Changed
+- **AlertDialog** — replaced `AlertDialog.Cancel`/`AlertDialog.Action` wrapper components with plain `Button` for simpler rendering (D0.3, c6cfb58)
+- **Form.Root** — schema-declared fields are seeded with `''` at init so Zod never validates against `undefined` (D1.2, a2204ab)
+
+### Fixed
+- **AlertDialog** — confirming no longer incorrectly fires `onCancel` callback (D0.2, c6cfb58)
+- **Form.Root** — Zod 4 type narrowing error on per-field `safeParse` calls (D1.3, a2204ab)
+- **MandelbrotAvatar** — `uuidToJuliaParams` handles non-hex input via string hash fallback instead of producing NaN (D2.1, e41af17)
+
 ## [0.6.2] - 2026-03-11
 
 ### Added
@@ -381,7 +396,8 @@ First stable release! Ukiyoe is now production-ready with 70+ components.
 - Dark-first design with light mode support
 - Privacy masking context
 
-[Unreleased]: https://github.com/kiwiworks/ukiyoe/compare/v0.6.2...HEAD
+[Unreleased]: https://github.com/kiwiworks/ukiyoe/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.6.2...v0.7.0
 [0.6.2]: https://github.com/kiwiworks/ukiyoe/compare/v0.6.1...v0.6.2
 [0.6.1]: https://github.com/kiwiworks/ukiyoe/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/kiwiworks/ukiyoe/compare/v0.5.0...v0.6.0

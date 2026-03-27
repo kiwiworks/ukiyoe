@@ -27,9 +27,29 @@
 
 	const changelog: ChangelogEntry[] = [
 		{
+			version: '0.7.0',
+			date: '2026-03-27',
+			badge: { text: 'Latest', variant: 'success' },
+			description: 'Stabilization release: AlertDialog hardening, Form context exposure, Mandelbrot robustness.',
+			changes: {
+				added: [
+					{ text: 'Form.Root — bindable context prop exposes isSubmitting, isValid, isDirty, reset(), validate() to parent via bind:context' },
+					{ text: 'AlertDialog — interactOutsideBehavior prop (close | ignore) for strict modals' }
+				],
+				changed: [
+					{ text: 'AlertDialog — replaced AlertDialog.Cancel/Action wrapper components with plain Button for simpler rendering' },
+					{ text: 'Form.Root — schema-declared fields seeded with empty string at init so Zod never validates against undefined' }
+				],
+				fixed: [
+					{ text: 'AlertDialog — confirming no longer incorrectly fires onCancel callback' },
+					{ text: 'Form.Root — Zod 4 type narrowing error on per-field safeParse calls' },
+					{ text: 'MandelbrotAvatar — uuidToJuliaParams handles non-hex input via string hash fallback instead of producing NaN' }
+				]
+			}
+		},
+		{
 			version: '0.6.2',
 			date: '2026-03-11',
-			badge: { text: 'Latest', variant: 'success' },
 			description: 'Form ecosystem audit: built-in password toggle, autocomplete/inputmode props, ARIA gaps closed, reactive validation config.',
 			changes: {
 				added: [
