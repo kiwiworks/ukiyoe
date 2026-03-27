@@ -28,6 +28,8 @@
 		content?: Snippet;
 		/** Custom actions snippet (overrides default Cancel/Confirm buttons) */
 		actions?: Snippet<[() => void]>;
+		/** Behavior when interacting outside the dialog ('close' | 'ignore') */
+		interactOutsideBehavior?: 'close' | 'ignore';
 		/** Additional CSS classes for the dialog content */
 		class?: string;
 	}
@@ -52,6 +54,7 @@
 		onCancel,
 		content,
 		actions,
+		interactOutsideBehavior = 'close',
 		class: className = ''
 	}: AlertDialogProps = $props();
 
@@ -78,11 +81,14 @@
 
 	const Icon = $derived(icon ?? defaultIcons[variant]);
 
+	let closingFromConfirm = false;
+
 	function handleOpenChange(newOpen: boolean) {
 		open = newOpen;
-		if (!newOpen) {
+		if (!newOpen && !closingFromConfirm) {
 			onCancel?.();
 		}
+		closingFromConfirm = false;
 	}
 
 	function handleClose() {
@@ -91,6 +97,7 @@
 	}
 
 	async function handleConfirm() {
+		closingFromConfirm = true;
 		await onConfirm?.();
 		if (!loading) {
 			open = false;
@@ -104,6 +111,7 @@
 			class="fixed inset-0 z-modal bg-bg-overlay backdrop-blur-sm data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0"
 		/>
 		<AlertDialog.Content
+			{interactOutsideBehavior}
 			class={cn(
 				'fixed left-1/2 top-1/2 z-modal -translate-x-1/2 -translate-y-1/2',
 				'w-full max-w-md max-md:max-w-[calc(100vw-2rem)] bg-bg-secondary border border-border-default rounded-lg shadow-2xl',
@@ -136,24 +144,15 @@
 				{#if actions}
 					{@render actions(handleClose)}
 				{:else}
-					<AlertDialog.Cancel>
-						{#snippet child({ props })}
-							<Button {...props} size="sm" variant="ghost">{cancelLabel}</Button>
-						{/snippet}
-					</AlertDialog.Cancel>
-					<AlertDialog.Action>
-						{#snippet child({ props })}
-							<Button
-								{...props}
-								size="sm"
-								variant={confirmVariants[variant]}
-								{loading}
-								onClick={handleConfirm}
-							>
-								{confirmLabel}
-							</Button>
-						{/snippet}
-					</AlertDialog.Action>
+					<Button size="sm" variant="ghost" onClick={handleClose}>{cancelLabel}</Button>
+					<Button
+						size="sm"
+						variant={confirmVariants[variant]}
+						{loading}
+						onClick={handleConfirm}
+					>
+						{confirmLabel}
+					</Button>
 				{/if}
 			</div>
 		</AlertDialog.Content>

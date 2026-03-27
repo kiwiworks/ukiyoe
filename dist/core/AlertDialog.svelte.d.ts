@@ -25,6 +25,8 @@ export interface AlertDialogProps {
     content?: Snippet;
     /** Custom actions snippet (overrides default Cancel/Confirm buttons) */
     actions?: Snippet<[() => void]>;
+    /** Behavior when interacting outside the dialog ('close' | 'ignore') */
+    interactOutsideBehavior?: 'close' | 'ignore';
     /** Additional CSS classes for the dialog content */
     class?: string;
 }

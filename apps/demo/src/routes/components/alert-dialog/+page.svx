@@ -17,6 +17,7 @@
 		{ name: 'onCancel', type: '() => void', default: '-', description: 'Callback when cancel or dismiss occurs' },
 		{ name: 'content', type: 'Snippet', default: '-', description: 'Custom content snippet (overrides description)' },
 		{ name: 'actions', type: 'Snippet<[() => void]>', default: '-', description: 'Custom actions snippet (overrides default buttons). Receives a close function.' },
+		{ name: 'interactOutsideBehavior', type: "'close' | 'ignore'", default: "'close'", description: 'Behavior when clicking outside the dialog' },
 		{ name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' }
 	];
 
@@ -27,6 +28,7 @@
 	let isDeleting = $state(false);
 	let showCustomContent = $state(false);
 	let showCustomActions = $state(false);
+	let showStrict = $state(false);
 
 	async function handleAsyncDelete() {
 		isDeleting = true;
@@ -146,6 +148,25 @@ Use the `content` snippet to replace the description with custom content.
 		</Stack>
 	{/snippet}
 </AlertDialog>
+```
+
+## Strict Modal
+
+Use `interactOutsideBehavior="ignore"` to prevent closing when clicking outside. Useful for critical confirmations that require an explicit choice.
+
+```svelte preview title="Strict Modal"
+<Button variant="danger" size="sm" onClick={() => (showStrict = true)}>
+	Delete Forever
+</Button>
+
+<AlertDialog
+	bind:open={showStrict}
+	title="Permanently Delete"
+	description="This action is irreversible. You must explicitly confirm or cancel."
+	variant="danger"
+	confirmLabel="Delete Forever"
+	interactOutsideBehavior="ignore"
+/>
 ```
 
 ## Custom Actions
